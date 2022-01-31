@@ -1,7 +1,12 @@
 package com.innovenso.townplanner.model
 
-import com.innovenso.townplanner.model.traits.{HasEnterprises, HasTownPlan}
+import com.innovenso.townplanner.model.factory.{
+  CanAddEnterprises,
+  CanAddKeyPointsInTime,
+  CanManipulateTownPlan
+}
 
-import java.time.LocalDate
-
-class TownPlanFactory extends HasTownPlan with HasEnterprises
+class TownPlanFactory
+    extends CanManipulateTownPlan
+    with CanAddEnterprises
+    with CanAddKeyPointsInTime
