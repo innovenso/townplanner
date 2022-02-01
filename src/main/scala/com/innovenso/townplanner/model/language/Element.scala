@@ -1,5 +1,3 @@
 package com.innovenso.townplanner.model.language
 
-trait Element extends Concept {
-
-}
+trait Element extends Concept {}

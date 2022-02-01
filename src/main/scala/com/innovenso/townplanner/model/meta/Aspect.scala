@@ -17,5 +17,6 @@ object PassiveStructure extends Aspect {
 
 object Behavior extends Aspect {
   val name = "Behavior"
-  val description = "The actual behavior performed by active structure concepts on passive structure concepts"
+  val description =
+    "The actual behavior performed by active structure concepts on passive structure concepts"
 }
