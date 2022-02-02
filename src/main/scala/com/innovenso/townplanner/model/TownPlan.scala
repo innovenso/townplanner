@@ -2,11 +2,15 @@ package com.innovenso.townplanner.model
 
 import com.innovenso.townplanner.model.concepts.properties.CanAddDocumentations
 import com.innovenso.townplanner.model.concepts.{
+  CanAddArchitectureBuildingBlocks,
+  CanAddBusinessActors,
   CanAddBusinessCapabilities,
   CanAddEnterprises,
   CanAddKeyPointsInTime,
   CanAddRelationships,
   CanAddTechnologies,
+  HasArchitectureBuildingBlocks,
+  HasBusinessActors,
   HasBusinessCapabilities,
   HasEnterprises,
   HasKeyPointsInTime,
@@ -32,6 +36,8 @@ case class TownPlan(
     with HasRelationships
     with HasTechnologies
     with HasBusinessCapabilities
+    with HasBusinessActors
+    with HasArchitectureBuildingBlocks
 
 trait CanManipulateTownPlan {
   var townPlan: TownPlan = TownPlan(
@@ -81,3 +87,5 @@ class TownPlanFactory
     with CanAddRelationships
     with CanAddTechnologies
     with CanAddBusinessCapabilities
+    with CanAddBusinessActors
+    with CanAddArchitectureBuildingBlocks
