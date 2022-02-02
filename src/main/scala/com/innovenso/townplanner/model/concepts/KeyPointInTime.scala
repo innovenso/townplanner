@@ -31,7 +31,7 @@ trait CanAddKeyPointsInTime extends CanManipulateTownPlan {
       date: LocalDate,
       title: Title,
       diagramsNeeded: Boolean = true
-  ): Try[TownPlan] = {
+  ): Try[(TownPlan, KeyPointInTime)] = {
     if (townPlan.keyPointsInTime.contains(date))
       Failure(
         new IllegalArgumentException(
@@ -39,14 +39,15 @@ trait CanAddKeyPointsInTime extends CanManipulateTownPlan {
         )
       )
     else {
-      this.townPlan = townPlan.copy(keyPointsInTime =
-        townPlan.keyPointsInTime + (date -> KeyPointInTime(
-          date,
-          title,
-          diagramsNeeded
-        ))
+      val keyPointInTime: KeyPointInTime = KeyPointInTime(
+        date,
+        title,
+        diagramsNeeded
       )
-      Success(this.townPlan)
+      this.townPlan = townPlan.copy(keyPointsInTime =
+        townPlan.keyPointsInTime + (date -> keyPointInTime)
+      )
+      Success((this.townPlan, keyPointInTime))
     }
   }
 }

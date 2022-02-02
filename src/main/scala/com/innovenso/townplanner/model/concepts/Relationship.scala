@@ -8,6 +8,7 @@ import com.innovenso.townplanner.model.language.{
 import com.innovenso.townplanner.model.meta._
 import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 
+import java.lang.annotation.ElementType
 import scala.util.{Failure, Try}
 
 case class Relationship(
@@ -104,7 +105,7 @@ trait HasRelationships extends HasModelComponents {
   def directDependencies[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Set[Element] = relationships(element)
+  ): Set[ElementType] = relationships(element)
     .flatMap(mapOtherElement(element, otherElementType))
     .toSet
   def directDependencies(element: Element): Set[Element] =
@@ -113,7 +114,7 @@ trait HasRelationships extends HasModelComponents {
       element: Element,
       relationshipType: RelationshipType,
       otherElementType: Class[ElementType]
-  ): Set[Element] = relationships(element, relationshipType)
+  ): Set[ElementType] = relationships(element, relationshipType)
     .flatMap(mapOtherElement(element, otherElementType))
     .toSet
   def directDependencies(
@@ -125,7 +126,7 @@ trait HasRelationships extends HasModelComponents {
   def directIncomingDependencies[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Set[Element] = relationships(element, otherElementType)
+  ): Set[ElementType] = relationships(element, otherElementType)
     .filter(r => r.target == element.key)
     .flatMap(mapOtherElement(element, otherElementType))
     .toSet
@@ -136,10 +137,11 @@ trait HasRelationships extends HasModelComponents {
       element: Element,
       relationshipType: RelationshipType,
       otherElementType: Class[ElementType]
-  ): Set[Element] = relationships(element, relationshipType, otherElementType)
-    .filter(r => r.target == element.key)
-    .flatMap(mapOtherElement(element, otherElementType))
-    .toSet
+  ): Set[ElementType] =
+    relationships(element, relationshipType, otherElementType)
+      .filter(r => r.target == element.key)
+      .flatMap(mapOtherElement(element, otherElementType))
+      .toSet
   def directIncomingDependencies(
       element: Element,
       relationshipType: RelationshipType
@@ -149,7 +151,7 @@ trait HasRelationships extends HasModelComponents {
   def directOutgoingDependencies[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Set[Element] = relationships(element, otherElementType)
+  ): Set[ElementType] = relationships(element, otherElementType)
     .filter(r => r.source == element.key)
     .flatMap(mapOtherElement(element, otherElementType))
     .toSet
@@ -160,10 +162,11 @@ trait HasRelationships extends HasModelComponents {
       element: Element,
       relationshipType: RelationshipType,
       otherElementType: Class[ElementType]
-  ): Set[Element] = relationships(element, relationshipType, otherElementType)
-    .filter(r => r.source == element.key)
-    .flatMap(mapOtherElement(element, otherElementType))
-    .toSet
+  ): Set[ElementType] =
+    relationships(element, relationshipType, otherElementType)
+      .filter(r => r.source == element.key)
+      .flatMap(mapOtherElement(element, otherElementType))
+      .toSet
   def directOutgoingDependencies(
       element: Element,
       relationshipType: RelationshipType
@@ -203,7 +206,7 @@ trait CanAddRelationships extends CanManipulateTownPlan {
       sourceKey: Key,
       targetKey: Key,
       relationshipType: RelationshipType
-  ): Try[TownPlan] = {
+  ): Try[(TownPlan, Relationship)] = {
     val sourceOption = townPlan.component(sourceKey, classOf[Element])
     val targetOption = townPlan.component(targetKey, classOf[Element])
     if (sourceOption.isEmpty || targetOption.isEmpty)
@@ -419,3 +422,37 @@ case object Influences extends RelationshipType {
 
 trait CanInfluence extends CanBeRelationshipSource
 trait CanBeInfluenced extends CanBeRelationshipTarget
+
+case object IsAssociatedWith extends RelationshipType {
+  val name: String = "is associated with"
+  val description: String =
+    "An association relationship represents an unspecified relationship, or one that is not represented by another relationship."
+  val sourceTrait: Class[CanBeAssociated] = classOf[CanBeAssociated]
+  val targetTrait: Class[CanBeAssociated] = classOf[CanBeAssociated]
+}
+
+trait CanBeAssociated
+    extends CanBeRelationshipSource
+    with CanBeRelationshipTarget
+
+case object IsImplementedBy extends RelationshipType {
+  val name: String = "is implemented by"
+  val description: String =
+    "An implementation relationship represents that one element is partly, or completely implemented by another element. A system can be implemented by a technology or by an infrastructure component for example"
+  val sourceTrait: Class[CanBeImplemented] = classOf[CanBeImplemented]
+  val targetTrait: Class[CanImplement] = classOf[CanImplement]
+}
+
+trait CanBeImplemented extends CanBeRelationshipSource
+trait CanImplement extends CanBeRelationshipTarget
+
+case object Serves extends RelationshipType {
+  val name: String = "serves"
+  val description: String =
+    "The serving relationship represents that an element provides its functionality to another element."
+  val sourceTrait: Class[CanServe] = classOf[CanServe]
+  val targetTrait: Class[CanBeServed] = classOf[CanBeServed]
+}
+
+trait CanServe extends CanBeRelationshipSource
+trait CanBeServed extends CanBeRelationshipTarget

@@ -47,6 +47,12 @@ trait HasProperties extends ModelComponent {
 
 trait CanAddProperties extends CanManipulateTownPlan {
   def withProperty[HasPropertyType <: HasProperties](
+      modelComponent: HasPropertyType,
+      property: Property
+  ): Try[TownPlan] =
+    withProperty(modelComponent.key, property, modelComponent.getClass)
+
+  def withProperty[HasPropertyType <: HasProperties](
       key: Key,
       property: Property,
       hasPropertyType: Class[HasPropertyType]

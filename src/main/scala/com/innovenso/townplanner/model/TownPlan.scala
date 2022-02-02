@@ -2,12 +2,16 @@ package com.innovenso.townplanner.model
 
 import com.innovenso.townplanner.model.concepts.properties.CanAddDocumentations
 import com.innovenso.townplanner.model.concepts.{
+  CanAddBusinessCapabilities,
   CanAddEnterprises,
   CanAddKeyPointsInTime,
   CanAddRelationships,
+  CanAddTechnologies,
+  HasBusinessCapabilities,
   HasEnterprises,
   HasKeyPointsInTime,
   HasRelationships,
+  HasTechnologies,
   KeyPointInTime
 }
 import com.innovenso.townplanner.model.language.{
@@ -26,6 +30,8 @@ case class TownPlan(
     with HasKeyPointsInTime
     with HasEnterprises
     with HasRelationships
+    with HasTechnologies
+    with HasBusinessCapabilities
 
 trait CanManipulateTownPlan {
   var townPlan: TownPlan = TownPlan(
@@ -33,9 +39,9 @@ trait CanManipulateTownPlan {
     Map.empty[LocalDate, KeyPointInTime]
   )
 
-  protected def withNewModelComponent(
-      modelComponent: ModelComponent
-  ): Try[TownPlan] = {
+  protected def withNewModelComponent[ModelComponentType <: ModelComponent](
+      modelComponent: ModelComponentType
+  ): Try[(TownPlan, ModelComponentType)] = {
     if (townPlan.modelComponents.contains(modelComponent.key))
       Failure(
         new IllegalArgumentException(
@@ -45,10 +51,10 @@ trait CanManipulateTownPlan {
     else putModelComponent(modelComponent)
   }
 
-  protected def withUpdatedModelComponent(
-      modelComponent: ModelComponent
-  ): Try[TownPlan] = {
-    if (!townPlan.modelComponents.contains(modelComponent.key))
+  protected def withUpdatedModelComponent[ModelComponentType <: ModelComponent](
+      modelComponent: ModelComponentType
+  ): Try[(TownPlan, ModelComponentType)] = {
+    if (townPlan.component(modelComponent.key, modelComponent.getClass).isEmpty)
       Failure(
         new IllegalArgumentException(
           s"the town plan does not contain the component to be updated ${modelComponent.key}"
@@ -57,13 +63,13 @@ trait CanManipulateTownPlan {
     else putModelComponent(modelComponent)
   }
 
-  private def putModelComponent(
-      modelComponent: ModelComponent
-  ): Try[TownPlan] = {
+  private def putModelComponent[ModelComponentType <: ModelComponent](
+      modelComponent: ModelComponentType
+  ): Try[(TownPlan, ModelComponentType)] = {
     this.townPlan = townPlan.copy(
       townPlan.modelComponents + (modelComponent.key -> modelComponent)
     )
-    Success(this.townPlan)
+    Success((this.townPlan, modelComponent))
   }
 }
 
@@ -73,3 +79,5 @@ class TownPlanFactory
     with CanAddKeyPointsInTime
     with CanAddDocumentations
     with CanAddRelationships
+    with CanAddTechnologies
+    with CanAddBusinessCapabilities

@@ -10,6 +10,10 @@ trait ModelComponent {
 
 trait HasModelComponents {
   def modelComponents: Map[Key, ModelComponent]
+  def has[ModelComponentType <: ModelComponent](
+      modelComponent: ModelComponentType
+  ): Boolean = component(modelComponent.key, modelComponent.getClass).isDefined
+
   def components[A <: ModelComponent](shouldBeOfClass: Class[A]): List[A] =
     modelComponents.values
       .filter(modelComponent => is(modelComponent, shouldBeOfClass))

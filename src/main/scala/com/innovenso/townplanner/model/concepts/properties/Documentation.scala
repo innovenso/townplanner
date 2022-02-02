@@ -21,4 +21,8 @@ trait CanAddDocumentations extends CanAddProperties {
       key: Key,
       documentation: Documentation
   ): Try[TownPlan] = withProperty(key, documentation, classOf[HasDocumentation])
+  def withDocumentation[ModelComponentType <: HasDocumentation](
+      modelComponent: ModelComponentType,
+      documentation: Documentation
+  ): Try[TownPlan] = withProperty(modelComponent, documentation)
 }
