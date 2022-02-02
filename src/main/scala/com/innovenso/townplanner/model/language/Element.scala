@@ -1,3 +1,9 @@
 package com.innovenso.townplanner.model.language
 
-trait Element extends Concept {}
+import com.innovenso.townplanner.model.concepts.{HasRelationships, Relationship}
+import com.innovenso.townplanner.model.meta.{Aspect, Layer}
+
+trait Element extends Concept {
+  def aspect: Aspect
+  def layer: Layer
+}

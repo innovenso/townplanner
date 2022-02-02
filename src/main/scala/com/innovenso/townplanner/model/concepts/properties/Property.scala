@@ -15,7 +15,7 @@ trait HasProperties extends ModelComponent {
   def properties: Map[Key, Property]
   def withProperty(property: Property): HasProperties
 
-  def values[PropertyType <: Property](
+  def props[PropertyType <: Property](
       shouldBeOfClass: Class[PropertyType]
   ): List[PropertyType] =
     properties.values
@@ -34,7 +34,7 @@ trait HasProperties extends ModelComponent {
       shouldBeOfClass: Class[PropertyType]
   ): PropertyType = shouldBeOfClass.cast(property)
 
-  def value[PropertyType <: Property](
+  def prop[PropertyType <: Property](
       key: Key,
       shouldBeOfClass: Class[PropertyType]
   ): Option[PropertyType] =
@@ -52,7 +52,7 @@ trait CanAddProperties extends CanManipulateTownPlan {
       hasPropertyType: Class[HasPropertyType]
   ): Try[TownPlan] = {
     val modelComponentOption: Option[HasPropertyType] =
-      townPlan.value(key, hasPropertyType)
+      townPlan.component(key, hasPropertyType)
     if (modelComponentOption.isEmpty)
       Failure(
         new IllegalArgumentException(

@@ -5,7 +5,11 @@ import com.innovenso.townplanner.model.concepts.properties.{
   HasDocumentation,
   Property
 }
-import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
+import com.innovenso.townplanner.model.language.{
+  Element,
+  HasModelComponents,
+  ModelComponent
+}
 import com.innovenso.townplanner.model.meta._
 
 import scala.util.Try
@@ -17,7 +21,9 @@ case class Enterprise(
     description: Description,
     properties: Map[Key, Property]
 ) extends Element
-    with HasDocumentation {
+    with HasDocumentation
+    with CanCompose
+    with CanBeComposedOf {
   val layer: Layer = Business
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType("Enterprise")
@@ -27,8 +33,9 @@ case class Enterprise(
 }
 
 trait HasEnterprises extends HasModelComponents {
-  def enterprises: List[Enterprise] = values(classOf[Enterprise])
-  def enterprise(key: Key): Option[Enterprise] = value(key, classOf[Enterprise])
+  def enterprises: List[Enterprise] = components(classOf[Enterprise])
+  def enterprise(key: Key): Option[Enterprise] =
+    component(key, classOf[Enterprise])
 }
 
 trait CanAddEnterprises extends CanManipulateTownPlan {
@@ -37,7 +44,7 @@ trait CanAddEnterprises extends CanManipulateTownPlan {
       sortKey: SortKey = SortKey(None),
       title: Title,
       description: Description = Description(None)
-  ): Try[TownPlan] = withModelComponent(
+  ): Try[TownPlan] = withNewModelComponent(
     Enterprise(
       key = key,
       sortKey = sortKey,

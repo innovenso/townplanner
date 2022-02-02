@@ -9,9 +9,9 @@ case class Documentation(key: Key, sortKey: SortKey, description: Description)
     extends Property
 
 trait HasDocumentation extends HasProperties {
-  def documentations: List[Documentation] = values(classOf[Documentation])
+  def documentations: List[Documentation] = props(classOf[Documentation])
   def documentation(key: Key): Option[Documentation] =
-    value(key, classOf[Documentation])
+    prop(key, classOf[Documentation])
   def withDocumentation(documentation: Documentation): HasProperties =
     withProperty(documentation)
 }

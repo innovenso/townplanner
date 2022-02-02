@@ -10,13 +10,13 @@ trait ModelComponent {
 
 trait HasModelComponents {
   def modelComponents: Map[Key, ModelComponent]
-  def values[A <: ModelComponent](shouldBeOfClass: Class[A]): List[A] =
+  def components[A <: ModelComponent](shouldBeOfClass: Class[A]): List[A] =
     modelComponents.values
       .filter(modelComponent => is(modelComponent, shouldBeOfClass))
       .map(modelComponent => as(modelComponent, shouldBeOfClass))
       .toList
       .sortWith(_.sortKey < _.sortKey)
-  def value[A <: ModelComponent](
+  def component[A <: ModelComponent](
       key: Key,
       shouldBeOfClass: Class[A]
   ): Option[A] =
