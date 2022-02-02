@@ -2,6 +2,7 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
+  HasArchitectureVerdict,
   HasDocumentation,
   Property
 }
@@ -32,6 +33,7 @@ case class ArchitectureBuildingBlock(
     properties: Map[Key, Property]
 ) extends Element
     with HasDocumentation
+    with HasArchitectureVerdict
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger

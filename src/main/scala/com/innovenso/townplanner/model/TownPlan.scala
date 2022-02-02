@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model
 
-import com.innovenso.townplanner.model.concepts.properties.CanAddDocumentations
+import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddDocumentations,
+  CanSetArchitectureVerdict
+}
 import com.innovenso.townplanner.model.concepts.{
   CanAddArchitectureBuildingBlocks,
   CanAddBusinessActors,
@@ -89,3 +92,4 @@ class TownPlanFactory
     with CanAddBusinessCapabilities
     with CanAddBusinessActors
     with CanAddArchitectureBuildingBlocks
+    with CanSetArchitectureVerdict

@@ -6,7 +6,9 @@ import com.innovenso.townplanner.model.meta.{Description, Key, SortKey}
 import scala.util.Try
 
 case class Documentation(key: Key, sortKey: SortKey, description: Description)
-    extends Property
+    extends Property {
+  val canBePlural: Boolean = true
+}
 
 trait HasDocumentation extends HasProperties {
   def documentations: List[Documentation] = props(classOf[Documentation])
@@ -20,9 +22,11 @@ trait CanAddDocumentations extends CanAddProperties {
   def withDocumentation(
       key: Key,
       documentation: Documentation
-  ): Try[TownPlan] = withProperty(key, documentation, classOf[HasDocumentation])
+  ): Try[(TownPlan, HasDocumentation)] =
+    withProperty(key, documentation, classOf[HasDocumentation])
   def withDocumentation[ModelComponentType <: HasDocumentation](
       modelComponent: ModelComponentType,
       documentation: Documentation
-  ): Try[TownPlan] = withProperty(modelComponent, documentation)
+  ): Try[(TownPlan, ModelComponentType)] =
+    withProperty(modelComponent, documentation)
 }

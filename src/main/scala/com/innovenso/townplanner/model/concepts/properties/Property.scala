@@ -9,6 +9,7 @@ import scala.util.{Failure, Success, Try}
 trait Property {
   def key: Key
   def sortKey: SortKey
+  def canBePlural: Boolean
 }
 
 trait HasProperties extends ModelComponent {
@@ -49,14 +50,14 @@ trait CanAddProperties extends CanManipulateTownPlan {
   def withProperty[HasPropertyType <: HasProperties](
       modelComponent: HasPropertyType,
       property: Property
-  ): Try[TownPlan] =
+  ): Try[(TownPlan, HasPropertyType)] =
     withProperty(modelComponent.key, property, modelComponent.getClass)
 
   def withProperty[HasPropertyType <: HasProperties](
       key: Key,
       property: Property,
       hasPropertyType: Class[HasPropertyType]
-  ): Try[TownPlan] = {
+  ): Try[(TownPlan, HasPropertyType)] = {
     val modelComponentOption: Option[HasPropertyType] =
       townPlan.component(key, hasPropertyType)
     if (modelComponentOption.isEmpty)
@@ -65,12 +66,28 @@ trait CanAddProperties extends CanManipulateTownPlan {
           s"the town plan does not contain a model component with key ${key} that ${hasPropertyType.getSimpleName}"
         )
       )
-    else {
-      this.townPlan = townPlan.copy(
-        townPlan.modelComponents + (modelComponentOption.get.key -> modelComponentOption.get
-          .withProperty(property))
+    else if (
+      modelComponentOption.get
+        .props(property.getClass)
+        .nonEmpty && !property.canBePlural
+    )
+      Failure(
+        new IllegalArgumentException(
+          s"the component ${key.value} already has a property of type ${property.getClass.getSimpleName}"
+        )
       )
-      Success(this.townPlan)
+    else {
+      val updatedModelComponent =
+        modelComponentOption.get.withProperty(property)
+      this.townPlan = townPlan.copy(
+        townPlan.modelComponents + (modelComponentOption.get.key -> updatedModelComponent)
+      )
+      Success(
+        (
+          this.townPlan,
+          townPlan.component(updatedModelComponent.key, hasPropertyType).get
+        )
+      )
     }
   }
 

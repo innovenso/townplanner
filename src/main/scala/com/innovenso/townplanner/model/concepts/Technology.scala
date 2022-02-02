@@ -2,6 +2,7 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
+  HasArchitectureVerdict,
   HasDocumentation,
   Property
 }
@@ -33,6 +34,7 @@ case class Technology(
     properties: Map[Key, Property]
 ) extends Element
     with HasDocumentation
+    with HasArchitectureVerdict
     with CanImplement {
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
   val aspect: Aspect = PassiveStructure

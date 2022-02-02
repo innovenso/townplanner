@@ -1,7 +1,10 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.TownPlan
-import com.innovenso.townplanner.model.concepts.properties.Documentation
+import com.innovenso.townplanner.model.concepts.properties.{
+  Documentation,
+  HasDocumentation
+}
 import com.innovenso.townplanner.model.meta.{Description, Key, SortKey, Title}
 import com.innovenso.townplanner.model.test.Factory
 import org.scalatest.GivenWhenThen
@@ -40,7 +43,7 @@ class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
         title = Title("Innovenso BV")
       )
     assert(townPlanWithEnterprise.isSuccess)
-    val townPlanWithDocumentedEnterprise: Try[TownPlan] =
+    val townPlanWithDocumentedEnterprise: Try[(TownPlan, HasDocumentation)] =
       factory.withDocumentation(
         Key("innovenso"),
         Documentation(
@@ -51,7 +54,7 @@ class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
       )
     assert(townPlanWithDocumentedEnterprise.isSuccess)
     assert(
-      townPlanWithDocumentedEnterprise.get
+      townPlanWithDocumentedEnterprise.get._1
         .enterprise(Key("innovenso"))
         .get
         .documentations
