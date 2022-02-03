@@ -22,13 +22,13 @@ import com.innovenso.townplanner.model.meta._
 import scala.util.Try
 
 case class Decision(
-    key: Key,
-    sortKey: SortKey,
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
     title: Title,
-    description: Description,
-    status: DecisionStatus,
-    outcome: Description,
-    properties: Map[Key, Property]
+    description: Description = Description(None),
+    status: DecisionStatus = NotStarted,
+    outcome: Description = Description(None),
+    properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDocumentation
     with CanImpact
@@ -49,14 +49,14 @@ case class Decision(
 }
 
 case class DecisionOption(
-    key: Key,
+    key: Key = Key(),
     decisionKey: Key,
-    sortKey: SortKey,
+    sortKey: SortKey = SortKey(None),
     title: Title,
-    description: Description,
+    description: Description = Description(None),
     verdict: DecisionOptionVerdict,
-    outcome: Description,
-    properties: Map[Key, Property]
+    outcome: Description = Description(None),
+    properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDocumentation
     with HasRequirementScores
@@ -133,6 +133,24 @@ trait CanAddDecisions extends CanManipulateTownPlan {
       outcome = outcome
     )
   )
+
+  def element(decision: Decision)(
+      closure: Decision => Any
+  ): Unit = {
+    val result = withNewModelComponent(decision)
+    if (result.isSuccess) {
+      closure.apply(result.get._2)
+    }
+  }
+
+  def element(
+      decisionOption: DecisionOption
+  )(closure: DecisionOption => Any): Unit = {
+    val result = withNewModelComponent(decisionOption)
+    if (result.isSuccess) {
+      closure.apply(result.get._2)
+    }
+  }
 
   def withOption(
       decision: Decision,

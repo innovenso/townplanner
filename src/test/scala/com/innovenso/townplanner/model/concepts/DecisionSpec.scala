@@ -15,6 +15,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 import scala.util.Try
 
 class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
+  var theDecision: Decision = _
+
   "Decisions" should "be addable to the town plan" in new Factory {
     val result =
       factory
@@ -74,6 +76,21 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
     assert(townPlan.rejectedOptions(decision).size == 1)
     assert(townPlan.optionsUnderInvestigation(decision).isEmpty)
     assert(townPlan.chosenOptions(decision).isEmpty)
+  }
+
+  "Decisions" should "be addable with a closure" in new Factory {
+    factory.element(Decision(title = Title("Hello World"))) { decision =>
+      theDecision = decision
+      factory.element(
+        DecisionOption(
+          title = Title("Option 1"),
+          verdict = UnderInvestigation,
+          decisionKey = decision.key
+        )
+      ) { option =>
+        println(option)
+      }
+    }
   }
 
 }
