@@ -4,23 +4,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanAddDocumentations,
   CanSetArchitectureVerdict
 }
-import com.innovenso.townplanner.model.concepts.{
-  CanAddArchitectureBuildingBlocks,
-  CanAddBusinessActors,
-  CanAddBusinessCapabilities,
-  CanAddEnterprises,
-  CanAddKeyPointsInTime,
-  CanAddRelationships,
-  CanAddTechnologies,
-  HasArchitectureBuildingBlocks,
-  HasBusinessActors,
-  HasBusinessCapabilities,
-  HasEnterprises,
-  HasKeyPointsInTime,
-  HasRelationships,
-  HasTechnologies,
-  KeyPointInTime
-}
+import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.language.{
   HasModelComponents,
   ModelComponent
@@ -41,6 +25,24 @@ case class TownPlan(
     with HasBusinessCapabilities
     with HasBusinessActors
     with HasArchitectureBuildingBlocks
+    with HasItPlatforms
+    with HasItSystems
+    with HasItContainers
+
+class TownPlanFactory
+    extends CanManipulateTownPlan
+    with CanAddEnterprises
+    with CanAddKeyPointsInTime
+    with CanAddDocumentations
+    with CanAddRelationships
+    with CanAddTechnologies
+    with CanAddBusinessCapabilities
+    with CanAddBusinessActors
+    with CanAddArchitectureBuildingBlocks
+    with CanSetArchitectureVerdict
+    with CanAddItPlatforms
+    with CanAddItSystems
+    with CanAddItContainers
 
 trait CanManipulateTownPlan {
   var townPlan: TownPlan = TownPlan(
@@ -81,15 +83,3 @@ trait CanManipulateTownPlan {
     Success((this.townPlan, modelComponent))
   }
 }
-
-class TownPlanFactory
-    extends CanManipulateTownPlan
-    with CanAddEnterprises
-    with CanAddKeyPointsInTime
-    with CanAddDocumentations
-    with CanAddRelationships
-    with CanAddTechnologies
-    with CanAddBusinessCapabilities
-    with CanAddBusinessActors
-    with CanAddArchitectureBuildingBlocks
-    with CanSetArchitectureVerdict

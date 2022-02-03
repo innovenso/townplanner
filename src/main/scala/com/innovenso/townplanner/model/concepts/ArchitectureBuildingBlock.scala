@@ -54,7 +54,6 @@ case class ArchitectureBuildingBlock(
 
 trait HasArchitectureBuildingBlocks
     extends HasModelComponents
-    with HasBusinessCapabilities
     with HasRelationships {
   def architectureBuildingBlocks: List[ArchitectureBuildingBlock] = components(
     classOf[ArchitectureBuildingBlock]
