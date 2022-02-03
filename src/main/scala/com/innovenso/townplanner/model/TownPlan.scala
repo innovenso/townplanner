@@ -1,7 +1,11 @@
 package com.innovenso.townplanner.model
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddContext,
+  CanAddCosts,
   CanAddDocumentations,
+  CanAddRequirementScores,
+  CanAddRequirements,
   CanSetArchitectureVerdict
 }
 import com.innovenso.townplanner.model.concepts._
@@ -28,6 +32,7 @@ case class TownPlan(
     with HasItPlatforms
     with HasItSystems
     with HasItContainers
+    with HasDecisions
 
 class TownPlanFactory
     extends CanManipulateTownPlan
@@ -43,6 +48,11 @@ class TownPlanFactory
     with CanAddItPlatforms
     with CanAddItSystems
     with CanAddItContainers
+    with CanAddRequirements
+    with CanAddRequirementScores
+    with CanAddCosts
+    with CanAddContext
+    with CanAddDecisions
 
 trait CanManipulateTownPlan {
   var townPlan: TownPlan = TownPlan(

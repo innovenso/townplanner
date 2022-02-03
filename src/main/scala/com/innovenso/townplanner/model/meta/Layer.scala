@@ -4,18 +4,22 @@ trait Layer {
   def name: String
 }
 
-object StrategyLayer extends Layer {
+case object StrategyLayer extends Layer {
   val name = "Strategy"
 }
 
-object BusinessLayer extends Layer {
+case object BusinessLayer extends Layer {
   val name = "Business"
 }
 
-object ApplicationLayer extends Layer {
+case object ApplicationLayer extends Layer {
   val name = "Application"
 }
 
-object TechnologyLayer extends Layer {
+case object TechnologyLayer extends Layer {
   val name = "Technology"
+}
+
+case object ImplementationLayer extends Layer {
+  val name = "Implementation and Migration"
 }

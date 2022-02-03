@@ -4,6 +4,7 @@ import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.language.ModelComponent
 import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
+import scala.runtime.Nothing$
 import scala.util.{Failure, Success, Try}
 
 trait Property {
@@ -15,6 +16,10 @@ trait Property {
 trait HasProperties extends ModelComponent {
   def properties: Map[Key, Property]
   def withProperty(property: Property): HasProperties
+  def withProperties(properties: List[Property]): HasProperties = if (
+    properties.isEmpty
+  ) this
+  else this.withProperty(properties.head).withProperties(properties.tail)
 
   def props[PropertyType <: Property](
       shouldBeOfClass: Class[PropertyType]
