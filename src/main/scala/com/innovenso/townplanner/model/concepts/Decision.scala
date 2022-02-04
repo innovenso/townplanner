@@ -1,25 +1,8 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
-import com.innovenso.townplanner.model.concepts.properties.{
-  Constraint,
-  DoesNotMeetExpectations,
-  FunctionalRequirement,
-  HasContext,
-  HasCosts,
-  HasDocumentation,
-  HasRequirementScores,
-  HasRequirements,
-  MustHave,
-  Property,
-  QualityAttributeRequirement,
-  Requirement,
-  RequirementScore
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
-
-import scala.util.Try
 
 case class Decision(
     key: Key = Key(),
@@ -74,104 +57,53 @@ case class DecisionOption(
 
 trait HasDecisions extends HasModelComponents with HasRelationships {
   def decisions: List[Decision] = components(classOf[Decision])
-  def decision(key: Key): Option[Decision] = component(key, classOf[Decision])
-  def options(decision: Decision): List[DecisionOption] = components(
-    classOf[DecisionOption]
-  ).filter(_.decisionKey == decision.key)
-    .map(o =>
-      if (isDecisionOptionRejected(o)) o.copy(verdict = Rejected) else o
-    )
+
+  def functionalRequirementScores(
+      decisionOption: DecisionOption
+  ): List[(Requirement, RequirementScore)] =
+    scores(decisionOption).filter(_._1.isInstanceOf[FunctionalRequirement])
+
   def scores(
       decisionOption: DecisionOption
   ): List[(Requirement, RequirementScore)] =
     decision(decisionOption.decisionKey)
       .map(_.requirements.map(r => (r, decisionOption.score(r.key))))
       .getOrElse(Nil)
-  def functionalRequirementScores(
-      decisionOption: DecisionOption
-  ): List[(Requirement, RequirementScore)] =
-    scores(decisionOption).filter(_._1.isInstanceOf[FunctionalRequirement])
+
+  def decision(key: Key): Option[Decision] = component(key, classOf[Decision])
+
   def qualityAttributeRequirementScores(
       decisionOption: DecisionOption
   ): List[(Requirement, RequirementScore)] = scores(decisionOption).filter(
     _._1.isInstanceOf[QualityAttributeRequirement]
   )
+
   def constraintScores(
       decisionOption: DecisionOption
   ): List[(Requirement, RequirementScore)] =
     scores(decisionOption).filter(_._1.isInstanceOf[Constraint])
+
   def optionsUnderInvestigation(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict == UnderInvestigation)
+
   def chosenOptions(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict == Chosen)
-  def rejectedOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict == Rejected)
+
+  def options(decision: Decision): List[DecisionOption] = components(
+    classOf[DecisionOption]
+  ).filter(_.decisionKey == decision.key)
+    .map(o =>
+      if (isDecisionOptionRejected(o)) o.copy(verdict = Rejected) else o
+    )
 
   private def isDecisionOptionRejected(
       decisionOption: DecisionOption
   ): Boolean = scores(decisionOption).exists(rr =>
     rr._1.weight == MustHave && rr._2.scoreWeight == DoesNotMeetExpectations
   )
-}
 
-trait CanAddDecisions extends CanManipulateTownPlan {
-  def withDecision(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      status: DecisionStatus,
-      outcome: Description
-  ): Try[(TownPlan, Decision)] = withNewModelComponent(
-    Decision(
-      key = key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      properties = Map.empty[Key, Property],
-      status = status,
-      outcome = outcome
-    )
-  )
-
-  def element(decision: Decision)(
-      closure: Decision => Any
-  ): Unit = {
-    val result = withNewModelComponent(decision)
-    if (result.isSuccess) {
-      closure.apply(result.get._2)
-    }
-  }
-
-  def element(
-      decisionOption: DecisionOption
-  )(closure: DecisionOption => Any): Unit = {
-    val result = withNewModelComponent(decisionOption)
-    if (result.isSuccess) {
-      closure.apply(result.get._2)
-    }
-  }
-
-  def withOption(
-      decision: Decision,
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      verdict: DecisionOptionVerdict,
-      outcome: Description = Description(None)
-  ): Try[(TownPlan, Decision, DecisionOption)] = withNewModelComponent(
-    DecisionOption(
-      key = key,
-      decisionKey = decision.key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      verdict = verdict,
-      outcome = outcome,
-      properties = Map.empty[Key, Property]
-    )
-  ).map(tdo => (tdo._1, decision, tdo._2))
+  def rejectedOptions(decision: Decision): List[DecisionOption] =
+    options(decision).filter(_.verdict == Rejected)
 }
 
 sealed trait DecisionStatus {

@@ -1,29 +1,12 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
   HasDocumentation,
   Property
 }
-import com.innovenso.townplanner.model.language.{
-  Concept,
-  Element,
-  HasModelComponents
-}
-import com.innovenso.townplanner.model.meta.{
-  Aspect,
-  Description,
-  Key,
-  Layer,
-  ModelComponentType,
-  PassiveStructure,
-  SortKey,
-  TechnologyLayer,
-  Title
-}
-
-import scala.util.Try
+import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
+import com.innovenso.townplanner.model.meta._
 
 case class Technology(
     key: Key,
@@ -48,26 +31,6 @@ trait HasTechnologies extends HasModelComponents {
   def technologies: List[Technology] = components(classOf[Technology])
   def technology(key: Key): Option[Technology] =
     component(key, classOf[Technology])
-}
-
-trait CanAddTechnologies extends CanManipulateTownPlan {
-  def withTechnology(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      technologyType: TechnologyType
-  ): Try[(TownPlan, Technology)] =
-    withNewModelComponent(
-      Technology(
-        key = key,
-        sortKey = sortKey,
-        title = title,
-        description = description,
-        technologyType = technologyType,
-        properties = Map.empty[Key, Property]
-      )
-    )
 }
 
 sealed trait TechnologyType {

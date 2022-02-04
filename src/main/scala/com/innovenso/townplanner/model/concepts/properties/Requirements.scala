@@ -1,9 +1,6 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.meta.{Description, Key, SortKey, Title}
-
-import scala.util.Try
 
 case class Constraint(
     key: Key = Key(),
@@ -49,14 +46,6 @@ trait HasRequirements extends HasProperties {
   def qualityAttributeRequirements: List[QualityAttributeRequirement] = props(
     classOf[QualityAttributeRequirement]
   )
-}
-
-trait CanAddRequirements extends CanAddProperties {
-  def withRequirement[ModelComponentType <: HasRequirements](
-      modelComponent: ModelComponentType,
-      requirement: Requirement
-  ): Try[(TownPlan, ModelComponentType)] =
-    withProperty(modelComponent, requirement)
 }
 
 trait RequirementWeight {

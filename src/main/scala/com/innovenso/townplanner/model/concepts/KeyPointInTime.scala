@@ -1,10 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
+import com.innovenso.townplanner.model.language.CanAddModelComponents
 import com.innovenso.townplanner.model.meta.Title
 
 import java.time.LocalDate
-import scala.util.{Failure, Success, Try}
 
 case class KeyPointInTime(
     date: LocalDate,
@@ -26,17 +25,15 @@ trait HasKeyPointsInTime {
   )
 }
 
-trait CanAddKeyPointsInTime extends CanManipulateTownPlan {
+trait CanAddKeyPointsInTime extends CanAddModelComponents {
   def withKeyPointInTime(
       date: LocalDate,
       title: Title,
       diagramsNeeded: Boolean = true
-  ): Try[(TownPlan, KeyPointInTime)] = {
+  ): KeyPointInTime = {
     if (townPlan.keyPointsInTime.contains(date))
-      Failure(
-        new IllegalArgumentException(
-          s"town plan already contains a key point in time for date ${date}"
-        )
+      throw new IllegalArgumentException(
+        s"town plan already contains a key point in time for date ${date}"
       )
     else {
       val keyPointInTime: KeyPointInTime = KeyPointInTime(
@@ -47,7 +44,7 @@ trait CanAddKeyPointsInTime extends CanManipulateTownPlan {
       this.townPlan = townPlan.copy(keyPointsInTime =
         townPlan.keyPointsInTime + (date -> keyPointInTime)
       )
-      Success((this.townPlan, keyPointInTime))
+      keyPointInTime
     }
   }
 }

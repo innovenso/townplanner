@@ -1,13 +1,10 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.meta.{Description, Key, SortKey}
 
-import scala.util.Try
-
 case class ArchitectureVerdict(
-    description: Description,
-    architectureVerdictType: ArchitectureVerdictType
+    architectureVerdictType: ArchitectureVerdictType,
+    description: Description = Description(None)
 ) extends Property {
   val key: Key = Key()
   val sortKey: SortKey = SortKey(None)
@@ -17,20 +14,7 @@ case class ArchitectureVerdict(
 trait HasArchitectureVerdict extends HasProperties {
   def architectureVerdict: ArchitectureVerdict =
     props(classOf[ArchitectureVerdict]).headOption
-      .getOrElse(ArchitectureVerdict(Description(None), UnknownVerdict))
-}
-
-trait CanSetArchitectureVerdict extends CanAddProperties {
-  def withArchitectureVerdict(
-      key: Key,
-      architectureVerdict: ArchitectureVerdict
-  ): Try[(TownPlan, HasArchitectureVerdict)] =
-    withProperty(key, architectureVerdict, classOf[HasArchitectureVerdict])
-  def withArchitectureVerdict[ModelComponentType <: HasArchitectureVerdict](
-      modelComponent: ModelComponentType,
-      architectureVerdict: ArchitectureVerdict
-  ): Try[(TownPlan, ModelComponentType)] =
-    withProperty(modelComponent, architectureVerdict)
+      .getOrElse(ArchitectureVerdict(UnknownVerdict, Description(None)))
 }
 
 trait ArchitectureVerdictType {
@@ -61,4 +45,14 @@ case object Eliminate extends ArchitectureVerdictType {
 case object UnknownVerdict extends ArchitectureVerdictType {
   val name: String = "Unknown"
   val radarCircle: Int = 0
+}
+
+trait CanConfigureArchitectureVerdict[
+    ModelComponentType <: HasArchitectureVerdict
+] {
+  def propertyAdder: CanAddProperties
+  def modelComponent: ModelComponentType
+
+  def has(verdict: ArchitectureVerdict): HasArchitectureVerdict =
+    propertyAdder.withProperty(modelComponent, verdict)
 }

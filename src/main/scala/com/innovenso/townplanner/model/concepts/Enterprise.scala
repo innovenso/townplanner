@@ -1,26 +1,22 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  HasDocumentation,
-  Property
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
-
-import scala.util.Try
 
 case class Enterprise(
-    key: Key,
-    sortKey: SortKey,
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
     title: Title,
-    description: Description,
-    properties: Map[Key, Property]
+    description: Description = Description(None),
+    properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDocumentation
     with CanCompose
     with CanBeComposedOf
-    with CanBeServed {
+    with CanBeServed
+    with CanBeTriggered
+    with CanTrigger {
   val layer: Layer = BusinessLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType("Enterprise")
@@ -35,19 +31,23 @@ trait HasEnterprises extends HasModelComponents {
     component(key, classOf[Enterprise])
 }
 
-trait CanAddEnterprises extends CanManipulateTownPlan {
-  def withEnterprise(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None)
-  ): Try[(TownPlan, Enterprise)] = withNewModelComponent(
-    Enterprise(
-      key = key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      Map.empty[Key, Property]
-    )
-  )
+case class EnterpriseConfigurer(
+    modelComponent: Enterprise,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDocumentation[Enterprise]
+    with CanConfigureTriggers[Enterprise] {
+  def as(
+      body: EnterpriseConfigurer => Any
+  ): Enterprise = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .enterprise(modelComponent.key)
+      .get
+  }
+}
+
+trait CanAddEnterprises extends CanAddProperties with CanAddRelationships {
+  def describes(enterprise: Enterprise): EnterpriseConfigurer =
+    EnterpriseConfigurer(has(enterprise), this, this)
 }

@@ -1,25 +1,12 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
   HasDocumentation,
   Property
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{
-  ActiveStructure,
-  ApplicationLayer,
-  Aspect,
-  Description,
-  Key,
-  Layer,
-  ModelComponentType,
-  SortKey,
-  Title
-}
-
-import scala.util.Try
+import com.innovenso.townplanner.model.meta._
 
 case class ItSystem(
     key: Key,
@@ -73,22 +60,5 @@ trait HasItSystems extends HasModelComponents with HasRelationships {
     architectureBuildingBlock,
     Realizes,
     classOf[ItSystem]
-  )
-}
-
-trait CanAddItSystems extends CanManipulateTownPlan {
-  def withItSystem(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None)
-  ): Try[(TownPlan, ItSystem)] = withNewModelComponent(
-    ItSystem(
-      key = key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      properties = Map.empty[Key, Property]
-    )
   )
 }

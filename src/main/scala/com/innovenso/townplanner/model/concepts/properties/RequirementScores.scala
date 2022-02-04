@@ -1,9 +1,6 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.meta.{Description, Key, SortKey}
-
-import scala.util.{Failure, Try}
 
 case class RequirementScore(
     requirementKey: Key,
@@ -36,7 +33,7 @@ trait CanAddRequirementScores extends CanAddProperties {
       requirementKey: Key,
       description: Description = Description(None),
       weight: ScoreWeight
-  ): Try[(TownPlan, ModelComponentType)] = {
+  ): ModelComponentType = {
     if (
       !townPlan
         .component(
@@ -45,10 +42,8 @@ trait CanAddRequirementScores extends CanAddProperties {
         )
         .exists(_.requirements.exists(_.key == requirementKey))
     )
-      Failure(
-        new IllegalArgumentException(
-          s"${requirementsHolderKey} does not have requirement ${requirementKey}"
-        )
+      throw new IllegalArgumentException(
+        s"${requirementsHolderKey} does not have requirement ${requirementKey}"
       )
     else
       withProperty(

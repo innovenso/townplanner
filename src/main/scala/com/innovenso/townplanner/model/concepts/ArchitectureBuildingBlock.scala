@@ -1,29 +1,12 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
   HasDocumentation,
   Property
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{
-  ActiveStructure,
-  ApplicationLayer,
-  Aspect,
-  Behavior,
-  BusinessLayer,
-  Description,
-  Key,
-  Layer,
-  ModelComponentType,
-  PassiveStructure,
-  SortKey,
-  StrategyLayer,
-  Title
-}
-
-import scala.util.{Success, Try}
+import com.innovenso.townplanner.model.meta._
 
 case class ArchitectureBuildingBlock(
     key: Key,
@@ -68,41 +51,4 @@ trait HasArchitectureBuildingBlocks
       Serves,
       classOf[Enterprise]
     ).headOption
-}
-
-trait CanAddArchitectureBuildingBlocks
-    extends CanManipulateTownPlan
-    with CanAddRelationships {
-  def withArchitectureBuildingBlock(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None)
-  ): Try[(TownPlan, ArchitectureBuildingBlock)] = withNewModelComponent(
-    ArchitectureBuildingBlock(
-      key = key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      properties = Map.empty[Key, Property]
-    )
-  )
-
-  def withEnterpriseArchitectureBuildingBlock(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      enterprise: Enterprise
-  ): Try[(TownPlan, ArchitectureBuildingBlock)] =
-    withArchitectureBuildingBlock(key, sortKey, title, description)
-      .flatMap(tb =>
-        withRelationship(
-          title = Title(""),
-          relationshipType = Serves,
-          sourceKey = tb._2.key,
-          targetKey = enterprise.key
-        ).flatMap(tr => Success((tr._1, tb._2)))
-      )
-
 }

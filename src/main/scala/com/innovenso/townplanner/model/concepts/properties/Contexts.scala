@@ -1,9 +1,6 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.meta.{Description, Key, SortKey, Title}
-
-import scala.util.Try
 
 case class CurrentState(
     key: Key = Key(),
@@ -41,12 +38,4 @@ trait HasContext extends HasProperties {
   def goals: List[Goal] = props(classOf[Goal])
   def assumptions: List[Assumption] = props(classOf[Assumption])
   def consequences: List[Consequence] = props(classOf[Consequence])
-}
-
-trait CanAddContext extends CanAddProperties {
-  def withContext[ModelComponentType <: HasContext](
-      modelComponent: ModelComponentType,
-      context: Context
-  ): Try[(TownPlan, ModelComponentType)] =
-    withProperty(modelComponent, context)
 }

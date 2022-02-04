@@ -1,27 +1,11 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
   HasDocumentation,
   Property
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{
-  ActiveStructure,
-  Aspect,
-  Behavior,
-  BusinessLayer,
-  Description,
-  Key,
-  Layer,
-  ModelComponentType,
-  PassiveStructure,
-  SortKey,
-  StrategyLayer,
-  Title
-}
-
-import scala.util.{Success, Try}
+import com.innovenso.townplanner.model.meta._
 
 case class BusinessActor(
     key: Key,
@@ -54,13 +38,15 @@ trait HasBusinessActors
     extends HasModelComponents
     with HasEnterprises
     with HasRelationships {
-  def businessActors: List[BusinessActor] = components(
-    classOf[BusinessActor]
-  )
   def businessActors(
       businessActorType: BusinessActorType
   ): List[BusinessActor] =
     businessActors.filter(a => a.businessActorType == businessActorType)
+
+  def businessActors: List[BusinessActor] = components(
+    classOf[BusinessActor]
+  )
+
   def businessActor(key: Key): Option[BusinessActor] =
     component(key, classOf[BusinessActor])
   def enterprise(businessActor: BusinessActor): Option[Enterprise] =
@@ -69,46 +55,6 @@ trait HasBusinessActors
       Serves,
       classOf[Enterprise]
     ).headOption
-}
-
-trait CanAddBusinessActors
-    extends CanManipulateTownPlan
-    with CanAddRelationships {
-  def withBusinessActor(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      businessActorType: BusinessActorType
-  ): Try[(TownPlan, BusinessActor)] = withNewModelComponent(
-    BusinessActor(
-      key = key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      businessActorType = businessActorType,
-      properties = Map.empty[Key, Property]
-    )
-  )
-
-  def withEnterpriseBusinessActor(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      enterprise: Enterprise,
-      businessActorType: BusinessActorType
-  ): Try[(TownPlan, BusinessActor)] =
-    withBusinessActor(key, sortKey, title, description, businessActorType)
-      .flatMap(tb =>
-        withRelationship(
-          title = Title(""),
-          relationshipType = Serves,
-          sourceKey = tb._2.key,
-          targetKey = enterprise.key
-        ).flatMap(tr => Success((tr._1, tb._2)))
-      )
-
 }
 
 sealed trait BusinessActorType {

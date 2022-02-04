@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.language
 
-import com.innovenso.townplanner.model.meta.{Aspect, Description, Layer, Title}
+import com.innovenso.townplanner.model.meta.{Description, Title}
 
 trait Concept extends ModelComponent {
   def title: Title

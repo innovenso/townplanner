@@ -1,12 +1,12 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.meta.{Description, Key, SortKey}
 
-import scala.util.Try
-
-case class Documentation(key: Key, sortKey: SortKey, description: Description)
-    extends Property {
+case class Documentation(
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    description: Description
+) extends Property {
   val canBePlural: Boolean = true
 }
 
@@ -18,15 +18,10 @@ trait HasDocumentation extends HasProperties {
     withProperty(documentation)
 }
 
-trait CanAddDocumentations extends CanAddProperties {
-  def withDocumentation(
-      key: Key,
-      documentation: Documentation
-  ): Try[(TownPlan, HasDocumentation)] =
-    withProperty(key, documentation, classOf[HasDocumentation])
-  def withDocumentation[ModelComponentType <: HasDocumentation](
-      modelComponent: ModelComponentType,
-      documentation: Documentation
-  ): Try[(TownPlan, ModelComponentType)] =
-    withProperty(modelComponent, documentation)
+trait CanConfigureDocumentation[ModelComponentType <: HasDocumentation] {
+  def propertyAdder: CanAddProperties
+  def modelComponent: ModelComponentType
+
+  def has(documentation: Documentation): HasDocumentation =
+    propertyAdder.withProperty(modelComponent, documentation)
 }

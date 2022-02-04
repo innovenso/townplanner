@@ -1,28 +1,12 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.{CanManipulateTownPlan, TownPlan}
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
   HasDocumentation,
   Property
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{
-  ActiveStructure,
-  Aspect,
-  Behavior,
-  BusinessLayer,
-  Description,
-  Key,
-  Layer,
-  ModelComponentType,
-  PassiveStructure,
-  SortKey,
-  StrategyLayer,
-  Title
-}
-
-import scala.util.{Success, Try}
+import com.innovenso.townplanner.model.meta._
 
 case class BusinessCapability(
     key: Key,
@@ -88,67 +72,16 @@ trait HasBusinessCapabilities
     Serves,
     classOf[BusinessCapability]
   ).toList.sortWith(_.sortKey < _.sortKey)
+
+  def businessCapabilityMap(enterprise: Enterprise): List[BusinessCapability] =
+    level0businessCapabilities(enterprise).flatMap(capability =>
+      traverseBusinessCapabilities(capability)
+    )
+
   private def traverseBusinessCapabilities(
       businessCapability: BusinessCapability
   ): LazyList[BusinessCapability] =
     businessCapability #:: (childBusinessCapabilities(
       businessCapability
     ) map traverseBusinessCapabilities).fold(LazyList.empty)(_ ++ _)
-
-  def businessCapabilityMap(enterprise: Enterprise): List[BusinessCapability] =
-    level0businessCapabilities(enterprise).flatMap(capability =>
-      traverseBusinessCapabilities(capability)
-    )
-}
-
-trait CanAddBusinessCapabilities
-    extends CanManipulateTownPlan
-    with CanAddRelationships {
-  def withBusinessCapability(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None)
-  ): Try[(TownPlan, BusinessCapability)] = withNewModelComponent(
-    BusinessCapability(
-      key = key,
-      sortKey = sortKey,
-      title = title,
-      description = description,
-      properties = Map.empty[Key, Property]
-    )
-  )
-
-  def withChildBusinessCapability(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      parent: BusinessCapability
-  ): Try[(TownPlan, BusinessCapability)] =
-    withBusinessCapability(key, sortKey, title, description).flatMap(tb =>
-      withRelationship(
-        title = Title(""),
-        relationshipType = Serves,
-        sourceKey = tb._2.key,
-        targetKey = parent.key
-      ).flatMap(tr => Success((tr._1, tb._2)))
-    )
-
-  def withEnterpriseBusinessCapability(
-      key: Key = Key(),
-      sortKey: SortKey = SortKey(None),
-      title: Title,
-      description: Description = Description(None),
-      enterprise: Enterprise
-  ): Try[(TownPlan, BusinessCapability)] =
-    withBusinessCapability(key, sortKey, title, description).flatMap(tb =>
-      withRelationship(
-        title = Title(""),
-        relationshipType = Serves,
-        sourceKey = tb._2.key,
-        targetKey = enterprise.key
-      ).flatMap(tr => Success((tr._1, tb._2)))
-    )
-
 }
