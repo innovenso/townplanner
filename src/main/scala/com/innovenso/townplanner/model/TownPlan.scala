@@ -36,3 +36,4 @@ class TownPlanFactory
     with CanAddRelationships
     with CanAddEnterprises
     with CanAddTechnologies
+    with CanAddBusinessCapabilities
