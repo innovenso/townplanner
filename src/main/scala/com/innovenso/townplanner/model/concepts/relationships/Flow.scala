@@ -31,8 +31,7 @@ trait CanConfigureFlowSource[ModelComponentType <: CanBeFlowSource] {
 
   def uses(target: CanBeFlowTarget, title: String): Relationship =
     flowsTo(target, title)
-  def uses(target: CanBeFlowTarget): Relationship =
-    flowsTo(target, "uses")
+
   def flowsTo(
       target: CanBeFlowTarget,
       title: String
@@ -40,6 +39,9 @@ trait CanConfigureFlowSource[ModelComponentType <: CanBeFlowSource] {
     relationshipAdder.hasRelationship(
       Flow(source = modelComponent.key, target = target.key, title = title)
     )
+
+  def uses(target: CanBeFlowTarget): Relationship =
+    flowsTo(target, "uses")
 }
 
 trait CanConfigureFlowTarget[ModelComponentType <: CanBeFlowTarget] {
@@ -48,8 +50,7 @@ trait CanConfigureFlowTarget[ModelComponentType <: CanBeFlowTarget] {
 
   def isUsedBy(target: CanBeFlowSource, title: String): Relationship =
     flowsFrom(target, title)
-  def isUsedBy(target: CanBeFlowSource): Relationship =
-    flowsFrom(target, "uses")
+
   def flowsFrom(
       target: CanBeFlowSource,
       title: String
@@ -57,4 +58,7 @@ trait CanConfigureFlowTarget[ModelComponentType <: CanBeFlowTarget] {
     relationshipAdder.hasRelationship(
       Flow(source = target.key, target = modelComponent.key, title = title)
     )
+
+  def isUsedBy(target: CanBeFlowSource): Relationship =
+    flowsFrom(target, "uses")
 }

@@ -1,6 +1,5 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.concepts.Enterprise
 import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 sealed trait RequirementScore extends Property {

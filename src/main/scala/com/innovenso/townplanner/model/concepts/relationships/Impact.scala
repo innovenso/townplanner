@@ -84,19 +84,10 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
 
   def creates(target: CanBeImpacted): Relationship =
     creates(target, "creates")
-  def creates(
-      target: CanBeImpacted,
-      title: String
-  ): Relationship =
-    relationshipAdder.hasRelationship(
-      CreateImpact(
-        source = modelComponent.key,
-        target = target.key,
-        title = title
-      )
-    )
+
   def removes(target: CanBeImpacted): Relationship =
     creates(target, "removes")
+
   def removes(
       target: CanBeImpacted,
       title: String
@@ -108,8 +99,10 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
         title = title
       )
     )
+
   def changes(target: CanBeImpacted): Relationship =
     creates(target, "changes")
+
   def changes(
       target: CanBeImpacted,
       title: String
@@ -121,8 +114,22 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
         title = title
       )
     )
+
   def keeps(target: CanBeImpacted): Relationship =
     creates(target, "keeps")
+
+  def creates(
+      target: CanBeImpacted,
+      title: String
+  ): Relationship =
+    relationshipAdder.hasRelationship(
+      CreateImpact(
+        source = modelComponent.key,
+        target = target.key,
+        title = title
+      )
+    )
+
   def keeps(
       target: CanBeImpacted,
       title: String

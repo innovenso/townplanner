@@ -4,7 +4,7 @@ import com.innovenso.townplanner.model.language.{
   CanAddModelComponents,
   ModelComponent
 }
-import com.innovenso.townplanner.model.meta.{Key, SortKey}
+import com.innovenso.townplanner.model.meta.Key
 
 trait Property {
   def key: Key
@@ -27,15 +27,6 @@ trait HasProperties extends ModelComponent {
       .map(property => as(property, shouldBeOfClass))
       .toList
 
-  def prop[PropertyType <: Property](
-      key: Key,
-      shouldBeOfClass: Class[PropertyType]
-  ): Option[PropertyType] =
-    properties
-      .get(key)
-      .filter(property => is(property, shouldBeOfClass))
-      .map(property => as(property, shouldBeOfClass))
-
   private def is(
       property: Property,
       shouldBeOfClass: Class[_ <: Property]
@@ -45,6 +36,15 @@ trait HasProperties extends ModelComponent {
       property: Property,
       shouldBeOfClass: Class[PropertyType]
   ): PropertyType = shouldBeOfClass.cast(property)
+
+  def prop[PropertyType <: Property](
+      key: Key,
+      shouldBeOfClass: Class[PropertyType]
+  ): Option[PropertyType] =
+    properties
+      .get(key)
+      .filter(property => is(property, shouldBeOfClass))
+      .map(property => as(property, shouldBeOfClass))
 }
 
 trait CanAddProperties extends CanAddModelComponents {
@@ -68,7 +68,6 @@ trait CanAddProperties extends CanAddModelComponents {
         s"the component ${modelComponent.key.value} already has a property of type ${property.getClass.getSimpleName}"
       )
     else {
-      println(s"setting property ${property} on component ${modelComponent}")
       val updatedModelComponent =
         modelComponentOption.get.withProperty(property)
       this.townPlan = townPlan.copy(

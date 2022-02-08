@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.meta.{Key, SortKey}
+import com.innovenso.townplanner.model.meta.Key
 
 case class Description(
     value: String

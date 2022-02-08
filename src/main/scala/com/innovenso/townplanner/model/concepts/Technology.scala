@@ -1,19 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  CanAddProperties,
-  CanConfigureArchitectureVerdict,
-  CanConfigureDescription,
-  HasArchitectureVerdict,
-  HasDescription,
-  Property
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
-  CanConfigureCompositionSource,
-  CanConfigureCompositionTarget,
   CanConfigureImplementationSource,
-  CanConfigureServingTarget,
   CanImplement
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}

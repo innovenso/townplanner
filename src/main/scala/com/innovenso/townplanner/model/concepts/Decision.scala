@@ -1,16 +1,7 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties._
-import com.innovenso.townplanner.model.concepts.relationships.{
-  CanBeAssociated,
-  CanBeInfluenced,
-  CanBeTriggered,
-  CanHaveRaci,
-  CanHaveStakeholder,
-  CanImpact,
-  CanServe,
-  HasRelationships
-}
+import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
@@ -70,15 +61,6 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   ): List[(Requirement, RequirementScore)] =
     scores(decisionOption).filter(_._1.isInstanceOf[FunctionalRequirement])
 
-  def scores(
-      decisionOption: DecisionOption
-  ): List[(Requirement, RequirementScore)] =
-    decision(decisionOption.decisionKey)
-      .map(_.requirements.map(r => (r, decisionOption.score(r.key))))
-      .getOrElse(Nil)
-
-  def decision(key: Key): Option[Decision] = component(key, classOf[Decision])
-
   def qualityAttributeRequirementScores(
       decisionOption: DecisionOption
   ): List[(Requirement, RequirementScore)] = scores(decisionOption).filter(
@@ -93,9 +75,6 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   def optionsUnderInvestigation(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[UnderInvestigation])
 
-  def chosenOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict.isInstanceOf[Chosen])
-
   def options(decision: Decision): List[DecisionOption] = components(
     classOf[DecisionOption]
   ).filter(_.decisionKey == decision.key)
@@ -108,6 +87,18 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   ): Boolean = scores(decisionOption).exists(rr =>
     rr._1.weight == MustHave && rr._2.isInstanceOf[DoesNotMeetExpectations]
   )
+
+  def scores(
+      decisionOption: DecisionOption
+  ): List[(Requirement, RequirementScore)] =
+    decision(decisionOption.decisionKey)
+      .map(_.requirements.map(r => (r, decisionOption.score(r.key))))
+      .getOrElse(Nil)
+
+  def decision(key: Key): Option[Decision] = component(key, classOf[Decision])
+
+  def chosenOptions(decision: Decision): List[DecisionOption] =
+    options(decision).filter(_.verdict.isInstanceOf[Chosen])
 
   def rejectedOptions(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[Rejected])

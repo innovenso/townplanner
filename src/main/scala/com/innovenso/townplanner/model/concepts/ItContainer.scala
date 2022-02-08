@@ -4,17 +4,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   HasDescription,
   Property
 }
-import com.innovenso.townplanner.model.concepts.relationships.{
-  CanBeAssociated,
-  CanBeFlowSource,
-  CanBeFlowTarget,
-  CanBeTriggered,
-  CanCompose,
-  CanTrigger,
-  Composition,
-  HasRelationships,
-  Serving
-}
+import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 

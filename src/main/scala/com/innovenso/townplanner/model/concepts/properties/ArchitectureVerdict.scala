@@ -1,12 +1,14 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.meta.{Key, SortKey}
+import com.innovenso.townplanner.model.meta.Key
 
-sealed trait ArchitectureVerdict extends Property {
-  def name: String
-  def radarCircle: Int
+abstract class ArchitectureVerdict extends Property {
   val key: Key = Key()
   val canBePlural: Boolean = false
+
+  def name: String
+
+  def radarCircle: Int
 }
 
 case class BeTolerated(
@@ -46,7 +48,7 @@ case class DetermineLifecyle(description: String = "")
 trait HasArchitectureVerdict extends HasProperties {
   def architectureVerdict: ArchitectureVerdict =
     props(classOf[ArchitectureVerdict]).headOption
-      .getOrElse(DetermineLifecyle)
+      .getOrElse(DetermineLifecyle())
 }
 
 trait CanConfigureArchitectureVerdict[
