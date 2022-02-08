@@ -1,4 +1,4 @@
-val scala2Version = "2.13.6"
+val scala2Version = "2.13.8"
 val awsSdkVersion = "1.12.90"
 
 lazy val root = project

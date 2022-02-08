@@ -15,25 +15,18 @@ import org.scalatest.flatspec.AnyFlatSpec
 import java.time.LocalDate
 
 class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
-  "Enterprises" can "be added to the townplan" in {
-    val ea = new TownPlanFactory
-
-    val innovenso =
+  "Enterprises" can "be added to the townplan" in new EnterpriseArchitecture {
+    val innovenso: Enterprise =
       ea describes Enterprise(title = "Innovenso") as { it =>
         it has Description("hello")
       }
 
-    val geniusfish =
+    val geniusfish: Enterprise =
       ea has Enterprise(title = "genius fish")
 
-    val innovensogroup =
+    val innovensogroup: Enterprise =
       ea describes Enterprise(title = "Innovenso Group") as { it =>
         it isComposedOf geniusfish
-      }
-
-    val java =
-      ea describes Technique(title = "SAFE") as { it =>
-        it should BeEliminated("SAFE is not agile")
       }
 
     ea hasRelationship Composition(
@@ -42,20 +35,9 @@ class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
       title = "hello world"
     )
 
-    ea has KeyPointInTime(LocalDate.now(), "today")
-    ea describes KeyPointInTime(LocalDate.of(2022, 7, 1), "pi8") as { it =>
-      it has Description("the start of the summer")
-    }
-
-    println(ea.townPlan)
-    assert(ea.townPlan.has(innovenso))
-    assert(
-      ea.townPlan.technology(java.key).isDefined && ea.townPlan
-        .technology(java.key)
-        .get
-        .architectureVerdict
-        .isInstanceOf[BeEliminated]
-    )
-    assert(ea.townPlan.pointsInTime.size == 2)
+    assert(townPlan.enterprise(innovenso.key).exists(_.descriptions.nonEmpty))
+    assert(exists(geniusfish))
+    assert(exists(innovensogroup))
+    assert(townPlan.relationships.size == 2)
   }
 }

@@ -85,24 +85,26 @@ trait HasTechnologies extends HasModelComponents {
   )
 }
 
-case class TechnologyRadarConfigurer(
-    modelComponent: Technology,
+case class TechnologyRadarConfigurer[TechnologyType <: Technology](
+    modelComponent: TechnologyType,
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Technology]
     with CanConfigureArchitectureVerdict[Technology]
     with CanConfigureImplementationSource[Technology] {
   def as(
-      body: TechnologyRadarConfigurer => Any
-  ): Technology = {
+      body: TechnologyRadarConfigurer[TechnologyType] => Any
+  ): TechnologyType = {
     body.apply(this)
     propertyAdder.townPlan
-      .technology(modelComponent.key)
+      .component(modelComponent.key, modelComponent.getClass)
       .get
   }
 }
 
 trait CanAddTechnologies extends CanAddProperties with CanAddRelationships {
-  def describes(technology: Technology): TechnologyRadarConfigurer =
+  def describes[TechnologyType <: Technology](
+      technology: TechnologyType
+  ): TechnologyRadarConfigurer[TechnologyType] =
     TechnologyRadarConfigurer(has(technology), this, this)
 }

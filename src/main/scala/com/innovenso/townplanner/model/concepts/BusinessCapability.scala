@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  CanConfigureArchitectureVerdict,
+  CanConfigureDescription,
   HasArchitectureVerdict,
   HasDescription,
   Property
@@ -84,4 +87,40 @@ trait HasBusinessCapabilities
     businessCapability #:: (childBusinessCapabilities(
       businessCapability
     ) map traverseBusinessCapabilities).fold(LazyList.empty)(_ ++ _)
+}
+
+case class BusinessCapabilityMapConfigurerConfigurer(
+    modelComponent: BusinessCapability,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[BusinessCapability]
+    with CanConfigureArchitectureVerdict[BusinessCapability]
+    with CanConfigureServingSource[BusinessCapability]
+    with CanConfigureServingTarget[BusinessCapability]
+    with CanConfigureRealizationTarget[BusinessCapability]
+    with CanConfigureFlowSource[BusinessCapability]
+    with CanConfigureFlowTarget[BusinessCapability]
+    with CanConfigureTriggerSource[BusinessCapability]
+    with CanConfigureTriggerTarget[BusinessCapability] {
+  def as(
+      body: BusinessCapabilityMapConfigurerConfigurer => Any
+  ): BusinessCapability = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .businessCapability(modelComponent.key)
+      .get
+  }
+}
+
+trait CanAddBusinessCapabilities
+    extends CanAddProperties
+    with CanAddRelationships {
+  def describes(
+      businessCapability: BusinessCapability
+  ): BusinessCapabilityMapConfigurerConfigurer =
+    BusinessCapabilityMapConfigurerConfigurer(
+      has(businessCapability),
+      this,
+      this
+    )
 }
