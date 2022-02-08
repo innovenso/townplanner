@@ -1,19 +1,28 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties._
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanBeAssociated,
+  CanBeInfluenced,
+  CanBeTriggered,
+  CanHaveRaci,
+  CanHaveStakeholder,
+  CanImpact,
+  CanServe,
+  HasRelationships
+}
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
 case class Decision(
     key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
+    title: String,
     status: DecisionStatus = NotStarted,
-    outcome: Description = Description(None),
+    outcome: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
-    with HasDocumentation
+    with HasDescription
     with CanImpact
     with CanServe
     with CanBeAssociated
@@ -35,13 +44,11 @@ case class DecisionOption(
     key: Key = Key(),
     decisionKey: Key,
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
+    title: String,
     verdict: DecisionOptionVerdict,
-    outcome: Description = Description(None),
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
-    with HasDocumentation
+    with HasDescription
     with HasRequirementScores
     with HasCosts
     with CanBeAssociated {
@@ -84,26 +91,26 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
     scores(decisionOption).filter(_._1.isInstanceOf[Constraint])
 
   def optionsUnderInvestigation(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict == UnderInvestigation)
+    options(decision).filter(_.verdict.isInstanceOf[UnderInvestigation])
 
   def chosenOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict == Chosen)
+    options(decision).filter(_.verdict.isInstanceOf[Chosen])
 
   def options(decision: Decision): List[DecisionOption] = components(
     classOf[DecisionOption]
   ).filter(_.decisionKey == decision.key)
     .map(o =>
-      if (isDecisionOptionRejected(o)) o.copy(verdict = Rejected) else o
+      if (isDecisionOptionRejected(o)) o.copy(verdict = Rejected()) else o
     )
 
   private def isDecisionOptionRejected(
       decisionOption: DecisionOption
   ): Boolean = scores(decisionOption).exists(rr =>
-    rr._1.weight == MustHave && rr._2.scoreWeight == DoesNotMeetExpectations
+    rr._1.weight == MustHave && rr._2.isInstanceOf[DoesNotMeetExpectations]
   )
 
   def rejectedOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict == Rejected)
+    options(decision).filter(_.verdict.isInstanceOf[Rejected])
 }
 
 sealed trait DecisionStatus {
@@ -126,14 +133,15 @@ sealed trait DecisionOptionVerdict {
   def name: String
 }
 
-case object UnderInvestigation extends DecisionOptionVerdict {
+case class UnderInvestigation(description: String = "")
+    extends DecisionOptionVerdict {
   val name = "Under investigation"
 }
 
-case object Chosen extends DecisionOptionVerdict {
+case class Chosen(description: String = "") extends DecisionOptionVerdict {
   val name = "Chosen"
 }
 
-case object Rejected extends DecisionOptionVerdict {
+case class Rejected(description: String = "") extends DecisionOptionVerdict {
   val name = "Rejected"
 }

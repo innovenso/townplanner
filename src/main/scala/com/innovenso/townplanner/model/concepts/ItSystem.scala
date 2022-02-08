@@ -2,20 +2,32 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
-  HasDocumentation,
+  HasDescription,
   Property
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanBeAssociated,
+  CanBeComposedOf,
+  CanBeFlowSource,
+  CanBeFlowTarget,
+  CanBeTriggered,
+  CanCompose,
+  CanRealize,
+  CanTrigger,
+  Composition,
+  HasRelationships,
+  Realization
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
 case class ItSystem(
-    key: Key,
-    sortKey: SortKey,
-    title: Title,
-    description: Description,
-    properties: Map[Key, Property]
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
-    with HasDocumentation
+    with HasDescription
     with HasArchitectureVerdict
     with CanBeFlowSource
     with CanBeFlowTarget
@@ -39,11 +51,15 @@ trait HasItSystems extends HasModelComponents with HasRelationships {
   def systems: List[ItSystem] = components(classOf[ItSystem])
   def system(key: Key): Option[ItSystem] = component(key, classOf[ItSystem])
   def platformSystems(itPlatform: ItPlatform): Set[ItSystem] =
-    directOutgoingDependencies(itPlatform, IsComposedOf, classOf[ItSystem])
+    directOutgoingDependencies(
+      itPlatform,
+      classOf[Composition],
+      classOf[ItSystem]
+    )
   def systemPlatform(itSystem: ItSystem): Option[ItPlatform] =
     directIncomingDependencies(
       itSystem,
-      IsComposedOf,
+      classOf[Composition],
       classOf[ItPlatform]
     ).headOption
 
@@ -51,14 +67,14 @@ trait HasItSystems extends HasModelComponents with HasRelationships {
       itSystem: ItSystem
   ): Set[ArchitectureBuildingBlock] = directOutgoingDependencies(
     itSystem,
-    Realizes,
+    classOf[Realization],
     classOf[ArchitectureBuildingBlock]
   )
   def realizingSystems(
       architectureBuildingBlock: ArchitectureBuildingBlock
   ): Set[ItSystem] = directIncomingDependencies(
     architectureBuildingBlock,
-    Realizes,
+    classOf[Realization],
     classOf[ItSystem]
   )
 }

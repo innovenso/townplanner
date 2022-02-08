@@ -1,39 +1,40 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.meta.{Description, Key, SortKey, Title}
+import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 case class Constraint(
     key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
-    weight: RequirementWeight
+    title: String,
+    description: String = "",
+    weight: RequirementWeight = ShouldHave
 ) extends Requirement
 case class FunctionalRequirement(
     key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
-    weight: RequirementWeight
+    title: String,
+    description: String = "",
+    weight: RequirementWeight = ShouldHave
 ) extends Requirement
+
 case class QualityAttributeRequirement(
     key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    sourceOfStimulus: Description = Description(None),
-    stimulus: Description = Description(None),
-    environment: Description = Description(None),
-    response: Description = Description(None),
-    responseMeasure: Description = Description(None),
-    weight: RequirementWeight
+    title: String,
+    sourceOfStimulus: String = "",
+    stimulus: String = "",
+    environment: String = "",
+    response: String = "",
+    responseMeasure: String = "",
+    weight: RequirementWeight = ShouldHave
 ) extends Requirement {
-  val description: Description = response
+  val description: String = response
 }
 
 trait Requirement extends Property {
   val canBePlural: Boolean = true
-  def title: Title
-  def description: Description
+  def title: String
+  def description: String
   def weight: RequirementWeight
 }
 
@@ -46,6 +47,16 @@ trait HasRequirements extends HasProperties {
   def qualityAttributeRequirements: List[QualityAttributeRequirement] = props(
     classOf[QualityAttributeRequirement]
   )
+}
+
+trait CanConfigureRequirements[
+    ModelComponentType <: HasCosts
+] {
+  def propertyAdder: CanAddProperties
+  def modelComponent: ModelComponentType
+
+  def has(requirement: Requirement): ModelComponentType =
+    propertyAdder.withProperty(modelComponent, requirement)
 }
 
 trait RequirementWeight {

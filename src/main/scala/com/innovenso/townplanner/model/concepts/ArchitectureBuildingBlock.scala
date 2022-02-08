@@ -2,20 +2,32 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
-  HasDocumentation,
+  HasDescription,
   Property
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanBeAssociated,
+  CanBeFlowSource,
+  CanBeFlowTarget,
+  CanBeRealized,
+  CanBeTriggered,
+  CanRealize,
+  CanServe,
+  CanTrigger,
+  HasRelationships,
+  Serves,
+  Serving
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
 case class ArchitectureBuildingBlock(
-    key: Key,
-    sortKey: SortKey,
-    title: Title,
-    description: Description,
-    properties: Map[Key, Property]
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
-    with HasDocumentation
+    with HasDescription
     with HasArchitectureVerdict
     with CanBeFlowSource
     with CanBeFlowTarget
@@ -48,7 +60,7 @@ trait HasArchitectureBuildingBlocks
   ): Option[Enterprise] =
     directOutgoingDependencies(
       architectureBuildingBlock,
-      Serves,
+      classOf[Serving],
       classOf[Enterprise]
     ).headOption
 }

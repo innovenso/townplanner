@@ -1,6 +1,10 @@
 package com.innovenso.townplanner.model
 
 import com.innovenso.townplanner.model.concepts._
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanAddRelationships,
+  HasRelationships
+}
 import com.innovenso.townplanner.model.language.{
   CanAddModelComponents,
   HasModelComponents,
@@ -31,3 +35,4 @@ class TownPlanFactory
     with CanAddKeyPointsInTime
     with CanAddRelationships
     with CanAddEnterprises
+    with CanAddTechnologies

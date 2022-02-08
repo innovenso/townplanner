@@ -5,10 +5,9 @@ import com.innovenso.townplanner.model.meta._
 import java.util.Currency
 
 case class Capex(
-    key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
+    title: String,
+    description: String = "",
     category: Category = Category(None),
     fiscalYear: Year = ThisYear,
     numberOfUnits: UnitCount,
@@ -17,10 +16,9 @@ case class Capex(
 ) extends Cost
 
 case class Opex(
-    key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
+    title: String,
+    description: String = "",
     category: Category = Category(None),
     fiscalYear: Year = ThisYear,
     numberOfUnits: UnitCount,
@@ -29,9 +27,10 @@ case class Opex(
 ) extends Cost
 
 trait Cost extends Property {
+  val key: Key = Key()
   val canBePlural: Boolean = true
-  def title: Title
-  def description: Description
+  def title: String
+  def description: String
   def category: Category
   def fiscalYear: Year
   def numberOfUnits: UnitCount
@@ -79,4 +78,14 @@ trait HasCosts extends HasProperties {
     opex.filter(_.fiscalYear == fiscalYear)
 
   def opex: List[Opex] = props(classOf[Opex])
+}
+
+trait CanConfigureCosts[
+    ModelComponentType <: HasCosts
+] {
+  def propertyAdder: CanAddProperties
+  def modelComponent: ModelComponentType
+
+  def costs(cost: Cost): ModelComponentType =
+    propertyAdder.withProperty(modelComponent, cost)
 }

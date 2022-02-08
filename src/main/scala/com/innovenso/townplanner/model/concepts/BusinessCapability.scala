@@ -2,20 +2,31 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   HasArchitectureVerdict,
-  HasDocumentation,
+  HasDescription,
   Property
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanBeFlowSource,
+  CanBeFlowTarget,
+  CanBeRealized,
+  CanBeServed,
+  CanBeTriggered,
+  CanServe,
+  CanTrigger,
+  HasRelationships,
+  Serves,
+  Serving
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
 case class BusinessCapability(
-    key: Key,
-    sortKey: SortKey,
-    title: Title,
-    description: Description,
-    properties: Map[Key, Property]
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
-    with HasDocumentation
+    with HasDescription
     with HasArchitectureVerdict
     with CanBeRealized
     with CanBeServed
@@ -47,20 +58,20 @@ trait HasBusinessCapabilities
       enterprise: Enterprise
   ): List[BusinessCapability] = directIncomingDependencies(
     enterprise,
-    Serves,
+    classOf[Serving],
     classOf[BusinessCapability]
   ).toList.sortWith(_.sortKey < _.sortKey)
   def parentBusinessCapability(
       businessCapability: BusinessCapability
   ): Option[BusinessCapability] = directOutgoingDependencies(
     businessCapability,
-    Serves,
+    classOf[Serving],
     classOf[BusinessCapability]
   ).headOption
   def enterprise(businessCapability: BusinessCapability): Option[Enterprise] =
     directOutgoingDependencies(
       businessCapability,
-      Serves,
+      classOf[Serving],
       classOf[Enterprise]
     ).headOption.orElse(
       parentBusinessCapability(businessCapability).flatMap(bc => enterprise(bc))
@@ -69,7 +80,7 @@ trait HasBusinessCapabilities
       businessCapability: BusinessCapability
   ): List[BusinessCapability] = directIncomingDependencies(
     businessCapability,
-    Serves,
+    classOf[Serving],
     classOf[BusinessCapability]
   ).toList.sortWith(_.sortKey < _.sortKey)
 

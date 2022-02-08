@@ -7,8 +7,8 @@ import java.time.LocalDate
 
 case class KeyPointInTime(
     date: LocalDate,
-    title: Title,
-    diagramsNeeded: Boolean
+    title: String,
+    diagramsNeeded: Boolean = true
 ) {
   def isToday: Boolean = LocalDate.now().equals(date)
   def isFuture: Boolean = LocalDate.now().isBefore(date)
@@ -28,7 +28,7 @@ trait HasKeyPointsInTime {
 trait CanAddKeyPointsInTime extends CanAddModelComponents {
   def withKeyPointInTime(
       date: LocalDate,
-      title: Title,
+      title: String,
       diagramsNeeded: Boolean = true
   ): KeyPointInTime = {
     if (townPlan.keyPointsInTime.contains(date))

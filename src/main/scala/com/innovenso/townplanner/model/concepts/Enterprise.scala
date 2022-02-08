@@ -1,22 +1,32 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties._
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanAddRelationships,
+  CanBeComposedOf,
+  CanBeServed,
+  CanBeTriggered,
+  CanCompose,
+  CanConfigureCompositionSource,
+  CanConfigureCompositionTarget,
+  CanConfigureServingTarget,
+  CanConfigureTriggerSource,
+  CanTrigger
+}
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
 case class Enterprise(
     key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title,
-    description: Description = Description(None),
+    title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
-    with HasDocumentation
+    with HasDescription
     with CanCompose
     with CanBeComposedOf
-    with CanBeServed
-    with CanBeTriggered
-    with CanTrigger {
+    with CanBeServed {
+
   val layer: Layer = BusinessLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType("Enterprise")
@@ -35,8 +45,10 @@ case class EnterpriseConfigurer(
     modelComponent: Enterprise,
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
-) extends CanConfigureDocumentation[Enterprise]
-    with CanConfigureTriggers[Enterprise] {
+) extends CanConfigureDescription[Enterprise]
+    with CanConfigureCompositionSource[Enterprise]
+    with CanConfigureCompositionTarget[Enterprise]
+    with CanConfigureServingTarget[Enterprise] {
   def as(
       body: EnterpriseConfigurer => Any
   ): Enterprise = {

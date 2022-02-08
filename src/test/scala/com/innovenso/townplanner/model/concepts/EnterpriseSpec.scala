@@ -3,10 +3,11 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.TownPlanFactory
 import com.innovenso.townplanner.model.concepts.properties.{
   ArchitectureVerdict,
-  Documentation,
-  Tolerate
+  BeEliminated,
+  BeTolerated,
+  Description
 }
-import com.innovenso.townplanner.model.meta.{Description, Title}
+import com.innovenso.townplanner.model.concepts.relationships.Flow
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -15,23 +16,27 @@ class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
     val ea = new TownPlanFactory
 
     val innovenso =
-      ea describes Enterprise(title = Title("Innovenso")) as { it =>
-        it has Documentation(description = Description(Some("hello")))
+      ea describes Enterprise(title = "Innovenso") as { it =>
+        it has Description("hello")
       }
 
     val geniusfish =
-      ea has Enterprise(title = Title("Genius Fish"))
+      ea has Enterprise(title = "genius fish")
 
     val innovensogroup =
-      ea describes Enterprise(title = Title("Innovenso Group")) as { it =>
-        it triggers geniusfish
+      ea describes Enterprise(title = "Innovenso Group") as { it =>
+        it isComposedOf geniusfish
       }
 
-    ea hasRelationship Relationship(
+    val java =
+      ea describes Technique(title = "SAFE") as { it =>
+        it should BeEliminated("SAFE is not agile")
+      }
+
+    ea hasRelationship Flow(
       source = innovenso.key,
       target = geniusfish.key,
-      relationshipType = Triggers,
-      title = Title("hello world")
+      title = "hello world"
     )
   }
 }

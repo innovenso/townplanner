@@ -1,36 +1,33 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.meta.{Description, Key, SortKey, Title}
+import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 case class CurrentState(
-    key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title = Title("Current State"),
-    description: Description
+    title: String = "Current State",
+    description: String
 ) extends Context
 case class Goal(
-    key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title = Title("Goal"),
-    description: Description
+    title: String = "Goal",
+    description: String
 ) extends Context
 case class Assumption(
-    key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title = Title("Assumption"),
-    description: Description
+    title: String = "Assumption",
+    description: String
 ) extends Context
 case class Consequence(
-    key: Key = Key(),
     sortKey: SortKey = SortKey(None),
-    title: Title = Title("Assumption"),
-    description: Description
+    title: String = "Assumption",
+    description: String
 ) extends Context
 
 trait Context extends Property {
+  val key: Key = Key()
   val canBePlural: Boolean = true
-  def title: Title
-  def description: Description
+  def title: String
+  def description: String
 }
 
 trait HasContext extends HasProperties {
@@ -38,4 +35,14 @@ trait HasContext extends HasProperties {
   def goals: List[Goal] = props(classOf[Goal])
   def assumptions: List[Assumption] = props(classOf[Assumption])
   def consequences: List[Consequence] = props(classOf[Consequence])
+}
+
+trait CanConfigureContext[
+    ModelComponentType <: HasContext
+] {
+  def propertyAdder: CanAddProperties
+  def modelComponent: ModelComponentType
+
+  def has(context: Context): ModelComponentType =
+    propertyAdder.withProperty(modelComponent, context)
 }

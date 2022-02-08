@@ -1,21 +1,28 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
-  HasDocumentation,
+  HasDescription,
   Property
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  CanBeAssociated,
+  CanBeFlowSource,
+  CanBeFlowTarget,
+  CanBeStakeholder,
+  CanDeliver,
+  CanInfluence,
+  CanServe,
+  CanTrigger,
+  HasRelationships,
+  Serves,
+  Serving
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
-case class BusinessActor(
-    key: Key,
-    sortKey: SortKey,
-    title: Title,
-    description: Description,
-    businessActorType: BusinessActorType,
-    properties: Map[Key, Property]
-) extends Element
-    with HasDocumentation
+sealed trait BusinessActor
+    extends Element
+    with HasDescription
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger
@@ -29,8 +36,45 @@ case class BusinessActor(
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Business Actor"
   )
+}
 
-  def withProperty(property: Property): BusinessActor =
+case class ActorNoun(
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
+) extends BusinessActor {
+  def withProperty(property: Property): ActorNoun =
+    copy(properties = this.properties + (property.key -> property))
+}
+
+case class IndividualActor(
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
+) extends BusinessActor {
+  def withProperty(property: Property): IndividualActor =
+    copy(properties = this.properties + (property.key -> property))
+}
+
+case class OrganisationActor(
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
+) extends BusinessActor {
+  def withProperty(property: Property): OrganisationActor =
+    copy(properties = this.properties + (property.key -> property))
+}
+
+case class TeamActor(
+    key: Key = Key(),
+    sortKey: SortKey = SortKey(None),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
+) extends BusinessActor {
+  def withProperty(property: Property): TeamActor =
     copy(properties = this.properties + (property.key -> property))
 }
 
@@ -38,10 +82,14 @@ trait HasBusinessActors
     extends HasModelComponents
     with HasEnterprises
     with HasRelationships {
-  def businessActors(
-      businessActorType: BusinessActorType
-  ): List[BusinessActor] =
-    businessActors.filter(a => a.businessActorType == businessActorType)
+  def actorNouns: List[BusinessActor] =
+    businessActors.filter(a => a.isInstanceOf[ActorNoun])
+  def individualActors: List[BusinessActor] =
+    businessActors.filter(a => a.isInstanceOf[IndividualActor])
+  def organisationActors: List[BusinessActor] =
+    businessActors.filter(a => a.isInstanceOf[OrganisationActor])
+  def teamActors: List[BusinessActor] =
+    businessActors.filter(a => a.isInstanceOf[TeamActor])
 
   def businessActors: List[BusinessActor] = components(
     classOf[BusinessActor]
@@ -49,30 +97,11 @@ trait HasBusinessActors
 
   def businessActor(key: Key): Option[BusinessActor] =
     component(key, classOf[BusinessActor])
+
   def enterprise(businessActor: BusinessActor): Option[Enterprise] =
     directOutgoingDependencies(
       businessActor,
-      Serves,
+      classOf[Serving],
       classOf[Enterprise]
     ).headOption
-}
-
-sealed trait BusinessActorType {
-  def name: String
-}
-
-case object NounActor extends BusinessActorType {
-  val name: String = "Noun"
-}
-
-case object IndividualActor extends BusinessActorType {
-  val name: String = "Individual"
-}
-
-case object OrganisationActor extends BusinessActorType {
-  val name: String = "Organisation"
-}
-
-case object TeamActor extends BusinessActorType {
-  val name: String = "Team"
 }
