@@ -7,7 +7,7 @@ case class Implementation(
     key: Key = Key(),
     source: Key,
     target: Key,
-    title: String = "is implemented by",
+    title: String = "implements",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Relationship {
@@ -15,14 +15,14 @@ case class Implementation(
     "implementation",
     "An implementation relationship represents that one element is partly, or completely implemented by another element. A system can be implemented by a technology or by an infrastructure component for example."
   )
-  val sourceTrait: Class[CanBeImplemented] = classOf[CanBeImplemented]
-  val targetTrait: Class[CanImplement] = classOf[CanImplement]
+  val sourceTrait: Class[CanImplement] = classOf[CanImplement]
+  val targetTrait: Class[CanBeImplemented] = classOf[CanBeImplemented]
   def withProperty(property: Property): Implementation =
     copy(properties = this.properties + (property.key -> property))
 }
 
-trait CanBeImplemented extends CanBeRelationshipSource
-trait CanImplement extends CanBeRelationshipTarget
+trait CanBeImplemented extends CanBeRelationshipTarget
+trait CanImplement extends CanBeRelationshipSource
 
 trait CanConfigureImplementationSource[ModelComponentType <: CanImplement] {
   def relationshipAdder: CanAddRelationships
@@ -48,7 +48,7 @@ trait CanConfigureImplementationTarget[ModelComponentType <: CanBeImplemented] {
   def modelComponent: ModelComponentType
 
   def isImplementedBy(target: CanImplement): Relationship =
-    isImplementedBy(target, "uses")
+    isImplementedBy(target, "is implemented by")
   def isImplementedBy(
       target: CanImplement,
       title: String
