@@ -3,8 +3,11 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
+  CanBeImplemented,
   CanConfigureImplementationSource,
-  CanImplement
+  CanImplement,
+  HasRelationships,
+  Implementation
 }
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
@@ -73,7 +76,9 @@ case class TechnologyRadar(
     platforms: List[Platform]
 )
 
-trait HasTechnologies extends HasModelComponents {
+trait CanBeImplementedByTechnologies extends CanBeImplemented
+
+trait HasTechnologies extends HasModelComponents with HasRelationships {
   def technologies: List[Technology] = components(classOf[Technology])
   def technology(key: Key): Option[Technology] =
     component(key, classOf[Technology])
@@ -83,6 +88,12 @@ trait HasTechnologies extends HasModelComponents {
     languagesAndFrameworks = components(classOf[LanguageOrFramework]),
     platforms = components(classOf[Platform])
   )
+  def technologies(element: CanBeImplementedByTechnologies): Set[Technology] =
+    directIncomingDependencies(
+      element,
+      classOf[Implementation],
+      classOf[Technology]
+    )
 }
 
 case class TechnologyRadarConfigurer[TechnologyType <: Technology](

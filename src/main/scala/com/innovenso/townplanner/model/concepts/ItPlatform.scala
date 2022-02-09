@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  CanConfigureArchitectureVerdict,
+  CanConfigureDescription,
   HasArchitectureVerdict,
   HasDescription,
   Property
@@ -23,7 +26,8 @@ case class ItPlatform(
     with CanBeTriggered
     with CanRealize
     with CanBeAssociated
-    with CanBeComposedOf {
+    with CanBeComposedOf
+    with CanBeImplemented {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -52,4 +56,33 @@ trait HasItPlatforms extends HasModelComponents with HasRelationships {
     classOf[Realization],
     classOf[ItPlatform]
   )
+}
+
+case class ItPlatformConfigurer(
+    modelComponent: ItPlatform,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[ItPlatform]
+    with CanConfigureCompositionSource[ItPlatform]
+    with CanConfigureArchitectureVerdict[ItPlatform]
+    with CanConfigureFlowSource[ItPlatform]
+    with CanConfigureFlowTarget[ItPlatform]
+    with CanConfigureTriggerSource[ItPlatform]
+    with CanConfigureTriggerTarget[ItPlatform]
+    with CanConfigureAssociations[ItPlatform]
+    with CanConfigureRealizationSource[ItPlatform]
+    with CanConfigureImplementationTarget[ItPlatform] {
+  def as(
+      body: ItPlatformConfigurer => Any
+  ): ItPlatform = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .platform(modelComponent.key)
+      .get
+  }
+}
+
+trait CanAddItPlatforms extends CanAddProperties with CanAddRelationships {
+  def describes(platform: ItPlatform): ItPlatformConfigurer =
+    ItPlatformConfigurer(has(platform), this, this)
 }

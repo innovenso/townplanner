@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  CanConfigureArchitectureVerdict,
+  CanConfigureDescription,
   HasArchitectureVerdict,
   HasDescription,
   Property
@@ -24,7 +27,8 @@ case class ItSystem(
     with CanRealize
     with CanBeAssociated
     with CanCompose
-    with CanBeComposedOf {
+    with CanBeComposedOf
+    with CanBeImplemented {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -65,4 +69,34 @@ trait HasItSystems extends HasModelComponents with HasRelationships {
     classOf[Realization],
     classOf[ItSystem]
   )
+}
+
+case class ItSystemConfigurer(
+    modelComponent: ItSystem,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[ItSystem]
+    with CanConfigureCompositionSource[ItSystem]
+    with CanConfigureCompositionTarget[ItSystem]
+    with CanConfigureArchitectureVerdict[ItSystem]
+    with CanConfigureFlowSource[ItSystem]
+    with CanConfigureFlowTarget[ItSystem]
+    with CanConfigureTriggerSource[ItSystem]
+    with CanConfigureTriggerTarget[ItSystem]
+    with CanConfigureAssociations[ItSystem]
+    with CanConfigureRealizationSource[ItSystem]
+    with CanConfigureImplementationTarget[ItSystem] {
+  def as(
+      body: ItSystemConfigurer => Any
+  ): ItSystem = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .system(modelComponent.key)
+      .get
+  }
+}
+
+trait CanAddItSystems extends CanAddProperties with CanAddRelationships {
+  def describes(system: ItSystem): ItSystemConfigurer =
+    ItSystemConfigurer(has(system), this, this)
 }

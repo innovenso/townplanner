@@ -47,9 +47,9 @@ trait CanConfigureCompositionTarget[ModelComponentType <: CanCompose] {
   def relationshipAdder: CanAddRelationships
   def modelComponent: ModelComponentType
 
-  def composes(target: CanBeComposedOf): Relationship =
-    composes(target, "")
-  def composes(
+  def isPartOf(target: CanBeComposedOf): Relationship =
+    isPartOf(target, "")
+  def isPartOf(
       target: CanBeComposedOf,
       title: String
   ): Relationship =

@@ -41,3 +41,5 @@ class TownPlanFactory
     with CanAddArchitectureBuildingBlocks
     with CanAddBusinessActors
     with CanAddPrinciples
+    with CanAddItPlatforms
+    with CanAddItSystems
