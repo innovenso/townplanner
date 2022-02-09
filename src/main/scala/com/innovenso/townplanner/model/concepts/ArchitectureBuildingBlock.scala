@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  CanConfigureArchitectureVerdict,
+  CanConfigureDescription,
   HasArchitectureVerdict,
   HasDescription,
   Property
@@ -51,4 +54,41 @@ trait HasArchitectureBuildingBlocks
       classOf[Serving],
       classOf[Enterprise]
     ).headOption
+}
+
+case class ArchitectureBuildingBlockConfigurer(
+    modelComponent: ArchitectureBuildingBlock,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[ArchitectureBuildingBlock]
+    with CanConfigureArchitectureVerdict[ArchitectureBuildingBlock]
+    with CanConfigureServingSource[ArchitectureBuildingBlock]
+    with CanConfigureRealizationTarget[ArchitectureBuildingBlock]
+    with CanConfigureRealizationSource[ArchitectureBuildingBlock]
+    with CanConfigureFlowSource[ArchitectureBuildingBlock]
+    with CanConfigureFlowTarget[ArchitectureBuildingBlock]
+    with CanConfigureTriggerSource[ArchitectureBuildingBlock]
+    with CanConfigureTriggerTarget[ArchitectureBuildingBlock]
+    with CanConfigureAssociations[ArchitectureBuildingBlock] {
+  def as(
+      body: ArchitectureBuildingBlockConfigurer => Any
+  ): ArchitectureBuildingBlock = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .architectureBuildingBlock(modelComponent.key)
+      .get
+  }
+}
+
+trait CanAddArchitectureBuildingBlocks
+    extends CanAddProperties
+    with CanAddRelationships {
+  def describes(
+      architectureBuildingBlock: ArchitectureBuildingBlock
+  ): ArchitectureBuildingBlockConfigurer =
+    ArchitectureBuildingBlockConfigurer(
+      has(architectureBuildingBlock),
+      this,
+      this
+    )
 }

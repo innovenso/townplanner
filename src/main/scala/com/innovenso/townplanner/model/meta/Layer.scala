@@ -23,3 +23,6 @@ case object TechnologyLayer extends Layer {
 case object ImplementationLayer extends Layer {
   val name = "Implementation and Migration"
 }
+case object MotivationLayer extends Layer {
+  val name = "Motivation"
+}

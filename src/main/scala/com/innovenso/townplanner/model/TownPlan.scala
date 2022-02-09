@@ -29,6 +29,7 @@ case class TownPlan(
     with HasItSystems
     with HasItContainers
     with HasDecisions
+    with HasPrinciples
 
 class TownPlanFactory
     extends CanAddModelComponents
@@ -37,3 +38,6 @@ class TownPlanFactory
     with CanAddEnterprises
     with CanAddTechnologies
     with CanAddBusinessCapabilities
+    with CanAddArchitectureBuildingBlocks
+    with CanAddBusinessActors
+    with CanAddPrinciples

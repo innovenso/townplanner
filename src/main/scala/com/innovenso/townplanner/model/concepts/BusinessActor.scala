@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  CanConfigureArchitectureVerdict,
+  CanConfigureDescription,
   HasDescription,
   Property
 }
@@ -18,7 +21,8 @@ sealed trait BusinessActor
     with CanInfluence
     with CanServe
     with CanBeAssociated
-    with CanBeStakeholder {
+    with CanBeStakeholder
+    with CanBeRaci {
   val layer: Layer = BusinessLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -92,4 +96,64 @@ trait HasBusinessActors
       classOf[Serving],
       classOf[Enterprise]
     ).headOption
+}
+
+case class BusinessActorConfigurer[BusinessActorType <: BusinessActor](
+    modelComponent: BusinessActorType,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[BusinessActorType]
+    with CanConfigureServingSource[BusinessActorType]
+    with CanConfigureFlowSource[BusinessActorType]
+    with CanConfigureFlowTarget[BusinessActorType]
+    with CanConfigureTriggerSource[BusinessActorType]
+    with CanConfigureAssociations[BusinessActorType]
+    with CanConfigureDeliverySource[BusinessActorType]
+    with CanConfigureRaciSource[BusinessActorType]
+    with CanConfigureInfluenceSource[BusinessActorType]
+    with CanConfigureStakeholderSource[BusinessActorType] {
+  def as(
+      body: BusinessActorConfigurer[BusinessActorType] => Any
+  ): BusinessActorType = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .component(modelComponent.key, modelComponent.getClass)
+      .get
+  }
+}
+
+trait CanAddBusinessActors extends CanAddProperties with CanAddRelationships {
+  def describes(
+      businessActor: IndividualActor
+  ): BusinessActorConfigurer[IndividualActor] =
+    BusinessActorConfigurer(
+      has(businessActor),
+      this,
+      this
+    )
+  def describes(
+      businessActor: ActorNoun
+  ): BusinessActorConfigurer[ActorNoun] =
+    BusinessActorConfigurer(
+      has(businessActor),
+      this,
+      this
+    )
+  def describes(
+      businessActor: TeamActor
+  ): BusinessActorConfigurer[TeamActor] =
+    BusinessActorConfigurer(
+      has(businessActor),
+      this,
+      this
+    )
+  def describes(
+      businessActor: OrganisationActor
+  ): BusinessActorConfigurer[OrganisationActor] =
+    BusinessActorConfigurer(
+      has(businessActor),
+      this,
+      this
+    )
+
 }
