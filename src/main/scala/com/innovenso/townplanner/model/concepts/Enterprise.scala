@@ -7,7 +7,7 @@ import com.innovenso.townplanner.model.meta._
 
 case class Enterprise(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element

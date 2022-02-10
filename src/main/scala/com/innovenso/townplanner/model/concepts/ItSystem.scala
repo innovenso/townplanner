@@ -14,7 +14,7 @@ import com.innovenso.townplanner.model.meta._
 
 case class ItSystem(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
@@ -29,6 +29,7 @@ case class ItSystem(
     with CanCompose
     with CanBeComposedOf
     with CanBeImplemented
+    with CanBeImpacted
     with CanBeDelivered {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
@@ -43,7 +44,7 @@ case class ItSystem(
 trait HasItSystems extends HasModelComponents with HasRelationships {
   def systems: List[ItSystem] = components(classOf[ItSystem])
   def system(key: Key): Option[ItSystem] = component(key, classOf[ItSystem])
-  def platformSystems(itPlatform: ItPlatform): Set[ItSystem] =
+  def platformSystems(itPlatform: ItPlatform): List[ItSystem] =
     directOutgoingDependencies(
       itPlatform,
       classOf[Composition],
@@ -58,14 +59,14 @@ trait HasItSystems extends HasModelComponents with HasRelationships {
 
   def realizedArchitectureBuildingBlocks(
       itSystem: ItSystem
-  ): Set[ArchitectureBuildingBlock] = directOutgoingDependencies(
+  ): List[ArchitectureBuildingBlock] = directOutgoingDependencies(
     itSystem,
     classOf[Realization],
     classOf[ArchitectureBuildingBlock]
   )
   def realizingSystems(
       architectureBuildingBlock: ArchitectureBuildingBlock
-  ): Set[ItSystem] = directIncomingDependencies(
+  ): List[ItSystem] = directIncomingDependencies(
     architectureBuildingBlock,
     classOf[Realization],
     classOf[ItSystem]

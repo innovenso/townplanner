@@ -13,7 +13,7 @@ trait Relationship extends Concept with HasDescription {
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Relationship"
   )
-  val sortKey: SortKey = SortKey(None)
+  val sortKey: SortKey = SortKey.next
 
   def key: Key
 
@@ -62,20 +62,20 @@ trait HasRelationships extends HasModelComponents {
   def relationshipsWithTarget(element: Element): List[Relationship] =
     relationships.filter(r => r.target == element.key)
 
-  def directDependencies(element: Element): Set[Element] =
+  def directDependencies(element: Element): List[Element] =
     directDependenciesOfType(element, classOf[Element])
 
   def directDependenciesOfType[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Set[ElementType] = relationships(element)
+  ): List[ElementType] = relationships(element)
     .flatMap(mapOtherElement(element, otherElementType))
-    .toSet
+    .distinct
 
   def directDependencies[RelationshipType <: Relationship](
       element: Element,
       relationshipType: Class[RelationshipType]
-  ): Set[Element] =
+  ): List[Element] =
     directDependencies(element, relationshipType, classOf[Element])
 
   def directDependencies[
@@ -85,25 +85,25 @@ trait HasRelationships extends HasModelComponents {
       element: Element,
       relationshipType: Class[RelationshipType],
       otherElementType: Class[ElementType]
-  ): Set[ElementType] = relationships(element, relationshipType)
+  ): List[ElementType] = relationships(element, relationshipType)
     .flatMap(mapOtherElement(element, otherElementType))
-    .toSet
+    .distinct
 
-  def directIncomingDependencies(element: Element): Set[Element] =
+  def directIncomingDependencies(element: Element): List[Element] =
     directIncomingDependenciesOfType(element, classOf[Element])
 
   def directIncomingDependenciesOfType[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Set[ElementType] = relationshipsWithType(element, otherElementType)
+  ): List[ElementType] = relationshipsWithType(element, otherElementType)
     .filter(r => r.target == element.key)
     .flatMap(mapOtherElement(element, otherElementType))
-    .toSet
+    .distinct
 
   def directIncomingDependencies[RelationshipType <: Relationship](
       element: Element,
       relationshipType: Class[RelationshipType]
-  ): Set[Element] =
+  ): List[Element] =
     directIncomingDependencies(element, relationshipType, classOf[Element])
 
   def directIncomingDependencies[
@@ -113,20 +113,20 @@ trait HasRelationships extends HasModelComponents {
       element: Element,
       relationshipType: Class[RelationshipType],
       otherElementType: Class[ElementType]
-  ): Set[ElementType] =
+  ): List[ElementType] =
     relationships(element, relationshipType, otherElementType)
       .filter(r => r.target == element.key)
       .flatMap(mapOtherElement(element, otherElementType))
-      .toSet
+      .distinct
 
   private def mapOtherElement[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Relationship => Set[ElementType] = (relationship: Relationship) =>
+  ): Relationship => List[ElementType] = (relationship: Relationship) =>
     component(
       relationship.other(element.key).getOrElse(Key()),
       otherElementType
-    ).toSet
+    ).toList
 
   def relationships[ElementType <: Element, RelationshipType <: Relationship](
       element: Element,
@@ -164,16 +164,16 @@ trait HasRelationships extends HasModelComponents {
 
   def relationships: List[Relationship] = components(classOf[Relationship])
 
-  def directOutgoingDependencies(element: Element): Set[Element] =
+  def directOutgoingDependencies(element: Element): List[Element] =
     directOutgoingDependenciesOfType(element, classOf[Element])
 
   def directOutgoingDependenciesOfType[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
-  ): Set[ElementType] = relationshipsWithType(element, otherElementType)
+  ): List[ElementType] = relationshipsWithType(element, otherElementType)
     .filter(r => r.source == element.key)
     .flatMap(mapOtherElement(element, otherElementType))
-    .toSet
+    .distinct
 
   def relationshipsWithType[ElementType <: Element](
       element: Element,
@@ -185,7 +185,7 @@ trait HasRelationships extends HasModelComponents {
   def directOutgoingDependencies[RelationshipType <: Relationship](
       element: Element,
       relationshipType: Class[RelationshipType]
-  ): Set[Element] =
+  ): List[Element] =
     directOutgoingDependencies(element, relationshipType, classOf[Element])
 
   def directOutgoingDependencies[
@@ -195,11 +195,11 @@ trait HasRelationships extends HasModelComponents {
       element: Element,
       relationshipType: Class[RelationshipType],
       otherElementType: Class[ElementType]
-  ): Set[ElementType] =
+  ): List[ElementType] =
     relationships(element, relationshipType, otherElementType)
       .filter(r => r.source == element.key)
       .flatMap(mapOtherElement(element, otherElementType))
-      .toSet
+      .distinct
 }
 
 trait CanAddRelationships extends CanAddModelComponents {

@@ -1,18 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.TownPlanFactory
-import com.innovenso.townplanner.model.concepts.properties.{
-  BeEliminated,
-  Description
-}
-import com.innovenso.townplanner.model.concepts.relationships.{
-  Composition,
-  Flow
-}
+import com.innovenso.townplanner.model.concepts.properties.Description
+import com.innovenso.townplanner.model.concepts.relationships.Composition
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
-
-import java.time.LocalDate
 
 class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
   "Enterprises" can "be added to the townplan" in new EnterpriseArchitecture {

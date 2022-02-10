@@ -26,6 +26,8 @@ class ItContainerSpec extends AnyFlatSpec with GivenWhenThen {
 
     assert(exists(itSystem))
     assert(exists(ms))
+    assert(exists(db))
+    assert(townPlan.containers(itSystem).head == ms)
     assert(townPlan.relationships.size == 5)
     assert(townPlan.containers(itSystem).size == 2)
     assert(townPlan.technologies(ms).head == java)

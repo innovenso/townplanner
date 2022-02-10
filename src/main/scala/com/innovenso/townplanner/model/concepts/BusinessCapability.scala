@@ -14,7 +14,7 @@ import com.innovenso.townplanner.model.meta._
 
 case class BusinessCapability(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
@@ -26,6 +26,7 @@ case class BusinessCapability(
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanBeTriggered
+    with CanBeImpacted
     with CanTrigger {
   val layer: Layer = StrategyLayer
   val aspect: Aspect = Behavior
@@ -52,7 +53,7 @@ trait HasBusinessCapabilities
     enterprise,
     classOf[Serving],
     classOf[BusinessCapability]
-  ).toList.sortWith(_.sortKey < _.sortKey)
+  ).sortWith(_.sortKey < _.sortKey)
   def parentBusinessCapability(
       businessCapability: BusinessCapability
   ): Option[BusinessCapability] = directOutgoingDependencies(
@@ -74,7 +75,7 @@ trait HasBusinessCapabilities
     businessCapability,
     classOf[Serving],
     classOf[BusinessCapability]
-  ).toList.sortWith(_.sortKey < _.sortKey)
+  ).sortWith(_.sortKey < _.sortKey)
 
   def businessCapabilityMap(enterprise: Enterprise): List[BusinessCapability] =
     level0businessCapabilities(enterprise).flatMap(capability =>

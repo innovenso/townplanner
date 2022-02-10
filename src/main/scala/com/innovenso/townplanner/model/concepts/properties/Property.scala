@@ -4,10 +4,11 @@ import com.innovenso.townplanner.model.language.{
   CanAddModelComponents,
   ModelComponent
 }
-import com.innovenso.townplanner.model.meta.Key
+import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 trait Property {
   def key: Key
+  def sortKey: SortKey
   def canBePlural: Boolean
 }
 
@@ -26,6 +27,7 @@ trait HasProperties extends ModelComponent {
       .filter(property => is(property, shouldBeOfClass))
       .map(property => as(property, shouldBeOfClass))
       .toList
+      .sortWith(_.sortKey < _.sortKey)
 
   private def is(
       property: Property,

@@ -14,7 +14,7 @@ import com.innovenso.townplanner.model.meta._
 
 case class ArchitectureBuildingBlock(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
@@ -27,6 +27,7 @@ case class ArchitectureBuildingBlock(
     with CanRealize
     with CanBeRealized
     with CanServe
+    with CanBeImpacted
     with CanBeAssociated {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure

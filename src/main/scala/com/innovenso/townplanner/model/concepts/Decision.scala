@@ -7,10 +7,10 @@ import com.innovenso.townplanner.model.meta._
 
 case class Decision(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     status: DecisionStatus = NotStarted,
-    outcome: String,
+    outcome: String = "",
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
@@ -18,6 +18,7 @@ case class Decision(
     with CanServe
     with CanBeAssociated
     with CanBeInfluenced
+    with CanBeComposedOf
     with CanHaveRaci
     with CanHaveStakeholder
     with CanBeTriggered
@@ -33,8 +34,7 @@ case class Decision(
 
 case class DecisionOption(
     key: Key = Key(),
-    decisionKey: Key,
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     verdict: DecisionOptionVerdict,
     properties: Map[Key, Property] = Map.empty[Key, Property]
@@ -42,6 +42,7 @@ case class DecisionOption(
     with HasDescription
     with HasRequirementScores
     with HasCosts
+    with CanCompose
     with CanBeAssociated {
   val layer: Layer = ImplementationLayer
   val aspect: Aspect = ActiveStructure
@@ -55,6 +56,9 @@ case class DecisionOption(
 
 trait HasDecisions extends HasModelComponents with HasRelationships {
   def decisions: List[Decision] = components(classOf[Decision])
+  def decision(key: Key): Option[Decision] = component(key, classOf[Decision])
+  def decisionOption(key: Key): Option[DecisionOption] =
+    component(key, classOf[DecisionOption])
 
   def functionalRequirementScores(
       decisionOption: DecisionOption
@@ -75,12 +79,15 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   def optionsUnderInvestigation(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[UnderInvestigation])
 
-  def options(decision: Decision): List[DecisionOption] = components(
-    classOf[DecisionOption]
-  ).filter(_.decisionKey == decision.key)
-    .map(o =>
+  def options(decision: Decision): List[DecisionOption] = {
+    directOutgoingDependencies(
+      decision,
+      classOf[Composition],
+      classOf[DecisionOption]
+    ).map(o =>
       if (isDecisionOptionRejected(o)) o.copy(verdict = Rejected()) else o
     )
+  }
 
   private def isDecisionOptionRejected(
       decisionOption: DecisionOption
@@ -91,11 +98,16 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   def scores(
       decisionOption: DecisionOption
   ): List[(Requirement, RequirementScore)] =
-    decision(decisionOption.decisionKey)
+    decision(decisionOption)
       .map(_.requirements.map(r => (r, decisionOption.score(r.key))))
       .getOrElse(Nil)
 
-  def decision(key: Key): Option[Decision] = component(key, classOf[Decision])
+  def decision(decisionOption: DecisionOption): Option[Decision] =
+    directOutgoingDependencies(
+      decisionOption,
+      classOf[Composition],
+      classOf[Decision]
+    ).headOption
 
   def chosenOptions(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[Chosen])
@@ -135,4 +147,58 @@ case class Chosen(description: String = "") extends DecisionOptionVerdict {
 
 case class Rejected(description: String = "") extends DecisionOptionVerdict {
   val name = "Rejected"
+}
+
+case class DecisionConfigurer(
+    modelComponent: Decision,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[Decision]
+    with CanConfigureCompositionSource[Decision]
+    with CanConfigureServingSource[Decision]
+    with CanConfigureImpactSource[Decision]
+    with CanConfigureStakeHolderTarget[Decision]
+    with CanConfigureRaciTarget[Decision]
+    with CanConfigureInfluenceTarget[Decision]
+    with CanConfigureTriggerTarget[Decision]
+    with CanConfigureAssociations[Decision]
+    with CanConfigureRequirements[Decision]
+    with CanConfigureContext[Decision] {
+  def as(
+      body: DecisionConfigurer => Any
+  ): Decision = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .decision(modelComponent.key)
+      .get
+  }
+}
+
+case class DecisionOptionConfigurer(
+    modelComponent: DecisionOption,
+    propertyAdder: CanAddRequirementScores,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[DecisionOption]
+    with CanConfigureCompositionTarget[DecisionOption]
+    with CanConfigureAssociations[DecisionOption]
+    with CanConfigureRequirementScores[DecisionOption]
+    with CanConfigureCosts[DecisionOption] {
+  def as(
+      body: DecisionOptionConfigurer => Any
+  ): DecisionOption = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .decisionOption(modelComponent.key)
+      .get
+  }
+}
+
+trait CanAddDecisions
+    extends CanAddProperties
+    with CanAddRelationships
+    with CanAddRequirementScores {
+  def describes(decision: Decision): DecisionConfigurer =
+    DecisionConfigurer(has(decision), this, this)
+  def describes(decisionOption: DecisionOption): DecisionOptionConfigurer =
+    DecisionOptionConfigurer(has(decisionOption), this, this)
 }

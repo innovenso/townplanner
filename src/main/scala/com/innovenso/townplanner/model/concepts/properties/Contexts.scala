@@ -3,22 +3,22 @@ package com.innovenso.townplanner.model.concepts.properties
 import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 case class CurrentState(
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String = "Current State",
     description: String
 ) extends Context
 case class Goal(
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String = "Goal",
     description: String
 ) extends Context
 case class Assumption(
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String = "Assumption",
     description: String
 ) extends Context
 case class Consequence(
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String = "Assumption",
     description: String
 ) extends Context

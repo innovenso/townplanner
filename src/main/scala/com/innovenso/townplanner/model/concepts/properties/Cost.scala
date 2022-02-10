@@ -5,7 +5,7 @@ import com.innovenso.townplanner.model.meta._
 import java.util.Currency
 
 case class Capex(
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     description: String = "",
     category: Category = Category(None),
@@ -16,7 +16,7 @@ case class Capex(
 ) extends Cost
 
 case class Opex(
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     description: String = "",
     category: Category = Category(None),

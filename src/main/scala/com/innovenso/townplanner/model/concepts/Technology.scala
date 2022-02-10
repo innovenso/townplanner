@@ -20,7 +20,7 @@ sealed trait Technology
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
   val aspect: Aspect = PassiveStructure
   val layer: Layer = TechnologyLayer
-  val sortKey: SortKey = SortKey(None)
+  val sortKey: SortKey = SortKey.next
   def technologyType: String
 
 }
@@ -88,7 +88,7 @@ trait HasTechnologies extends HasModelComponents with HasRelationships {
     languagesAndFrameworks = components(classOf[LanguageOrFramework]),
     platforms = components(classOf[Platform])
   )
-  def technologies(element: CanBeImplementedByTechnologies): Set[Technology] =
+  def technologies(element: CanBeImplementedByTechnologies): List[Technology] =
     directIncomingDependencies(
       element,
       classOf[Implementation],

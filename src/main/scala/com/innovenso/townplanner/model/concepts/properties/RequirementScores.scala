@@ -5,7 +5,7 @@ import com.innovenso.townplanner.model.meta.{Key, SortKey}
 sealed trait RequirementScore extends Property {
   val canBePlural: Boolean = true
   val key: Key = Key()
-  val sortKey: SortKey = SortKey(None)
+  val sortKey: SortKey = SortKey.next
   def name: String
   def weight: Int
   def requirementKey: Key

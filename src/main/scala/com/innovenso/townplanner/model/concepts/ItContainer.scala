@@ -24,6 +24,7 @@ trait ItContainer
     with CanCompose
     with CanBeImplemented
     with CanBeDelivered
+    with CanBeImpacted
     with CanBeImplementedByTechnologies {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
@@ -35,7 +36,7 @@ trait ItContainer
 
 case class Microservice(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -46,7 +47,7 @@ case class Microservice(
 
 case class Database(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -57,7 +58,7 @@ case class Database(
 
 case class Service(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -68,7 +69,7 @@ case class Service(
 
 case class Function(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -79,7 +80,7 @@ case class Function(
 
 case class Filesystem(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -90,7 +91,7 @@ case class Filesystem(
 
 case class Queue(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -101,7 +102,7 @@ case class Queue(
 
 case class Topic(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -112,7 +113,7 @@ case class Topic(
 
 case class EventStream(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -123,7 +124,7 @@ case class EventStream(
 
 case class Gateway(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -134,7 +135,7 @@ case class Gateway(
 
 case class Proxy(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -145,7 +146,7 @@ case class Proxy(
 
 case class Firewall(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -156,7 +157,7 @@ case class Firewall(
 
 case class Cache(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -167,7 +168,7 @@ case class Cache(
 
 case class WebUI(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -178,7 +179,7 @@ case class WebUI(
 
 case class MobileUI(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -189,7 +190,7 @@ case class MobileUI(
 
 case class WatchUI(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -200,7 +201,7 @@ case class WatchUI(
 
 case class DesktopUI(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -211,7 +212,7 @@ case class DesktopUI(
 
 case class TerminalUI(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -222,7 +223,7 @@ case class TerminalUI(
 
 case class SmartTVUI(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -233,7 +234,7 @@ case class SmartTVUI(
 
 case class Batch(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ItContainer {
@@ -244,7 +245,7 @@ case class Batch(
 
 case class GenericContainer(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     containerType: String = "container",
     properties: Map[Key, Property] = Map.empty[Key, Property]
@@ -257,7 +258,7 @@ trait HasItContainers extends HasModelComponents with HasRelationships {
   def containers: List[ItContainer] = components(classOf[ItContainer])
   def container(key: Key): Option[ItContainer] =
     component(key, classOf[ItContainer])
-  def containers(itSystem: ItSystem): Set[ItContainer] =
+  def containers(itSystem: ItSystem): List[ItContainer] =
     directOutgoingDependencies(
       itSystem,
       classOf[Composition],

@@ -2,31 +2,13 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
-  CanConfigureArchitectureVerdict,
   CanConfigureDescription,
   HasDescription,
   Property
 }
-import com.innovenso.townplanner.model.concepts.relationships.{
-  CanAddRelationships,
-  CanConfigureImplementationSource,
-  CanConfigureInfluenceSource,
-  CanConfigureServingSource,
-  CanInfluence,
-  CanServe
-}
+import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{
-  ActiveStructure,
-  Aspect,
-  Key,
-  Layer,
-  ModelComponentType,
-  MotivationLayer,
-  PassiveStructure,
-  SortKey,
-  TechnologyLayer
-}
+import com.innovenso.townplanner.model.meta._
 
 sealed trait Principle
     extends Element
@@ -36,7 +18,7 @@ sealed trait Principle
   val modelComponentType: ModelComponentType = ModelComponentType("Principle")
   val aspect: Aspect = ActiveStructure
   val layer: Layer = MotivationLayer
-  val sortKey: SortKey = SortKey(None)
+  val sortKey: SortKey = SortKey.next
   def principleType: String
 }
 

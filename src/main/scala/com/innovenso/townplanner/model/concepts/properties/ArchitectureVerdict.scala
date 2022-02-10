@@ -1,11 +1,11 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.meta.Key
+import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 abstract class ArchitectureVerdict extends Property {
   val key: Key = Key()
   val canBePlural: Boolean = false
-
+  val sortKey: SortKey = SortKey.next
   def name: String
 
   def radarCircle: Int

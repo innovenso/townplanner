@@ -2,7 +2,6 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
-  CanConfigureArchitectureVerdict,
   CanConfigureDescription,
   HasDescription,
   Property
@@ -32,7 +31,7 @@ sealed trait BusinessActor
 
 case class ActorNoun(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {
@@ -42,7 +41,7 @@ case class ActorNoun(
 
 case class IndividualActor(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {
@@ -52,7 +51,7 @@ case class IndividualActor(
 
 case class OrganisationActor(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {
@@ -62,7 +61,7 @@ case class OrganisationActor(
 
 case class TeamActor(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {

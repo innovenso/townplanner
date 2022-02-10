@@ -4,14 +4,14 @@ import com.innovenso.townplanner.model.meta.{Key, SortKey}
 
 case class Constraint(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     description: String = "",
     weight: RequirementWeight = ShouldHave
 ) extends Requirement
 case class FunctionalRequirement(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     description: String = "",
     weight: RequirementWeight = ShouldHave
@@ -19,7 +19,7 @@ case class FunctionalRequirement(
 
 case class QualityAttributeRequirement(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     sourceOfStimulus: String = "",
     stimulus: String = "",
@@ -50,7 +50,7 @@ trait HasRequirements extends HasProperties {
 }
 
 trait CanConfigureRequirements[
-    ModelComponentType <: HasCosts
+    ModelComponentType <: HasRequirements
 ] {
   def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType

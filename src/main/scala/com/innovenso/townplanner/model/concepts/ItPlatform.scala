@@ -14,7 +14,7 @@ import com.innovenso.townplanner.model.meta._
 
 case class ItPlatform(
     key: Key = Key(),
-    sortKey: SortKey = SortKey(None),
+    sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
@@ -27,6 +27,7 @@ case class ItPlatform(
     with CanRealize
     with CanBeAssociated
     with CanBeComposedOf
+    with CanBeImpacted
     with CanBeImplemented {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
@@ -44,14 +45,14 @@ trait HasItPlatforms extends HasModelComponents with HasRelationships {
     component(key, classOf[ItPlatform])
   def realizedArchitectureBuildingBlocks(
       itPlatform: ItPlatform
-  ): Set[ArchitectureBuildingBlock] = directOutgoingDependencies(
+  ): List[ArchitectureBuildingBlock] = directOutgoingDependencies(
     itPlatform,
     classOf[Realization],
     classOf[ArchitectureBuildingBlock]
   )
   def realizingPlatforms(
       architectureBuildingBlock: ArchitectureBuildingBlock
-  ): Set[ItPlatform] = directIncomingDependencies(
+  ): List[ItPlatform] = directIncomingDependencies(
     architectureBuildingBlock,
     classOf[Realization],
     classOf[ItPlatform]

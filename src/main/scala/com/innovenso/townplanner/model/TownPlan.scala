@@ -44,3 +44,4 @@ class TownPlanFactory
     with CanAddItPlatforms
     with CanAddItSystems
     with CanAddItContainers
+    with CanAddDecisions
