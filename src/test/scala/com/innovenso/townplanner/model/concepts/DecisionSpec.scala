@@ -2,15 +2,18 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   Assumption,
+  Confidentiality,
   Constraint,
   CurrentState,
   Description,
   DoesNotMeetExpectations,
   ExceedsExpectations,
+  ExtremelyHighImpact,
   FunctionalRequirement,
   Goal,
   MeetsExpectations,
   MustHave,
+  PCICompliance,
   QualityAttributeRequirement,
   ShouldHave
 }
@@ -83,6 +86,12 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
         it isResponsibilityOf virginie
         it hasInformed jurgen
         it hasConsulted jurgen
+        it dealsWith PCICompliance(
+          "no payment data should be transported over our network, or stored on our servers"
+        )
+        it has ExtremelyHighImpact on Confidentiality(description =
+          "payment data!"
+        )
       }
 
     val adyen: DecisionOption =
@@ -124,5 +133,15 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
     assert(townPlan.rejectedOptions(pspSelection).size == 1)
     assert(townPlan.chosenOptions(pspSelection).isEmpty)
     assert(townPlan.optionsUnderInvestigation(pspSelection).isEmpty)
+    assert(
+      townPlan
+        .decision(pspSelection.key)
+        .exists(_.pciComplianceConcerns.nonEmpty)
+    )
+    assert(
+      townPlan
+        .decision(pspSelection.key)
+        .exists(_.confidentialityImpact.nonEmpty)
+    )
   }
 }

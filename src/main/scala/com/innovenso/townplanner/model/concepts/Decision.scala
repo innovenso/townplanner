@@ -15,6 +15,8 @@ case class Decision(
 ) extends Element
     with HasDescription
     with HasLinks
+    with HasDataProtectionConcerns
+    with HasSecurityImpact
     with CanImpact
     with CanServe
     with CanBeAssociated
@@ -42,6 +44,7 @@ case class DecisionOption(
 ) extends Element
     with HasDescription
     with HasLinks
+    with HasDataProtectionConcerns
     with HasRequirementScores
     with HasCosts
     with HasSWOT
@@ -158,6 +161,8 @@ case class DecisionConfigurer(
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Decision]
     with CanConfigureLinks[Decision]
+    with CanConfigureDataProtectionConcerns[Decision]
+    with CanConfigureSecurityImpact[Decision]
     with CanConfigureCompositionSource[Decision]
     with CanConfigureServingSource[Decision]
     with CanConfigureImpactSource[Decision]
@@ -185,6 +190,7 @@ case class DecisionOptionConfigurer(
 ) extends CanConfigureDescription[DecisionOption]
     with CanConfigureLinks[DecisionOption]
     with CanConfigureSWOT[DecisionOption]
+    with CanConfigureDataProtectionConcerns[DecisionOption]
     with CanConfigureCompositionTarget[DecisionOption]
     with CanConfigureAssociations[DecisionOption]
     with CanConfigureRequirementScores[DecisionOption]
