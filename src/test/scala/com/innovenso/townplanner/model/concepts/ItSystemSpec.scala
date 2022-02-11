@@ -19,11 +19,13 @@ class ItSystemSpec extends AnyFlatSpec with GivenWhenThen {
         it ratesFailureAs Catastrophic(consequences = "people die")
         it provides ResilienceMeasure("circuit breaker")
         it isPartOf platform
+        it isIdentifiedAs "abc" on "Sparx"
     }
 
     assert(exists(itSystem))
     assert(townPlan.relationships.size == 1)
     assert(townPlan.system(itSystem.key).get.isCatastrophicCriticality)
+    assert(townPlan.system(itSystem.key).exists(_.externalIds.nonEmpty))
   }
 
 }

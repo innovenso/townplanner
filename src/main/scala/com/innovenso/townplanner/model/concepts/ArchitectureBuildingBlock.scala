@@ -5,10 +5,12 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureArchitectureVerdict,
   CanConfigureCriticality,
   CanConfigureDescription,
+  CanConfigureExternalIds,
   CanConfigureLinks,
   HasArchitectureVerdict,
   HasCriticality,
   HasDescription,
+  HasExternalIds,
   HasLinks,
   Property
 }
@@ -24,6 +26,7 @@ case class ArchitectureBuildingBlock(
 ) extends Element
     with HasDescription
     with HasLinks
+    with HasExternalIds
     with HasArchitectureVerdict
     with HasCriticality
     with CanBeFlowSource
@@ -69,6 +72,7 @@ case class ArchitectureBuildingBlockConfigurer(
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[ArchitectureBuildingBlock]
     with CanConfigureLinks[ArchitectureBuildingBlock]
+    with CanConfigureExternalIds[ArchitectureBuildingBlock]
     with CanConfigureArchitectureVerdict[ArchitectureBuildingBlock]
     with CanConfigureCriticality[ArchitectureBuildingBlock]
     with CanConfigureServingSource[ArchitectureBuildingBlock]
