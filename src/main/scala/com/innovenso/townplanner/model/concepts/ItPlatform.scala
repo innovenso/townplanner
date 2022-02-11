@@ -8,12 +8,14 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureExternalIds,
   CanConfigureLinks,
   CanConfigureResilienceMeasures,
+  CanConfigureSWOT,
   HasArchitectureVerdict,
   HasCriticality,
   HasDescription,
   HasExternalIds,
   HasLinks,
   HasResilienceMeasures,
+  HasSWOT,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -31,6 +33,7 @@ case class ItPlatform(
     with HasArchitectureVerdict
     with HasCriticality
     with HasExternalIds
+    with HasSWOT
     with HasResilienceMeasures
     with CanBeFlowSource
     with CanBeFlowTarget
@@ -80,6 +83,7 @@ case class ItPlatformConfigurer(
     with CanConfigureArchitectureVerdict[ItPlatform]
     with CanConfigureLinks[ItPlatform]
     with CanConfigureExternalIds[ItPlatform]
+    with CanConfigureSWOT[ItPlatform]
     with CanConfigureCriticality[ItPlatform]
     with CanConfigureResilienceMeasures[ItPlatform]
     with CanConfigureFlowSource[ItPlatform]

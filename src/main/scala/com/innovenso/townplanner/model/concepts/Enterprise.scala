@@ -13,6 +13,7 @@ case class Enterprise(
 ) extends Element
     with HasDescription
     with HasLinks
+    with HasSWOT
     with CanCompose
     with CanBeComposedOf
     with CanBeServed {
@@ -37,6 +38,7 @@ case class EnterpriseConfigurer(
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Enterprise]
     with CanConfigureLinks[Enterprise]
+    with CanConfigureSWOT[Enterprise]
     with CanConfigureCompositionSource[Enterprise]
     with CanConfigureCompositionTarget[Enterprise]
     with CanConfigureServingTarget[Enterprise] {

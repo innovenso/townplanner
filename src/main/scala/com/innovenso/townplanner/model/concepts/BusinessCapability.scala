@@ -7,11 +7,13 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureDescription,
   CanConfigureExternalIds,
   CanConfigureLinks,
+  CanConfigureSWOT,
   HasArchitectureVerdict,
   HasCriticality,
   HasDescription,
   HasExternalIds,
   HasLinks,
+  HasSWOT,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -29,6 +31,7 @@ case class BusinessCapability(
     with HasExternalIds
     with HasArchitectureVerdict
     with HasCriticality
+    with HasSWOT
     with CanBeRealized
     with CanBeServed
     with CanServe
@@ -106,6 +109,7 @@ case class BusinessCapabilityMapConfigurerConfigurer(
 ) extends CanConfigureDescription[BusinessCapability]
     with CanConfigureLinks[BusinessCapability]
     with CanConfigureExternalIds[BusinessCapability]
+    with CanConfigureSWOT[BusinessCapability]
     with CanConfigureArchitectureVerdict[BusinessCapability]
     with CanConfigureCriticality[BusinessCapability]
     with CanConfigureServingSource[BusinessCapability]

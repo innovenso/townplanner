@@ -16,6 +16,7 @@ sealed trait Technology
     extends Element
     with HasDescription
     with HasLinks
+    with HasSWOT
     with HasArchitectureVerdict
     with CanImplement {
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
@@ -103,6 +104,7 @@ case class TechnologyRadarConfigurer[TechnologyType <: Technology](
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Technology]
     with CanConfigureLinks[Technology]
+    with CanConfigureSWOT[Technology]
     with CanConfigureArchitectureVerdict[Technology]
     with CanConfigureImplementationSource[Technology] {
   def as(

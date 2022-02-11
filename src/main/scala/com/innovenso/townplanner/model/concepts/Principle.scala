@@ -4,8 +4,10 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureDescription,
   CanConfigureLinks,
+  CanConfigureSWOT,
   HasDescription,
   HasLinks,
+  HasSWOT,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -16,6 +18,7 @@ sealed trait Principle
     extends Element
     with HasDescription
     with HasLinks
+    with HasSWOT
     with CanServe
     with CanInfluence {
   val modelComponentType: ModelComponentType = ModelComponentType("Principle")
@@ -63,6 +66,7 @@ case class PrincipleConfigurer[PrincipleType <: Principle](
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Principle]
     with CanConfigureLinks[Principle]
+    with CanConfigureSWOT[Principle]
     with CanConfigureServingSource[Principle]
     with CanConfigureInfluenceSource[Principle] {
   def as(

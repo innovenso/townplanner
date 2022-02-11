@@ -44,6 +44,7 @@ case class DecisionOption(
     with HasLinks
     with HasRequirementScores
     with HasCosts
+    with HasSWOT
     with CanCompose
     with CanBeAssociated {
   val layer: Layer = ImplementationLayer
@@ -183,6 +184,7 @@ case class DecisionOptionConfigurer(
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[DecisionOption]
     with CanConfigureLinks[DecisionOption]
+    with CanConfigureSWOT[DecisionOption]
     with CanConfigureCompositionTarget[DecisionOption]
     with CanConfigureAssociations[DecisionOption]
     with CanConfigureRequirementScores[DecisionOption]

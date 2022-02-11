@@ -5,9 +5,11 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureDescription,
   CanConfigureExternalIds,
   CanConfigureLinks,
+  CanConfigureSWOT,
   HasDescription,
   HasExternalIds,
   HasLinks,
+  HasSWOT,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -19,6 +21,7 @@ sealed trait BusinessActor
     with HasDescription
     with HasLinks
     with HasExternalIds
+    with HasSWOT
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger
@@ -110,6 +113,7 @@ case class BusinessActorConfigurer[BusinessActorType <: BusinessActor](
 ) extends CanConfigureDescription[BusinessActorType]
     with CanConfigureLinks[BusinessActorType]
     with CanConfigureExternalIds[BusinessActorType]
+    with CanConfigureSWOT[BusinessActorType]
     with CanConfigureServingSource[BusinessActorType]
     with CanConfigureFlowSource[BusinessActorType]
     with CanConfigureFlowTarget[BusinessActorType]
