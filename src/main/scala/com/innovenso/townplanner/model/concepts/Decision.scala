@@ -15,6 +15,7 @@ case class Decision(
 ) extends Element
     with HasDescription
     with HasLinks
+    with HasFatherTime
     with HasDataProtectionConcerns
     with HasSecurityImpact
     with CanImpact
@@ -166,6 +167,7 @@ case class DecisionConfigurer(
     with CanConfigureCompositionSource[Decision]
     with CanConfigureServingSource[Decision]
     with CanConfigureImpactSource[Decision]
+    with CanConfigureFatherTime[Decision]
     with CanConfigureStakeHolderTarget[Decision]
     with CanConfigureRaciTarget[Decision]
     with CanConfigureInfluenceTarget[Decision]

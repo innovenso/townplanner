@@ -6,6 +6,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureCriticality,
   CanConfigureDescription,
   CanConfigureExternalIds,
+  CanConfigureFatherTime,
   CanConfigureLinks,
   CanConfigureResilienceMeasures,
   CanConfigureSWOT,
@@ -13,6 +14,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   HasCriticality,
   HasDescription,
   HasExternalIds,
+  HasFatherTime,
   HasLinks,
   HasResilienceMeasures,
   HasSWOT,
@@ -33,6 +35,7 @@ case class ItPlatform(
     with HasArchitectureVerdict
     with HasCriticality
     with HasExternalIds
+    with HasFatherTime
     with HasSWOT
     with HasResilienceMeasures
     with CanBeFlowSource
@@ -82,6 +85,7 @@ case class ItPlatformConfigurer(
     with CanConfigureCompositionSource[ItPlatform]
     with CanConfigureArchitectureVerdict[ItPlatform]
     with CanConfigureLinks[ItPlatform]
+    with CanConfigureFatherTime[ItPlatform]
     with CanConfigureExternalIds[ItPlatform]
     with CanConfigureSWOT[ItPlatform]
     with CanConfigureCriticality[ItPlatform]

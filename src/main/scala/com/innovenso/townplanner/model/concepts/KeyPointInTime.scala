@@ -11,27 +11,37 @@ import com.innovenso.townplanner.model.language.{
   HasModelComponents,
   ModelComponent
 }
-import com.innovenso.townplanner.model.meta.{Key, ModelComponentType, SortKey}
+import com.innovenso.townplanner.model.meta.{
+  ADay,
+  Key,
+  ModelComponentType,
+  SortKey,
+  Today
+}
 
 import java.time.LocalDate
 
 case class KeyPointInTime(
-    date: LocalDate,
+    date: ADay,
     title: String,
     diagramsNeeded: Boolean = true,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends ModelComponent
     with HasDescription {
   val key: Key = Key(
-    s"key_point_in_time_${date.getYear}_${date.getMonthValue}_${date.getDayOfMonth}"
+    s"key_point_in_time_${date.year}_${date.month}_${date.day}"
   )
   val sortKey: SortKey = SortKey(Some(key.value))
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Key Point in Time"
   )
-  def isToday: Boolean = LocalDate.now().equals(date)
-  def isFuture: Boolean = LocalDate.now().isBefore(date)
-  def isPast: Boolean = LocalDate.now().isAfter(date)
+  def isToday: Boolean = Today.is(date)
+  def isFuture: Boolean = Today.isBefore(date)
+  def isPast: Boolean = Today.isAfter(date)
+  def isBefore(keyPointInTime: KeyPointInTime): Boolean =
+    date.isBefore(keyPointInTime.date)
+  def isAfterOrEqual(keyPointInTime: KeyPointInTime): Boolean =
+    date.isAfter(keyPointInTime.date) || date.is(keyPointInTime.date)
 
   def withProperty(property: Property): KeyPointInTime =
     copy(properties = this.properties + (property.key -> property))
@@ -44,7 +54,7 @@ trait HasKeyPointsInTime extends HasModelComponents {
     component(key, classOf[KeyPointInTime])
 
   def pointInTime(localDate: LocalDate): Option[KeyPointInTime] =
-    pointsInTime.find(_.date.equals(localDate))
+    pointsInTime.find(_.date.is(localDate))
 
   def pointsInTime: List[KeyPointInTime] = components(classOf[KeyPointInTime])
 }

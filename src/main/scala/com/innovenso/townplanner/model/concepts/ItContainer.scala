@@ -6,6 +6,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureCriticality,
   CanConfigureDescription,
   CanConfigureExternalIds,
+  CanConfigureFatherTime,
   CanConfigureLinks,
   CanConfigureResilienceMeasures,
   CanConfigureSWOT,
@@ -13,6 +14,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   HasCriticality,
   HasDescription,
   HasExternalIds,
+  HasFatherTime,
   HasLinks,
   HasResilienceMeasures,
   HasSWOT,
@@ -30,6 +32,7 @@ trait ItContainer
     with HasLinks
     with HasExternalIds
     with HasSWOT
+    with HasFatherTime
     with HasResilienceMeasures
     with CanBeFlowSource
     with CanBeFlowTarget
@@ -297,6 +300,7 @@ case class ItContainerConfigurer[ContainerType <: ItContainer](
     with CanConfigureLinks[ContainerType]
     with CanConfigureExternalIds[ContainerType]
     with CanConfigureSWOT[ContainerType]
+    with CanConfigureFatherTime[ContainerType]
     with CanConfigureCriticality[ContainerType]
     with CanConfigureResilienceMeasures[ContainerType]
     with CanConfigureImplementationTarget[ContainerType]
