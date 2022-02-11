@@ -2,7 +2,9 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties.{
   BeInvestedIn,
-  Description
+  Catastrophic,
+  Description,
+  ResilienceMeasure
 }
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
@@ -14,11 +16,14 @@ class ItSystemSpec extends AnyFlatSpec with GivenWhenThen {
       it =>
         it has Description("It does things")
         it should BeInvestedIn()
+        it ratesFailureAs Catastrophic(consequences = "people die")
+        it provides ResilienceMeasure("circuit breaker")
         it isPartOf platform
     }
 
     assert(exists(itSystem))
     assert(townPlan.relationships.size == 1)
+    assert(townPlan.system(itSystem.key).get.isCatastrophicCriticality)
   }
 
 }

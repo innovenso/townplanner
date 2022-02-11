@@ -15,6 +15,7 @@ import com.innovenso.townplanner.model.meta._
 sealed trait Technology
     extends Element
     with HasDescription
+    with HasLinks
     with HasArchitectureVerdict
     with CanImplement {
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
@@ -101,6 +102,7 @@ case class TechnologyRadarConfigurer[TechnologyType <: Technology](
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Technology]
+    with CanConfigureLinks[Technology]
     with CanConfigureArchitectureVerdict[Technology]
     with CanConfigureImplementationSource[Technology] {
   def as(

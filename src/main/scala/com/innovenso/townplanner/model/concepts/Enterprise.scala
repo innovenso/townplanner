@@ -12,6 +12,7 @@ case class Enterprise(
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
+    with HasLinks
     with CanCompose
     with CanBeComposedOf
     with CanBeServed {
@@ -35,6 +36,7 @@ case class EnterpriseConfigurer(
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Enterprise]
+    with CanConfigureLinks[Enterprise]
     with CanConfigureCompositionSource[Enterprise]
     with CanConfigureCompositionTarget[Enterprise]
     with CanConfigureServingTarget[Enterprise] {

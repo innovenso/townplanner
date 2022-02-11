@@ -14,6 +14,7 @@ case class Decision(
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
+    with HasLinks
     with CanImpact
     with CanServe
     with CanBeAssociated
@@ -40,6 +41,7 @@ case class DecisionOption(
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
+    with HasLinks
     with HasRequirementScores
     with HasCosts
     with CanCompose
@@ -154,6 +156,7 @@ case class DecisionConfigurer(
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Decision]
+    with CanConfigureLinks[Decision]
     with CanConfigureCompositionSource[Decision]
     with CanConfigureServingSource[Decision]
     with CanConfigureImpactSource[Decision]
@@ -179,6 +182,7 @@ case class DecisionOptionConfigurer(
     propertyAdder: CanAddRequirementScores,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[DecisionOption]
+    with CanConfigureLinks[DecisionOption]
     with CanConfigureCompositionTarget[DecisionOption]
     with CanConfigureAssociations[DecisionOption]
     with CanConfigureRequirementScores[DecisionOption]

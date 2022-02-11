@@ -3,7 +3,9 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureDescription,
+  CanConfigureLinks,
   HasDescription,
+  HasLinks,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -13,6 +15,7 @@ import com.innovenso.townplanner.model.meta._
 sealed trait BusinessActor
     extends Element
     with HasDescription
+    with HasLinks
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger
@@ -102,6 +105,7 @@ case class BusinessActorConfigurer[BusinessActorType <: BusinessActor](
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[BusinessActorType]
+    with CanConfigureLinks[BusinessActorType]
     with CanConfigureServingSource[BusinessActorType]
     with CanConfigureFlowSource[BusinessActorType]
     with CanConfigureFlowTarget[BusinessActorType]

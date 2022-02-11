@@ -3,9 +3,13 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureArchitectureVerdict,
+  CanConfigureCriticality,
   CanConfigureDescription,
+  CanConfigureLinks,
   HasArchitectureVerdict,
+  HasCriticality,
   HasDescription,
+  HasLinks,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -19,7 +23,9 @@ case class ArchitectureBuildingBlock(
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
+    with HasLinks
     with HasArchitectureVerdict
+    with HasCriticality
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger
@@ -62,7 +68,9 @@ case class ArchitectureBuildingBlockConfigurer(
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[ArchitectureBuildingBlock]
+    with CanConfigureLinks[ArchitectureBuildingBlock]
     with CanConfigureArchitectureVerdict[ArchitectureBuildingBlock]
+    with CanConfigureCriticality[ArchitectureBuildingBlock]
     with CanConfigureServingSource[ArchitectureBuildingBlock]
     with CanConfigureRealizationTarget[ArchitectureBuildingBlock]
     with CanConfigureRealizationSource[ArchitectureBuildingBlock]
