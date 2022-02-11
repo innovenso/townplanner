@@ -5,12 +5,16 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Constraint,
   CurrentState,
   Description,
+  DoesNotMeetExpectations,
+  ExceedsExpectations,
   FunctionalRequirement,
   Goal,
+  MeetsExpectations,
   MustHave,
   QualityAttributeRequirement,
   ShouldHave
 }
+import com.innovenso.townplanner.model.meta.Key
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -53,13 +57,16 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
         )
         it serves innovenso
         it has FunctionalRequirement(
+          key = Key("psp_wip"),
           title = "Support Vendor-Initiated Payments",
           weight = ShouldHave
         )
         it has FunctionalRequirement(
+          key = Key("acquiring"),
           title = "Have a acquiring license",
           weight = MustHave
         )
+        it has FunctionalRequirement(title = "Something else")
         it has QualityAttributeRequirement(
           title = "Availability",
           sourceOfStimulus = "a user",
@@ -78,9 +85,18 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
         it hasConsulted jurgen
       }
 
+    val adyen: DecisionOption =
+      ea describes DecisionOption(title = "AdYen") as { it =>
+        it isPartOf pspSelection
+        it scores ExceedsExpectations(description =
+          "very nice"
+        ) on (pspSelection, Key("psp_wip"))
+        it scores DoesNotMeetExpectations() on (pspSelection, Key("acquiring"))
+      }
+
     assert(exists(pspSelection))
     assert(
-      townPlan.decision(pspSelection.key).get.functionalRequirements.size == 2
+      townPlan.decision(pspSelection.key).get.functionalRequirements.size == 3
     )
     assert(townPlan.decision(pspSelection.key).get.constraints.size == 2)
     assert(
@@ -100,5 +116,13 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
         .startsWith("1.")
     )
 
+    assert(townPlan.options(pspSelection).size == 1)
+    townPlan.functionalRequirementScores(adyen).foreach(println(_))
+    assert(townPlan.functionalRequirementScores(adyen).size == 3)
+    assert(townPlan.qualityAttributeRequirementScores(adyen).size == 1)
+    assert(townPlan.constraintScores(adyen).size == 2)
+    assert(townPlan.rejectedOptions(pspSelection).size == 1)
+    assert(townPlan.chosenOptions(pspSelection).isEmpty)
+    assert(townPlan.optionsUnderInvestigation(pspSelection).isEmpty)
   }
 }

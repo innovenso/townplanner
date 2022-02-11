@@ -36,7 +36,7 @@ case class DecisionOption(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     title: String,
-    verdict: DecisionOptionVerdict,
+    verdict: DecisionOptionVerdict = UnderInvestigation(),
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
@@ -103,7 +103,7 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
       .getOrElse(Nil)
 
   def decision(decisionOption: DecisionOption): Option[Decision] =
-    directOutgoingDependencies(
+    directIncomingDependencies(
       decisionOption,
       classOf[Composition],
       classOf[Decision]
