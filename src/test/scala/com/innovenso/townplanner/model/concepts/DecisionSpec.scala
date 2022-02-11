@@ -90,8 +90,8 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
         it isPartOf pspSelection
         it scores ExceedsExpectations(description =
           "very nice"
-        ) on (pspSelection, Key("psp_wip"))
-        it scores DoesNotMeetExpectations() on (pspSelection, Key("acquiring"))
+        ) on "psp_wip" of pspSelection
+        it scores DoesNotMeetExpectations() on "acquiring" of pspSelection
       }
 
     assert(exists(pspSelection))

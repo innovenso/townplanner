@@ -70,29 +70,30 @@ case class RequirementScoreConfigurer(
     requirementScore: RequirementScore,
     propertyAdder: CanAddRequirementScores
 ) {
-  def on(
-      requirementHolder: HasRequirements,
-      targetRequirementKey: Key
-  ): RequirementScore = {
+  def on(targetRequirementKey: String): RequirementScoreConfigurer = {
     val configuredScore = requirementScore match {
       case exceedsExpectations: ExceedsExpectations =>
-        exceedsExpectations.copy(requirementKey = targetRequirementKey)
+        exceedsExpectations.copy(requirementKey = Key(targetRequirementKey))
       case meetsExpectations: MeetsExpectations =>
-        meetsExpectations.copy(requirementKey = targetRequirementKey)
+        meetsExpectations.copy(requirementKey = Key(targetRequirementKey))
       case almostMeetsExpectations: AlmostMeetsExpectations =>
-        almostMeetsExpectations.copy(requirementKey = targetRequirementKey)
+        almostMeetsExpectations.copy(requirementKey = Key(targetRequirementKey))
       case doesNotMeetExpectations: DoesNotMeetExpectations =>
-        doesNotMeetExpectations.copy(requirementKey = targetRequirementKey)
+        doesNotMeetExpectations.copy(requirementKey = Key(targetRequirementKey))
       case unknownScore: UnknownScore =>
-        unknownScore.copy(requirementKey = targetRequirementKey)
+        unknownScore.copy(requirementKey = Key(targetRequirementKey))
     }
+    RequirementScoreConfigurer(modelComponent, configuredScore, propertyAdder)
+  }
+
+  def of(requirementHolder: HasRequirements): RequirementScore = {
     propertyAdder.withRequirementScore(
       modelComponent,
       requirementHolder.key,
-      configuredScore
+      requirementScore
     )
-    println(s"configured score: ${configuredScore}")
-    configuredScore
+    println(s"configured score: ${requirementScore}")
+    requirementScore
   }
 }
 
