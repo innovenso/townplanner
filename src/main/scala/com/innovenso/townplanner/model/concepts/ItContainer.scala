@@ -3,9 +3,15 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureArchitectureVerdict,
+  CanConfigureCriticality,
   CanConfigureDescription,
+  CanConfigureLinks,
+  CanConfigureResilienceMeasures,
   HasArchitectureVerdict,
+  HasCriticality,
   HasDescription,
+  HasLinks,
+  HasResilienceMeasures,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -16,6 +22,9 @@ trait ItContainer
     extends Element
     with HasDescription
     with HasArchitectureVerdict
+    with HasCriticality
+    with HasLinks
+    with HasResilienceMeasures
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger
@@ -279,6 +288,9 @@ case class ItContainerConfigurer[ContainerType <: ItContainer](
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[ContainerType]
     with CanConfigureArchitectureVerdict[ContainerType]
+    with CanConfigureLinks[ContainerType]
+    with CanConfigureCriticality[ContainerType]
+    with CanConfigureResilienceMeasures[ContainerType]
     with CanConfigureImplementationTarget[ContainerType]
     with CanConfigureTriggerSource[ContainerType]
     with CanConfigureTriggerTarget[ContainerType]

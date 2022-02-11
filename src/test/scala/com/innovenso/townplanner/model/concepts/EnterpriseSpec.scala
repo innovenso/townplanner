@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.Description
+import com.innovenso.townplanner.model.concepts.properties.{
+  Description,
+  Website
+}
 import com.innovenso.townplanner.model.concepts.relationships.Composition
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
@@ -10,6 +13,7 @@ class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
     val innovenso: Enterprise =
       ea describes Enterprise(title = "Innovenso") as { it =>
         it has Description("hello")
+        it has Website(url = "https://innovenso.com")
       }
 
     val geniusfish: Enterprise =
@@ -27,6 +31,7 @@ class EnterpriseSpec extends AnyFlatSpec with GivenWhenThen {
     )
 
     assert(townPlan.enterprise(innovenso.key).exists(_.descriptions.nonEmpty))
+    assert(townPlan.enterprise(innovenso.key).exists(_.websiteLinks.nonEmpty))
     assert(exists(geniusfish))
     assert(exists(innovensogroup))
     assert(townPlan.relationships.size == 2)

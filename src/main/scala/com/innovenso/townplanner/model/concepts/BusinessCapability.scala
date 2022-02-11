@@ -3,9 +3,13 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureArchitectureVerdict,
+  CanConfigureCriticality,
   CanConfigureDescription,
+  CanConfigureLinks,
   HasArchitectureVerdict,
+  HasCriticality,
   HasDescription,
+  HasLinks,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -19,7 +23,9 @@ case class BusinessCapability(
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
+    with HasLinks
     with HasArchitectureVerdict
+    with HasCriticality
     with CanBeRealized
     with CanBeServed
     with CanServe
@@ -95,7 +101,9 @@ case class BusinessCapabilityMapConfigurerConfigurer(
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[BusinessCapability]
+    with CanConfigureLinks[BusinessCapability]
     with CanConfigureArchitectureVerdict[BusinessCapability]
+    with CanConfigureCriticality[BusinessCapability]
     with CanConfigureServingSource[BusinessCapability]
     with CanConfigureServingTarget[BusinessCapability]
     with CanConfigureRealizationTarget[BusinessCapability]

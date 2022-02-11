@@ -3,9 +3,15 @@ package com.innovenso.townplanner.model.concepts
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureArchitectureVerdict,
+  CanConfigureCriticality,
   CanConfigureDescription,
+  CanConfigureLinks,
+  CanConfigureResilienceMeasures,
   HasArchitectureVerdict,
+  HasCriticality,
   HasDescription,
+  HasLinks,
+  HasResilienceMeasures,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships._
@@ -19,7 +25,10 @@ case class ItPlatform(
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Element
     with HasDescription
+    with HasLinks
     with HasArchitectureVerdict
+    with HasCriticality
+    with HasResilienceMeasures
     with CanBeFlowSource
     with CanBeFlowTarget
     with CanTrigger
@@ -66,6 +75,9 @@ case class ItPlatformConfigurer(
 ) extends CanConfigureDescription[ItPlatform]
     with CanConfigureCompositionSource[ItPlatform]
     with CanConfigureArchitectureVerdict[ItPlatform]
+    with CanConfigureLinks[ItPlatform]
+    with CanConfigureCriticality[ItPlatform]
+    with CanConfigureResilienceMeasures[ItPlatform]
     with CanConfigureFlowSource[ItPlatform]
     with CanConfigureFlowTarget[ItPlatform]
     with CanConfigureTriggerSource[ItPlatform]
