@@ -5,6 +5,10 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   HasRelationships
 }
+import com.innovenso.townplanner.model.concepts.views.{
+  CanAddFlowViews,
+  HasFlowViews
+}
 import com.innovenso.townplanner.model.language.{
   CanAddModelComponents,
   HasModelComponents,
@@ -31,6 +35,7 @@ case class TownPlan(
     with HasDecisions
     with HasPrinciples
     with HasItSystemIntegrations
+    with HasFlowViews
 
 class TownPlanFactory
     extends CanAddModelComponents
@@ -47,3 +52,4 @@ class TownPlanFactory
     with CanAddItContainers
     with CanAddDecisions
     with CanAddItSystemIntegrations
+    with CanAddFlowViews
