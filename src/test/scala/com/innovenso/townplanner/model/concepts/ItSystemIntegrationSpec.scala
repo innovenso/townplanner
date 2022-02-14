@@ -5,7 +5,10 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Catastrophic,
   Description,
   Frequency,
+  Message,
+  Request,
   ResilienceMeasure,
+  Response,
   Volume
 }
 import com.innovenso.townplanner.model.concepts.relationships.Implementation
@@ -29,6 +32,11 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
         it has Volume("thousands per day")
         it has Frequency("every second")
         it isImplementedBy integrationPlatform
+
+        it has Message("step 1") from system1 to integrationPlatform
+        it has Request("step 2") from integrationPlatform to system2
+        it has Response("step 3") from system2 to integrationPlatform
+        it has Message("step 4") from integrationPlatform to system1
       }
 
     assert(exists(integration))
@@ -47,5 +55,17 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
         .size == 1
     )
     assert(townPlan.systemIntegrations(system1, system2).size == 1)
+    assert(
+      townPlan
+        .systemIntegration(integration.key)
+        .exists(it => it.interactions.size == 4)
+    )
+    assert(
+      townPlan
+        .systemIntegration(integration.key)
+        .exists(it =>
+          it.interactions.map(_.name).map(_.takeRight(1)).mkString == "1234"
+        )
+    )
   }
 }

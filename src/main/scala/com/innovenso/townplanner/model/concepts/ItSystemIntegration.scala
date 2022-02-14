@@ -7,6 +7,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   CanConfigureDescription,
   CanConfigureExternalIds,
   CanConfigureFatherTime,
+  CanConfigureInteractions,
   CanConfigureLinks,
   CanConfigureResilienceMeasures,
   CanConfigureSWOT,
@@ -16,6 +17,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   HasDescription,
   HasExternalIds,
   HasFatherTime,
+  HasInteractions,
   HasLinks,
   HasResilienceMeasures,
   HasSWOT,
@@ -63,6 +65,7 @@ case class ItSystemIntegration(
     with HasFatherTime
     with HasResilienceMeasures
     with HasThroughput
+    with HasInteractions
     with CanBeAssociated
     with CanBeImplemented
     with CanBeImpacted
@@ -110,6 +113,7 @@ case class ItSystemIntegrationConfigurer(
     with CanConfigureFatherTime[ItSystemIntegration]
     with CanConfigureResilienceMeasures[ItSystemIntegration]
     with CanConfigureThroughput[ItSystemIntegration]
+    with CanConfigureInteractions[ItSystemIntegration]
     with CanConfigureAssociations[ItSystemIntegration]
     with CanConfigureImplementationTarget[ItSystemIntegration]
     with CanConfigureDeliveryTarget[ItSystemIntegration] {

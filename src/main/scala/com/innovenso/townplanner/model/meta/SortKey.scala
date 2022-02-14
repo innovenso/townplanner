@@ -9,6 +9,6 @@ object SortKey {
   private var value = 0
   def next: SortKey = {
     value += 1
-    SortKey(Some(s"${value}"))
+    SortKey(Some(f"${value}%09d"))
   }
 }
