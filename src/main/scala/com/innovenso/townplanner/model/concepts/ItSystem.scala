@@ -47,6 +47,7 @@ case class ItSystem(
     with CanCompose
     with CanBeComposedOf
     with CanBeImplemented
+    with CanImplement
     with CanBeImpacted
     with CanBeDelivered {
   val layer: Layer = ApplicationLayer
@@ -112,6 +113,7 @@ case class ItSystemConfigurer(
     with CanConfigureAssociations[ItSystem]
     with CanConfigureRealizationSource[ItSystem]
     with CanConfigureImplementationTarget[ItSystem]
+    with CanConfigureImplementationSource[ItSystem]
     with CanConfigureDeliveryTarget[ItSystem] {
   def as(
       body: ItSystemConfigurer => Any
