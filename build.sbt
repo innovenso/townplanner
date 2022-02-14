@@ -1,11 +1,11 @@
 val scala2Version = "2.13.8"
-val awsSdkVersion = "1.12.90"
 
 lazy val root = project
   .in(file("."))
   .settings(
+    organization := "com.innovenso.townplanner",
     name := "innovenso-townplanner-model",
-    version := "0.1.0-SNAPSHOT",
+    version := "1.0.0",
     scalaVersion := scala2Version,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
     libraryDependencies += "org.apache.commons" % "commons-text" % "1.9",
