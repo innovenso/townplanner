@@ -36,6 +36,7 @@ case class TownPlan(
     with HasPrinciples
     with HasItSystemIntegrations
     with HasFlowViews
+    with HasProjects
 
 class TownPlanFactory
     extends CanAddModelComponents
@@ -53,3 +54,4 @@ class TownPlanFactory
     with CanAddDecisions
     with CanAddItSystemIntegrations
     with CanAddFlowViews
+    with CanAddProjects

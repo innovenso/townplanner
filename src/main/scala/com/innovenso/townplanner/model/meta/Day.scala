@@ -11,6 +11,20 @@ case object Today extends ADay {
   val day: Int = todayLocalDate.getDayOfMonth
 }
 
+case object InTheFuture extends ADay {
+  val futureLocalDate: LocalDate = LocalDate.MAX
+  val year: Int = futureLocalDate.getYear
+  val month: Int = futureLocalDate.getMonthValue
+  val day: Int = futureLocalDate.getDayOfMonth
+}
+
+case object InThePast extends ADay {
+  val pastLocalDate: LocalDate = LocalDate.MIN
+  val year: Int = pastLocalDate.getYear
+  val month: Int = pastLocalDate.getMonthValue
+  val day: Int = pastLocalDate.getDayOfMonth
+}
+
 sealed trait ADay {
   def year: Int
   def month: Int

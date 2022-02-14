@@ -142,6 +142,7 @@ case class LifecycleEvent(
 
 trait HasFatherTime extends HasProperties {
   def lifeEvents: List[FatherTime] = props(classOf[FatherTime])
+  def dueDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Due])
   def isUnknownLifecycle(pointInTime: KeyPointInTime): Boolean =
     lifeEvents.isEmpty || (hasNoLifeEventsBefore(
       pointInTime

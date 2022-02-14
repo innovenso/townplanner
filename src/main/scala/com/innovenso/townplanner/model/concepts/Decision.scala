@@ -28,7 +28,7 @@ case class Decision(
     with CanBeTriggered
     with HasRequirements
     with HasContext {
-  val layer: Layer = ImplementationLayer
+  val layer: Layer = MotivationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType("Decision")
 
