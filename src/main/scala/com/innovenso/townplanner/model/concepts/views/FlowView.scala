@@ -10,6 +10,7 @@ case class FlowView(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     title: String,
+    withStepCounter: Boolean = true,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends Concept
     with HasDescription
