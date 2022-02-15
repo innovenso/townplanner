@@ -1,15 +1,10 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.HasDescription
-import com.innovenso.townplanner.model.language.{
-  CanAddModelComponents,
-  Concept,
-  Element,
-  HasModelComponents
-}
+import com.innovenso.townplanner.model.concepts.properties.{HasDescription, HasFatherTime}
+import com.innovenso.townplanner.model.language.{CanAddModelComponents, Concept, Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
-trait Relationship extends Concept with HasDescription {
+trait Relationship extends Concept with HasDescription with HasFatherTime {
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Relationship"
   )

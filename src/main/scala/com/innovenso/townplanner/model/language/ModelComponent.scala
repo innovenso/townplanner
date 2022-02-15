@@ -14,6 +14,7 @@ trait ModelComponent {
 
 trait HasModelComponents {
   def modelComponents: Map[Key, ModelComponent]
+
   def has[ModelComponentType <: ModelComponent](
       modelComponent: ModelComponentType
   ): Boolean = component(modelComponent.key, modelComponent.getClass).isDefined
