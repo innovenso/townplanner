@@ -1,26 +1,9 @@
 package com.innovenso.townplanner.model.concepts.views
 
 import com.innovenso.townplanner.model.concepts.{BusinessCapability, Enterprise}
-import com.innovenso.townplanner.model.concepts.properties.{
-  CanAddProperties,
-  CanConfigureDescription,
-  CanConfigureExternalIds,
-  CanConfigureInteractions,
-  CanConfigureLinks,
-  CanConfigureSWOT,
-  HasDescription,
-  HasExternalIds,
-  HasInteractions,
-  HasLinks,
-  Property
-}
-import com.innovenso.townplanner.model.concepts.relationships.{
-  CanAddRelationships,
-  CanConfigureCompositionSource,
-  CanConfigureCompositionTarget,
-  CanConfigureServingTarget
-}
-import com.innovenso.townplanner.model.language.{Concept, HasModelComponents}
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, CanConfigureDescription, CanConfigureExternalIds, CanConfigureInteractions, CanConfigureLinks, CanConfigureSWOT, HasDescription, HasExternalIds, HasInteractions, HasLinks, Property}
+import com.innovenso.townplanner.model.concepts.relationships.{CanAddRelationships, CanConfigureCompositionSource, CanConfigureCompositionTarget, CanConfigureServingTarget}
+import com.innovenso.townplanner.model.language.{Concept, Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta.{Key, ModelComponentType, SortKey}
 
 case class FlowView(
@@ -45,6 +28,7 @@ case class FlowView(
 trait HasFlowViews extends HasModelComponents {
   def flowViews: List[FlowView] = components(classOf[FlowView])
   def flowView(key: Key): Option[FlowView] = component(key, classOf[FlowView])
+  def elements(flowView: FlowView): List[Element] = flowView.interactions.flatMap(interaction => List(interaction.source, interaction.target)).distinct.map(component(_, classOf[Element])).filter(_.nonEmpty).map(_.get)
 }
 
 case class FlowViewConfigurer(
