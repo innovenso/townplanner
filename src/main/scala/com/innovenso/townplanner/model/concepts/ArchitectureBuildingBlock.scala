@@ -67,6 +67,14 @@ trait HasArchitectureBuildingBlocks
       classOf[Serving],
       classOf[Enterprise]
     ).headOption
+  def realizedBusinessCapabilities(
+                                          architectureBuildingBlock: ArchitectureBuildingBlock
+                                        ): List[BusinessCapability] = directOutgoingDependencies(
+    architectureBuildingBlock,
+    classOf[Realization],
+    classOf[BusinessCapability]
+  )
+
 }
 
 case class ArchitectureBuildingBlockConfigurer(

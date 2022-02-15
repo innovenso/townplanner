@@ -5,7 +5,7 @@ lazy val root = project
   .settings(
     organization := "com.innovenso.townplanner",
     name := "innovenso-townplanner-model",
-    version := "1.0.1",
+    version := "1.0.2",
     scalaVersion := scala2Version,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.10",
     libraryDependencies += "org.apache.commons" % "commons-text" % "1.9",
