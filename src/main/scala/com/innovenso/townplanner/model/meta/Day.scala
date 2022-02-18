@@ -4,21 +4,21 @@ import java.time.LocalDate
 
 case class Day(year: Int, month: Int, day: Int) extends ADay
 
-case object Today extends ADay {
+object Today extends ADay {
   val todayLocalDate: LocalDate = LocalDate.now()
   val year: Int = todayLocalDate.getYear
   val month: Int = todayLocalDate.getMonthValue
   val day: Int = todayLocalDate.getDayOfMonth
 }
 
-case object InTheFuture extends ADay {
+object InTheFuture extends ADay {
   val futureLocalDate: LocalDate = LocalDate.MAX
   val year: Int = futureLocalDate.getYear
   val month: Int = futureLocalDate.getMonthValue
   val day: Int = futureLocalDate.getDayOfMonth
 }
 
-case object InThePast extends ADay {
+object InThePast extends ADay {
   val pastLocalDate: LocalDate = LocalDate.MIN
   val year: Int = pastLocalDate.getYear
   val month: Int = pastLocalDate.getMonthValue

@@ -8,7 +8,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Retired,
   StartedDevelopment
 }
-import com.innovenso.townplanner.model.meta.Day
+import com.innovenso.townplanner.model.meta.{ADay, Day}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -24,19 +24,19 @@ class FatherTimeSpec extends AnyFlatSpec with GivenWhenThen {
         it is Decommissioned() on Day(2022, 7, 1)
     }
 
-    val beforeAnything: KeyPointInTime =
-      KeyPointInTime(Day(2019, 1, 1), "before anything")
-    val beforeDevelopment: KeyPointInTime =
-      KeyPointInTime(Day(2020, 3, 1), "before development")
-    val inDevelopment: KeyPointInTime =
-      KeyPointInTime(Day(2020, 10, 1), "in development")
-    val inStaging: KeyPointInTime =
-      KeyPointInTime(Day(2021, 3, 1), "in staging")
-    val inProduction: KeyPointInTime =
-      KeyPointInTime(Day(2021, 10, 1), "in production")
-    val phasingOut: KeyPointInTime =
-      KeyPointInTime(Day(2022, 3, 1), "phasing out")
-    val gone: KeyPointInTime = KeyPointInTime(Day(2022, 10, 1), "gone")
+    val beforeAnything: ADay =
+      Day(2019, 1, 1)
+    val beforeDevelopment: ADay =
+      Day(2020, 3, 1)
+    val inDevelopment: ADay =
+      Day(2020, 10, 1)
+    val inStaging: ADay =
+      Day(2021, 3, 1)
+    val inProduction: ADay =
+      Day(2021, 10, 1)
+    val phasingOut: ADay =
+      Day(2022, 3, 1)
+    val gone: ADay = Day(2022, 10, 1)
 
     assert(theSystem.isNotEvenPlanned(beforeAnything))
     assert(theSystem.isPlanned(beforeDevelopment))

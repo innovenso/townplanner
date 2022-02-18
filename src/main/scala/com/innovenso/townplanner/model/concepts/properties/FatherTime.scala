@@ -21,19 +21,19 @@ trait FatherTime extends Property {
   def fadesOut: Boolean = false
   def disappears: Boolean = false
 
-  def isBefore(pointInTime: KeyPointInTime): Boolean =
-    date.isBefore(pointInTime.date)
-  def isAfterOrEqual(pointInTime: KeyPointInTime): Boolean =
-    date.isAfterOrEqual(pointInTime.date)
+  def isBefore(day: ADay): Boolean =
+    date.isBefore(day)
+  def isAfterOrEqual(day: ADay): Boolean =
+    date.isAfterOrEqual(day)
   def isBetween(
-      pointInTime1: KeyPointInTime,
-      pointInTime2: KeyPointInTime
+      day1: ADay,
+      day2: ADay
   ): Boolean = {
     val first =
-      if (pointInTime1.isBefore(pointInTime2)) pointInTime1 else pointInTime2
+      if (day1.isBefore(day2)) day1 else day2
     val last =
-      if (pointInTime1.isAfterOrEqual(pointInTime2)) pointInTime1
-      else pointInTime2
+      if (day1.isAfterOrEqual(day2)) day1
+      else day2
     isAfterOrEqual(first) && isBefore(last)
   }
 }
@@ -143,54 +143,54 @@ case class LifecycleEvent(
 trait HasFatherTime extends HasProperties {
   def lifeEvents: List[FatherTime] = props(classOf[FatherTime])
   def dueDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Due])
-  def isUnknownLifecycle(pointInTime: KeyPointInTime): Boolean =
+  def isUnknownLifecycle(day: ADay): Boolean =
     lifeEvents.isEmpty || (hasNoLifeEventsBefore(
-      pointInTime
-    ) && !hasAppearedAfter(pointInTime) && hasDisappearedAfter(pointInTime))
-  def isDecommissioned(pointInTime: KeyPointInTime): Boolean =
-    hasDisappearedBefore(pointInTime)
-  def isPhasingOut(pointInTime: KeyPointInTime): Boolean =
-    hasFadedOutBefore(pointInTime) && !hasDisappearedBefore(pointInTime)
-  def isActive(pointInTime: KeyPointInTime): Boolean = hasAppearedBefore(
-    pointInTime
-  ) && !isPhasingOut(pointInTime) && !isDecommissioned(pointInTime)
-  def isPlanned(pointInTime: KeyPointInTime): Boolean =
-    hasFadedInBefore(pointInTime) && !isActive(pointInTime) && !isPhasingOut(
-      pointInTime
-    ) && !isDecommissioned(pointInTime)
-  def isNotEvenPlanned(pointInTime: KeyPointInTime): Boolean =
-    !isPlanned(pointInTime) && !isActive(pointInTime) && !isDecommissioned(
-      pointInTime
-    ) && !isDecommissioned(pointInTime) && !isUnknownLifecycle(pointInTime)
+      day
+    ) && !hasAppearedAfter(day) && hasDisappearedAfter(day))
+  def isDecommissioned(day: ADay): Boolean =
+    hasDisappearedBefore(day)
+  def isPhasingOut(day: ADay): Boolean =
+    hasFadedOutBefore(day) && !hasDisappearedBefore(day)
+  def isActive(day: ADay): Boolean = hasAppearedBefore(
+    day
+  ) && !isPhasingOut(day) && !isDecommissioned(day)
+  def isPlanned(day: ADay): Boolean =
+    hasFadedInBefore(day) && !isActive(day) && !isPhasingOut(
+      day
+    ) && !isDecommissioned(day)
+  def isNotEvenPlanned(day: ADay): Boolean =
+    !isPlanned(day) && !isActive(day) && !isDecommissioned(
+      day
+    ) && !isDecommissioned(day) && !isUnknownLifecycle(day)
 
-  private def hasFadedInBefore(pointInTime: KeyPointInTime): Boolean =
-    lifeEvents.filter(_.isBefore(pointInTime)).exists(_.fadesIn)
-  private def hasFadedInAfter(pointInTime: KeyPointInTime): Boolean =
-    lifeEvents.filter(_.isAfterOrEqual(pointInTime)).exists(_.fadesIn)
+  private def hasFadedInBefore(day: ADay): Boolean =
+    lifeEvents.filter(_.isBefore(day)).exists(_.fadesIn)
+  private def hasFadedInAfter(day: ADay): Boolean =
+    lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.fadesIn)
   private def hasAppearedBefore(
-      pointInTime: KeyPointInTime
+      day: ADay
   ): Boolean =
     lifeEvents
-      .filter(_.isBefore(pointInTime))
+      .filter(_.isBefore(day))
       .exists(_.appears)
   private def hasAppearedAfter(
-      pointInTime: KeyPointInTime
+      day: ADay
   ): Boolean =
     lifeEvents
-      .filter(_.isAfterOrEqual(pointInTime))
+      .filter(_.isAfterOrEqual(day))
       .exists(_.appears)
-  private def hasFadedOutBefore(pointInTime: KeyPointInTime): Boolean =
-    lifeEvents.filter(_.isBefore(pointInTime)).exists(_.fadesOut)
-  private def hasFadedOutAfter(pointInTime: KeyPointInTime): Boolean =
-    lifeEvents.filter(_.isAfterOrEqual(pointInTime)).exists(_.fadesOut)
-  private def hasDisappearedBefore(pointInTime: KeyPointInTime): Boolean =
-    lifeEvents.filter(_.isBefore(pointInTime)).exists(_.disappears)
-  private def hasDisappearedAfter(pointInTime: KeyPointInTime): Boolean =
-    lifeEvents.filter(_.isAfterOrEqual(pointInTime)).exists(_.disappears)
-  private def hasNoLifeEventsBefore(pointInTime: KeyPointInTime): Boolean =
-    !lifeEvents.exists(_.isBefore(pointInTime))
-  private def hasNoLifeEventsAfter(pointInTime: KeyPointInTime): Boolean =
-    !lifeEvents.exists(_.isAfterOrEqual(pointInTime))
+  private def hasFadedOutBefore(day: ADay): Boolean =
+    lifeEvents.filter(_.isBefore(day)).exists(_.fadesOut)
+  private def hasFadedOutAfter(day: ADay): Boolean =
+    lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.fadesOut)
+  private def hasDisappearedBefore(day: ADay): Boolean =
+    lifeEvents.filter(_.isBefore(day)).exists(_.disappears)
+  private def hasDisappearedAfter(day: ADay): Boolean =
+    lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.disappears)
+  private def hasNoLifeEventsBefore(day: ADay): Boolean =
+    !lifeEvents.exists(_.isBefore(day))
+  private def hasNoLifeEventsAfter(day: ADay): Boolean =
+    !lifeEvents.exists(_.isAfterOrEqual(day))
 }
 
 case class FatherTimeConfigurer(

@@ -25,7 +25,7 @@ class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
         it isPartOf system1
       }
 
-    val flowView: FlowView = ea describes FlowView(title = "The Flow View") as {
+    val flowView: FlowView = ea needs FlowView(title = "The Flow View") and {
       it =>
         it has Request("once ") from user to container1
         it has Request("upon ") from container1 to system2
