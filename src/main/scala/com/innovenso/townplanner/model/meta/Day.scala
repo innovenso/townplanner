@@ -34,9 +34,10 @@ sealed trait ADay {
   def is(other: ADay): Boolean = toLocalDate.isEqual(other.toLocalDate)
   def isBefore(other: ADay): Boolean = toLocalDate.isBefore(other.toLocalDate)
   def isAfter(other: ADay): Boolean = toLocalDate.isAfter(other.toLocalDate)
+
+  private def toLocalDate: LocalDate = LocalDate.of(year, month, day)
+
   def isAfterOrEqual(other: ADay): Boolean = toLocalDate.isAfter(
     other.toLocalDate
   ) || toLocalDate.isEqual(other.toLocalDate)
-
-  private def toLocalDate: LocalDate = LocalDate.of(year, month, day)
 }

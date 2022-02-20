@@ -1,14 +1,7 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties._
-import com.innovenso.townplanner.model.concepts.relationships.{
-  CanAddRelationships,
-  CanBeImplemented,
-  CanConfigureImplementationSource,
-  CanImplement,
-  HasRelationships,
-  Implementation
-}
+import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 

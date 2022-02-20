@@ -46,11 +46,14 @@ case class DetermineLifecyle(description: String = "")
 }
 
 trait HasArchitectureVerdict extends HasProperties {
+  def isToBeEliminated: Boolean = architectureVerdict.isInstanceOf[BeEliminated]
+
+  def isToBeTolerated: Boolean = architectureVerdict.isInstanceOf[BeTolerated]
+
   def architectureVerdict: ArchitectureVerdict =
     props(classOf[ArchitectureVerdict]).headOption
       .getOrElse(DetermineLifecyle())
-  def isToBeEliminated: Boolean = architectureVerdict.isInstanceOf[BeEliminated]
-  def isToBeTolerated: Boolean = architectureVerdict.isInstanceOf[BeTolerated]
+
   def isToBeInvestedIn: Boolean = architectureVerdict.isInstanceOf[BeInvestedIn]
   def isToBeMigrated: Boolean = architectureVerdict.isInstanceOf[BeMigrated]
 }

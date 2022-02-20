@@ -29,6 +29,15 @@ trait HasProperties extends ModelComponent {
       .toList
       .sortWith(_.sortKey < _.sortKey)
 
+  def prop[PropertyType <: Property](
+      key: Key,
+      shouldBeOfClass: Class[PropertyType]
+  ): Option[PropertyType] =
+    properties
+      .get(key)
+      .filter(property => is(property, shouldBeOfClass))
+      .map(property => as(property, shouldBeOfClass))
+
   private def is(
       property: Property,
       shouldBeOfClass: Class[_ <: Property]
@@ -38,15 +47,6 @@ trait HasProperties extends ModelComponent {
       property: Property,
       shouldBeOfClass: Class[PropertyType]
   ): PropertyType = shouldBeOfClass.cast(property)
-
-  def prop[PropertyType <: Property](
-      key: Key,
-      shouldBeOfClass: Class[PropertyType]
-  ): Option[PropertyType] =
-    properties
-      .get(key)
-      .filter(property => is(property, shouldBeOfClass))
-      .map(property => as(property, shouldBeOfClass))
 }
 
 trait CanAddProperties extends CanAddModelComponents {

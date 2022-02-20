@@ -1,52 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  CanAddProperties,
-  CanConfigureArchitectureVerdict,
-  CanConfigureCriticality,
-  CanConfigureDescription,
-  CanConfigureExternalIds,
-  CanConfigureFatherTime,
-  CanConfigureInteractions,
-  CanConfigureLinks,
-  CanConfigureResilienceMeasures,
-  CanConfigureSWOT,
-  CanConfigureThroughput,
-  HasArchitectureVerdict,
-  HasCriticality,
-  HasDescription,
-  HasExternalIds,
-  HasFatherTime,
-  HasInteractions,
-  HasLinks,
-  HasResilienceMeasures,
-  HasSWOT,
-  HasThroughput,
-  Property
-}
-import com.innovenso.townplanner.model.concepts.relationships.{
-  CanAddRelationships,
-  CanBeAssociated,
-  CanBeDelivered,
-  CanBeImpacted,
-  CanBeImplemented,
-  CanBeRealized,
-  CanBeServed,
-  CanConfigureAssociations,
-  CanConfigureDeliveryTarget,
-  CanConfigureImplementationTarget,
-  HasRelationships
-}
+import com.innovenso.townplanner.model.concepts.properties._
+import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{
-  ActiveStructure,
-  ApplicationLayer,
-  Aspect,
-  Key,
-  Layer,
-  ModelComponentType,
-  SortKey
-}
+import com.innovenso.townplanner.model.meta._
 
 case class ItSystemIntegration(
     key: Key = Key(),
@@ -84,19 +41,21 @@ case class ItSystemIntegration(
 }
 
 trait HasItSystemIntegrations extends HasModelComponents with HasRelationships {
-  def systemIntegrations: List[ItSystemIntegration] = components(
-    classOf[ItSystemIntegration]
-  )
   def systemIntegration(key: Key): Option[ItSystemIntegration] =
     component(key, classOf[ItSystemIntegration])
 
   def systemIntegrations(system: ItSystem): List[ItSystemIntegration] =
     systemIntegrations.filter(_.hasSystem(system))
+
   def systemIntegrations(
       source: ItSystem,
       target: ItSystem
   ): List[ItSystemIntegration] = systemIntegrations.filter(it =>
     it.hasSystem(source) && it.hasSystem(target)
+  )
+
+  def systemIntegrations: List[ItSystemIntegration] = components(
+    classOf[ItSystemIntegration]
   )
 }
 

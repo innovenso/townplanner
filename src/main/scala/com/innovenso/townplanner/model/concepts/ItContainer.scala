@@ -1,25 +1,6 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  CanAddProperties,
-  CanConfigureArchitectureVerdict,
-  CanConfigureCriticality,
-  CanConfigureDescription,
-  CanConfigureExternalIds,
-  CanConfigureFatherTime,
-  CanConfigureLinks,
-  CanConfigureResilienceMeasures,
-  CanConfigureSWOT,
-  HasArchitectureVerdict,
-  HasCriticality,
-  HasDescription,
-  HasExternalIds,
-  HasFatherTime,
-  HasLinks,
-  HasResilienceMeasures,
-  HasSWOT,
-  Property
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
@@ -392,6 +373,11 @@ trait CanAddItContainers extends CanAddProperties with CanAddRelationships {
   ): ItContainerConfigurer[MobileUI] =
     describesContainer[MobileUI](container)
 
+  private def describesContainer[ContainerType <: ItContainer](
+      container: ContainerType
+  ): ItContainerConfigurer[ContainerType] =
+    ItContainerConfigurer(has(container), this, this)
+
   def describes(
       container: WatchUI
   ): ItContainerConfigurer[WatchUI] =
@@ -421,9 +407,4 @@ trait CanAddItContainers extends CanAddProperties with CanAddRelationships {
       container: Cache
   ): ItContainerConfigurer[Cache] =
     describesContainer[Cache](container)
-
-  private def describesContainer[ContainerType <: ItContainer](
-      container: ContainerType
-  ): ItContainerConfigurer[ContainerType] =
-    ItContainerConfigurer(has(container), this, this)
 }

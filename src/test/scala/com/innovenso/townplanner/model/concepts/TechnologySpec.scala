@@ -6,12 +6,15 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class TechnologySpec extends AnyFlatSpec with GivenWhenThen {
   "Technologies" can "be added to the town plan" in new EnterpriseArchitecture {
+    When("a technology is added to the town plan")
     val java: Technique =
       ea describes Technique(title = "SAFE") as { it =>
         it should BeEliminated("SAFE is not agile")
       }
 
+    Then("the technology exists")
     assert(exists(java))
+    And("it has the correct architecture verdict")
     assert(
       townPlan
         .component(java.key, classOf[Technique])

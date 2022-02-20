@@ -5,14 +5,7 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   HasRelationships
 }
-import com.innovenso.townplanner.model.concepts.views.{
-  CanAddFlowViews,
-  CanAddSystemContainerViews,
-  CanAddSystemIntegrationViews,
-  HasFlowViews,
-  HasSystemContainerViews,
-  HasSystemIntegrationViews
-}
+import com.innovenso.townplanner.model.concepts.views._
 import com.innovenso.townplanner.model.language.{
   CanAddModelComponents,
   HasModelComponents,
@@ -20,13 +13,9 @@ import com.innovenso.townplanner.model.language.{
 }
 import com.innovenso.townplanner.model.meta.Key
 
-import java.time.LocalDate
-
 case class TownPlan(
-    modelComponents: Map[Key, ModelComponent],
-    keyPointsInTime: Map[LocalDate, KeyPointInTime]
+    modelComponents: Map[Key, ModelComponent]
 ) extends HasModelComponents
-    with HasKeyPointsInTime
     with HasEnterprises
     with HasRelationships
     with HasTechnologies
@@ -46,7 +35,6 @@ case class TownPlan(
 
 class TownPlanFactory
     extends CanAddModelComponents
-    with CanAddKeyPointsInTime
     with CanAddRelationships
     with CanAddEnterprises
     with CanAddTechnologies

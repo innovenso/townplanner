@@ -1,26 +1,19 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  BeInvestedIn,
-  Catastrophic,
-  Description,
-  Frequency,
-  Message,
-  Request,
-  ResilienceMeasure,
-  Response,
-  Volume
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.Implementation
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
   "IT System Integrations" can "be added to the townplan" in new EnterpriseArchitecture {
+    Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "System 1")
     val system2: ItSystem = ea has ItSystem(title = "System 2")
+    And("an integration platform")
     val integrationPlatform: ItSystem =
       ea has ItSystem(title = "Integration Platform")
+    When("an integration is added to the town plan")
     val integration: ItSystemIntegration =
       ea describes ItSystemIntegration(title =
         "An Integration"
@@ -39,12 +32,15 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
         it has Message("step 4") from integrationPlatform to system1
       }
 
+    Then("the integration exists")
     assert(exists(integration))
+    And("it has a throughput")
     assert(
       townPlan
         .systemIntegration(integration.key)
         .exists(it => it.frequency.nonEmpty && it.volume.nonEmpty)
     )
+    And("it has the correct relationships with the integration platform")
     assert(
       townPlan
         .relationships(
@@ -54,7 +50,9 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
         )
         .size == 1
     )
+    And("it is linked to the correct systems")
     assert(townPlan.systemIntegrations(system1, system2).size == 1)
+    And("it has the correct sequence of interactions")
     assert(
       townPlan
         .systemIntegration(integration.key)

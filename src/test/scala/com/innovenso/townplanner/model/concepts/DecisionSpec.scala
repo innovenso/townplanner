@@ -1,22 +1,6 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  Assumption,
-  Confidentiality,
-  Constraint,
-  CurrentState,
-  Description,
-  DoesNotMeetExpectations,
-  ExceedsExpectations,
-  ExtremelyHighImpact,
-  FunctionalRequirement,
-  Goal,
-  MeetsExpectations,
-  MustHave,
-  PCICompliance,
-  QualityAttributeRequirement,
-  ShouldHave
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.meta.Key
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec

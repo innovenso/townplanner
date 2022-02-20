@@ -1,9 +1,6 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.concepts.KeyPointInTime
 import com.innovenso.townplanner.model.meta.{ADay, Key, SortKey, Today}
-
-import java.time.LocalDate
 
 trait FatherTime extends Property {
   val key: Key = Key()
@@ -21,10 +18,6 @@ trait FatherTime extends Property {
   def fadesOut: Boolean = false
   def disappears: Boolean = false
 
-  def isBefore(day: ADay): Boolean =
-    date.isBefore(day)
-  def isAfterOrEqual(day: ADay): Boolean =
-    date.isAfterOrEqual(day)
   def isBetween(
       day1: ADay,
       day2: ADay
@@ -36,18 +29,23 @@ trait FatherTime extends Property {
       else day2
     isAfterOrEqual(first) && isBefore(last)
   }
+
+  def isBefore(day: ADay): Boolean =
+    date.isBefore(day)
+
+  def isAfterOrEqual(day: ADay): Boolean =
+    date.isAfterOrEqual(day)
 }
 
 case class Conceived(
     date: ADay = Today,
     description: String = ""
 ) extends FatherTime {
+  override val fadesIn: Boolean = true
   val name = "Conceived"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val fadesIn: Boolean = true
 }
 
 case class Due(date: ADay = Today, description: String = "")
@@ -63,12 +61,11 @@ case class StartedDevelopment(
     date: ADay = Today,
     description: String = ""
 ) extends FatherTime {
+  override val fadesIn: Boolean = true
   val name = "In Development"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val fadesIn: Boolean = true
 
 }
 
@@ -76,12 +73,11 @@ case class GoneToPreproduction(
     date: ADay = Today,
     description: String = ""
 ) extends FatherTime {
+  override val fadesIn: Boolean = true
   val name = "In Preproduction"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val fadesIn: Boolean = true
 
 }
 
@@ -89,32 +85,29 @@ case class GoneToProduction(
     date: ADay = Today,
     description: String = ""
 ) extends FatherTime {
+  override val appears: Boolean = true
   val name = "In Production"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val appears: Boolean = true
 }
 
 case class Active(date: ADay = Today, description: String = "")
     extends FatherTime {
+  override val appears: Boolean = true
   val name = "Active"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val appears: Boolean = true
 }
 
 case class Retired(date: ADay = Today, description: String = "")
     extends FatherTime {
+  override val fadesOut: Boolean = true
   val name = "Retired"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val fadesOut: Boolean = true
 
 }
 
@@ -122,12 +115,11 @@ case class Decommissioned(
     date: ADay = Today,
     description: String = ""
 ) extends FatherTime {
+  override val disappears: Boolean = true
   val name = "Decommissioned"
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
-
-  override val disappears: Boolean = true
 }
 
 case class LifecycleEvent(
@@ -141,23 +133,28 @@ case class LifecycleEvent(
 }
 
 trait HasFatherTime extends HasProperties {
-  def lifeEvents: List[FatherTime] = props(classOf[FatherTime])
   def dueDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Due])
+
   def isUnknownLifecycle(day: ADay): Boolean =
     lifeEvents.isEmpty || (hasNoLifeEventsBefore(
       day
     ) && !hasAppearedAfter(day) && hasDisappearedAfter(day))
+
   def isDecommissioned(day: ADay): Boolean =
     hasDisappearedBefore(day)
+
   def isPhasingOut(day: ADay): Boolean =
     hasFadedOutBefore(day) && !hasDisappearedBefore(day)
+
   def isActive(day: ADay): Boolean = hasAppearedBefore(
     day
   ) && !isPhasingOut(day) && !isDecommissioned(day)
+
   def isPlanned(day: ADay): Boolean =
     hasFadedInBefore(day) && !isActive(day) && !isPhasingOut(
       day
     ) && !isDecommissioned(day)
+
   def isNotEvenPlanned(day: ADay): Boolean =
     !isPlanned(day) && !isActive(day) && !isDecommissioned(
       day
@@ -165,32 +162,43 @@ trait HasFatherTime extends HasProperties {
 
   private def hasFadedInBefore(day: ADay): Boolean =
     lifeEvents.filter(_.isBefore(day)).exists(_.fadesIn)
+
   private def hasFadedInAfter(day: ADay): Boolean =
     lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.fadesIn)
+
   private def hasAppearedBefore(
       day: ADay
   ): Boolean =
     lifeEvents
       .filter(_.isBefore(day))
       .exists(_.appears)
+
   private def hasAppearedAfter(
       day: ADay
   ): Boolean =
     lifeEvents
       .filter(_.isAfterOrEqual(day))
       .exists(_.appears)
+
   private def hasFadedOutBefore(day: ADay): Boolean =
     lifeEvents.filter(_.isBefore(day)).exists(_.fadesOut)
+
   private def hasFadedOutAfter(day: ADay): Boolean =
     lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.fadesOut)
+
   private def hasDisappearedBefore(day: ADay): Boolean =
     lifeEvents.filter(_.isBefore(day)).exists(_.disappears)
+
   private def hasDisappearedAfter(day: ADay): Boolean =
     lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.disappears)
+
   private def hasNoLifeEventsBefore(day: ADay): Boolean =
     !lifeEvents.exists(_.isBefore(day))
+
   private def hasNoLifeEventsAfter(day: ADay): Boolean =
     !lifeEvents.exists(_.isAfterOrEqual(day))
+
+  def lifeEvents: List[FatherTime] = props(classOf[FatherTime])
 }
 
 case class FatherTimeConfigurer(

@@ -1,43 +1,17 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{
-  ActorNoun,
-  BusinessActor,
-  HasBusinessActors,
-  HasItContainers,
-  HasItSystems,
-  ItContainer,
-  ItSystem
-}
+import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
-  HasFatherTime,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   Flow,
-  HasRelationships,
-  Relationship
+  HasRelationships
 }
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  Element,
-  HasModelComponents,
-  ModelComponent,
-  View,
-  ViewCompiler
-}
-import com.innovenso.townplanner.model.meta.{
-  ADay,
-  Day,
-  Key,
-  ModelComponentType,
-  SortKey,
-  Today
-}
-
-import scala.runtime.Nothing$
+import com.innovenso.townplanner.model.language._
+import com.innovenso.townplanner.model.meta._
 
 case class SystemContainerView(
     key: Key = Key(),

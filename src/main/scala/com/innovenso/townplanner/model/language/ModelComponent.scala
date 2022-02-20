@@ -1,7 +1,6 @@
 package com.innovenso.townplanner.model.language
 
 import com.innovenso.townplanner.model.TownPlan
-import com.innovenso.townplanner.model.concepts.KeyPointInTime
 import com.innovenso.townplanner.model.meta.{Key, ModelComponentType, SortKey}
 
 import java.time.LocalDate
@@ -48,8 +47,7 @@ trait HasModelComponents {
 
 trait CanAddModelComponents {
   var townPlan: TownPlan = TownPlan(
-    Map.empty[Key, ModelComponent],
-    Map.empty[LocalDate, KeyPointInTime]
+    Map.empty[Key, ModelComponent]
   )
 
   def has[ModelComponentType <: ModelComponent](

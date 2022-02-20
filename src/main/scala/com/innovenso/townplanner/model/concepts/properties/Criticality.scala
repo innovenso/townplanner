@@ -56,15 +56,21 @@ case class UnknownCriticality(consequences: String = "") extends Criticality {
 }
 
 trait HasCriticality extends HasProperties {
+  def isCatastrophicCriticality: Boolean =
+    criticality.isInstanceOf[Catastrophic]
+
+  def isHazardousCriticality: Boolean = criticality.isInstanceOf[Hazardous]
+
   def criticality: Criticality =
     props(classOf[Criticality]).headOption
       .getOrElse(UnknownCriticality())
-  def isCatastrophicCriticality: Boolean =
-    criticality.isInstanceOf[Catastrophic]
-  def isHazardousCriticality: Boolean = criticality.isInstanceOf[Hazardous]
+
   def isMajorCriticality: Boolean = criticality.isInstanceOf[Major]
+
   def isMinorCriticality: Boolean = criticality.isInstanceOf[Minor]
+
   def isNoEffectCriticality: Boolean = criticality.isInstanceOf[NoEffect]
+
   def isUnknownCriticality: Boolean =
     criticality.isInstanceOf[UnknownCriticality]
 

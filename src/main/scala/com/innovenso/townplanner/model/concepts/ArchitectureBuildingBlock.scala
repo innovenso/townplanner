@@ -1,21 +1,6 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  CanAddProperties,
-  CanConfigureArchitectureVerdict,
-  CanConfigureCriticality,
-  CanConfigureDescription,
-  CanConfigureExternalIds,
-  CanConfigureLinks,
-  CanConfigureSWOT,
-  HasArchitectureVerdict,
-  HasCriticality,
-  HasDescription,
-  HasExternalIds,
-  HasLinks,
-  HasSWOT,
-  Property
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
@@ -68,8 +53,8 @@ trait HasArchitectureBuildingBlocks
       classOf[Enterprise]
     ).headOption
   def realizedBusinessCapabilities(
-                                          architectureBuildingBlock: ArchitectureBuildingBlock
-                                        ): List[BusinessCapability] = directOutgoingDependencies(
+      architectureBuildingBlock: ArchitectureBuildingBlock
+  ): List[BusinessCapability] = directOutgoingDependencies(
     architectureBuildingBlock,
     classOf[Realization],
     classOf[BusinessCapability]

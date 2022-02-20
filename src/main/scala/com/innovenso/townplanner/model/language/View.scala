@@ -2,7 +2,7 @@ package com.innovenso.townplanner.model.language
 
 import com.innovenso.townplanner.model.concepts.properties.HasFatherTime
 import com.innovenso.townplanner.model.concepts.relationships.HasRelationships
-import com.innovenso.townplanner.model.meta.{ADay, Day, Key}
+import com.innovenso.townplanner.model.meta.{ADay, Key}
 
 trait View extends Concept {
   def pointInTime: ADay

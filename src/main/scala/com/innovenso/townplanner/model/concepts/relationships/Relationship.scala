@@ -1,7 +1,15 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.{HasDescription, HasFatherTime}
-import com.innovenso.townplanner.model.language.{CanAddModelComponents, Concept, Element, HasModelComponents}
+import com.innovenso.townplanner.model.concepts.properties.{
+  HasDescription,
+  HasFatherTime
+}
+import com.innovenso.townplanner.model.language.{
+  CanAddModelComponents,
+  Concept,
+  Element,
+  HasModelComponents
+}
 import com.innovenso.townplanner.model.meta._
 
 trait Relationship extends Concept with HasDescription with HasFatherTime {
@@ -46,6 +54,23 @@ trait HasRelationships extends HasModelComponents {
 
   def relationshipsWithSource(element: Element): List[Relationship] =
     relationships.filter(r => r.source == element.key)
+
+  def relationships: List[Relationship] = components(classOf[Relationship])
+
+  private def otherElementTypeFilter[ElementType <: Element](
+      element: Element,
+      otherElementType: Class[ElementType]
+  ): Relationship => Boolean = (relationship: Relationship) =>
+    isOtherElementOfType(relationship, element.key, otherElementType)
+
+  private def isOtherElementOfType[ElementType <: Element](
+      relationship: Relationship,
+      elementKey: Key,
+      otherElementType: Class[ElementType]
+  ): Boolean = component(
+    relationship.other(elementKey).getOrElse(Key()),
+    otherElementType
+  ).isDefined
 
   def relationshipsWithTarget[ElementType <: Element](
       element: Element,
@@ -114,51 +139,6 @@ trait HasRelationships extends HasModelComponents {
       .flatMap(mapOtherElement(element, otherElementType))
       .distinct
 
-  private def mapOtherElement[ElementType <: Element](
-      element: Element,
-      otherElementType: Class[ElementType]
-  ): Relationship => List[ElementType] = (relationship: Relationship) =>
-    component(
-      relationship.other(element.key).getOrElse(Key()),
-      otherElementType
-    ).toList
-
-  def relationships[ElementType <: Element, RelationshipType <: Relationship](
-      element: Element,
-      relationshipType: Class[RelationshipType],
-      otherElementType: Class[ElementType]
-  ): List[Relationship] = relationships(element, relationshipType).filter(
-    otherElementTypeFilter(element, otherElementType)
-  )
-
-  private def otherElementTypeFilter[ElementType <: Element](
-      element: Element,
-      otherElementType: Class[ElementType]
-  ): Relationship => Boolean = (relationship: Relationship) =>
-    isOtherElementOfType(relationship, element.key, otherElementType)
-
-  private def isOtherElementOfType[ElementType <: Element](
-      relationship: Relationship,
-      elementKey: Key,
-      otherElementType: Class[ElementType]
-  ): Boolean = component(
-    relationship.other(elementKey).getOrElse(Key()),
-    otherElementType
-  ).isDefined
-
-  def relationships[ElementType <: Element, RelationshipType <: Relationship](
-      element: Element,
-      relationshipType: Class[RelationshipType]
-  ): List[Relationship] =
-    relationships(element).filter(relationshipType.isInstance(_))
-
-  def relationships(element: Element): List[Relationship] =
-    relationships.filter(r =>
-      r.source == element.key || r.target == element.key
-    )
-
-  def relationships: List[Relationship] = components(classOf[Relationship])
-
   def directOutgoingDependencies(element: Element): List[Element] =
     directOutgoingDependenciesOfType(element, classOf[Element])
 
@@ -195,6 +175,34 @@ trait HasRelationships extends HasModelComponents {
       .filter(r => r.source == element.key)
       .flatMap(mapOtherElement(element, otherElementType))
       .distinct
+
+  private def mapOtherElement[ElementType <: Element](
+      element: Element,
+      otherElementType: Class[ElementType]
+  ): Relationship => List[ElementType] = (relationship: Relationship) =>
+    component(
+      relationship.other(element.key).getOrElse(Key()),
+      otherElementType
+    ).toList
+
+  def relationships[ElementType <: Element, RelationshipType <: Relationship](
+      element: Element,
+      relationshipType: Class[RelationshipType],
+      otherElementType: Class[ElementType]
+  ): List[Relationship] = relationships(element, relationshipType).filter(
+    otherElementTypeFilter(element, otherElementType)
+  )
+
+  def relationships[ElementType <: Element, RelationshipType <: Relationship](
+      element: Element,
+      relationshipType: Class[RelationshipType]
+  ): List[Relationship] =
+    relationships(element).filter(relationshipType.isInstance(_))
+
+  def relationships(element: Element): List[Relationship] =
+    relationships.filter(r =>
+      r.source == element.key || r.target == element.key
+    )
 }
 
 trait CanAddRelationships extends CanAddModelComponents {

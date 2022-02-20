@@ -1,31 +1,27 @@
 package com.innovenso.townplanner.model.views
 
+import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.concepts.properties.GoneToProduction
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledSystemContainerView,
   SystemContainerView
 }
-import com.innovenso.townplanner.model.concepts.{
-  ActorNoun,
-  Database,
-  EnterpriseArchitecture,
-  IndividualActor,
-  ItSystem,
-  Microservice
-}
-import com.innovenso.townplanner.model.meta.{Day, InTheFuture}
+import com.innovenso.townplanner.model.meta.InTheFuture
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
   "System container views" can "be added to the town plan" in new EnterpriseArchitecture {
+    Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "System 1")
     val system2: ItSystem = ea has ItSystem(title = "System 2")
     val system3: ItSystem = ea has ItSystem(title = "System 3")
+    And("a system that goes live in the future")
     val system4: ItSystem = ea describes ItSystem(title = "System 4") as { it =>
       it has GoneToProduction() on InTheFuture
     }
 
+    And("containers as part of the systems")
     val ms1: Microservice =
       ea describes Microservice(title = "Microservice 1") as { it =>
         it isPartOf system1
@@ -45,6 +41,7 @@ class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
         it uses system4
       }
 
+    And("some business actors")
     val user1: ActorNoun = ea describes ActorNoun(title = "User 1") as { it =>
       it uses ms2
       it uses system1
@@ -53,6 +50,7 @@ class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
 
     val user2: ActorNoun = ea has ActorNoun(title = "User 2")
 
+    And("some individuals")
     val jurgenlust: IndividualActor =
       ea describes IndividualActor(title = "Jurgen Lust") as { he =>
         he delivers system1
@@ -60,16 +58,19 @@ class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
         he delivers db1
       }
 
+    When("a system container view is requested")
     val system2ContainerView: SystemContainerView =
       ea needs SystemContainerView(forSystem = system2.key)
 
     println(system2ContainerView)
 
+    Then("the system container view exists")
     assert(exists(system2ContainerView))
     val compiledSystemContainerView: CompiledSystemContainerView = townPlan
       .systemContainerView(system2ContainerView.key)
       .get
     println(compiledSystemContainerView)
+    And("it only contains the relevant systems")
     assert(
       compiledSystemContainerView.systems.size == 3
     )
@@ -85,6 +86,7 @@ class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
     assert(
       compiledSystemContainerView.system(system4.key).isEmpty
     )
+    And("it only contains the relevant containers")
     assert(
       compiledSystemContainerView.container(ms2.key).contains(ms2)
     )
@@ -94,6 +96,7 @@ class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
     assert(
       compiledSystemContainerView.container(db1.key).isEmpty
     )
+    And("it only contains the relevant actors")
     assert(
       compiledSystemContainerView.businessActor(user1.key).contains(user1)
     )

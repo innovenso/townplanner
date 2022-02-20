@@ -1,9 +1,9 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, CanAddRequirementScores, CanConfigureContext, CanConfigureDataProtectionConcerns, CanConfigureDescription, CanConfigureFatherTime, CanConfigureLinks, CanConfigureRequirements, CanConfigureSecurityImpact, HasContext, HasDataProtectionConcerns, HasDescription, HasFatherTime, HasLinks, HasRequirementScores, HasRequirements, HasSecurityImpact, Property}
-import com.innovenso.townplanner.model.concepts.relationships.{CanAddRelationships, CanBeAssociated, CanBeComposedOf, CanBeInfluenced, CanBeTriggered, CanCompose, CanConfigureAssociations, CanConfigureCompositionSource, CanConfigureCompositionTarget, CanConfigureImpactSource, CanConfigureInfluenceTarget, CanConfigureRaciTarget, CanConfigureServingSource, CanConfigureStakeHolderTarget, CanConfigureTriggerTarget, CanHaveRaci, CanHaveStakeholder, CanImpact, CanServe, Composition, HasRelationships, Serving}
+import com.innovenso.townplanner.model.concepts.properties._
+import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
-import com.innovenso.townplanner.model.meta.{ActiveStructure, Aspect, ImplementationLayer, Key, Layer, ModelComponentType, SortKey}
+import com.innovenso.townplanner.model.meta._
 
 case class ItProject(
     key: Key = Key(),
@@ -68,10 +68,8 @@ case class ItProjectMilestone(
 }
 
 trait HasProjects extends HasModelComponents with HasRelationships {
-  def itProjects(enterprise: Enterprise): List[ItProject] = directIncomingDependencies(
-    enterprise,
-    classOf[Serving],
-    classOf[ItProject])
+  def itProjects(enterprise: Enterprise): List[ItProject] =
+    directIncomingDependencies(enterprise, classOf[Serving], classOf[ItProject])
   def itProjects: List[ItProject] = components(classOf[ItProject])
   def itProject(key: Key): Option[ItProject] =
     component(key, classOf[ItProject])

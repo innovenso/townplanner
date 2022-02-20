@@ -78,6 +78,20 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
     _._1.isInstanceOf[QualityAttributeRequirement]
   )
 
+  def scores(
+      decisionOption: DecisionOption
+  ): List[(Requirement, RequirementScore)] =
+    decision(decisionOption)
+      .map(_.requirements.map(r => (r, decisionOption.score(r.key))))
+      .getOrElse(Nil)
+
+  def decision(decisionOption: DecisionOption): Option[Decision] =
+    directIncomingDependencies(
+      decisionOption,
+      classOf[Composition],
+      classOf[Decision]
+    ).headOption
+
   def constraintScores(
       decisionOption: DecisionOption
   ): List[(Requirement, RequirementScore)] =
@@ -85,6 +99,12 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
 
   def optionsUnderInvestigation(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[UnderInvestigation])
+
+  def chosenOptions(decision: Decision): List[DecisionOption] =
+    options(decision).filter(_.verdict.isInstanceOf[Chosen])
+
+  def rejectedOptions(decision: Decision): List[DecisionOption] =
+    options(decision).filter(_.verdict.isInstanceOf[Rejected])
 
   def options(decision: Decision): List[DecisionOption] = {
     directOutgoingDependencies(
@@ -101,26 +121,6 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   ): Boolean = scores(decisionOption).exists(rr =>
     rr._1.weight == MustHave && rr._2.isInstanceOf[DoesNotMeetExpectations]
   )
-
-  def scores(
-      decisionOption: DecisionOption
-  ): List[(Requirement, RequirementScore)] =
-    decision(decisionOption)
-      .map(_.requirements.map(r => (r, decisionOption.score(r.key))))
-      .getOrElse(Nil)
-
-  def decision(decisionOption: DecisionOption): Option[Decision] =
-    directIncomingDependencies(
-      decisionOption,
-      classOf[Composition],
-      classOf[Decision]
-    ).headOption
-
-  def chosenOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict.isInstanceOf[Chosen])
-
-  def rejectedOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict.isInstanceOf[Rejected])
 }
 
 sealed trait DecisionStatus {

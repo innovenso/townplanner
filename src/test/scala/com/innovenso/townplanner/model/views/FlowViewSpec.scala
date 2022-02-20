@@ -17,14 +17,18 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
   "A flow view" can "be added to the town plan" in new EnterpriseArchitecture {
+    Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")
+    And("a user")
     val user: ActorNoun = ea has ActorNoun(title = "A user")
+    And("a container")
     val container1: Microservice =
       ea describes Microservice(title = "A microservice") as { it =>
         it isPartOf system1
       }
 
+    When("a flow view is requested")
     val flowView: FlowView = ea needs FlowView(title = "The Flow View") and {
       it =>
         it has Request("once ") from user to container1
@@ -34,7 +38,9 @@ class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
         it has Response("dreary") from container1 to user
     }
 
+    Then("it should exist")
     assert(exists(flowView))
+    And("the steps should be ordered")
     assert(
       townPlan
         .flowView(flowView.key)

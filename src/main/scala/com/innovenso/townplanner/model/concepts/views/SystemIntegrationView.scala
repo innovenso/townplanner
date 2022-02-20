@@ -1,23 +1,15 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{
-  HasBusinessActors,
-  HasItContainers,
-  HasItSystemIntegrations,
-  HasItSystems,
-  ItSystem,
-  ItSystemIntegration
-}
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   Property
 }
-import com.innovenso.townplanner.model.concepts.relationships.{
-  Association,
-  CanAddRelationships,
-  HasRelationships,
-  Implementation,
-  Relationship
+import com.innovenso.townplanner.model.concepts.relationships._
+import com.innovenso.townplanner.model.concepts.{
+  HasItSystemIntegrations,
+  HasItSystems,
+  ItSystem,
+  ItSystemIntegration
 }
 import com.innovenso.townplanner.model.language.{
   CompiledView,
@@ -25,13 +17,7 @@ import com.innovenso.townplanner.model.language.{
   View,
   ViewCompiler
 }
-import com.innovenso.townplanner.model.meta.{
-  ADay,
-  Key,
-  ModelComponentType,
-  SortKey,
-  Today
-}
+import com.innovenso.townplanner.model.meta._
 
 case class SystemIntegrationView(
     key: Key = Key(),
@@ -96,9 +82,6 @@ case class SystemIntegrationViewCompiler(
       )
     )
 
-  def integration: Option[ItSystemIntegration] =
-    source.systemIntegration(view.forSystemIntegration)
-
   def systems: Set[ItSystem] = integration
     .map(it => source.system(it.source).toSet ++ source.system(it.target).toSet)
     .getOrElse(Set())
@@ -122,6 +105,9 @@ case class SystemIntegrationViewCompiler(
     )
     .getOrElse(Nil)
     .toSet
+
+  def integration: Option[ItSystemIntegration] =
+    source.systemIntegration(view.forSystemIntegration)
 
   def implementers: Set[ItSystem] = integration
     .map(it =>

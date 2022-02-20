@@ -1,13 +1,6 @@
 package com.innovenso.townplanner.model.concepts
 
-import com.innovenso.townplanner.model.concepts.properties.{
-  Conceived,
-  Decommissioned,
-  GoneToPreproduction,
-  GoneToProduction,
-  Retired,
-  StartedDevelopment
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.meta.{ADay, Day}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
