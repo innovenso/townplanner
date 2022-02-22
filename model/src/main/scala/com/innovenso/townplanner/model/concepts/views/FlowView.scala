@@ -69,6 +69,11 @@ case class CompiledFlowView(
   def withStepCounter: Boolean = view.withStepCounter
   def steps: List[(Interaction, Int)] =
     interactions.zip(LazyList from 1)
+  def stepSource(step: Interaction): Element =
+    component(step.source, classOf[Element]).get
+
+  def stepTarget(step: Interaction): Element =
+    component(step.target, classOf[Element]).get
 
 }
 

@@ -15,7 +15,7 @@ import com.innovenso.townplanner.model.language.{
 }
 import plantuml.integration.txt.SystemIntegrationViewDiagram
 import plantuml.system.txt.SystemContainerViewDiagram
-import plantuml.view.txt.FlowViewDiagram
+import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
 
 object DiagramSpecificationWriter {
   def specifications(
@@ -43,6 +43,11 @@ object DiagramSpecificationWriter {
         DiagramSpecification(
           view = flowView,
           plantumlSpecification = FlowViewDiagram(flowView).body
+        ),
+        DiagramSpecification(
+          flowView,
+          FlowViewSequenceDiagram(flowView).body,
+          Some("Sequence")
         )
       )
     case _ => Nil
