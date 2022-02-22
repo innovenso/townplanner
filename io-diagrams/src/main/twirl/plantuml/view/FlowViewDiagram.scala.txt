@@ -1,0 +1,17 @@
+@import plantuml.lib.concepts.txt.SystemContext
+@import plantuml.lib.concepts.txt.Systems
+@import plantuml.lib.concepts.txt.BusinessActors
+@import plantuml.lib.relationships.txt.Step
+@import plantuml.lib.txt.Uml
+@import com.innovenso.townplanner.model.concepts.views.CompiledFlowView
+@(model: CompiledFlowView)
+@Uml {
+  @for(systemContext <- model.systemContexts) {
+    @SystemContext(systemContext, model.pointInTime, model.containers(systemContext))
+  }
+  @Systems(model.otherSystems, model.pointInTime)
+  @BusinessActors(model.actorNouns, model.pointInTime)
+  @for(step <- model.steps) {
+    @Step(model.view, step._1, step._2)
+  }
+}

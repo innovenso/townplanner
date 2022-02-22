@@ -1,22 +1,21 @@
-package com.innovenso.townplanner.model.views
+package com.innovenso.townplanner.io
 
+import com.innovenso.townplanner.model.concepts.{
+  ActorNoun,
+  ItSystem,
+  Microservice
+}
 import com.innovenso.townplanner.model.concepts.properties.{
   Message,
   Request,
   Response
 }
 import com.innovenso.townplanner.model.concepts.views.FlowView
-import com.innovenso.townplanner.model.concepts.{
-  ActorNoun,
-  EnterpriseArchitecture,
-  ItSystem,
-  Microservice
-}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
-class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
-  "A flow view" can "be added to the town plan" in new EnterpriseArchitecture {
+class FlowViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
+  "a specification and diagram" should "be written for each flow view" in new DiagramIO {
     Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")
@@ -38,23 +37,15 @@ class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
         it has Response("dreary") from container1 to user
     }
 
-    Then("it should exist")
-    assert(exists(flowView))
-    println(townPlan.flowView(flowView.key))
-    assert(townPlan.flowView(flowView.key).exists(_.containers.size == 1))
-    assert(townPlan.flowView(flowView.key).exists(_.systemContexts.size == 1))
-    assert(townPlan.flowView(flowView.key).exists(_.otherSystems.size == 1))
-    assert(townPlan.flowView(flowView.key).exists(_.actorNouns.size == 1))
-
-    And("the steps should be ordered")
+    Then("the specification exists")
     assert(
-      townPlan
-        .flowView(flowView.key)
-        .exists(it =>
-          it.view.interactions
-            .map(_.name)
-            .mkString == "once upon a midnight dreary"
-        )
+      specificationExists(
+        townPlan.flowView(flowView.key)
+      )
     )
+
+    And("the diagrams are written")
+    assert(diagramsAreWritten(flowView.key))
+
   }
 }

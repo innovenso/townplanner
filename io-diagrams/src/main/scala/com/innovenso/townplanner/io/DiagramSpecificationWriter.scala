@@ -3,6 +3,7 @@ package com.innovenso.townplanner.io
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
+  CompiledFlowView,
   CompiledSystemContainerView,
   CompiledSystemIntegrationView,
   SystemContainerView
@@ -14,6 +15,7 @@ import com.innovenso.townplanner.model.language.{
 }
 import plantuml.integration.txt.SystemIntegrationViewDiagram
 import plantuml.system.txt.SystemContainerViewDiagram
+import plantuml.view.txt.FlowViewDiagram
 
 object DiagramSpecificationWriter {
   def specifications(
@@ -34,6 +36,13 @@ object DiagramSpecificationWriter {
           view = systemIntegrationView,
           plantumlSpecification =
             SystemIntegrationViewDiagram(systemIntegrationView).body
+        )
+      )
+    case flowView: CompiledFlowView =>
+      List(
+        DiagramSpecification(
+          view = flowView,
+          plantumlSpecification = FlowViewDiagram(flowView).body
         )
       )
     case _ => Nil

@@ -10,6 +10,7 @@ import com.innovenso.townplanner.model.concepts.{
 import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
+  Composition,
   Flow,
   HasRelationships
 }
@@ -60,7 +61,15 @@ case class CompiledFlowView(
     with HasItPlatforms
     with HasRelationships
     with HasBusinessActors {
-  def elements: List[Element] = systems ++ containers ++ platforms ++ actorNouns
+  def systemContexts: List[ItSystem] =
+    containers.map(system).filter(_.nonEmpty).map(_.get)
+  def otherSystems: List[ItSystem] = systems.filterNot(systemContexts.toSet)
+
+  def interactions: List[Interaction] = view.interactions
+  def withStepCounter: Boolean = view.withStepCounter
+  def steps: List[(Interaction, Int)] =
+    interactions.zip(LazyList from 1)
+
 }
 
 case class FlowViewCompiler(
@@ -72,7 +81,7 @@ case class FlowViewCompiler(
       HasFlowViews
     ] {
   def compile: CompiledFlowView =
-    CompiledFlowView(view, viewComponents(elements))
+    CompiledFlowView(view, viewComponents(elements ++ compositions))
 
   private def elements: List[Element] =
     view.interactions
@@ -81,6 +90,15 @@ case class FlowViewCompiler(
       .map(source.component(_, classOf[Element]))
       .filter(_.nonEmpty)
       .map(_.get)
+
+  private def compositions: List[Composition] = elements.flatMap(element =>
+    source
+      .relationships(element, classOf[Composition])
+      .filter(r =>
+        r.other(element.key).exists(o => elements.exists(_.key == o))
+      )
+      .map(_.asInstanceOf[Composition])
+  )
 }
 
 case class FlowViewConfigurer(

@@ -19,7 +19,7 @@ case class TownPlanDiagramWriter(
 ) extends LazyLogging {
 
   def views(townPlan: TownPlan): List[_ <: CompiledView[_ <: View]] =
-    townPlan.systemContainerViews ++ townPlan.systemIntegrationViews
+    townPlan.systemContainerViews ++ townPlan.systemIntegrationViews ++ townPlan.flowViews
 
   def view(townPlan: TownPlan, key: Key): Option[_ <: CompiledView[_ <: View]] =
     views(townPlan).find(_.key == key)
