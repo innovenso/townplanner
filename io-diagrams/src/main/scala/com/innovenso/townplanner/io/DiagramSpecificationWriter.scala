@@ -3,6 +3,7 @@ package com.innovenso.townplanner.io
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
+  CompiledBusinessCapabilityMap,
   CompiledFlowView,
   CompiledSystemContainerView,
   CompiledSystemIntegrationView,
@@ -13,6 +14,7 @@ import com.innovenso.townplanner.model.language.{
   ModelComponent,
   View
 }
+import plantuml.enterprise.txt.BusinessCapabilityMindMap
 import plantuml.integration.txt.SystemIntegrationViewDiagram
 import plantuml.system.txt.SystemContainerViewDiagram
 import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
@@ -48,6 +50,13 @@ object DiagramSpecificationWriter {
           flowView,
           FlowViewSequenceDiagram(flowView).body,
           Some("Sequence")
+        )
+      )
+    case businessCapabilityMap: CompiledBusinessCapabilityMap =>
+      List(
+        DiagramSpecification(
+          businessCapabilityMap,
+          BusinessCapabilityMindMap(businessCapabilityMap).body
         )
       )
     case _ => Nil
