@@ -1,0 +1,20 @@
+@import plantuml.lib.txt.MindMapNode
+@import plantuml.lib.txt.MindMap
+@import com.innovenso.townplanner.model.concepts.views.CompiledBusinessCapabilityPosition
+@import plantuml.lib.concepts.txt.BusinessCapabilityTree
+@(model: CompiledBusinessCapabilityPosition)
+@MindMap {
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aEnterprise jar:archimate/physical-facility
+
+  @if(model.enterprise.isDefined) {
+      @MindMapNode(color = "PHYSICAL", title=model.enterprise.get.title, description = None, depth = 1, sprite = "aEnterprise")
+
+      @for(capability <- model.level0businessCapabilities(model.enterprise.get)) {
+          @BusinessCapabilityTree(capability, model, 0)
+      }
+
+  }
+
+
+}

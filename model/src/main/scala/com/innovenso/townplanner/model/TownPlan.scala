@@ -34,6 +34,7 @@ case class TownPlan(
     with HasSystemContainerViews
     with HasSystemIntegrationViews
     with HasBusinessCapabilityMaps
+    with HasBusinessCapabilityPositions
 
 class TownPlanFactory
     extends CanAddModelComponents
@@ -54,3 +55,4 @@ class TownPlanFactory
     with CanAddSystemContainerViews
     with CanAddSystemIntegrationViews
     with CanAddBusinessCapabilityMaps
+    with CanAddBusinessCapabilityPositions

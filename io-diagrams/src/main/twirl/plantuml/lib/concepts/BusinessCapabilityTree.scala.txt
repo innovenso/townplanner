@@ -3,10 +3,17 @@
 @import plantuml.lib.txt.Title
 @import plantuml.lib.txt.DescriptionWrapped
 @import plantuml.lib.concepts.txt.BusinessCapabilityTree
-@(capability: BusinessCapability, model: CompiledBusinessCapabilityMap, level: Int)
-@for(counter <- 1 to level + 2) {*}[#STRATEGY]: <$aCapability> <b>@Title(capability)</b>
+@import plantuml.lib.txt.MindMapNode
+@import com.innovenso.townplanner.model.concepts.HasBusinessCapabilities
+@(capability: BusinessCapability, model: HasBusinessCapabilities, level: Int)
 
-@DescriptionWrapped(capability);
+@MindMapNode(
+  color = "STRATEGY",
+  title=capability.title,
+  description = Option(DescriptionWrapped(capability).body.trim),
+  depth = 2 + level,
+  sprite = "aCapability"
+)
 
 @for(child <- model.childBusinessCapabilities(capability)) {
   @BusinessCapabilityTree(child, model, level+1)

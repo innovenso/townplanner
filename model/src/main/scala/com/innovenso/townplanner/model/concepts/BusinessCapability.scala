@@ -79,12 +79,28 @@ trait HasBusinessCapabilities
       traverseBusinessCapabilities(capability)
     )
 
+  def businessCapabilityHierarchy(
+      businessCapability: BusinessCapability
+  ): Set[BusinessCapability] =
+    (parentHierarchy(businessCapability) ++ traverseBusinessCapabilities(
+      businessCapability
+    )).toSet
+
   private def traverseBusinessCapabilities(
       businessCapability: BusinessCapability
   ): LazyList[BusinessCapability] =
     businessCapability #:: (childBusinessCapabilities(
       businessCapability
     ) map traverseBusinessCapabilities).fold(LazyList.empty)(_ ++ _)
+
+  private def parentHierarchy(
+      businessCapability: BusinessCapability
+  ): List[BusinessCapability] =
+    if (parentBusinessCapability(businessCapability).isDefined)
+      businessCapability :: parentHierarchy(
+        parentBusinessCapability(businessCapability).get
+      )
+    else List(businessCapability)
 }
 
 case class BusinessCapabilityMapConfigurerConfigurer(

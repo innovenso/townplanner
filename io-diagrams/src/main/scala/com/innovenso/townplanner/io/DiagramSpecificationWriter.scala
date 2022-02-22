@@ -4,6 +4,7 @@ import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledBusinessCapabilityMap,
+  CompiledBusinessCapabilityPosition,
   CompiledFlowView,
   CompiledSystemContainerView,
   CompiledSystemIntegrationView,
@@ -14,6 +15,7 @@ import com.innovenso.townplanner.model.language.{
   ModelComponent,
   View
 }
+import plantuml.capability.txt.BusinessCapabilityPositionDiagram
 import plantuml.enterprise.txt.BusinessCapabilityMindMap
 import plantuml.integration.txt.SystemIntegrationViewDiagram
 import plantuml.system.txt.SystemContainerViewDiagram
@@ -57,6 +59,13 @@ object DiagramSpecificationWriter {
         DiagramSpecification(
           businessCapabilityMap,
           BusinessCapabilityMindMap(businessCapabilityMap).body
+        )
+      )
+    case businessCapabilityPosition: CompiledBusinessCapabilityPosition =>
+      List(
+        DiagramSpecification(
+          businessCapabilityPosition,
+          BusinessCapabilityPositionDiagram(businessCapabilityPosition).body
         )
       )
     case _ => Nil
