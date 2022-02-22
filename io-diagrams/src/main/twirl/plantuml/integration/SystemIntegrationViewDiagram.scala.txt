@@ -1,0 +1,21 @@
+@import plantuml.lib.txt.Uml
+@import plantuml.lib.concepts.txt.Integration
+@import plantuml.lib.concepts.txt.System
+@import com.innovenso.townplanner.model.concepts.views.CompiledSystemIntegrationView
+@import plantuml.lib.txt.Key
+@(model: CompiledSystemIntegrationView)
+@Uml{
+    @if(model.integration.isDefined) {
+        @Integration(integration = model.integration.get, pointInTime = model.pointInTime)
+        @if(model.source.isDefined) {
+            @System(system = model.source.get, pointInTime = model.pointInTime)
+            @Key(model.source.get) -l- @Key(model.integration.get)
+
+        }
+        @if(model.target.isDefined) {
+            @System(system = model.target.get, pointInTime = model.pointInTime)
+            @Key(model.target.get) -r- @Key(model.integration.get)
+
+        }
+    }
+}

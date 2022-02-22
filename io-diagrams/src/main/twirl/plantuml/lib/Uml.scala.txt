@@ -1,0 +1,6 @@
+@(content: Txt)
+@@startuml
+@plantuml.lib.txt.PlantUMLArchimate()
+@plantuml.lib.txt.InnovensoArchimate()
+@content
+@@enduml

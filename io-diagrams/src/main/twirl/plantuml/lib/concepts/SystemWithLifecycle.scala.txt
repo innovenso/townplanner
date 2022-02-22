@@ -1,0 +1,6 @@
+@import plantuml.lib.txt.Escape
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import plantuml.lib.txt.Description
+@import plantuml.lib.txt.Title
+@import plantuml.lib.txt.Key
+@(system: ItSystem, lifecycle: String) System(@Key(system), "@Title(system)", "@Description(system)", "@lifecycle")

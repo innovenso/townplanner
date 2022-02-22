@@ -1,0 +1,5 @@
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.meta.ADay
+@(blocks: List[ArchitectureBuildingBlock], pointInTime: ADay) @for(block <- blocks) {
+    @plantuml.lib.concepts.txt.ArchitectureBuildingBlock(buildingBlock = block, pointInTime = pointInTime)
+}

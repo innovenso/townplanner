@@ -1,0 +1,6 @@
+@import plantuml.lib.txt.Escape
+@import com.innovenso.townplanner.model.concepts.ItSystemIntegration
+@import plantuml.lib.txt.Description
+@import plantuml.lib.txt.Title
+@import plantuml.lib.txt.Key
+@(integration: ItSystemIntegration, lifecycle: String) Integration(@Key(integration), "@Title(integration)", "@Description(integration)", "technologies", "@lifecycle")

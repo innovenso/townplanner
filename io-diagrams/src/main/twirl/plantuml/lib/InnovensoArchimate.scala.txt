@@ -1,0 +1,101 @@
+@()
+
+!define DESC_FONT_SIZE 10
+!define DESC_FONT_COLOR #CCCCCC
+!define ACTIVE #Black
+!define UNKNOWN #Black
+!define PLANNED #Blue
+!define ADDED #Green
+!define PHASEOUT #Orange
+!define DECOMMISSIONED #Red
+!define REMOVED #Red
+!define CHANGED #Blue
+
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aFunction jar:archimate/business-function
+sprite $aBuildingBlock jar:archimate/function
+sprite $aPlatform jar:archimate/component
+sprite $aSystem jar:archimate/application-component
+sprite $aContainer jar:archimate/application-component
+sprite $aMilestone jar:archimate/implementation-plateau
+sprite $aProject jar:archimate/implementation-workpackage
+sprite $aInteraction jar:archimate/application-interaction
+sprite $aDataEntity jar:archimate/application-data-object
+
+skinparam wrapWidth 250
+
+
+skinparam rectangle<<system>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<platform>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #00008B
+    BorderColor #00008B
+    BorderStyle dotted
+}
+
+skinparam rectangle<<integration>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<strategy-capability>> {
+    RoundCorner 25
+}
+
+skinparam rectangle<<ACTIVE>> {
+    BorderColor ACTIVE
+    BorderThickness 1
+}
+
+skinparam rectangle<<PLANNED>> {
+    BorderColor PLANNED
+    BorderThickness 5
+}
+
+skinparam rectangle<<ADDED>> {
+    BorderColor ADDED
+    BorderThickness 5
+}
+
+skinparam rectangle<<PHASEOUT>> {
+    BorderColor PHASEOUT
+    BorderThickness 5
+}
+
+skinparam rectangle<<DECOMMISSIONED>> {
+    BorderColor DECOMMISSIONED
+    BorderThickness 5
+}
+
+skinparam rectangle<<UNKNOWN>> {
+    BorderColor UNKNOWN
+    BorderThickness 1
+}
+
+
+!define Business_Capability_Map_Group(e_alias, e_label) rectangle "==e_label" <<business capability map>> as e_alias
+!define Strategy_Capability_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aCapability>><<strategy-capability>> #Strategy
+!define Business_Function_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aFunction>><<business-function>> #Business
+!define Platform(e_alias, e_label) rectangle "==e_label" <<$aPlatform>><<platform>> as e_alias
+!define System_Context(e_alias, e_label) rectangle "==e_label" <<$aSystem>><<system>> as e_alias
+!define BuildingBlock(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:DESC_FONT_SIZE>e_desc</size>" <<$aBuildingBlock>><<e_lifecycle>> as e_alias
+!define System(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[system]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aSystem>><<e_lifecycle>> as e_alias
+!define Entity(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[information]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aDataEntity>><<e_lifecycle>> as e_alias
+!define Integration(e_alias, e_label, e_desc, e_tech, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[integration: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aInteraction>><<e_lifecycle>> as e_alias
+!define Container(e_alias, e_label, e_desc, e_type, e_tech, e_lifecycle) rectangle #LightSteelBlue "e_label\n\n<size:TECHN_FONT_SIZE>[e_type: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aContainer>><<e_lifecycle>> as e_alias
+!define SWOT(e_alias, e_type, e_desc) note "== e_type ==\n e_desc" as e_alias
+!define Lifecycle(e_alias, e_lifecycle, e_desc) note "== lifecyle - e_lifecycle ==\n e_desc" as e_alias
+!define Relationship(e_sourceAlias, e_targetAlias, e_label, e_sourceArrow="", e_targetArrow="", e_lifecycle="") e_sourceAlias e_sourceArrow..[e_lifecycle]e_targetArrow e_targetAlias : "e_label"
+!define Project(e_alias, e_label, e_desc, e_type) rectangle #IMPLEMENTATION "e_label\n\n<size:TECHN_FONT_SIZE>[e_type]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aProject>> as e_alias
+!define ProjectMilestone(e_alias, e_label, e_desc) rectangle #IMPLEMENTATION "e_label\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aMilestone>> as e_alias

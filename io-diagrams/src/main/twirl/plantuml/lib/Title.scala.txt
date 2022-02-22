@@ -1,0 +1,3 @@
+@import plantuml.lib.txt.Escape
+@import com.innovenso.townplanner.model.language.Concept
+@(concept: Concept) @Escape(value = concept.title)

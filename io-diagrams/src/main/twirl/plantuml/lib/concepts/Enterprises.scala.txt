@@ -1,0 +1,5 @@
+@import com.innovenso.townplanner.model.concepts.Enterprise
+@import com.innovenso.townplanner.model.meta.ADay
+@(enterprises: List[Enterprise], pointInTime: ADay) @for(enterprise <- enterprises) {
+    @plantuml.lib.concepts.txt.Enterprise(enterprise = enterprise, pointInTime = pointInTime)
+}

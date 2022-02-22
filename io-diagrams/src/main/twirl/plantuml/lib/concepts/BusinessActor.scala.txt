@@ -1,0 +1,6 @@
+@import plantuml.lib.txt.Escape
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.meta.ADay
+@import plantuml.lib.txt.Title
+@import plantuml.lib.txt.Key
+@(actor: BusinessActor, pointInTime: ADay) Business_Actor(@Key(actor), "@Title(actor)")

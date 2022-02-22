@@ -1,0 +1,5 @@
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.meta.ADay
+@(actors: Iterable[BusinessActor], pointInTime: ADay) @for(actor <- actors) {
+    @plantuml.lib.concepts.txt.BusinessActor(actor = actor, pointInTime = pointInTime)
+}

@@ -1,0 +1,4 @@
+@import org.apache.commons.text.WordUtils
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import plantuml.lib.txt.Escape
+@(hasDescription: HasDescription) @hasDescription.descriptions.headOption.map(d => d.value.replaceAll("\"", "").replaceAll("\n", " ")).getOrElse("")

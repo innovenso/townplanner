@@ -1,0 +1,20 @@
+@import plantuml.lib.txt.Uml
+@import plantuml.lib.concepts.txt.SystemContext
+@import plantuml.lib.concepts.txt.System
+@import plantuml.lib.concepts.txt.Systems
+@import plantuml.lib.concepts.txt.BusinessActors
+@import plantuml.lib.relationships.txt.Relations
+@import com.innovenso.townplanner.model.concepts.views.CompiledSystemContainerView
+@(model: CompiledSystemContainerView)
+@Uml{
+    @if(model.centralSystem.nonEmpty) {
+        @if(model.containers.nonEmpty) {
+            @SystemContext(system = model.centralSystem.get, pointInTime = model.pointInTime, containers = model.containers)
+        } else {
+            @System(system = model.centralSystem.get, pointInTime = model.pointInTime)
+        }
+        @Systems(systems = model.otherSystems, pointInTime = model.pointInTime)
+        @BusinessActors(actors = model.actorNouns, pointInTime = model.pointInTime)
+        @Relations(relationships = model.flows)
+    }
+}
