@@ -99,8 +99,9 @@ class ArchitectureBuildingBlockRealizationDiagramSpec
 
     When("an architecture building block realization view is requested")
     val viewUnderTest: ArchitectureBuildingBlockRealizationView =
-      ea needs ArchitectureBuildingBlockRealizationView(forBuildingBlock =
-        buildingBlockUnderTest.key
+      ea needs ArchitectureBuildingBlockRealizationView(
+        forBuildingBlock = buildingBlockUnderTest.key,
+        includeContainers = false
       )
 
     Then("the specification exists")

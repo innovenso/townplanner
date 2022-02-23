@@ -47,6 +47,7 @@ case class ArchitectureBuildingBlockRealizationView(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     forBuildingBlock: Key,
+    includeContainers: Boolean = true,
     title: String = "Architecture Building Block Realization",
     pointInTime: ADay = Today,
     properties: Map[Key, Property] = Map.empty[Key, Property]
@@ -150,7 +151,8 @@ case class ArchitectureBuildingBlockRealizationViewCompiler(
   def systems: Set[ItSystem] =
     directlyRealizingSystems ++ platformRealizingSystems
 
-  def containers: Set[ItContainer] = systems.flatMap(source.containers)
+  def containers: Set[ItContainer] =
+    if (view.includeContainers) systems.flatMap(source.containers) else Set()
 
   def servingCapabilities: Set[Serving] = capabilities
     .flatMap(c =>
