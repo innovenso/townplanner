@@ -39,6 +39,6 @@ case class TownPlanDiagramWriter(
     views(townPlan).find(_.key == key)
 
   def views(townPlan: TownPlan): List[_ <: CompiledView[_ <: View]] =
-    townPlan.systemContainerViews ++ townPlan.systemIntegrationViews ++ townPlan.flowViews ++ townPlan.businessCapabilityMaps ++ townPlan.businessCapabilityPositions
+    townPlan.systemContainerViews ++ townPlan.systemIntegrationViews ++ townPlan.flowViews ++ townPlan.businessCapabilityMaps ++ townPlan.businessCapabilityPositions ++ townPlan.architectureBuildingBlockRealizationViews
 
 }

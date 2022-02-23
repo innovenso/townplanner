@@ -31,6 +31,7 @@ trait Relationship extends Concept with HasDescription with HasFatherTime {
     sourceTrait.isInstance(element)
   def canHaveAsTarget(element: Element): Boolean =
     targetTrait.isInstance(element)
+  def participants: Set[Key] = Set(source, target)
   def other(key: Key): Option[Key] = if (source == key) Some(target)
   else if (target == key) Some(source)
   else None
@@ -44,6 +45,23 @@ trait CanBeRelationshipTarget extends Element
 trait HasRelationships extends HasModelComponents {
   def relationship(key: Key): Option[Relationship] =
     component(key, classOf[Relationship])
+
+  def relationshipParticipants(key: Key): Set[Element] =
+    relationship(key).map(r => relationshipParticipants(r)).getOrElse(Set())
+
+  def relationshipParticipants(relationship: Relationship): Set[Element] =
+    relationship.participants
+      .map(component(_, classOf[Element]))
+      .filter(_.nonEmpty)
+      .map(_.get)
+
+  def relationshipParticipantsOfType[ElementType <: Element](
+      relationship: Relationship,
+      elementClass: Class[ElementType]
+  ): Set[ElementType] =
+    relationshipParticipants(relationship)
+      .filter(elementClass.isInstance(_))
+      .map(elementClass.cast(_))
 
   def relationshipsWithSource[ElementType <: Element](
       element: Element,

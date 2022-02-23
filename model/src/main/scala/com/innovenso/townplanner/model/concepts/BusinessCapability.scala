@@ -82,7 +82,9 @@ trait HasBusinessCapabilities
   def businessCapabilityHierarchy(
       businessCapability: BusinessCapability
   ): Set[BusinessCapability] =
-    (parentHierarchy(businessCapability) ++ traverseBusinessCapabilities(
+    (businessCapabilityParentHierarchy(
+      businessCapability
+    ) ++ traverseBusinessCapabilities(
       businessCapability
     )).toSet
 
@@ -93,11 +95,11 @@ trait HasBusinessCapabilities
       businessCapability
     ) map traverseBusinessCapabilities).fold(LazyList.empty)(_ ++ _)
 
-  private def parentHierarchy(
+  def businessCapabilityParentHierarchy(
       businessCapability: BusinessCapability
   ): List[BusinessCapability] =
     if (parentBusinessCapability(businessCapability).isDefined)
-      businessCapability :: parentHierarchy(
+      businessCapability :: businessCapabilityParentHierarchy(
         parentBusinessCapability(businessCapability).get
       )
     else List(businessCapability)

@@ -1,0 +1,21 @@
+@import plantuml.lib.concepts.txt._
+@import plantuml.lib.relationships.txt.Relations
+@import com.innovenso.townplanner.model.concepts.views.CompiledArchitectureBuildingBlockRealizationView
+@import plantuml.lib.txt.Uml
+@(model: CompiledArchitectureBuildingBlockRealizationView)
+@Uml {
+    @if(model.buildingBlock.nonEmpty) {
+        @ArchitectureBuildingBlock(buildingBlock = model.buildingBlock.get, pointInTime = model.pointInTime)
+
+        @Enterprises(enterprises = model.enterprises, pointInTime = model.pointInTime)
+
+        @BusinessCapabilities(capabilities = model.businessCapabilities)
+
+        @Systems(systems = model.systems, pointInTime = model.pointInTime)
+
+        @Containers(containers = model.containers, pointInTime = model.pointInTime)
+
+        @Relations(relationships = model.relationships)
+
+    }
+}
