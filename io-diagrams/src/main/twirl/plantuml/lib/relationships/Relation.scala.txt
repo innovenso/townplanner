@@ -1,13 +1,10 @@
-@import plantuml.lib.relationships.txt.Realization
-@import plantuml.lib.relationships.txt.Composition
-@import plantuml.lib.relationships.txt.Member
-@import plantuml.lib.relationships.txt.Flow
 @import com.innovenso.townplanner.model.concepts.relationships.Relationship
+@import plantuml.lib.relationships.txt.{Composition, Flow, Realization}
 @(value: Relationship)
 @if(value.isInstanceOf[com.innovenso.townplanner.model.concepts.relationships.Realization]) {
     @Realization(relationship = value)
 } else if(value.isInstanceOf[com.innovenso.townplanner.model.concepts.relationships.Composition]) {
-    @Composition(relationship = value)
-} else {
-    @Flow(relationship = value)
-}
+@Composition(relationship = value)
+    } else {
+@Flow(relationship = value)
+    }

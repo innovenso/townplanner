@@ -1,9 +1,8 @@
 package com.innovenso.townplanner.io
 
-import com.innovenso.townplanner.io.model.DiagramSpecification
-import com.innovenso.townplanner.model.concepts.{ItSystem, ItSystemIntegration}
 import com.innovenso.townplanner.model.concepts.properties.Description
 import com.innovenso.townplanner.model.concepts.views.SystemIntegrationView
+import com.innovenso.townplanner.model.concepts.{ItSystem, ItSystemIntegration}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 

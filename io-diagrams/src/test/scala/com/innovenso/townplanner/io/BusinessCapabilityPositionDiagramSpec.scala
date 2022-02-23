@@ -1,15 +1,8 @@
 package com.innovenso.townplanner.io
 
 import com.innovenso.townplanner.model.concepts.properties.Description
-import com.innovenso.townplanner.model.concepts.views.{
-  BusinessCapabilityPosition,
-  CompiledBusinessCapabilityPosition
-}
-import com.innovenso.townplanner.model.concepts.{
-  BusinessCapability,
-  Enterprise,
-  EnterpriseArchitecture
-}
+import com.innovenso.townplanner.model.concepts.views.BusinessCapabilityPosition
+import com.innovenso.townplanner.model.concepts.{BusinessCapability, Enterprise}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 

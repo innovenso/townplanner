@@ -1,11 +1,11 @@
-@import plantuml.lib.txt.Uml
-@import plantuml.lib.txt.Escape
 @import com.innovenso.townplanner.model.concepts.views.CompiledFlowView
+@import plantuml.lib.txt.Escape
+@import plantuml.lib.txt.Uml
 @(model: CompiledFlowView)
 @Uml {
-autonumber
-skinparam monochrome true
-@for(step <- model.steps) {
-    "@model.stepSource(step._1).title" as @model.stepSource(step._1).key.value -> "@model.stepTarget(step._1).title" as @model.stepTarget(step._1).key.value: "@Escape(value = step._1.name)"
-}
+    autonumber
+    skinparam monochrome true
+    @for(step <- model.steps) {
+        "@model.stepSource(step._1).title" as @model.stepSource(step._1).key.value -> "@model.stepTarget(step._1).title" as @model.stepTarget(step._1).key.value: "@Escape(value = step._1.name)"
+    }
 }

@@ -1,8 +1,4 @@
-@import plantuml.lib.txt.Escape
 @import com.innovenso.townplanner.model.concepts.ItSystem
-@import plantuml.lib.txt.Lifecycle
-@import plantuml.lib.txt.Description
 @import com.innovenso.townplanner.model.meta.ADay
-@import plantuml.lib.txt.Title
-@import plantuml.lib.txt.Key
+@import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
 @(system: ItSystem, pointInTime: ADay) System(@Key(system), "@Title(system)", "@Description(system)", "@Lifecycle(system, pointInTime)")

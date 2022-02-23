@@ -57,12 +57,6 @@ trait HasRelationships extends HasModelComponents {
 
   def relationships: List[Relationship] = components(classOf[Relationship])
 
-  def relationshipsWithType[RelationshipType <: Relationship](
-      relationshipType: Class[RelationshipType]
-  ): List[RelationshipType] = relationships
-    .filter(relationshipType.isInstance(_))
-    .map(relationshipType.cast(_))
-
   private def otherElementTypeFilter[ElementType <: Element](
       element: Element,
       otherElementType: Class[ElementType]
@@ -77,6 +71,12 @@ trait HasRelationships extends HasModelComponents {
     relationship.other(elementKey).getOrElse(Key()),
     otherElementType
   ).isDefined
+
+  def relationshipsWithType[RelationshipType <: Relationship](
+      relationshipType: Class[RelationshipType]
+  ): List[RelationshipType] = relationships
+    .filter(relationshipType.isInstance(_))
+    .map(relationshipType.cast(_))
 
   def relationshipsWithTarget[ElementType <: Element](
       element: Element,
@@ -126,6 +126,13 @@ trait HasRelationships extends HasModelComponents {
     .flatMap(mapOtherElement(element, otherElementType))
     .distinct
 
+  def relationshipsWithType[ElementType <: Element](
+      element: Element,
+      otherElementType: Class[ElementType]
+  ): List[Relationship] = relationships(element).filter(
+    otherElementTypeFilter(element, otherElementType)
+  )
+
   def directIncomingDependencies[RelationshipType <: Relationship](
       element: Element,
       relationshipType: Class[RelationshipType]
@@ -155,13 +162,6 @@ trait HasRelationships extends HasModelComponents {
     .filter(r => r.source == element.key)
     .flatMap(mapOtherElement(element, otherElementType))
     .distinct
-
-  def relationshipsWithType[ElementType <: Element](
-      element: Element,
-      otherElementType: Class[ElementType]
-  ): List[Relationship] = relationships(element).filter(
-    otherElementTypeFilter(element, otherElementType)
-  )
 
   def directOutgoingDependencies[RelationshipType <: Relationship](
       element: Element,

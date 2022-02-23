@@ -46,10 +46,10 @@ trait HasCosts extends HasProperties {
   def costs(fiscalYear: Year): List[Cost] =
     costs.filter(_.fiscalYear == fiscalYear)
 
+  def costs: List[Cost] = props(classOf[Cost])
+
   def costFiscalYears: List[Year] =
     costs.map(_.fiscalYear).distinct.sortWith(_.value < _.value)
-
-  def costs: List[Cost] = props(classOf[Cost])
 
   def totalCapex(fiscalYear: Year, currency: Currency): MonetaryAmount =
     MonetaryAmount(

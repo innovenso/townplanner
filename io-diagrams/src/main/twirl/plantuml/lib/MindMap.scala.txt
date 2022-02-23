@@ -1,5 +1,5 @@
 @(content: Txt)
-@@startmindmap
+    @@startmindmap
 @plantuml.lib.txt.PlantUMLArchimate()
 @content
-@@endmindmap
+    @@endmindmap

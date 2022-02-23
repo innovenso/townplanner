@@ -186,6 +186,8 @@ trait HasFatherTime extends HasProperties {
   private def hasFadedOutAfter(day: ADay): Boolean =
     lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.fadesOut)
 
+  def lifeEvents: List[FatherTime] = props(classOf[FatherTime])
+
   private def hasDisappearedBefore(day: ADay): Boolean =
     lifeEvents.filter(_.isBefore(day)).exists(_.disappears)
 
@@ -197,8 +199,6 @@ trait HasFatherTime extends HasProperties {
 
   private def hasNoLifeEventsAfter(day: ADay): Boolean =
     !lifeEvents.exists(_.isAfterOrEqual(day))
-
-  def lifeEvents: List[FatherTime] = props(classOf[FatherTime])
 }
 
 case class FatherTimeConfigurer(

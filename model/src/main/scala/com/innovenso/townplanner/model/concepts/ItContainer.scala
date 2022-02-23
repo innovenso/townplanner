@@ -373,11 +373,6 @@ trait CanAddItContainers extends CanAddProperties with CanAddRelationships {
   ): ItContainerConfigurer[MobileUI] =
     describesContainer[MobileUI](container)
 
-  private def describesContainer[ContainerType <: ItContainer](
-      container: ContainerType
-  ): ItContainerConfigurer[ContainerType] =
-    ItContainerConfigurer(has(container), this, this)
-
   def describes(
       container: WatchUI
   ): ItContainerConfigurer[WatchUI] =
@@ -407,4 +402,9 @@ trait CanAddItContainers extends CanAddProperties with CanAddRelationships {
       container: Cache
   ): ItContainerConfigurer[Cache] =
     describesContainer[Cache](container)
+
+  private def describesContainer[ContainerType <: ItContainer](
+      container: ContainerType
+  ): ItContainerConfigurer[ContainerType] =
+    ItContainerConfigurer(has(container), this, this)
 }

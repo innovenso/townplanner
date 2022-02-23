@@ -61,13 +61,13 @@ trait HasCriticality extends HasProperties {
 
   def isHazardousCriticality: Boolean = criticality.isInstanceOf[Hazardous]
 
-  def criticality: Criticality =
-    props(classOf[Criticality]).headOption
-      .getOrElse(UnknownCriticality())
-
   def isMajorCriticality: Boolean = criticality.isInstanceOf[Major]
 
   def isMinorCriticality: Boolean = criticality.isInstanceOf[Minor]
+
+  def criticality: Criticality =
+    props(classOf[Criticality]).headOption
+      .getOrElse(UnknownCriticality())
 
   def isNoEffectCriticality: Boolean = criticality.isInstanceOf[NoEffect]
 

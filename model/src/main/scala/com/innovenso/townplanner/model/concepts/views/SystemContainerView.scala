@@ -61,8 +61,10 @@ case class CompiledSystemContainerView(
     with HasItContainers
     with HasRelationships
     with HasBusinessActors {
-  def centralSystem: Option[ItSystem] = system(view.forSystem)
   def otherSystems: List[ItSystem] = systems.filterNot(centralSystem.toSet)
+
+  def centralSystem: Option[ItSystem] = system(view.forSystem)
+
   def flows: List[Flow] = relationshipsWithType(classOf[Flow])
 }
 

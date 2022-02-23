@@ -9,7 +9,6 @@ import com.innovenso.townplanner.model.concepts.views._
 import com.innovenso.townplanner.model.language.{
   CanAddModelComponents,
   HasModelComponents,
-  HasViews,
   ModelComponent
 }
 import com.innovenso.townplanner.model.meta.Key

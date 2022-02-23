@@ -1,9 +1,9 @@
 @import plantuml.lib.txt.Escape
 @(color: String, title: String, description: Option[String], depth: Int, sprite: String)
 @if(description.isDefined) {
-@for(i <- Range(0,depth,1)) {*}[#@color]: <$@sprite> <b>@Escape(title)</b>
+    @for(i <- Range(0, depth, 1)) {*}[#@color]: <$@sprite> <b>@Escape(title)</b>
 
-@description.get;
+    @description.get;
 } else {
-@for(i <- Range(0,depth,1)) {*}[#@color] <$@sprite> @Escape(title)
+    @for(i <- Range(0, depth, 1)) {*}[#@color] <$@sprite> @Escape(title)
 }

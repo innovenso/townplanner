@@ -1,6 +1,4 @@
-@import plantuml.lib.txt.Escape
 @import com.innovenso.townplanner.model.concepts.Enterprise
 @import com.innovenso.townplanner.model.meta.ADay
-@import plantuml.lib.txt.Title
-@import plantuml.lib.txt.Key
+@import plantuml.lib.txt.{Key, Title}
 @(enterprise: Enterprise, pointInTime: ADay) Physical_Facility(@Key(enterprise), "@Title(enterprise)")

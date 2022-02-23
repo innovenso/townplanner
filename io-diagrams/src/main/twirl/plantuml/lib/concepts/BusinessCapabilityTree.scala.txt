@@ -1,21 +1,17 @@
-@import com.innovenso.townplanner.model.concepts.views.CompiledBusinessCapabilityMap
-@import com.innovenso.townplanner.model.concepts.BusinessCapability
-@import plantuml.lib.txt.Title
-@import plantuml.lib.txt.DescriptionWrapped
+@import com.innovenso.townplanner.model.concepts.{BusinessCapability, HasBusinessCapabilities}
 @import plantuml.lib.concepts.txt.BusinessCapabilityTree
-@import plantuml.lib.txt.MindMapNode
-@import com.innovenso.townplanner.model.concepts.HasBusinessCapabilities
+@import plantuml.lib.txt.{DescriptionWrapped, MindMapNode}
 @(capability: BusinessCapability, model: HasBusinessCapabilities, level: Int)
 
 @MindMapNode(
-  color = "STRATEGY",
-  title=capability.title,
-  description = Option(DescriptionWrapped(capability).body.trim),
-  depth = 2 + level,
-  sprite = "aCapability"
+    color = "STRATEGY",
+    title = capability.title,
+    description = Option(DescriptionWrapped(capability).body.trim),
+    depth = 2 + level,
+    sprite = "aCapability"
 )
 
 @for(child <- model.childBusinessCapabilities(capability)) {
-  @BusinessCapabilityTree(child, model, level+1)
+    @BusinessCapabilityTree(child, model, level + 1)
 }
 

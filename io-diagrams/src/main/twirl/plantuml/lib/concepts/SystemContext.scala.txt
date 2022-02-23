@@ -1,10 +1,7 @@
-@import plantuml.lib.txt.Escape
-@import plantuml.lib.concepts.txt.Containers
-@import com.innovenso.townplanner.model.concepts.ItSystem
-@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.concepts.{ItContainer, ItSystem}
 @import com.innovenso.townplanner.model.meta.ADay
-@import plantuml.lib.txt.Title
-@import plantuml.lib.txt.Key
+@import plantuml.lib.concepts.txt.Containers
+@import plantuml.lib.txt.{Key, Title}
 @(system: ItSystem, pointInTime: ADay, containers: Iterable[ItContainer]) System_Context(@Key(system), "@Title(system)") {
-    @Containers(containers, pointInTime)
-}
+@Containers(containers, pointInTime)
+    }

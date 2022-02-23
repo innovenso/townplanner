@@ -3,8 +3,6 @@ package com.innovenso.townplanner.model.language
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.meta.{Key, ModelComponentType, SortKey}
 
-import java.time.LocalDate
-
 trait ModelComponent {
   def key: Key
   def sortKey: SortKey

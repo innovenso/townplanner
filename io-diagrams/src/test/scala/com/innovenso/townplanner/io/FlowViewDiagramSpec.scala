@@ -1,16 +1,16 @@
 package com.innovenso.townplanner.io
 
-import com.innovenso.townplanner.model.concepts.{
-  ActorNoun,
-  ItSystem,
-  Microservice
-}
 import com.innovenso.townplanner.model.concepts.properties.{
   Message,
   Request,
   Response
 }
 import com.innovenso.townplanner.model.concepts.views.FlowView
+import com.innovenso.townplanner.model.concepts.{
+  ActorNoun,
+  ItSystem,
+  Microservice
+}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 

@@ -1,3 +1,2 @@
-@import plantuml.lib.txt.Escape
 @import com.innovenso.townplanner.model.language.ModelComponent
 @(component: ModelComponent) @component.key.value

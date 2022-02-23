@@ -100,12 +100,6 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   def optionsUnderInvestigation(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[UnderInvestigation])
 
-  def chosenOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict.isInstanceOf[Chosen])
-
-  def rejectedOptions(decision: Decision): List[DecisionOption] =
-    options(decision).filter(_.verdict.isInstanceOf[Rejected])
-
   def options(decision: Decision): List[DecisionOption] = {
     directOutgoingDependencies(
       decision,
@@ -121,6 +115,12 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
   ): Boolean = scores(decisionOption).exists(rr =>
     rr._1.weight == MustHave && rr._2.isInstanceOf[DoesNotMeetExpectations]
   )
+
+  def chosenOptions(decision: Decision): List[DecisionOption] =
+    options(decision).filter(_.verdict.isInstanceOf[Chosen])
+
+  def rejectedOptions(decision: Decision): List[DecisionOption] =
+    options(decision).filter(_.verdict.isInstanceOf[Rejected])
 }
 
 sealed trait DecisionStatus {

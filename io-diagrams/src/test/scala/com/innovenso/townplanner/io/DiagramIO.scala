@@ -22,7 +22,11 @@ trait DiagramIO {
   val outputContext: OutputContext =
     townPlanDiagramWriter.write(townPlan, OutputContext(Nil))
 
-  def townPlan: TownPlan = ea.townPlan
+  def specificationExists(view: Option[CompiledView[_ <: View]]): Boolean = {
+    val specs = specifications(view)
+    specs.foreach(spec => println(spec.plantumlSpecification))
+    specs.nonEmpty
+  }
 
   def specifications(
       view: Option[CompiledView[_ <: View]]
@@ -30,12 +34,6 @@ trait DiagramIO {
     view
       .map(DiagramSpecificationWriter.specifications(townPlan, _))
       .getOrElse(Nil)
-  }
-
-  def specificationExists(view: Option[CompiledView[_ <: View]]): Boolean = {
-    val specs = specifications(view)
-    specs.foreach(spec => println(spec.plantumlSpecification))
-    specs.nonEmpty
   }
 
   def diagramsAreWritten(viewKey: Key): Boolean = {
@@ -47,5 +45,7 @@ trait DiagramIO {
     )
     outputs.nonEmpty && outputs.forall(_.result.equals(Success))
   }
+
+  def townPlan: TownPlan = ea.townPlan
 
 }

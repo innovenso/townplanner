@@ -1,3 +1,3 @@
-@import org.apache.commons.text.WordUtils
 @import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import org.apache.commons.text.WordUtils
 @(hasDescription: HasDescription) @hasDescription.descriptions.headOption.map(d => WordUtils.wrap(d.value.replaceAll("\"", "").replaceAll("\n", " "), 60)).getOrElse("")

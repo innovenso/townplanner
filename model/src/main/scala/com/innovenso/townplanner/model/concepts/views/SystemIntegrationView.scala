@@ -11,13 +11,7 @@ import com.innovenso.townplanner.model.concepts.{
   ItSystem,
   ItSystemIntegration
 }
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  HasViews,
-  ModelComponent,
-  View,
-  ViewCompiler
-}
+import com.innovenso.townplanner.model.language._
 import com.innovenso.townplanner.model.meta._
 
 case class SystemIntegrationView(
@@ -68,11 +62,13 @@ case class CompiledSystemIntegrationView(
     with HasItSystems
     with HasItSystemIntegrations
     with HasRelationships {
+  def source: Option[ItSystem] = integration.map(_.source).flatMap(system)
+
+  def target: Option[ItSystem] = integration.map(_.target).flatMap(system)
+
   def integration: Option[ItSystemIntegration] = systemIntegration(
     view.forSystemIntegration
   )
-  def source: Option[ItSystem] = integration.map(_.source).flatMap(system)
-  def target: Option[ItSystem] = integration.map(_.target).flatMap(system)
 }
 
 case class SystemIntegrationViewCompiler(

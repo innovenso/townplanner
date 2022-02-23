@@ -1,10 +1,7 @@
-@import plantuml.lib.txt.Escape
-@import plantuml.lib.concepts.txt.Systems
-@import com.innovenso.townplanner.model.concepts.ItPlatform
-@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.concepts.{ItPlatform, ItSystem}
 @import com.innovenso.townplanner.model.meta.ADay
-@import plantuml.lib.txt.Title
-@import plantuml.lib.txt.Key
+@import plantuml.lib.concepts.txt.Systems
+@import plantuml.lib.txt.{Key, Title}
 @(platform: ItPlatform, pointInTime: ADay, systems: Iterable[ItSystem]) Platform(@Key(platform), "@Title(platform)") {
-    @Systems(systems, pointInTime)
-}
+@Systems(systems, pointInTime)
+    }

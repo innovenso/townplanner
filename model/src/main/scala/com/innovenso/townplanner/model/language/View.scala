@@ -2,7 +2,6 @@ package com.innovenso.townplanner.model.language
 
 import com.innovenso.townplanner.model.concepts.properties.HasFatherTime
 import com.innovenso.townplanner.model.concepts.relationships.HasRelationships
-import com.innovenso.townplanner.model.concepts.views.FlowView
 import com.innovenso.townplanner.model.meta.{ADay, Key, Layer}
 
 trait View extends Concept {
@@ -36,6 +35,9 @@ trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
     .map(c => c.key -> c)
     .toMap
 
+  def visible(key: Key): Boolean =
+    source.component(key, classOf[ModelComponent]).exists(visible)
+
   def visible(modelComponent: ModelComponent): Boolean =
     modelComponent match {
       case tm: HasFatherTime =>
@@ -43,9 +45,6 @@ trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
           .isUnknownLifecycle(view.pointInTime)
       case _ => true
     }
-
-  def visible(key: Key): Boolean =
-    source.component(key, classOf[ModelComponent]).exists(visible)
 
 }
 

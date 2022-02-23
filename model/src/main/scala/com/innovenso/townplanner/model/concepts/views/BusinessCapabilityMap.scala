@@ -1,42 +1,17 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{
-  BusinessCapability,
-  Enterprise,
-  HasBusinessActors,
-  HasBusinessCapabilities,
-  HasEnterprises,
-  HasItContainers,
-  HasItSystems,
-  ItSystem
-}
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
-  Flow,
   HasRelationships,
   Serving
 }
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  HasViews,
-  ModelComponent,
-  View,
-  ViewCompiler
-}
-import com.innovenso.townplanner.model.meta.{
-  ADay,
-  ApplicationLayer,
-  Key,
-  Layer,
-  ModelComponentType,
-  SortKey,
-  StrategyLayer,
-  Today
-}
+import com.innovenso.townplanner.model.concepts._
+import com.innovenso.townplanner.model.language._
+import com.innovenso.townplanner.model.meta._
 
 case class BusinessCapabilityMap(
     key: Key = Key(),

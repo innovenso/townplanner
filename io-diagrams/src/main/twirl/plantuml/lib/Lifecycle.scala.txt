@@ -2,11 +2,11 @@
 @import com.innovenso.townplanner.model.meta.ADay
 @(hasFatherTime: HasFatherTime, pointInTime: ADay)
 @if(hasFatherTime.isActive(pointInTime)) {
-  ACTIVE
+    ACTIVE
 } else if(hasFatherTime.isPlanned(pointInTime)) {
-  PLANNED
-} else if(hasFatherTime.isPhasingOut(pointInTime)) {
-  PHASEOUT
-  } else if(hasFatherTime.isDecommissioned(pointInTime)) {
-  DECOMMISSIONED
-  } else { UNKNOWN }
+    PLANNED
+    } else if(hasFatherTime.isPhasingOut(pointInTime)) {
+    PHASEOUT
+    } else if(hasFatherTime.isDecommissioned(pointInTime)) {
+    DECOMMISSIONED
+    } else { UNKNOWN }

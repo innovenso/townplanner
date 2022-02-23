@@ -2,19 +2,8 @@ package com.innovenso.townplanner.io
 
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.TownPlan
-import com.innovenso.townplanner.model.concepts.views.{
-  CompiledBusinessCapabilityMap,
-  CompiledBusinessCapabilityPosition,
-  CompiledFlowView,
-  CompiledSystemContainerView,
-  CompiledSystemIntegrationView,
-  SystemContainerView
-}
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  ModelComponent,
-  View
-}
+import com.innovenso.townplanner.model.concepts.views._
+import com.innovenso.townplanner.model.language.{CompiledView, View}
 import plantuml.capability.txt.BusinessCapabilityPositionDiagram
 import plantuml.enterprise.txt.BusinessCapabilityMindMap
 import plantuml.integration.txt.SystemIntegrationViewDiagram

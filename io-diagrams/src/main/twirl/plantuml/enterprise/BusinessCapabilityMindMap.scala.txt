@@ -1,4 +1,3 @@
-@import com.innovenso.townplanner.model.concepts.views.BusinessCapabilityMap
 @import com.innovenso.townplanner.model.concepts.views.CompiledBusinessCapabilityMap
 @import plantuml.lib.concepts.txt.BusinessCapabilityTree
 @(model: CompiledBusinessCapabilityMap)
@@ -9,7 +8,7 @@
         sprite $aEnterprise jar:archimate/physical-facility
         *[#PHYSICAL] <$aEnterprise> @model.enterprise.get.title
         @for(capability <- model.level0businessCapabilities(model.enterprise.get)) {
-          @BusinessCapabilityTree(capability, model, 0)
+            @BusinessCapabilityTree(capability, model, 0)
         }
     }
 }

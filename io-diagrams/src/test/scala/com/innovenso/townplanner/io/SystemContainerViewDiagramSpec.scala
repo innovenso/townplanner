@@ -1,16 +1,8 @@
 package com.innovenso.townplanner.io
 
-import com.innovenso.townplan.io.context.OutputContext
-import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.concepts.properties.GoneToProduction
 import com.innovenso.townplanner.model.concepts.views.SystemContainerView
-import com.innovenso.townplanner.model.concepts.{
-  ActorNoun,
-  Database,
-  IndividualActor,
-  ItSystem,
-  Microservice
-}
+import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.meta.{InTheFuture, Key}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec

@@ -1,28 +1,13 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{
-  HasBusinessActors,
-  HasItContainers,
-  HasItPlatforms,
-  HasItSystems,
-  ItSystem
-}
 import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   Composition,
-  Flow,
   HasRelationships
 }
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  Element,
-  HasModelComponents,
-  HasViews,
-  ModelComponent,
-  View,
-  ViewCompiler
-}
+import com.innovenso.townplanner.model.concepts._
+import com.innovenso.townplanner.model.language._
 import com.innovenso.townplanner.model.meta._
 
 case class FlowView(
@@ -61,14 +46,18 @@ case class CompiledFlowView(
     with HasItPlatforms
     with HasRelationships
     with HasBusinessActors {
-  def systemContexts: List[ItSystem] =
-    containers.map(system).filter(_.nonEmpty).map(_.get)
   def otherSystems: List[ItSystem] = systems.filterNot(systemContexts.toSet)
 
-  def interactions: List[Interaction] = view.interactions
+  def systemContexts: List[ItSystem] =
+    containers.map(system).filter(_.nonEmpty).map(_.get)
+
   def withStepCounter: Boolean = view.withStepCounter
+
   def steps: List[(Interaction, Int)] =
     interactions.zip(LazyList from 1)
+
+  def interactions: List[Interaction] = view.interactions
+
   def stepSource(step: Interaction): Element =
     component(step.source, classOf[Element]).get
 

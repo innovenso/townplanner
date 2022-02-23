@@ -2,9 +2,7 @@ package com.innovenso.townplanner.model.views
 
 import com.innovenso.townplanner.model.concepts.properties.Description
 import com.innovenso.townplanner.model.concepts.views.{
-  BusinessCapabilityMap,
   BusinessCapabilityPosition,
-  CompiledBusinessCapabilityMap,
   CompiledBusinessCapabilityPosition
 }
 import com.innovenso.townplanner.model.concepts.{

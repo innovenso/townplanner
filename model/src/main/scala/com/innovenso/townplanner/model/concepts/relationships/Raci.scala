@@ -112,6 +112,10 @@ trait CanConfigureRaciSource[ModelComponentType <: CanBeRaci] {
 
   def isConsultedAbout(target: CanHaveRaci): Relationship =
     isConsultedAbout(target, "is consulted about")
+
+  def isInformedAbout(target: CanHaveRaci): Relationship =
+    isConsultedAbout(target, "is informed about")
+
   def isConsultedAbout(
       target: CanHaveRaci,
       title: String
@@ -120,8 +124,6 @@ trait CanConfigureRaciSource[ModelComponentType <: CanBeRaci] {
       Consulted(source = modelComponent.key, target = target.key, title = title)
     )
 
-  def isInformedAbout(target: CanHaveRaci): Relationship =
-    isConsultedAbout(target, "is informed about")
   def isInformedAbout(
       target: CanHaveRaci,
       title: String
