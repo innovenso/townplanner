@@ -60,6 +60,13 @@ trait HasArchitectureBuildingBlocks
     classOf[Realization],
     classOf[BusinessCapability]
   )
+  def realizingArchitectureBuildingBlocks(
+      businessCapability: BusinessCapability
+  ): List[ArchitectureBuildingBlock] = directIncomingDependencies(
+    businessCapability,
+    classOf[Realization],
+    classOf[ArchitectureBuildingBlock]
+  )
 
 }
 

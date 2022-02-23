@@ -6,7 +6,7 @@ import com.innovenso.townplanner.model.concepts.views._
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import plantuml.buildingblock.txt.ArchitectureBuildingBlockRealizationDiagram
 import plantuml.capability.txt.BusinessCapabilityPositionDiagram
-import plantuml.enterprise.txt.BusinessCapabilityMindMap
+import plantuml.enterprise.txt.{BusinessCapabilityMindMap, FullTownPlanDiagram}
 import plantuml.integration.txt.{
   IntegrationMapDiagram,
   SystemIntegrationViewDiagram
@@ -75,6 +75,13 @@ object DiagramSpecificationWriter {
         DiagramSpecification(
           integrationMap,
           IntegrationMapDiagram(integrationMap).body
+        )
+      )
+    case fullTownPlanView: CompiledFullTownPlanView =>
+      List(
+        DiagramSpecification(
+          fullTownPlanView,
+          FullTownPlanDiagram(fullTownPlanView).body
         )
       )
     case _ => Nil
