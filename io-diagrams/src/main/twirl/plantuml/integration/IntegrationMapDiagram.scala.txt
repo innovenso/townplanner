@@ -1,0 +1,11 @@
+@import plantuml.lib.concepts.txt.Systems
+@import plantuml.lib.relationships.txt.Relations
+@import plantuml.lib.txt.Escape
+@import com.innovenso.townplanner.model.concepts.views.CompiledIntegrationMap
+@import plantuml.lib.txt.Uml
+@(model: CompiledIntegrationMap)
+@Uml {
+    @Systems(systems = model.systems, pointInTime = model.pointInTime)
+
+    @Relations(relationships = model.relationships)
+}

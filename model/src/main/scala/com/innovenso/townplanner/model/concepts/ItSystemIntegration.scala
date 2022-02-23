@@ -38,6 +38,8 @@ case class ItSystemIntegration(
 
   def hasSystem(system: ItSystem): Boolean =
     source == system.key || target == system.key
+
+  def participants: Set[Key] = Set(source, target)
 }
 
 trait HasItSystemIntegrations extends HasModelComponents with HasRelationships {
@@ -57,6 +59,15 @@ trait HasItSystemIntegrations extends HasModelComponents with HasRelationships {
   def systemIntegrations: List[ItSystemIntegration] = components(
     classOf[ItSystemIntegration]
   )
+
+  def systemIntegrationParticipants(
+      integration: ItSystemIntegration
+  ): Set[ItSystem] =
+    integration.participants
+      .map(component(_, classOf[ItSystem]))
+      .filter(_.nonEmpty)
+      .map(_.get)
+
 }
 
 case class ItSystemIntegrationConfigurer(

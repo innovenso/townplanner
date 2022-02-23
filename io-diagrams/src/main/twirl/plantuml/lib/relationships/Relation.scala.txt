@@ -1,5 +1,6 @@
 @import com.innovenso.townplanner.model.concepts.relationships.Relationship
 @import plantuml.lib.relationships.txt.{Composition, Flow, Realization, Serving}
+@import plantuml.lib.relationships.txt.Association
 @(value: Relationship)
 @if(value.isInstanceOf[com.innovenso.townplanner.model.concepts.relationships.Realization]) {
     @Realization(relationship = value)
@@ -7,6 +8,8 @@
 @Composition(relationship = value)
     } else if(value.isInstanceOf[com.innovenso.townplanner.model.concepts.relationships.Serving]) {
 @Serving(relationship = value)
+    } else if(value.isInstanceOf[com.innovenso.townplanner.model.concepts.relationships.Association]) {
+@Association(relationship = value)
     } else {
 @Flow(relationship = value)
     }
