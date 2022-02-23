@@ -1,0 +1,3 @@
+@import com.innovenso.townplanner.model.concepts.relationships.Relationship
+@import plantuml.lib.txt.Escape
+@(relationship: Relationship) Rel_Serving_Down(@relationship.source.value, @relationship.target.value, "@Escape(value = relationship.title)")

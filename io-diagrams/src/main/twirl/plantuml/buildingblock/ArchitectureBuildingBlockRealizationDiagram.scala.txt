@@ -11,6 +11,8 @@
 
         @BusinessCapabilities(capabilities = model.businessCapabilities)
 
+        @Platforms(platforms = model.platforms, pointInTime = model.pointInTime)
+
         @Systems(systems = model.systems, pointInTime = model.pointInTime)
 
         @Containers(containers = model.containers, pointInTime = model.pointInTime)
