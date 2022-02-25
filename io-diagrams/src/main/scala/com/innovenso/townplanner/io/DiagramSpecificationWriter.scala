@@ -9,6 +9,8 @@ import plantuml.capability.txt.BusinessCapabilityPositionDiagram
 import plantuml.enterprise.txt.{BusinessCapabilityMindMap, FullTownPlanDiagram}
 import plantuml.integration.txt.{
   IntegrationMapDiagram,
+  SystemIntegrationInteractionDiagram,
+  SystemIntegrationInteractionSequenceDiagram,
   SystemIntegrationViewDiagram
 }
 import plantuml.system.txt.SystemContainerViewDiagram
@@ -82,6 +84,22 @@ object DiagramSpecificationWriter {
         DiagramSpecification(
           fullTownPlanView,
           FullTownPlanDiagram(fullTownPlanView).body
+        )
+      )
+    case systemIntegrationInteractionView: CompiledSystemIntegrationInteractionView =>
+      List(
+        DiagramSpecification(
+          systemIntegrationInteractionView,
+          SystemIntegrationInteractionDiagram(
+            systemIntegrationInteractionView
+          ).body
+        ),
+        DiagramSpecification(
+          systemIntegrationInteractionView,
+          SystemIntegrationInteractionSequenceDiagram(
+            systemIntegrationInteractionView
+          ).body,
+          Some("Sequence")
         )
       )
     case _ => Nil

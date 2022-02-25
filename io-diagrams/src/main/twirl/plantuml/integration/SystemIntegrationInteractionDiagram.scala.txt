@@ -1,9 +1,9 @@
-@import com.innovenso.townplanner.model.concepts.views.CompiledFlowView
 @import plantuml.lib.concepts.txt.{BusinessActors, SystemContext, Systems}
 @import plantuml.lib.relationships.txt.Step
 @import plantuml.lib.txt.Uml
+@import com.innovenso.townplanner.model.concepts.views.CompiledSystemIntegrationInteractionView
 @import plantuml.lib.relationships.txt.NonNumberedStep
-@(model: CompiledFlowView)
+@(model: CompiledSystemIntegrationInteractionView)
 @Uml {
     @for(systemContext <- model.systemContexts) {
         @SystemContext(systemContext, model.pointInTime, model.containers(systemContext))

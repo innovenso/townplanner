@@ -1,0 +1,2 @@
+@import com.innovenso.townplanner.model.concepts.properties.{HasInteractions, Interaction}
+@(model: HasInteractions, step: Interaction) Rel_Flow(@step.source.value, @step.target.value, "@step.name")

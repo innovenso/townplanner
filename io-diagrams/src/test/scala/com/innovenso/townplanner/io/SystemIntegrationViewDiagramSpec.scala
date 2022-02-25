@@ -36,7 +36,7 @@ class SystemIntegrationViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
     val integrationView: SystemIntegrationView =
       ea needs SystemIntegrationView(forSystemIntegration = integration.key)
 
-    And("a diagram specification is written for it")
+    Then("a diagram specification is written for it")
     assert(
       specificationExists(townPlan.systemIntegrationView(integrationView.key))
     )
