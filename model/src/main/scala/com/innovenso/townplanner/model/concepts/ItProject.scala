@@ -81,6 +81,19 @@ trait HasProjects extends HasModelComponents with HasRelationships {
       classOf[Composition],
       classOf[ItProjectMilestone]
     )
+  def itProject(itProjectMilestone: ItProjectMilestone): Option[ItProject] =
+    directIncomingDependencies(
+      itProjectMilestone,
+      classOf[Composition],
+      classOf[ItProject]
+    ).headOption
+
+  def enterprise(itProject: ItProject): Option[Enterprise] =
+    directOutgoingDependencies(
+      itProject,
+      classOf[Serving],
+      classOf[Enterprise]
+    ).headOption
 }
 
 case class ItProjectConfigurer(
