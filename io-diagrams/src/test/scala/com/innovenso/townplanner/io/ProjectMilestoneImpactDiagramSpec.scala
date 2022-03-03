@@ -91,7 +91,7 @@ class ProjectMilestoneImpactDiagramSpec extends AnyFlatSpec with GivenWhenThen {
       it changes platform2
       it creates tech1
       it removes tech2
-      it keeps container1
+      it changes container1
       it has Description("And this milestone changes some of them")
     }
 

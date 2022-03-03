@@ -8,7 +8,7 @@ import plantuml.buildingblock.txt.ArchitectureBuildingBlockRealizationDiagram
 import plantuml.capability.txt.BusinessCapabilityPositionDiagram
 import plantuml.enterprise.txt.{BusinessCapabilityMindMap, FullTownPlanDiagram}
 import plantuml.integration.txt.{IntegrationMapDiagram, SystemIntegrationInteractionDiagram, SystemIntegrationInteractionSequenceDiagram, SystemIntegrationViewDiagram}
-import plantuml.project.txt.{MilestoneArchitectureBuildingBlockImpactView, MilestoneBusinessCapabilityImpactView}
+import plantuml.project.txt.{MilestoneArchitectureBuildingBlockImpactView, MilestoneBusinessCapabilityImpactView, MilestoneItContainerImpactView, MilestoneItPlatformImpactView, MilestoneItSystemImpactView, MilestoneItSystemIntegrationImpactView, MilestoneTechnologyImpactView}
 import plantuml.system.txt.SystemContainerViewDiagram
 import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
 
@@ -100,6 +100,11 @@ object DiagramSpecificationWriter {
       )
     case projectMilestoneImpactView: CompiledProjectMilestoneImpactView =>
       List(
+        DiagramSpecification(projectMilestoneImpactView, MilestoneItContainerImpactView(projectMilestoneImpactView).body, Some("Containers")),
+        DiagramSpecification(projectMilestoneImpactView, MilestoneItSystemImpactView(projectMilestoneImpactView).body, Some("Systems")),
+        DiagramSpecification(projectMilestoneImpactView, MilestoneItPlatformImpactView(projectMilestoneImpactView).body, Some("Platforms")),
+        DiagramSpecification(projectMilestoneImpactView, MilestoneItSystemIntegrationImpactView(projectMilestoneImpactView).body, Some("System Integrations")),
+        DiagramSpecification(projectMilestoneImpactView, MilestoneTechnologyImpactView(projectMilestoneImpactView).body, Some("Technologies")),
         DiagramSpecification(projectMilestoneImpactView, MilestoneBusinessCapabilityImpactView(projectMilestoneImpactView).body, Some("Business Capabilities")),
         DiagramSpecification(projectMilestoneImpactView, MilestoneArchitectureBuildingBlockImpactView(projectMilestoneImpactView).body, Some("Architecture Building Blocks")),
       )
