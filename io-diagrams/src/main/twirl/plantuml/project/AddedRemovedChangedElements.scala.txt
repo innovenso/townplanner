@@ -1,0 +1,8 @@
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.language.Concept
+@import plantuml.project.txt.ImpactedElements
+@(added: Iterable[Concept with CanBeImpacted with HasDescription], removed: Iterable[Concept with CanBeImpacted with HasDescription], changed: Iterable[Concept with CanBeImpacted with HasDescription], elementColor: String, elementSprite: String)
+@ImpactedElements(elements = added, groupColor = "GREEN", groupIcon="plus", elementColor = elementColor, elementSprite = elementSprite)
+@ImpactedElements(elements = removed, groupColor = "RED", groupIcon="minus", elementColor = elementColor, elementSprite = elementSprite)
+@ImpactedElements(elements = changed, groupColor = "BLUE", groupIcon="pencil", elementColor = elementColor, elementSprite = elementSprite)

@@ -1,0 +1,13 @@
+@import plantuml.lib.txt.MindMapNode
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import plantuml.lib.txt.DescriptionWrapped
+@import com.innovenso.townplanner.model.language.Concept
+@import plantuml.lib.txt.Title
+@(elements: Iterable[Concept with CanBeImpacted with HasDescription], groupColor: String, groupIcon: String, elementColor: String, elementSprite: String)
+@if(elements.nonEmpty) {
+***[#@groupColor] <&@groupIcon>
+@for(element <- elements) {
+@MindMapNode(color = elementColor, title=Title(element).body.trim, description = Option(DescriptionWrapped(element).body.trim), depth = 4, sprite = elementSprite)
+}
+}

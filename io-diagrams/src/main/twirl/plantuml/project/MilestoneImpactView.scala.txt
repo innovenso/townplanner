@@ -1,0 +1,25 @@
+@import plantuml.lib.txt.MindMap
+@import plantuml.lib.txt.MindMapNode
+@import plantuml.project.txt.AddedRemovedChangedElements
+@import com.innovenso.townplanner.model.concepts.views.CompiledProjectMilestoneImpactView
+@import plantuml.lib.txt.DescriptionWrapped
+@import com.innovenso.townplanner.model.concepts.ItProject
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.language.Concept
+@(view: CompiledProjectMilestoneImpactView, impactedClass: Class[_ <: Concept with CanBeImpacted with HasDescription], elementColor: String, elementSprite: String)
+@MindMap {
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aFunction jar:archimate/business-function
+sprite $aBuildingBlock jar:archimate/application-function
+sprite $aInteraction jar:archimate/application-interaction
+sprite $aSystem jar:archimate/application-component
+sprite $aPlatform jar:archimate/application-component
+sprite $aContainer jar:archimate/application-component
+sprite $aTechnology jar:archimate/system-software
+sprite $aMilestone jar:archimate/implementation-plateau
+sprite $aProject jar:archimate/implementation-workpackage
+@MindMapNode(color = "IMPLEMENTATION", title=view.project.title, description = Option(DescriptionWrapped(view.project).body), depth = 1, sprite = "aProject")
+@MindMapNode(color = "IMPLEMENTATION", title=view.milestone.title, description = Option(DescriptionWrapped(view.milestone).body), depth = 2, sprite = "aMilestone")
+@AddedRemovedChangedElements(added = view.added(impactedClass), removed = view.removed(impactedClass), changed = view.changed(impactedClass), elementColor = elementColor, elementSprite = elementSprite)
+}

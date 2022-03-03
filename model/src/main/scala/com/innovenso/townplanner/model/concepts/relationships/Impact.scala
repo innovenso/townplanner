@@ -86,7 +86,7 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
     creates(target, "creates")
 
   def removes(target: CanBeImpacted): Relationship =
-    creates(target, "removes")
+    removes(target, "removes")
 
   def removes(
       target: CanBeImpacted,
@@ -101,7 +101,7 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
     )
 
   def changes(target: CanBeImpacted): Relationship =
-    creates(target, "changes")
+    changes(target, "changes")
 
   def changes(
       target: CanBeImpacted,
@@ -116,7 +116,7 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
     )
 
   def keeps(target: CanBeImpacted): Relationship =
-    creates(target, "keeps")
+    keeps(target, "keeps")
 
   def creates(
       target: CanBeImpacted,

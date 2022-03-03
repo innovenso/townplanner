@@ -1,13 +1,13 @@
-package com.innovenso.townplanner.model.views
+package com.innovenso.townplanner.io
 
 import com.innovenso.townplanner.model.concepts.properties.Description
 import com.innovenso.townplanner.model.concepts.views.{CompiledProjectMilestoneImpactView, ProjectMilestoneImpactView}
-import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, EnterpriseArchitecture, ItContainer, ItPlatform, ItProject, ItProjectMilestone, ItSystem, ItSystemIntegration, Language, Microservice, Technology, Tool}
+import com.innovenso.townplanner.model.concepts._
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
-class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
-  "a project milestone impact view" can "be added to the town plan" in new EnterpriseArchitecture {
+class ProjectMilestoneImpactDiagramSpec extends AnyFlatSpec with GivenWhenThen {
+  "a project milestone impact view" can "be rendered" in new DiagramIO {
     Given("an enterprise")
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val apple: Enterprise = ea has Enterprise(title = "Apple")
@@ -25,6 +25,7 @@ class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
       ea describes BusinessCapability(title = "Customer Segmentation") as {
         it =>
           it serves marketing
+          it has Description("segmenting customers so marketing can be more targeted")
       }
 
     And("some architecture building blocks")
@@ -74,7 +75,9 @@ class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
     val platform2: ItPlatform =  ea has ItPlatform(title = "Platform 2")
 
     And("a project milestone impacting them")
-    val project: ItProject = ea has ItProject(title = "the project")
+    val project: ItProject = ea describes ItProject(title = "the project") as { it =>
+      it has Description("This project changes things")
+    }
 
     val milestone: ItProjectMilestone = ea describes ItProjectMilestone(title = "milestone 1") as { it =>
       it isPartOf project
@@ -89,32 +92,24 @@ class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
       it creates tech1
       it removes tech2
       it keeps container1
+      it has Description("And this milestone changes some of them")
     }
 
     When("a project milestone impact view is requested")
     val viewUnderTest: ProjectMilestoneImpactView = ea needs ProjectMilestoneImpactView(forProjectMilestone = milestone.key)
 
-    val compiledView: CompiledProjectMilestoneImpactView = townPlan.projectMilestoneImpactView(viewUnderTest.key).get
+    val compiledView = townPlan.projectMilestoneImpactView(viewUnderTest.key).get
+    println(compiledView.added(classOf[ArchitectureBuildingBlock]))
+    println(compiledView.removed(classOf[ArchitectureBuildingBlock]))
 
-    Then("all impacted elements are in the view")
-    compiledView.changed(classOf[ItSystem]).contains(system1)
-    !compiledView.removed(classOf[ItSystem]).contains(system1)
-    !compiledView.kept(classOf[ItSystem]).contains(system1)
-    !compiledView.added(classOf[ItSystem]).contains(system1)
-    compiledView.added(classOf[ItSystemIntegration]).contains(integration1)
-    compiledView.kept(classOf[ItSystem]).contains(system2)
-    compiledView.removed(classOf[BusinessCapability]).contains(customerSegmentation)
-    !compiledView.businessCapabilities.contains(marketing)
-    compiledView.added(classOf[ArchitectureBuildingBlock]).contains(buildingBlock1)
-    compiledView.removed(classOf[ArchitectureBuildingBlock]).contains(buildingBlock2)
-    !compiledView.added(classOf[ArchitectureBuildingBlock]).contains(buildingBlock2)
-    !compiledView.removed(classOf[ArchitectureBuildingBlock]).contains(buildingBlock1)
-    compiledView.added(classOf[ItPlatform]).contains(platform1)
-    compiledView.changed(classOf[ItPlatform]).contains(platform2)
-    compiledView.added(classOf[Technology]).contains(tech1)
-    compiledView.removed(classOf[Technology]).contains(tech2)
-    compiledView.kept(classOf[ItContainer]).contains(container1)
-    !compiledView.containers.contains(container2)
-    !compiledView.systems.contains(system3)
+    Then("the specification exists")
+    assert(
+      specificationExists(
+        townPlan.projectMilestoneImpactView(viewUnderTest.key)
+      )
+    )
+
+    And("the diagrams are written")
+    assert(diagramsAreWritten(viewUnderTest.key))
   }
 }
