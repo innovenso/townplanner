@@ -75,7 +75,7 @@ case class FlowViewCompiler(
       HasFlowViews
     ] {
   def compile: CompiledFlowView =
-    CompiledFlowView(view, viewComponents(elements ++ compositions))
+    CompiledFlowView(view, viewComponents(allElements ++ compositions))
 
   private def elements: List[Element] =
     view.interactions
@@ -85,7 +85,11 @@ case class FlowViewCompiler(
       .filter(_.nonEmpty)
       .map(_.get)
 
-  private def compositions: List[Composition] = elements.flatMap(element =>
+  private def systemContexts: List[ItSystem] =
+    elements.filter(_.isInstanceOf[ItContainer]).flatMap(container => source.relationships(container, classOf[Composition], classOf[ItSystem]).flatMap(r => source.relationshipParticipantsOfType(r, classOf[ItSystem])))
+
+  private def allElements: List[Element] = elements ++ systemContexts
+  private def compositions: List[Composition] = allElements.flatMap(element =>
     source
       .relationships(element, classOf[Composition])
       .filter(r =>

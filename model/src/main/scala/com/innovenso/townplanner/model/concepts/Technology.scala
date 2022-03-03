@@ -31,14 +31,25 @@ case class Technique(
     copy(properties = this.properties + (property.key -> property))
 }
 
-case class LanguageOrFramework(
+trait LanguageOrFramework extends Technology {
+  val technologyType: String = "Languages and Frameworks"
+}
+
+case class Language(
     key: Key = Key(),
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Technology {
-  val technologyType: String = "Languages and Frameworks"
+) extends LanguageOrFramework {
+  def withProperty(property: Property): Language =
+    copy(properties = this.properties + (property.key -> property))
+}
 
-  def withProperty(property: Property): LanguageOrFramework =
+case class Framework(
+                     key: Key = Key(),
+                     title: String,
+                     properties: Map[Key, Property] = Map.empty[Key, Property]
+                   ) extends LanguageOrFramework {
+  def withProperty(property: Property): Framework =
     copy(properties = this.properties + (property.key -> property))
 }
 

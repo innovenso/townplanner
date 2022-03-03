@@ -13,7 +13,7 @@ class ItContainerSpec extends AnyFlatSpec with GivenWhenThen {
     Given("a system")
     val itSystem: ItSystem = ea has ItSystem(title = "the system")
     And("a technology")
-    val java: LanguageOrFramework = ea has LanguageOrFramework(title = "Java")
+    val java: LanguageOrFramework = ea has Language(title = "Java")
     And("a delivery team")
     val team: TeamActor = ea has TeamActor(title = "The A-Team")
     When("a microservice is added to the town plan")

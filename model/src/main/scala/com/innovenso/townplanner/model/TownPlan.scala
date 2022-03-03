@@ -38,6 +38,7 @@ case class TownPlan(
     with HasIntegrationMaps
     with HasFullTownPlanViews
     with HasSystemIntegrationInteractionViews
+    with HasProjectMilestoneImpactViews
 
 class TownPlanFactory
     extends CanAddModelComponents
@@ -63,3 +64,4 @@ class TownPlanFactory
     with CanAddIntegrationMaps
     with CanAddFullTownPlanViews
     with CanAddSystemIntegrationInteractionViews
+    with CanAddProjectMilestoneImpactViews
