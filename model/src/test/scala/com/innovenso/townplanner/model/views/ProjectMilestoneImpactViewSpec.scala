@@ -2,7 +2,7 @@ package com.innovenso.townplanner.model.views
 
 import com.innovenso.townplanner.model.concepts.properties.Description
 import com.innovenso.townplanner.model.concepts.views.{CompiledProjectMilestoneImpactView, ProjectMilestoneImpactView}
-import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, EnterpriseArchitecture, ItContainer, ItPlatform, ItProject, ItProjectMilestone, ItSystem, ItSystemIntegration, Microservice}
+import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, EnterpriseArchitecture, ItContainer, ItPlatform, ItProject, ItProjectMilestone, ItSystem, ItSystemIntegration, Language, Microservice, Technology, Tool}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -65,6 +65,14 @@ class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
       it has Description("an integration")
     }
 
+    And("some technologies")
+    val tech1: Technology = ea has Language(title = "java")
+    val tech2: Technology = ea has Tool(title = "Townplanner")
+
+    And("some platforms")
+    val platform1: ItPlatform =  ea has ItPlatform(title = "Platform 1")
+    val platform2: ItPlatform =  ea has ItPlatform(title = "Platform 2")
+
     And("a project milestone impacting them")
     val project: ItProject = ea has ItProject(title = "the project")
 
@@ -76,6 +84,11 @@ class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
       it removes customerSegmentation
       it creates buildingBlock1
       it removes buildingBlock2
+      it creates platform1
+      it changes platform2
+      it creates tech1
+      it removes tech2
+      it keeps container1
     }
 
     When("a project milestone impact view is requested")
@@ -84,7 +97,22 @@ class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
     val compiledView: CompiledProjectMilestoneImpactView = townPlan.projectMilestoneImpactView(viewUnderTest.key).get
 
     Then("all impacted elements are in the view")
-    compiledView.systems.contains(system1)
-
+    compiledView.changedSystems.contains(system1)
+    !compiledView.removedSystems.contains(system1)
+    !compiledView.keptSystems.contains(system1)
+    !compiledView.addedSystems.contains(system1)
+    compiledView.addedSystemIntegrations.contains(integration1)
+    compiledView.keptSystems.contains(system2)
+    compiledView.removedBusinessCapabilities.contains(customerSegmentation)
+    !compiledView.businessCapabilities.contains(marketing)
+    compiledView.addedArchitectureBuildingBlocks.contains(buildingBlock1)
+    compiledView.removedArchitectureBuildingBlocks.contains(buildingBlock2)
+    compiledView.addedPlatforms.contains(platform1)
+    compiledView.changedPlatforms.contains(platform2)
+    compiledView.addedTechnologies.contains(tech1)
+    compiledView.removedTechnologies.contains(tech2)
+    compiledView.keptContainers.contains(container1)
+    !compiledView.containers.contains(container2)
+    !compiledView.systems.contains(system3)
   }
 }

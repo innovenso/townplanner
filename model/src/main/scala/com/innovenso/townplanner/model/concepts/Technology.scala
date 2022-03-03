@@ -11,6 +11,7 @@ sealed trait Technology
     with HasLinks
     with HasSWOT
     with HasArchitectureVerdict
+      with CanBeImpacted
     with CanImplement {
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
   val aspect: Aspect = PassiveStructure
