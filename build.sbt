@@ -1,5 +1,5 @@
 ThisBuild / organization := "com.innovenso.townplanner"
-ThisBuild / version := "1.0.7"
+ThisBuild / version := "1.0.9"
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / resolvers += Resolver.mavenLocal
 
