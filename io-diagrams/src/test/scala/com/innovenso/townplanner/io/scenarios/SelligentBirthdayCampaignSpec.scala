@@ -132,7 +132,7 @@ class SelligentBirthdayCampaignSpec extends AnyFlatSpec with GivenWhenThen {
     val bgcFlowView: FlowView = ea needs FlowView(title = "BGC Check for Birthday people") and { it =>
       it has Request("daily BGC cron job") from ngw to ngw
       it has Request("request BGC check for people with birthday tomorrow") from ngw to bgcIntegrationMicroservice
-      it has Request("requests BGC check") from bgcIntegrationMicroservice to bgc
+      it has Request("requests bulk BGC check") from bgcIntegrationMicroservice to bgc
       it has Response("player status") from bgc to bgcIntegrationMicroservice
       it has Response("player status") from bgcIntegrationMicroservice to ngw
       it has Request("fetches operational data, including BGC status") from diPlatform to ngw

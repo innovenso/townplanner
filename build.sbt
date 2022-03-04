@@ -1,5 +1,5 @@
 ThisBuild / organization := "com.innovenso.townplanner"
-ThisBuild / version := "1.0.5"
+ThisBuild / version := "1.0.7"
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / resolvers += Resolver.mavenLocal
 
@@ -26,6 +26,7 @@ lazy val ioDiagrams = project
   .in(file("io-diagrams"))
   .dependsOn(model, ioCore)
   .settings(
+      name := "innovenso-townplanner-io-diagram",
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest,
     libraryDependencies += lorem,
@@ -33,6 +34,7 @@ lazy val ioDiagrams = project
     libraryDependencies += scalaLogging
   )
   .enablePlugins(SbtTwirl)
+
 val scalactic = "org.scalactic" %% "scalactic" % "3.2.11"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.2.11" % "test"
 val scalaLogging = "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4"
