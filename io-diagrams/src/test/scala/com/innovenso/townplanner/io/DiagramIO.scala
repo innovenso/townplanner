@@ -5,13 +5,13 @@ import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
-import com.innovenso.townplanner.model.{TownPlan, TownPlanFactory}
+import com.innovenso.townplanner.model.{TownPlan, EnterpriseArchitecture}
 
 import java.io.File
 import java.nio.file.Files
 
 trait DiagramIO {
-  val ea = new TownPlanFactory()
+  val ea = new EnterpriseArchitecture()
   val targetDirectory: File =
     Files.createTempDirectory("TownplannerDiagrams").toFile
   val assetDirectory = new File(targetDirectory, "assets")

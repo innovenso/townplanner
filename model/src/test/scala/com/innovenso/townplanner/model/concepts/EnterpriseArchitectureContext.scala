@@ -1,10 +1,10 @@
 package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.language.ModelComponent
-import com.innovenso.townplanner.model.{TownPlan, TownPlanFactory}
+import com.innovenso.townplanner.model.{TownPlan, EnterpriseArchitecture}
 
-trait EnterpriseArchitecture {
-  val ea = new TownPlanFactory()
+trait EnterpriseArchitectureContext {
+  val ea: EnterpriseArchitecture = EnterpriseArchitecture()
 
   def exists[ModelComponentType <: ModelComponent](
       modelComponent: ModelComponentType

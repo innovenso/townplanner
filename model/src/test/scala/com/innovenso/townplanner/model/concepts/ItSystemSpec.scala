@@ -10,7 +10,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class ItSystemSpec extends AnyFlatSpec with GivenWhenThen {
-  "IT Systems" can "be added to the town plan" in new EnterpriseArchitecture {
+  "IT Systems" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("a platform")
     val platform: ItPlatform = ea has ItPlatform(title = "The Platform")
     When("a system is described")

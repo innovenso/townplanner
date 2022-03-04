@@ -5,7 +5,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class BusinessCapabilitySpec extends AnyFlatSpec with GivenWhenThen {
-  "Business Capabilities" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Business Capabilities" can "be added to the town plan" in new EnterpriseArchitectureContext {
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
 
     val marketing: BusinessCapability =

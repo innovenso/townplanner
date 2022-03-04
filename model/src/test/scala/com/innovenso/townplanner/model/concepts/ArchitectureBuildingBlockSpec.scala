@@ -8,7 +8,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class ArchitectureBuildingBlockSpec extends AnyFlatSpec with GivenWhenThen {
-  "Architecture Building Blocks" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Architecture Building Blocks" can "be added to the town plan" in new EnterpriseArchitectureContext {
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val marketing: BusinessCapability =
       ea describes BusinessCapability(title = "Marketing") as { it =>

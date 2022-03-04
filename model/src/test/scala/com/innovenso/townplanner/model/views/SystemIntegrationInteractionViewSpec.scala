@@ -16,7 +16,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 class SystemIntegrationInteractionViewSpec
     extends AnyFlatSpec
     with GivenWhenThen {
-  "A system integration interaction view" can "be added to the town plan" in new EnterpriseArchitecture {
+  "A system integration interaction view" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")

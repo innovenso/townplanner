@@ -8,7 +8,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
 import com.innovenso.townplanner.model.concepts.views.FlowView
 import com.innovenso.townplanner.model.concepts.{
   ActorNoun,
-  EnterpriseArchitecture,
+  EnterpriseArchitectureContext,
   ItSystem,
   Microservice
 }
@@ -16,7 +16,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
-  "A flow view" can "be added to the town plan" in new EnterpriseArchitecture {
+  "A flow view" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")

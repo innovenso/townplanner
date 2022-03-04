@@ -9,7 +9,7 @@ import com.innovenso.townplanner.model.concepts.{
   ArchitectureBuildingBlock,
   BusinessCapability,
   Enterprise,
-  EnterpriseArchitecture,
+  EnterpriseArchitectureContext,
   ItContainer,
   ItPlatform,
   ItSystem,
@@ -21,7 +21,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 class ArchitectureBuildingBlockRealizationViewSpec
     extends AnyFlatSpec
     with GivenWhenThen {
-  "Architecture Building Block Realization Views" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Architecture Building Block Realization Views" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("an enterprise")
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val apple: Enterprise = ea has Enterprise(title = "Apple")

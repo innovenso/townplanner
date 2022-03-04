@@ -12,7 +12,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class FullTownPlanViewSpec extends AnyFlatSpec with GivenWhenThen {
-  "Full Town Plan Views" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Full Town Plan Views" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("an enterprise")
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val apple: Enterprise = ea has Enterprise(title = "Apple")

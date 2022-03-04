@@ -11,7 +11,7 @@ import com.innovenso.townplanner.model.concepts.views.{
   SystemIntegrationView
 }
 import com.innovenso.townplanner.model.concepts.{
-  EnterpriseArchitecture,
+  EnterpriseArchitectureContext,
   ItSystem,
   ItSystemIntegration
 }
@@ -20,7 +20,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class IntegrationMapSpec extends AnyFlatSpec with GivenWhenThen {
-  "an integration map" can "be added to the townplan" in new EnterpriseArchitecture {
+  "an integration map" can "be added to the townplan" in new EnterpriseArchitectureContext {
     Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "System 1")
     val system2: ItSystem = ea has ItSystem(title = "System 2")

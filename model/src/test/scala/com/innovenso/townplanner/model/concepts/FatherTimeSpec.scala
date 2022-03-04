@@ -6,7 +6,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class FatherTimeSpec extends AnyFlatSpec with GivenWhenThen {
-  "An IT System" can "have a lifecycle" in new EnterpriseArchitecture {
+  "An IT System" can "have a lifecycle" in new EnterpriseArchitectureContext {
     val theSystem: ItSystem = ea describes ItSystem(title = "The System") as {
       it =>
         it is Conceived() on Day(2020, 1, 1)

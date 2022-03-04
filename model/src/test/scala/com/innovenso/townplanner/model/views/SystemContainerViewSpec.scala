@@ -11,7 +11,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
-  "System container views" can "be added to the town plan" in new EnterpriseArchitecture {
+  "System container views" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("some systems")
     val system1: ItSystem =
       ea has ItSystem(key = Key("system1"), title = "System 1")

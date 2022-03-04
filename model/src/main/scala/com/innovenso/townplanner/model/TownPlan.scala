@@ -40,7 +40,7 @@ case class TownPlan(
     with HasSystemIntegrationInteractionViews
     with HasProjectMilestoneImpactViews
 
-class TownPlanFactory
+case class EnterpriseArchitecture()
     extends CanAddModelComponents
     with CanAddRelationships
     with CanAddEnterprises

@@ -5,7 +5,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class TechnologySpec extends AnyFlatSpec with GivenWhenThen {
-  "Technologies" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Technologies" can "be added to the town plan" in new EnterpriseArchitectureContext {
     When("a technology is added to the town plan")
     val java: Technique =
       ea describes Technique(title = "SAFE") as { it =>

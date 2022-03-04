@@ -2,12 +2,12 @@ package com.innovenso.townplanner.model.views
 
 import com.innovenso.townplanner.model.concepts.properties.Description
 import com.innovenso.townplanner.model.concepts.views.{CompiledProjectMilestoneImpactView, ProjectMilestoneImpactView}
-import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, EnterpriseArchitecture, ItContainer, ItPlatform, ItProject, ItProjectMilestone, ItSystem, ItSystemIntegration, Language, Microservice, Technology, Tool}
+import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, EnterpriseArchitectureContext, ItContainer, ItPlatform, ItProject, ItProjectMilestone, ItSystem, ItSystemIntegration, Language, Microservice, Technology, Tool}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class ProjectMilestoneImpactViewSpec extends AnyFlatSpec with GivenWhenThen {
-  "a project milestone impact view" can "be added to the town plan" in new EnterpriseArchitecture {
+  "a project milestone impact view" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("an enterprise")
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val apple: Enterprise = ea has Enterprise(title = "Apple")

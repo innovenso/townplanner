@@ -6,7 +6,7 @@ import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
-  "Decisions" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Decisions" can "be added to the town plan" in new EnterpriseArchitectureContext {
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val jurgen: IndividualActor = ea has IndividualActor(title = "Jurgen Lust")
     val virginie: IndividualActor =

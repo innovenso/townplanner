@@ -1,7 +1,7 @@
 import sbt.Keys.libraryDependencies
 
 ThisBuild / organization := "com.innovenso.townplanner"
-ThisBuild / version := "1.1.0"
+ThisBuild / version := "1.2.0"
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / resolvers += Resolver.mavenLocal
 

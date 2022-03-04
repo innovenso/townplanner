@@ -8,13 +8,13 @@ import com.innovenso.townplanner.model.concepts.views.{
 import com.innovenso.townplanner.model.concepts.{
   BusinessCapability,
   Enterprise,
-  EnterpriseArchitecture
+  EnterpriseArchitectureContext
 }
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class BusinessCapabilityPositionSpec extends AnyFlatSpec with GivenWhenThen {
-  "Business capability position" can "be added to the town plan" in new EnterpriseArchitecture {
+  "Business capability position" can "be added to the town plan" in new EnterpriseArchitectureContext {
     Given("an enterprise")
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     val apple: Enterprise = ea has Enterprise(title = "Apple")
