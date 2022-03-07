@@ -6,8 +6,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 
 class BusinessActorSpec extends AnyFlatSpec with GivenWhenThen {
   "Business Actors" can "be added to the town plan" in new EnterpriseArchitectureContext {
-    val jurgen: IndividualActor =
-      ea describes IndividualActor(title = "Jurgen Lust") as { he =>
+    val jurgen: Person =
+      ea describes Person(title = "Jurgen Lust") as { he =>
         he has Description("Co-Founder of Innovenso")
         he has Description("Author of the Townplanner")
         he has Description("CTO of Genius Fish")

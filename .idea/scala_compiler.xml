@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="sbt 1" modules="innovenso-townplanner,innovenso-townplanner-application,innovenso-townplanner-io-core,innovenso-townplanner-io-diagram,innovenso-townplanner-model,innovenso-townplanner-model_3519,innovenso-townplanner-sample,ioCore,ioDiagrams,model,model.innovenso-townplanner-model,sample" />
+  </component>
+</project>

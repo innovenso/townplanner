@@ -90,13 +90,13 @@ case class SystemContainerViewCompiler(
   private def isInDiagram(key: Key): Boolean =
     visible(key) && (systems ++ containers ++ actors).exists(_.key == key)
 
-  private def actors: Set[ActorNoun] = allFlows
+  private def actors: Set[Actor] = allFlows
     .flatMap(relationship => Set(relationship.source, relationship.target))
     .map(key => source.businessActor(key))
     .filter(_.nonEmpty)
     .map(_.get)
-    .filter(_.isInstanceOf[ActorNoun])
-    .map(_.asInstanceOf[ActorNoun])
+    .filter(_.isInstanceOf[Actor])
+    .map(_.asInstanceOf[Actor])
 
   private def containers: Set[ItContainer] =
     centralSystem.flatMap(source.containers)

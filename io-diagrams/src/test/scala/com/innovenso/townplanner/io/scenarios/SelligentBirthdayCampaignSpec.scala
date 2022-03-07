@@ -1,7 +1,7 @@
 package com.innovenso.townplanner.io.scenarios
 
 import com.innovenso.townplanner.io.DiagramIO
-import com.innovenso.townplanner.model.concepts.{ActorNoun, Database, Framework, Gateway, ItSystem, Language, LanguageOrFramework, Microservice, Platform, WebUI}
+import com.innovenso.townplanner.model.concepts.{Actor, Database, Framework, Gateway, ItSystem, Language, LanguageOrFramework, Microservice, Platform, WebUI}
 import com.innovenso.townplanner.model.concepts.properties.{BeInvestedIn, BeMigrated, Description, GoneToProduction, Message, Request, Response}
 import com.innovenso.townplanner.model.concepts.relationships.Flow
 import com.innovenso.townplanner.model.concepts.views.FlowView
@@ -19,8 +19,8 @@ class SelligentBirthdayCampaignSpec extends AnyFlatSpec with GivenWhenThen {
     val mysql: Platform = ea has Platform(title = "MySQL")
 
     And("Marketeers and Players")
-    val marketeer: ActorNoun = ea has ActorNoun(title = "Marketeer")
-    val player: ActorNoun = ea has ActorNoun(title = "Player")
+    val marketeer: Actor = ea has Actor(title = "Marketeer")
+    val player: Actor = ea has Actor(title = "Player")
 
     And("Selligent")
     val selligent: ItSystem = ea describes ItSystem(title = "Selligent") as { it =>

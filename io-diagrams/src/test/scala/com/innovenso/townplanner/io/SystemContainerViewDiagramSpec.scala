@@ -46,19 +46,19 @@ class SystemContainerViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
       }
 
     And("some business actors")
-    val user1: ActorNoun =
-      ea describes ActorNoun(key = Key("user1"), title = "User 1") as { it =>
+    val user1: Actor =
+      ea describes Actor(key = Key("user1"), title = "User 1") as { it =>
         it uses ms2
         it uses system1
         it uses system4
       }
 
-    val user2: ActorNoun =
-      ea has ActorNoun(key = Key("user2"), title = "User 2")
+    val user2: Actor =
+      ea has Actor(key = Key("user2"), title = "User 2")
 
     And("some individuals")
-    val jurgenlust: IndividualActor =
-      ea describes IndividualActor(
+    val jurgenlust: Person =
+      ea describes Person(
         key = Key("jurgenlust"),
         title = "Jurgen Lust"
       ) as { he =>

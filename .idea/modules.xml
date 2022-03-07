@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-application.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-application.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-build.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-core.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-diagram.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-diagram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-sample.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/model.innovenso-townplanner-model.iml" filepath="$PROJECT_DIR$/.idea/modules/model.innovenso-townplanner-model.iml" />
+    </modules>
+  </component>
+</project>

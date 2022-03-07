@@ -10,9 +10,9 @@ class ItProjectSpec extends AnyFlatSpec with GivenWhenThen {
     Given("an enterprise")
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
     And("some individuals")
-    val jurgen: IndividualActor = ea has IndividualActor(title = "Jurgen Lust")
-    val virginie: IndividualActor =
-      ea has IndividualActor(title = "Virginie Héloire")
+    val jurgen: Person = ea has Person(title = "Jurgen Lust")
+    val virginie: Person =
+      ea has Person(title = "Virginie Héloire")
     And("some capabilities")
 
     val paymentsCapability: BusinessCapability =

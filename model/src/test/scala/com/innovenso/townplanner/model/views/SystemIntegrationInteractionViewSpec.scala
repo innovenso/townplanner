@@ -21,7 +21,7 @@ class SystemIntegrationInteractionViewSpec
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")
     And("a user")
-    val user: ActorNoun = ea has ActorNoun(title = "A user")
+    val user: Actor = ea has Actor(title = "A user")
     And("some containers")
     val microservice: Microservice =
       ea describes Microservice(title = "A microservice") as { it =>

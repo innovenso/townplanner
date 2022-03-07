@@ -19,7 +19,9 @@ sealed trait BusinessActor
     with CanServe
     with CanBeAssociated
     with CanBeStakeholder
-    with CanBeRaci {
+    with CanBeRaci
+    with CanCompose
+    with CanBeComposedOf {
   val layer: Layer = BusinessLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -27,43 +29,43 @@ sealed trait BusinessActor
   )
 }
 
-case class ActorNoun(
+case class Actor(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {
-  def withProperty(property: Property): ActorNoun =
+  def withProperty(property: Property): Actor =
     copy(properties = this.properties + (property.key -> property))
 }
 
-case class IndividualActor(
+case class Person(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {
-  def withProperty(property: Property): IndividualActor =
+  def withProperty(property: Property): Person =
     copy(properties = this.properties + (property.key -> property))
 }
 
-case class OrganisationActor(
+case class Organisation(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends BusinessActor {
-  def withProperty(property: Property): OrganisationActor =
+) extends BusinessActor  {
+  def withProperty(property: Property): Organisation =
     copy(properties = this.properties + (property.key -> property))
 }
 
-case class TeamActor(
+case class Team(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends BusinessActor {
-  def withProperty(property: Property): TeamActor =
+  def withProperty(property: Property): Team =
     copy(properties = this.properties + (property.key -> property))
 }
 
@@ -72,13 +74,13 @@ trait HasBusinessActors
     with HasEnterprises
     with HasRelationships {
   def actorNouns: List[BusinessActor] =
-    businessActors.filter(a => a.isInstanceOf[ActorNoun])
+    businessActors.filter(a => a.isInstanceOf[Actor])
   def individualActors: List[BusinessActor] =
-    businessActors.filter(a => a.isInstanceOf[IndividualActor])
+    businessActors.filter(a => a.isInstanceOf[Person])
   def organisationActors: List[BusinessActor] =
-    businessActors.filter(a => a.isInstanceOf[OrganisationActor])
+    businessActors.filter(a => a.isInstanceOf[Organisation])
   def teamActors: List[BusinessActor] =
-    businessActors.filter(a => a.isInstanceOf[TeamActor])
+    businessActors.filter(a => a.isInstanceOf[Team])
 
   def businessActors: List[BusinessActor] = components(
     classOf[BusinessActor]
@@ -111,7 +113,9 @@ case class BusinessActorConfigurer[BusinessActorType <: BusinessActor](
     with CanConfigureDeliverySource[BusinessActorType]
     with CanConfigureRaciSource[BusinessActorType]
     with CanConfigureInfluenceSource[BusinessActorType]
-    with CanConfigureStakeholderSource[BusinessActorType] {
+    with CanConfigureStakeholderSource[BusinessActorType]
+    with CanConfigureCompositionSource[BusinessActorType]
+    with CanConfigureCompositionTarget[BusinessActorType] {
   def as(
       body: BusinessActorConfigurer[BusinessActorType] => Any
   ): BusinessActorType = {
@@ -124,32 +128,32 @@ case class BusinessActorConfigurer[BusinessActorType <: BusinessActor](
 
 trait CanAddBusinessActors extends CanAddProperties with CanAddRelationships {
   def describes(
-      businessActor: IndividualActor
-  ): BusinessActorConfigurer[IndividualActor] =
+      businessActor: Person
+  ): BusinessActorConfigurer[Person] =
     BusinessActorConfigurer(
       has(businessActor),
       this,
       this
     )
   def describes(
-      businessActor: ActorNoun
-  ): BusinessActorConfigurer[ActorNoun] =
+      businessActor: Actor
+  ): BusinessActorConfigurer[Actor] =
     BusinessActorConfigurer(
       has(businessActor),
       this,
       this
     )
   def describes(
-      businessActor: TeamActor
-  ): BusinessActorConfigurer[TeamActor] =
+      businessActor: Team
+  ): BusinessActorConfigurer[Team] =
     BusinessActorConfigurer(
       has(businessActor),
       this,
       this
     )
   def describes(
-      businessActor: OrganisationActor
-  ): BusinessActorConfigurer[OrganisationActor] =
+      businessActor: Organisation
+  ): BusinessActorConfigurer[Organisation] =
     BusinessActorConfigurer(
       has(businessActor),
       this,

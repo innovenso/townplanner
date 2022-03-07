@@ -7,7 +7,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
 }
 import com.innovenso.townplanner.model.concepts.views.FlowView
 import com.innovenso.townplanner.model.concepts.{
-  ActorNoun,
+  Actor,
   EnterpriseArchitectureContext,
   ItSystem,
   Microservice
@@ -21,7 +21,7 @@ class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")
     And("a user")
-    val user: ActorNoun = ea has ActorNoun(title = "A user")
+    val user: Actor = ea has Actor(title = "A user")
     And("a container")
     val container1: Microservice =
       ea describes Microservice(title = "A microservice") as { it =>
