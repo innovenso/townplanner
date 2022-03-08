@@ -28,7 +28,7 @@ Create a directory for your town plan project:
 Now we create a `build.sbt` file in the root directory of the project:
 
 ```scala
-ThisBuild / organization := "be.napoleongames.architecture"
+ThisBuild / organization := "com.wayneenterprises.architecture"
 ThisBuild / version := "1.0.0"
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / resolvers += Resolver.mavenLocal
@@ -36,7 +36,7 @@ ThisBuild / resolvers += Resolver.mavenLocal
 lazy val townplan = project
     .in(file("."))
     .settings(
-        name := "napoleongames-townplan",
+        name := "wayneenterprises-townplan",
         libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.2.1"
     )
 ```
