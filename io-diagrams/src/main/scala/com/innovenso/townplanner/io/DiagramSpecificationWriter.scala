@@ -79,7 +79,10 @@ object DiagramSpecificationWriter {
           architectureBuildingBlockRealizationView,
           ArchitectureBuildingBlockRealizationDiagram(
             architectureBuildingBlockRealizationView
-          ).body
+          ).body,
+          if (architectureBuildingBlockRealizationView.view.includeContainers)
+            Some("Detailed")
+          else None
         )
       )
     case integrationMap: CompiledIntegrationMap =>

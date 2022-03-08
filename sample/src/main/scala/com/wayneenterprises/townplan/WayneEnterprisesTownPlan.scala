@@ -1,6 +1,10 @@
 package com.wayneenterprises.townplan
 
 import com.innovenso.townplan.application.EnterpriseArchitectureAsCode
+import com.innovenso.townplanner.model.concepts.views.{
+  BusinessCapabilityMap,
+  FullTownPlanView
+}
 import com.wayneenterprises.townplan.application.{BuildingBlocks, Systems}
 import com.wayneenterprises.townplan.business.Actors
 import com.wayneenterprises.townplan.strategy.{

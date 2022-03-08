@@ -3,10 +3,6 @@ package com.wayneenterprises.townplan.strategy
 import com.innovenso.townplanner.model.EnterpriseArchitecture
 import com.innovenso.townplanner.model.concepts.Enterprise
 import com.innovenso.townplanner.model.concepts.properties.Description
-import com.innovenso.townplanner.model.concepts.views.{
-  BusinessCapabilityMap,
-  FullTownPlanView
-}
 
 case class Enterprises()(implicit ea: EnterpriseArchitecture) {
   val wayneCorp: Enterprise =

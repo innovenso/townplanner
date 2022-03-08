@@ -1,24 +1,11 @@
 package com.wayneenterprises.townplan.application
 
 import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.{
-  Database,
-  ItSystem,
-  Microservice,
-  TerminalUI
-}
-import com.innovenso.townplanner.model.concepts.properties.{
-  Decommissioned,
-  Description,
-  GoneToProduction,
-  StartedDevelopment
-}
-import com.innovenso.townplanner.model.meta.{Day, InTheFuture}
+import com.innovenso.townplanner.model.concepts._
+import com.innovenso.townplanner.model.concepts.properties._
+import com.innovenso.townplanner.model.meta._
 import com.wayneenterprises.townplan.business.Actors
-import com.wayneenterprises.townplan.strategy.{
-  BusinessCapabilities,
-  Enterprises
-}
+import com.wayneenterprises.townplan.strategy._
 import com.wayneenterprises.townplan.technology.TechnologyRadar
 
 case class Systems()(implicit
@@ -37,6 +24,7 @@ case class Systems()(implicit
         "A custom Lair Management System, designed and built by Lucius Fox"
       )
       it realizes buildingBlocks.lairManagement
+      it isUsedBy actors.bruceWayne
     }
   }
 
@@ -108,6 +96,7 @@ case class Systems()(implicit
 
       it uses nemesisMs
       it uses platformMs
+      it isUsedBy actors.bruceWayne
 
       it has StartedDevelopment(description =
         "Lucius Fox gets excited over SPA"

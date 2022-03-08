@@ -76,9 +76,27 @@ object ArchitectureBuildingBlockRealizationView {
   )
 
   def apply(
+      forBuildingBlock: ArchitectureBuildingBlock,
+      pointInTime: ADay,
+      includeContainers: Boolean
+  ) = new ArchitectureBuildingBlockRealizationView(
+    forBuildingBlock = forBuildingBlock.key,
+    pointInTime = pointInTime,
+    includeContainers = includeContainers
+  )
+
+  def apply(
       forBuildingBlock: ArchitectureBuildingBlock
   ) = new ArchitectureBuildingBlockRealizationView(
     forBuildingBlock = forBuildingBlock.key
+  )
+
+  def apply(
+      forBuildingBlock: ArchitectureBuildingBlock,
+      includeContainers: Boolean
+  ) = new ArchitectureBuildingBlockRealizationView(
+    forBuildingBlock = forBuildingBlock.key,
+    includeContainers = includeContainers
   )
 }
 

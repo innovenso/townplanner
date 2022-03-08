@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="739px" preserveAspectRatio="none" style="width:521px;height:739px;background:#FFFFFF;" version="1.1" viewBox="0 0 521 739" width="521px" zoomAndPan="magnify"><defs><filter height="300%" id="f2v9734kky2ep" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[ecb68a6bdf33a84cc9f494850657f40d]
+cluster e3e05979_15ae_473f_aad1_6c7a8c90687d--><rect fill="#FFFFFF" height="614" style="stroke:#444444;stroke-width:1.0;stroke-dasharray:7.0,7.0;" width="508" x="7" y="119"/><image height="16" width="16" x="495" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYUlEQVR4Xs2QMQrAMAzE8v//5H0uHgJGh0qWQg+0mNMNXuuj1CWa2lWvdCckg7IOsHSKvOmAQdkGZkIg3QnJoKwDLJ0ibzpgULaBmRBIdyjNhEC6Q2kmBNIdSjPxB+EHeQBmQWts/gRraQAAAABJRU5ErkJggg==" y="124"/><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="266" x="128" y="150.8516">BatCave Management System</text><!--MD5=[b7b42cd0c01872a339ef1246a5deffcc]
+entity 8dbef375_4465_47e8_afe2_22327c181d31--><rect fill="#B0C4DE" filter="url(#f2v9734kky2ep)" height="125.7969" style="stroke:#000000;stroke-width:1.0;" width="260" x="23" y="591"/><image height="16" width="16" x="258" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="601"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="130" x="88" y="628.9951">Nemesis Database</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="155" y="645.292"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="141" x="82.5" y="659.7324">[database:  MongoDB]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="155" y="675.5576"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="37" y="691.8545"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="233" x="37" y="692.7979">A huge database with all the files of supervillains</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="82" x="112" y="704.4385">around the world</text><!--MD5=[b828fbaf76308ae356bd137a68d49707]
+entity 2fcc8fa6_09b0_47a0_95c3_190def4e112a--><rect fill="#B0C4DE" filter="url(#f2v9734kky2ep)" height="114.1563" style="stroke:#000000;stroke-width:1.0;" width="221" x="22.5" y="380"/><image height="16" width="16" x="218.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="390"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="150" x="58" y="417.9951">Nemesis Microservice</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="135" y="434.292"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="201" x="32.5" y="448.7324">[microservice:  Java,Kubernetes]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="135" y="464.5576"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="39" y="480.8545"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="192" x="39" y="481.7979">The single point of truth for supervillains</text><!--MD5=[36db895998eea4278c65f45ba091c36a]
+entity dd28714b_dc6e_4d40_bfed_6211d6681abe--><rect fill="#B0C4DE" filter="url(#f2v9734kky2ep)" height="130.4531" style="stroke:#000000;stroke-width:1.0;" width="221" x="278.5" y="372"/><image height="16" width="16" x="474.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="382"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="191" x="291.5" y="409.9951">Batmobile Platform Rotation</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="86" x="346" y="426.292">Microservice</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="391" y="442.5889"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="201" x="288.5" y="457.0293">[microservice:  Java,Kubernetes]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="391" y="472.8545"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="314" y="489.1514"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="154" x="314" y="490.0947">Rotates the Batmobile platform</text><!--MD5=[e00df727c5665b5b1826d7dba8cdc36e]
+entity 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95--><rect fill="#B0C4DE" filter="url(#f2v9734kky2ep)" height="125.7969" style="stroke:#000000;stroke-width:1.0;" width="263" x="140.5" y="171"/><image height="16" width="16" x="378.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="181"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="213" y="208.9951">Batcave Terminal</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="274" y="225.292"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="125" x="209.5" y="239.7324">[terminal UI:  React]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="274" y="255.5576"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="0" x="154.5" y="271.8545"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="236" x="154.5" y="272.7979">Impressive user interface used to manage every</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="219" x="162.5" y="284.4385">aspect of the BatCave Management System</text><!--MD5=[3651d01184734dfecd1178f7347ffcac]
+entity 32f66efb_404b_4f4c_aaa6_45649d9f1e87--><rect fill="#FFFFCC" filter="url(#f2v9734kky2ep)" height="51.2969" style="stroke:#000000;stroke-width:1.5;" width="119" x="212.5" y="7"/><image height="16" width="16" x="306.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAT0lEQVR4XmNgwA3+IWGSwb///7f+h2EQH10BPoCimRxDBt4AEKAoDGCAoliAAbI0I9uMjkkGZGlCBgNrAMV+h2kk2RBsGrCJYQX4FGKVAwAsAHdHiTIgRwAAAABJRU5ErkJggg==" y="17"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="91" x="230.5" y="44.9951">Bruce Wayne</text><!--MD5=[686c8d52488723bb36df111e35f02392]
+link 2fcc8fa6_09b0_47a0_95c3_190def4e112a to 8dbef375_4465_47e8_afe2_22327c181d31--><path d="M138.23,494.21 C140.75,521.27 143.79,554.01 146.46,582.71 " fill="none" id="2fcc8fa6_09b0_47a0_95c3_190def4e112a-to-8dbef375_4465_47e8_afe2_22327c181d31" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="147.2,590.69,149.4448,582.4461,143.4706,583.0029,147.2,590.69" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="85" x="150" y="544.1387">fetches villain</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="71" x="157" y="558.1074">information</text><!--MD5=[865a26b5041cce273d3c8057591a5603]
+link 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95 to 2fcc8fa6_09b0_47a0_95c3_190def4e112a--><path d="M228.97,297.22 C212.28,321.35 193.2,348.95 176.47,373.15 " fill="none" id="7d0b0d84_4ba5_453d_9f62_f764fcb4bb95-to-2fcc8fa6_09b0_47a0_95c3_190def4e112a" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="171.81,379.87,178.8292,374.9985,173.8952,371.5844,171.81,379.87" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="30" x="211" y="339.1387">uses</text><!--MD5=[f6474995d47d7958af75ca8736e930ef]
+link 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95 to dd28714b_dc6e_4d40_bfed_6211d6681abe--><path d="M308.22,297.22 C320.69,318.65 334.76,342.81 347.61,364.9 " fill="none" id="7d0b0d84_4ba5_453d_9f62_f764fcb4bb95-to-dd28714b_dc6e_4d40_bfed_6211d6681abe" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="351.74,371.99,350.3047,363.5674,345.1205,366.588,351.74,371.99" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="30" x="339" y="339.1387">uses</text><!--MD5=[7c81c5126c455a0d2c09e14db8ffc0ff]
+link 32f66efb_404b_4f4c_aaa6_45649d9f1e87 to 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95--><path d="M272,58.36 C272,84.39 272,126.44 272,162.76 " fill="none" id="32f66efb_404b_4f4c_aaa6_45649d9f1e87-to-7d0b0d84_4ba5_453d_9f62_f764fcb4bb95" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="272,170.89,275,162.89,269,162.89,272,170.89" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="30" x="277" y="100.1387">uses</text><!--MD5=[51489b2859e7b4c981bb4495ea4c62c5]
+@startuml
+' Archimate-PlantUML
+' Version 0.1
+' Url will come here...
+
+' Styling
+' ##################################
+!define TECHN_FONT_SIZE 12
+!define ELEMENT_FONT_COLOR #FFFFFF
+
+skinparam defaultTextAlignment center
+skinparam wrapWidth 400
+skinparam maxMessageSize 150
+skinparam StereotypeAlignment right
+
+skinparam Arrow {
+    Color #000000
+    FontColor #000000
+    FontSize 12
+}
+skinparam Folder<<grouping>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam Folder<<group>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BackgroundColor lightgrey
+}
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam node {
+  StereotypeAlignment right
+}
+skinparam cloud {
+  StereotypeAlignment right
+}
+skinparam frame {
+  StereotypeAlignment right
+}
+skinparam archimate {
+  StereotypeAlignment right
+  RoundCorner<<strategy-capability>> 25
+  RoundCorner<<strategy-course-of-action>> 25
+  RoundCorner<<strategy-value-stream>> 25
+  RoundCorner<<business-process>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-function>> 25
+  RoundCorner<<business-interaction>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-service>> 25
+  RoundCorner<<application-function>> 25
+  RoundCorner<<application-interaction>> 25
+  RoundCorner<<application-process>> 25
+  RoundCorner<<application-event>> 25
+  RoundCorner<<application-service>> 25
+  RoundCorner<<technology-function>> 25
+  RoundCorner<<technology-process>> 25
+  RoundCorner<<technology-interaction>> 25
+  RoundCorner<<technology-event>> 25
+  RoundCorner<<technology-infra-service>> 25
+  RoundCorner<<implementation-workpackage>> 25
+  RoundCorner<<implementation-event>> 25
+  DiagonalCorner<<motivation-stakeholder>> 12
+  DiagonalCorner<<motivation-driver>> 12
+  DiagonalCorner<<motivation-assessment>> 12
+  DiagonalCorner<<motivation-goal>> 12
+  DiagonalCorner<<motivation-outcome>> 12
+  DiagonalCorner<<motivation-principle>> 12
+  DiagonalCorner<<motivation-requirement>> 12
+  DiagonalCorner<<motivation-constraint>> 12
+}
+skinparam usecase {
+  BorderColor #000000
+}
+
+' Layout
+' ##################################
+!definelong LAYOUT_AS_SKETCH
+    skinparam backgroundColor #EEEBDC
+    skinparam handwritten true
+    skinparam defaultFontName "Comic Sans MS"
+    center footer <font color=red>Warning:</font> Created for discussion, needs to be validated
+!enddefinelong
+!define LAYOUT_TOP_DOWN top to bottom direction
+!define LAYOUT_LEFT_RIGHT left to right direction
+
+' Layout Helpers
+' ##################################
+!define Lay_D(e_from, e_to) e_from -[hidden]D- e_to
+!define Lay_U(e_from, e_to) e_from -[hidden]U- e_to
+!define Lay_R(e_from, e_to) e_from -[hidden]R- e_to
+!define Lay_L(e_from, e_to) e_from -[hidden]L- e_to
+
+' Boundaries
+' ##################################
+!define Boundary(e_alias, e_label) rectangle "==e_label" <<boundary>> as e_alias
+!define Boundary(e_alias, e_label, e_type) rectangle "==e_label\n<size:TECHN_FONT_SIZE>[e_type]</size>" <<boundary>> as e_alias
+
+' Elements
+' ##################################
+'Strategy Elements
+!define Strategy_Resource(e_alias, e_label) archimate #STRATEGY "....\n e_label" <<strategy-resource>> as e_alias
+!define Strategy_Capability(e_alias, e_label) archimate #STRATEGY "e_label" <<strategy-capability>> as e_alias
+!define Strategy_CourseOfAction(e_alias, e_label) archimate #STRATEGY "e_label" <<strategy-course-of-action>> as e_alias
+!define Strategy_ValueStream(e_alias, e_label) archimate #STRATEGY "e_label" <<strategy-value-stream>> as e_alias
+
+'Business Elements
+!define Business_Actor(e_alias, e_label) archimate #BUSINESS "e_label" <<business-actor>> as e_alias
+!define Business_Role(e_alias, e_label) archimate #BUSINESS "e_label" <<business-role>> as e_alias
+!define Business_Collaboration(e_alias, e_label) archimate #BUSINESS "e_label" <<business-collaboration>> as e_alias
+!define Business_Interface(e_alias, e_label) archimate #BUSINESS "e_label" <<business-interface>> as e_alias
+!define Business_Process(e_alias, e_label) archimate #BUSINESS "e_label" <<business-process>> as e_alias
+!define Business_Function(e_alias, e_label) archimate #BUSINESS "e_label" <<business-function>> as e_alias
+!define Business_Interaction(e_alias, e_label) archimate #BUSINESS "e_label" <<business-interaction>> as e_alias
+!define Business_Event(e_alias, e_label) archimate #BUSINESS "e_label" <<business-event>> as e_alias
+!define Business_Service(e_alias, e_label) archimate #BUSINESS "e_label" <<business-service>> as e_alias
+!define Business_Object(e_alias, e_label) archimate #BUSINESS "- - - -\n e_label" <<business-object>> as e_alias
+!define Business_Contract(e_alias, e_label) archimate #BUSINESS "- - - -\n e_label\n- - - -" <<business-contract>> as e_alias
+!define Business_Representation(e_alias, e_label) archimate #BUSINESS "- - - -\n e_label" <<business-representation>> as e_alias
+!define Business_Product(e_alias, e_label) archimate #BUSINESS "e_label" <<business-product>> as e_alias
+!define Business_Location(e_alias, e_label) archimate #BUSINESS "e_label" <<business-location>> as e_alias
+
+'Application Elements
+!define Application_Component(e_alias, e_label) archimate #APPLICATION "e_label" <<application-component>> as e_alias
+!define Application_Collaboration(e_alias, e_label) archimate #APPLICATION "e_label" <<application-collaboration>> as e_alias
+!define Application_Interface(e_alias, e_label) archimate #APPLICATION "e_label" <<application-interface>> as e_alias
+!define Application_Function(e_alias, e_label) archimate #APPLICATION "e_label" <<application-function>> as e_alias
+!define Application_Interaction(e_alias, e_label) archimate #APPLICATION "e_label" <<application-interaction>> as e_alias
+!define Application_Process(e_alias, e_label) archimate #APPLICATION "e_label" <<application-process>> as e_alias
+!define Application_Event(e_alias, e_label) archimate #APPLICATION "e_label" <<application-event>> as e_alias
+!define Application_Service(e_alias, e_label) archimate #APPLICATION "e_label" <<application-service>> as e_alias
+!define Application_DataObject(e_alias, e_label) archimate #APPLICATION "- - - -\n e_label" <<application-data-object>> as e_alias
+
+'Technology Elements
+!define Technology_Node(e_alias, e_label) node #TECHNOLOGY "e_label" <<$archimate/technology-node>> as e_alias
+!define Technology_Device(e_alias, e_label) node #TECHNOLOGY "e_label" <<$archimate/technology-device>> as e_alias
+!define Technology_SystemSoftware(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-system-software>> as e_alias
+!define Technology_Collaboration(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-collaboration>> as e_alias
+!define Technology_Interface(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-infra-interface>> as e_alias
+!define Technology_Path(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-communication-path>> as e_alias
+!define Technology_CommunicationNetwork(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-network>> as e_alias
+!define Technology_Function(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-function>> as e_alias
+!define Technology_Process(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-process>> as e_alias
+!define Technology_Interaction(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-interaction>> as e_alias
+!define Technology_Event(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-event>> as e_alias
+!define Technology_Service(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-infra-service>> as e_alias
+!define Technology_Artifact(e_alias, e_label) archimate #TECHNOLOGY "- - - -\n e_label" <<technology-artifact>> as e_alias
+
+'Physical Elements
+!define Physical_Equipment(e_alias, e_label) node #PHYSICAL "e_label" <<$archimate/physical-equipment>> as e_alias
+!define Physical_Facility(e_alias, e_label) node #PHYSICAL "e_label" <<$archimate/physical-facility>> as e_alias
+!define Physical_DistributionNetwork(e_alias, e_label) archimate #PHYSICAL "e_label" <<physical-distribution-network>> as e_alias
+!define Physical_Material(e_alias, e_label) archimate #PHYSICAL "- - - -\n e_label" <<physical-material>> as e_alias
+
+'Motivation Elements
+!define Motivation_Stakeholder(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-stakeholder>> as e_alias
+!define Motivation_Driver(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-driver>> as e_alias
+!define Motivation_Assessment(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-assessment>> as e_alias
+!define Motivation_Goal(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-goal>> as e_alias
+!define Motivation_Outcome(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-outcome>> as e_alias
+!define Motivation_Principle(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-principle>> as e_alias
+!define Motivation_Requirement(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-requirement>> as e_alias
+!define Motivation_Constraint(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-constraint>> as e_alias
+!define Motivation_Meaning(e_alias, e_label) cloud #MOTIVATION "e_label" <<$archimate/motivation-meaning>> as e_alias
+!define Motivation_Value(e_alias, e_label) usecase #MOTIVATION "e_label" as e_alias
+
+'Implementation Elements
+!define Implementation_WorkPackage(e_alias, e_label) archimate #IMPLEMENTATION "e_label" <<implementation-workpackage>> as e_alias
+!define Implementation_Deliverable(e_alias, e_label) archimate #IMPLEMENTATION "- - - -\n e_label" <<implementation-deliverable>> as e_alias
+!define Implementation_Event(e_alias, e_label) archimate #IMPLEMENTATION "e_label" <<implementation-event>> as e_alias
+!define Implementation_Plateau(e_alias, e_label) node #PHYSICAL "e_label" <<$archimate/implementation-plateau>> as e_alias
+!define Implementation_Gap(e_alias, e_label) archimate #PHYSICAL "- - - -\n e_label" <<implementation-gap>> as e_alias
+
+'Other Elements
+!define Other_Location(e_alias, e_label) archimate #ffb973 "e_label" <<location>> as e_alias
+!define Junction_Or(e_alias, e_label) circle #whitesmoke "e_label" as e_alias
+!define Junction_And(e_alias, e_label) circle #black "e_label" as e_alias
+!define Grouping(e_alias, e_label) Folder "e_label" <<grouping>> as e_alias
+!define Group(e_alias, e_label) Folder "e_label" <<group>> as e_alias
+
+
+' Relationships
+' ##################################
+!define Rel_(e_sourceAlias, e_targetAlias, e_label, e_direction="") e_sourceAlias e_direction e_targetAlias : "e_label"
+
+!define Rel_Composition(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*- -")
+!define Rel_Composition_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-UP-")
+!define Rel_Composition_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-DOWN-")
+!define Rel_Composition_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-LEFT-")
+!define Rel_Composition_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-RIGHT-")
+
+!define Rel_Aggregation(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o- -")
+!define Rel_Aggregation_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-UP-")
+!define Rel_Aggregation_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-DOWN-")
+!define Rel_Aggregation_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-LEFT-")
+!define Rel_Aggregation_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-RIGHT-")
+
+!define Rel_Assignment(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@- ->>")
+!define Rel_Assignment_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-UP->>")
+!define Rel_Assignment_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-DOWN->>")
+!define Rel_Assignment_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-LEFT->>")
+!define Rel_Assignment_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-RIGHT->>")
+
+!define Rel_Specialization(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "- -|>")
+!define Rel_Specialization_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-UP-|>")
+!define Rel_Specialization_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-DOWN-|>")
+!define Rel_Specialization_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-LEFT-|>")
+!define Rel_Specialization_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-RIGHT-|>")
+
+!define Rel_Serving(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "- ->")
+!define Rel_Serving_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-UP->")
+!define Rel_Serving_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-DOWN->")
+!define Rel_Serving_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-LEFT->")
+!define Rel_Serving_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-RIGHT->")
+
+!define Rel_Association(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "==")
+!define Rel_Association_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=UP=")
+!define Rel_Association_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=DOWN=")
+!define Rel_Association_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=LEFT=")
+!define Rel_Association_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=RIGHT=")
+
+!define Rel_Association_dir(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "==>")
+!define Rel_Association_dir_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=UP=>")
+!define Rel_Association_dir_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=DOWN=>")
+!define Rel_Association_dir_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=LEFT=>")
+!define Rel_Association_dir_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=RIGHT=>")
+
+!define Rel_Flow(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "..>>")
+!define Rel_Flow_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".UP.>>")
+!define Rel_Flow_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".DOWN.>>")
+!define Rel_Flow_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".LEFT.>>")
+!define Rel_Flow_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".RIGHT.>>")
+
+!define Rel_Realization(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~~|>")
+!define Rel_Realization_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~UP~|>")
+!define Rel_Realization_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~DOWN~|>")
+!define Rel_Realization_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~LEFT~|>")
+!define Rel_Realization_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~RIGHT~|>")
+
+!define Rel_Triggering(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "- ->>")
+!define Rel_Triggering_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-UP->>")
+!define Rel_Triggering_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-DOWN->>")
+!define Rel_Triggering_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-LEFT->>")
+!define Rel_Triggering_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-RIGHT->>")
+
+!define Rel_Access(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~~")
+!define Rel_Access_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~UP~")
+!define Rel_Access_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~DOWN~")
+!define Rel_Access_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~LEFT~")
+!define Rel_Access_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~RIGHT~")
+
+!define Rel_Access_r(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-~")
+!define Rel_Access_r_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-UP~")
+!define Rel_Access_r_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-DOWN~")
+!define Rel_Access_r_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-LEFT~")
+!define Rel_Access_r_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-RIGHT~")
+
+!define Rel_Access_rw(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~~>")
+!define Rel_Access_rw_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~UP~>")
+!define Rel_Access_rw_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~DOWN~>")
+!define Rel_Access_rw_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~LEFT~>")
+!define Rel_Access_rw_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~RIGHT~>")
+
+!define Rel_Access_w(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~->")
+!define Rel_Access_w_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~UP->")
+!define Rel_Access_w_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~DOWN->")
+!define Rel_Access_w_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~LEFT->")
+!define Rel_Access_w_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~RIGHT->")
+
+!define Rel_Influence(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "..>")
+!define Rel_Influence_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".UP.>")
+!define Rel_Influence_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".DOWN.>")
+!define Rel_Influence_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".LEFT.>")
+!define Rel_Influence_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".RIGHT.>")
+
+!define DESC_FONT_SIZE 10
+!define DESC_FONT_COLOR #CCCCCC
+!define ACTIVE #Black
+!define UNKNOWN #Black
+!define PLANNED #Blue
+!define ADDED #Green
+!define PHASEOUT #Orange
+!define DECOMMISSIONED #Red
+!define REMOVED #Red
+!define CHANGED #Blue
+
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aFunction jar:archimate/business-function
+sprite $aBuildingBlock jar:archimate/function
+sprite $aPlatform jar:archimate/component
+sprite $aSystem jar:archimate/application-component
+sprite $aContainer jar:archimate/application-component
+sprite $aMilestone jar:archimate/implementation-plateau
+sprite $aProject jar:archimate/implementation-workpackage
+sprite $aInteraction jar:archimate/application-interaction
+sprite $aDataEntity jar:archimate/application-data-object
+
+skinparam wrapWidth 250
+
+
+skinparam rectangle<<system>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<platform>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #00008B
+    BorderColor #00008B
+    BorderStyle dotted
+}
+
+skinparam rectangle<<integration>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<strategy-capability>> {
+    RoundCorner 25
+}
+
+skinparam rectangle<<ACTIVE>> {
+    BorderColor ACTIVE
+    BorderThickness 1
+}
+
+skinparam rectangle<<PLANNED>> {
+    BorderColor PLANNED
+    BorderThickness 5
+}
+
+skinparam rectangle<<ADDED>> {
+    BorderColor ADDED
+    BorderThickness 5
+}
+
+skinparam rectangle<<PHASEOUT>> {
+    BorderColor PHASEOUT
+    BorderThickness 5
+}
+
+skinparam rectangle<<DECOMMISSIONED>> {
+    BorderColor DECOMMISSIONED
+    BorderThickness 5
+}
+
+skinparam rectangle<<UNKNOWN>> {
+    BorderColor UNKNOWN
+    BorderThickness 1
+}
+
+
+!define Business_Capability_Map_Group(e_alias, e_label) rectangle "==e_label" <<business capability map>> as e_alias
+!define Strategy_Capability_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aCapability>><<strategy-capability>> #Strategy
+!define Business_Function_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aFunction>><<business-function>> #Business
+!define Platform_Context(e_alias, e_label) rectangle "==e_label" <<$aPlatform>><<platform>> as e_alias
+!define System_Context(e_alias, e_label) rectangle "==e_label" <<$aSystem>><<system>> as e_alias
+!define BuildingBlock(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:DESC_FONT_SIZE>e_desc</size>" <<$aBuildingBlock>><<e_lifecycle>> as e_alias
+!define Platform(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[platform]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aPlatform>><<e_lifecycle>> as e_alias
+!define System(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[system]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aSystem>><<e_lifecycle>> as e_alias
+!define Entity(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[information]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aDataEntity>><<e_lifecycle>> as e_alias
+!define Integration(e_alias, e_label, e_desc, e_tech, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[integration: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aInteraction>><<e_lifecycle>> as e_alias
+!define Container(e_alias, e_label, e_desc, e_type, e_tech, e_lifecycle) rectangle #LightSteelBlue "e_label\n\n<size:TECHN_FONT_SIZE>[e_type: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aContainer>><<e_lifecycle>> as e_alias
+!define SWOT(e_alias, e_type, e_desc) note "== e_type ==\n e_desc" as e_alias
+!define Lifecycle(e_alias, e_lifecycle, e_desc) note "== lifecyle - e_lifecycle ==\n e_desc" as e_alias
+!define Relationship(e_sourceAlias, e_targetAlias, e_label, e_sourceArrow="", e_targetArrow="", e_lifecycle="") e_sourceAlias e_sourceArrow..[e_lifecycle]e_targetArrow e_targetAlias : "e_label"
+!define Project(e_alias, e_label, e_desc, e_type) rectangle #IMPLEMENTATION "e_label\n\n<size:TECHN_FONT_SIZE>[e_type]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aProject>> as e_alias
+!define ProjectMilestone(e_alias, e_label, e_desc) rectangle #IMPLEMENTATION "e_label\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aMilestone>> as e_alias
+
+    
+        
+             System_Context( e3e05979_15ae_473f_aad1_6c7a8c90687d, "  BatCave Management System") {
+ 
+     Container(8dbef375_4465_47e8_afe2_22327c181d31, "Nemesis Database", "A huge database with all the files of supervillains around the world", "database", " MongoDB", "ACTIVE")
+
+     Container(2fcc8fa6_09b0_47a0_95c3_190def4e112a, "Nemesis Microservice", "The single point of truth for supervillains", "microservice", " Java,Kubernetes", "ACTIVE")
+
+     Container(dd28714b_dc6e_4d40_bfed_6211d6681abe, "Batmobile Platform Rotation Microservice", "Rotates the Batmobile platform", "microservice", " Java,Kubernetes", "UNKNOWN")
+
+     Container(7d0b0d84_4ba5_453d_9f62_f764fcb4bb95, "Batcave Terminal", "Impressive user interface used to manage every aspect of the BatCave Management System", "terminal UI", " React", "ACTIVE")
+
+    }
+
+        
+         
+         
+     Business_Actor( 32f66efb_404b_4f4c_aaa6_45649d9f1e87, "  Bruce Wayne")
+
+
+         
+    
+ Rel_Flow(2fcc8fa6_09b0_47a0_95c3_190def4e112a, 8dbef375_4465_47e8_afe2_22327c181d31, " fetches villain information")
+    
+
+
+    
+ Rel_Flow(7d0b0d84_4ba5_453d_9f62_f764fcb4bb95, 2fcc8fa6_09b0_47a0_95c3_190def4e112a, " uses")
+    
+
+
+    
+ Rel_Flow(7d0b0d84_4ba5_453d_9f62_f764fcb4bb95, dd28714b_dc6e_4d40_bfed_6211d6681abe, " uses")
+    
+
+
+    
+ Rel_Flow(32f66efb_404b_4f4c_aaa6_45649d9f1e87, 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95, " uses")
+    
+
+
+    
+
+@enduml
+
+@startuml
+
+
+skinparam defaultTextAlignment center
+skinparam wrapWidth 400
+skinparam maxMessageSize 150
+skinparam StereotypeAlignment right
+
+skinparam Arrow {
+    Color #000000
+    FontColor #000000
+    FontSize 12
+}
+skinparam Folder<<grouping>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam Folder<<group>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BackgroundColor lightgrey
+}
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam node {
+  StereotypeAlignment right
+}
+skinparam cloud {
+  StereotypeAlignment right
+}
+skinparam frame {
+  StereotypeAlignment right
+}
+skinparam archimate {
+  StereotypeAlignment right
+  RoundCorner<<strategy-capability>> 25
+  RoundCorner<<strategy-course-of-action>> 25
+  RoundCorner<<strategy-value-stream>> 25
+  RoundCorner<<business-process>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-function>> 25
+  RoundCorner<<business-interaction>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-service>> 25
+  RoundCorner<<application-function>> 25
+  RoundCorner<<application-interaction>> 25
+  RoundCorner<<application-process>> 25
+  RoundCorner<<application-event>> 25
+  RoundCorner<<application-service>> 25
+  RoundCorner<<technology-function>> 25
+  RoundCorner<<technology-process>> 25
+  RoundCorner<<technology-interaction>> 25
+  RoundCorner<<technology-event>> 25
+  RoundCorner<<technology-infra-service>> 25
+  RoundCorner<<implementation-workpackage>> 25
+  RoundCorner<<implementation-event>> 25
+  DiagonalCorner<<motivation-stakeholder>> 12
+  DiagonalCorner<<motivation-driver>> 12
+  DiagonalCorner<<motivation-assessment>> 12
+  DiagonalCorner<<motivation-goal>> 12
+  DiagonalCorner<<motivation-outcome>> 12
+  DiagonalCorner<<motivation-principle>> 12
+  DiagonalCorner<<motivation-requirement>> 12
+  DiagonalCorner<<motivation-constraint>> 12
+}
+skinparam usecase {
+  BorderColor #000000
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aFunction jar:archimate/business-function
+sprite $aBuildingBlock jar:archimate/function
+sprite $aPlatform jar:archimate/component
+sprite $aSystem jar:archimate/application-component
+sprite $aContainer jar:archimate/application-component
+sprite $aMilestone jar:archimate/implementation-plateau
+sprite $aProject jar:archimate/implementation-workpackage
+sprite $aInteraction jar:archimate/application-interaction
+sprite $aDataEntity jar:archimate/application-data-object
+
+skinparam wrapWidth 250
+
+
+skinparam rectangle<<system>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<platform>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #00008B
+    BorderColor #00008B
+    BorderStyle dotted
+}
+
+skinparam rectangle<<integration>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<strategy-capability>> {
+    RoundCorner 25
+}
+
+skinparam rectangle<<#Black>> {
+    BorderColor #Black
+    BorderThickness 1
+}
+
+skinparam rectangle<<#Blue>> {
+    BorderColor #Blue
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Green>> {
+    BorderColor #Green
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Orange>> {
+    BorderColor #Orange
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Red>> {
+    BorderColor #Red
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Black>> {
+    BorderColor #Black
+    BorderThickness 1
+}
+
+
+
+    
+        
+             rectangle "==  BatCave Management System" <<$aSystem>><<system>> as e3e05979_15ae_473f_aad1_6c7a8c90687d {
+ 
+     rectangle #LightSteelBlue "Nemesis Database\n\n<size:12>[database:  MongoDB]</size>\n\n <size:10>A huge database with all the files of supervillains around the world</size>" <<$aContainer>><<#Black>> as 8dbef375_4465_47e8_afe2_22327c181d31
+
+     rectangle #LightSteelBlue "Nemesis Microservice\n\n<size:12>[microservice:  Java,Kubernetes]</size>\n\n <size:10>The single point of truth for supervillains</size>" <<$aContainer>><<#Black>> as 2fcc8fa6_09b0_47a0_95c3_190def4e112a
+
+     rectangle #LightSteelBlue "Batmobile Platform Rotation Microservice\n\n<size:12>[microservice:  Java,Kubernetes]</size>\n\n <size:10>Rotates the Batmobile platform</size>" <<$aContainer>><<#Black>> as dd28714b_dc6e_4d40_bfed_6211d6681abe
+
+     rectangle #LightSteelBlue "Batcave Terminal\n\n<size:12>[terminal UI:  React]</size>\n\n <size:10>Impressive user interface used to manage every aspect of the BatCave Management System</size>" <<$aContainer>><<#Black>> as 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95
+
+    }
+
+        
+         
+         
+     archimate #BUSINESS "  Bruce Wayne" <<business-actor>> as 32f66efb_404b_4f4c_aaa6_45649d9f1e87
+
+
+         
+    
+ 2fcc8fa6_09b0_47a0_95c3_190def4e112a ..>> 8dbef375_4465_47e8_afe2_22327c181d31 : " fetches villain information"
+    
+
+
+    
+ 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95 ..>> 2fcc8fa6_09b0_47a0_95c3_190def4e112a : " uses"
+    
+
+
+    
+ 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95 ..>> dd28714b_dc6e_4d40_bfed_6211d6681abe : " uses"
+    
+
+
+    
+ 32f66efb_404b_4f4c_aaa6_45649d9f1e87 ..>> 7d0b0d84_4ba5_453d_9f62_f764fcb4bb95 : " uses"
+    
+
+
+    
+
+@enduml
+
+PlantUML version 1.2021.16(Wed Dec 08 18:25:22 CET 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: nl
+Country: BE
+--></g></svg>

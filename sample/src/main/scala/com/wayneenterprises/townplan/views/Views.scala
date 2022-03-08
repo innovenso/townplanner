@@ -26,8 +26,13 @@ case class Views()(implicit
   ea needs BusinessCapabilityMap(forEnterprise = enterprises.wayneCorp)
   ea needs FullTownPlanView(forEnterprise = enterprises.wayneCorp)
 
-  ea needs ArchitectureBuildingBlockRealizationView(forBuildingBlock =
-    buildingBlocks.lairManagement
+  ea needs ArchitectureBuildingBlockRealizationView(
+    forBuildingBlock = buildingBlocks.lairManagement,
+    includeContainers = false
+  )
+  ea needs ArchitectureBuildingBlockRealizationView(
+    forBuildingBlock = buildingBlocks.lairManagement,
+    includeContainers = true
   )
 
   ea needs SystemContainerView(forSystem = systems.bcms)
