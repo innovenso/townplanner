@@ -92,7 +92,6 @@ case class RequirementScoreConfigurer(
       requirementHolder.key,
       requirementScore
     )
-    println(s"configured score: ${requirementScore}")
     requirementScore
   }
 }
@@ -104,7 +103,6 @@ trait CanConfigureRequirementScores[
   def modelComponent: ModelComponentType
 
   def scores(requirementScore: RequirementScore): RequirementScoreConfigurer = {
-    println(s"scores ${requirementScore}")
     RequirementScoreConfigurer(modelComponent, requirementScore, propertyAdder)
   }
 }

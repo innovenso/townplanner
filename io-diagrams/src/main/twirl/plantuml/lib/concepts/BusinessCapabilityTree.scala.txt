@@ -1,7 +1,6 @@
 @import com.innovenso.townplanner.model.concepts.{BusinessCapability, HasBusinessCapabilities}
-@import plantuml.lib.concepts.txt.BusinessCapabilityTree
 @import plantuml.lib.txt.{DescriptionWrapped, MindMapNode}
-@(capability: BusinessCapability, model: HasBusinessCapabilities, level: Int)
+@(capability: com.innovenso.townplanner.model.concepts.BusinessCapability, model: HasBusinessCapabilities, level: Int)
 
 @MindMapNode(
     color = "STRATEGY",
@@ -12,6 +11,6 @@
 )
 
 @for(child <- model.childBusinessCapabilities(capability)) {
-    @BusinessCapabilityTree(child, model, level + 1)
+    @plantuml.lib.concepts.txt.BusinessCapabilityTree(child, model, level + 1)
 }
 

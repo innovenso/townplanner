@@ -110,7 +110,6 @@ class DecisionSpec extends AnyFlatSpec with GivenWhenThen {
     )
 
     assert(townPlan.options(pspSelection).size == 1)
-    townPlan.functionalRequirementScores(adyen).foreach(println(_))
     assert(townPlan.functionalRequirementScores(adyen).size == 3)
     assert(townPlan.qualityAttributeRequirementScores(adyen).size == 1)
     assert(townPlan.constraintScores(adyen).size == 2)

@@ -30,7 +30,14 @@ case class SystemIntegrationInteractionView(
 
   def withProperty(property: Property): SystemIntegrationInteractionView =
     copy(properties = this.properties + (property.key -> property))
+}
 
+object SystemIntegrationInteractionView {
+  def apply(
+      forSystemIntegration: ItSystemIntegration
+  ) = new SystemIntegrationInteractionView(
+    forSystemIntegration = forSystemIntegration.key
+  )
 }
 
 trait HasSystemIntegrationInteractionViews extends HasViews {
@@ -58,6 +65,8 @@ trait CanAddSystemIntegrationInteractionViews
 
 case class CompiledSystemIntegrationInteractionView(
     view: SystemIntegrationInteractionView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[SystemIntegrationInteractionView]
     with HasItSystemIntegrations
@@ -99,6 +108,8 @@ case class SystemIntegrationInteractionViewCompiler(
   def compile: CompiledSystemIntegrationInteractionView =
     CompiledSystemIntegrationInteractionView(
       view,
+      viewTitle,
+      groupTitle(view.forSystemIntegration),
       viewComponents(
         integration.toSet ++ elementsIncludingSystemContexts ++ compositions
       )

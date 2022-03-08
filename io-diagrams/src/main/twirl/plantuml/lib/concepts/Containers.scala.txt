@@ -1,5 +1,6 @@
 @import com.innovenso.townplanner.model.concepts.ItContainer
 @import com.innovenso.townplanner.model.meta.ADay
-@(containers: Iterable[ItContainer], pointInTime: ADay) @for(container <- containers) {
+@import com.innovenso.townplanner.model.concepts.HasTechnologies
+@(containers: Iterable[ItContainer], pointInTime: ADay, technologyHolder: HasTechnologies) @for(container <- containers) {
     @plantuml.lib.concepts.txt.Container(container = container, pointInTime = pointInTime)
 }

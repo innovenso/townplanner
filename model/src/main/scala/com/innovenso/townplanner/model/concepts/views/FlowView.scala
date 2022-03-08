@@ -39,6 +39,8 @@ trait HasFlowViews extends HasViews {
 
 case class CompiledFlowView(
     view: FlowView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[FlowView]
     with HasItSystems
@@ -75,7 +77,12 @@ case class FlowViewCompiler(
       HasFlowViews
     ] {
   def compile: CompiledFlowView =
-    CompiledFlowView(view, viewComponents(allElements ++ compositions))
+    CompiledFlowView(
+      view,
+      viewTitle,
+      "Flows",
+      viewComponents(allElements ++ compositions)
+    )
 
   private def elements: List[Element] =
     view.interactions
@@ -86,7 +93,15 @@ case class FlowViewCompiler(
       .map(_.get)
 
   private def systemContexts: List[ItSystem] =
-    elements.filter(_.isInstanceOf[ItContainer]).flatMap(container => source.relationships(container, classOf[Composition], classOf[ItSystem]).flatMap(r => source.relationshipParticipantsOfType(r, classOf[ItSystem])))
+    elements
+      .filter(_.isInstanceOf[ItContainer])
+      .flatMap(container =>
+        source
+          .relationships(container, classOf[Composition], classOf[ItSystem])
+          .flatMap(r =>
+            source.relationshipParticipantsOfType(r, classOf[ItSystem])
+          )
+      )
 
   private def allElements: List[Element] = elements ++ systemContexts
   private def compositions: List[Composition] = allElements.flatMap(element =>

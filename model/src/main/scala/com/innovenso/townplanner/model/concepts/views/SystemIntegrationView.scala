@@ -29,7 +29,20 @@ case class SystemIntegrationView(
 
   def withProperty(property: Property): SystemIntegrationView =
     copy(properties = this.properties + (property.key -> property))
+}
 
+object SystemIntegrationView {
+  def apply(
+      forSystemIntegration: ItSystemIntegration,
+      pointInTime: ADay
+  ) = new SystemIntegrationView(
+    forSystemIntegration = forSystemIntegration.key,
+    pointInTime = pointInTime
+  )
+
+  def apply(
+      forSystemIntegration: ItSystemIntegration
+  ) = new SystemIntegrationView(forSystemIntegration = forSystemIntegration.key)
 }
 
 trait HasSystemIntegrationViews
@@ -57,6 +70,8 @@ trait CanAddSystemIntegrationViews
 
 case class CompiledSystemIntegrationView(
     view: SystemIntegrationView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[SystemIntegrationView]
     with HasItSystems
@@ -82,6 +97,8 @@ case class SystemIntegrationViewCompiler(
   def compile: CompiledSystemIntegrationView =
     CompiledSystemIntegrationView(
       view,
+      viewTitle,
+      groupTitle(view.forSystemIntegration),
       viewComponents(
         integration.toSet ++ systems ++ implementers ++ relationships
       )

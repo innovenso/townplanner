@@ -74,14 +74,11 @@ class SystemContainerViewSpec extends AnyFlatSpec with GivenWhenThen {
     val system2ContainerView: SystemContainerView =
       ea needs SystemContainerView(forSystem = system2.key)
 
-    println(system2ContainerView)
-
     Then("the system container view exists")
     assert(exists(system2ContainerView))
     val compiledSystemContainerView: CompiledSystemContainerView = townPlan
       .systemContainerView(system2ContainerView.key)
       .get
-    println(compiledSystemContainerView)
     And("it only contains the relevant systems")
     assert(
       compiledSystemContainerView.systems.size == 3

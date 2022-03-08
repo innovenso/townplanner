@@ -9,8 +9,6 @@ trait EnterpriseArchitectureContext {
   def exists[ModelComponentType <: ModelComponent](
       modelComponent: ModelComponentType
   ): Boolean = {
-    println(s"component ${modelComponent.key} in town plan: ${ea.townPlan
-        .component(modelComponent.key, modelComponent.getClass)}")
     ea.townPlan.has(modelComponent)
   }
 

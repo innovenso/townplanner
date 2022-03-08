@@ -15,7 +15,7 @@
 
         @Systems(systems = model.systems, pointInTime = model.pointInTime)
 
-        @Containers(containers = model.containers, pointInTime = model.pointInTime)
+        @Containers(containers = model.containers, pointInTime = model.pointInTime, technologyHolder = model)
 
         @Relations(relationships = model.relationships)
 

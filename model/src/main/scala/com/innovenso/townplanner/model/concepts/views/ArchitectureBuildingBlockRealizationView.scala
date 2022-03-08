@@ -10,9 +10,11 @@ import com.innovenso.townplanner.model.concepts.{
   HasItContainers,
   HasItPlatforms,
   HasItSystems,
+  HasTechnologies,
   ItContainer,
   ItPlatform,
-  ItSystem
+  ItSystem,
+  Technology
 }
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
@@ -22,6 +24,7 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   Composition,
   HasRelationships,
+  Implementation,
   Realization,
   Serving
 }
@@ -63,6 +66,22 @@ case class ArchitectureBuildingBlockRealizationView(
     copy(properties = this.properties + (property.key -> property))
 }
 
+object ArchitectureBuildingBlockRealizationView {
+  def apply(
+      forBuildingBlock: ArchitectureBuildingBlock,
+      pointInTime: ADay
+  ) = new ArchitectureBuildingBlockRealizationView(
+    forBuildingBlock = forBuildingBlock.key,
+    pointInTime = pointInTime
+  )
+
+  def apply(
+      forBuildingBlock: ArchitectureBuildingBlock
+  ) = new ArchitectureBuildingBlockRealizationView(
+    forBuildingBlock = forBuildingBlock.key
+  )
+}
+
 trait HasArchitectureBuildingBlockRealizationViews
     extends HasViews
     with HasBusinessCapabilities
@@ -70,6 +89,7 @@ trait HasArchitectureBuildingBlockRealizationViews
     with HasItPlatforms
     with HasItSystems
     with HasItContainers
+    with HasTechnologies
     with HasEnterprises {
   def architectureBuildingBlockRealizationViews
       : List[CompiledArchitectureBuildingBlockRealizationView] =
@@ -98,6 +118,8 @@ trait CanAddArchitectureBuildingBlockRealizationViews
 
 case class CompiledArchitectureBuildingBlockRealizationView(
     view: ArchitectureBuildingBlockRealizationView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[ArchitectureBuildingBlockRealizationView]
     with HasRelationships
@@ -106,12 +128,14 @@ case class CompiledArchitectureBuildingBlockRealizationView(
     with HasArchitectureBuildingBlocks
     with HasItPlatforms
     with HasItSystems
-    with HasItContainers {
+    with HasItContainers
+    with HasTechnologies {
   def enterprise: Option[Enterprise] = enterprises.headOption
-  def buildingBlock: Option[ArchitectureBuildingBlock] =
+  def buildingBlock: Option[ArchitectureBuildingBlock] = {
     architectureBuildingBlock(
       view.forBuildingBlock
     )
+  }
 }
 
 case class ArchitectureBuildingBlockRealizationViewCompiler(
@@ -125,8 +149,10 @@ case class ArchitectureBuildingBlockRealizationViewCompiler(
   def compile: CompiledArchitectureBuildingBlockRealizationView =
     CompiledArchitectureBuildingBlockRealizationView(
       view,
+      viewTitle,
+      groupTitle(view.forBuildingBlock),
       viewComponents(
-        enterprises ++ capabilities ++ buildingBlocks ++ platforms ++ systems ++ containers ++ servingCapabilities ++ servingEnterprises ++ realizingBuildingBlocks ++ realizingPlatforms ++ realizingSystems ++ composingSystems ++ composingContainers
+        enterprises ++ capabilities ++ buildingBlocks ++ platforms ++ systems ++ containers ++ servingCapabilities ++ servingEnterprises ++ realizingBuildingBlocks ++ realizingPlatforms ++ realizingSystems ++ composingSystems ++ composingContainers ++ technologies ++ implementingTechnologies
       )
     )
 
@@ -153,6 +179,8 @@ case class ArchitectureBuildingBlockRealizationViewCompiler(
 
   def containers: Set[ItContainer] =
     if (view.includeContainers) systems.flatMap(source.containers) else Set()
+
+  def technologies: Set[Technology] = containers.flatMap(source.technologies(_))
 
   def servingCapabilities: Set[Serving] = capabilities
     .flatMap(c =>
@@ -244,4 +272,14 @@ case class ArchitectureBuildingBlockRealizationViewCompiler(
     )
     .map(_.asInstanceOf[Composition])
 
+  def implementingTechnologies: Set[Implementation] = technologies
+    .flatMap(it =>
+      source.relationships(it, classOf[Implementation], classOf[ItSystem])
+    )
+    .filter(r =>
+      source
+        .relationshipParticipantsOfType(r, classOf[ItContainer])
+        .forall(containers.contains(_))
+    )
+    .map(_.asInstanceOf[Implementation])
 }

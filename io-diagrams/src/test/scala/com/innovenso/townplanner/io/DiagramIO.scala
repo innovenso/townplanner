@@ -24,7 +24,6 @@ trait DiagramIO {
 
   def specificationExists(view: Option[CompiledView[_ <: View]]): Boolean = {
     val specs = specifications(view)
-    specs.foreach(spec => println(spec.plantumlSpecification))
     specs.nonEmpty
   }
 

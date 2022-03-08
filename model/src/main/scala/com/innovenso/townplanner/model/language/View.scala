@@ -15,8 +15,9 @@ trait CompiledView[ViewType <: View]
   def view: ViewType
   def pointInTime: ADay = view.pointInTime
   def layer: Layer = view.layer
-  def title: String = view.title
+  def title: String
   def key: Key = view.key
+  def groupTitle: String
 }
 
 trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
@@ -27,6 +28,12 @@ trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
   def source: ModelComponentSourceType
 
   def compile: CompiledViewType
+
+  def groupTitle(forConceptKey: Key): String = source
+    .component(forConceptKey, classOf[Concept])
+    .map(_.title)
+    .getOrElse("Unknown Concept")
+  def viewTitle: String = view.title
 
   def viewComponents(
       componentList: Iterable[_ <: ModelComponent]

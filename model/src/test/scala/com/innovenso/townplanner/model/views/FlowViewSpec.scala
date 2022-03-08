@@ -40,7 +40,6 @@ class FlowViewSpec extends AnyFlatSpec with GivenWhenThen {
 
     Then("it should exist")
     assert(exists(flowView))
-    println(townPlan.flowView(flowView.key))
     assert(townPlan.flowView(flowView.key).exists(_.containers.size == 1))
     assert(townPlan.flowView(flowView.key).exists(_.systemContexts.size == 1))
     assert(townPlan.flowView(flowView.key).exists(_.otherSystems.size == 1))

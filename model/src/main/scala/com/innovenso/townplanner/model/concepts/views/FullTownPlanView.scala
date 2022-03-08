@@ -63,6 +63,20 @@ case class FullTownPlanView(
     copy(properties = this.properties + (property.key -> property))
 }
 
+object FullTownPlanView {
+  def apply(
+      forEnterprise: Enterprise,
+      pointInTime: ADay
+  ) = new FullTownPlanView(
+    forEnterprise = forEnterprise.key,
+    pointInTime = pointInTime
+  )
+
+  def apply(
+      forEnterprise: Enterprise
+  ) = new FullTownPlanView(forEnterprise = forEnterprise.key)
+}
+
 trait HasFullTownPlanViews
     extends HasViews
     with HasBusinessCapabilities
@@ -95,6 +109,8 @@ trait CanAddFullTownPlanViews
 
 case class CompiledFullTownPlanView(
     view: FullTownPlanView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[FullTownPlanView]
     with HasRelationships
@@ -118,6 +134,8 @@ case class FullTownPlanViewCompiler(
   def compile: CompiledFullTownPlanView =
     CompiledFullTownPlanView(
       view,
+      viewTitle,
+      groupTitle(view.forEnterprise),
       viewComponents(
         enterprises ++ capabilities ++ buildingBlocks ++ platforms ++ systems ++ containers ++ servingCapabilities ++ servingEnterprises ++ realizingBuildingBlocks ++ realizingPlatforms ++ realizingSystems ++ composingSystems ++ composingContainers
       )

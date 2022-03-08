@@ -30,7 +30,6 @@ class ArchitectureBuildingBlockSpec extends AnyFlatSpec with GivenWhenThen {
       townPlan
         .architectureBuildingBlock(cdp.key)
         .exists(it => {
-          it.descriptions.foreach(println(_))
           it.descriptions.size == 3 && it.isToBeInvestedIn
         })
     )

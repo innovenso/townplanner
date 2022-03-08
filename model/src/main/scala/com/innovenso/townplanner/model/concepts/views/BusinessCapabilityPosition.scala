@@ -35,6 +35,15 @@ case class BusinessCapabilityPosition(
     copy(properties = this.properties + (property.key -> property))
 }
 
+object BusinessCapabilityPosition {
+  def apply(
+      forCapability: BusinessCapability
+  ) = new BusinessCapabilityPosition(
+    forCapability = forCapability.key
+  )
+
+}
+
 trait HasBusinessCapabilityPositions
     extends HasViews
     with HasBusinessCapabilities
@@ -63,6 +72,8 @@ trait CanAddBusinessCapabilityPositions
 
 case class CompiledBusinessCapabilityPosition(
     view: BusinessCapabilityPosition,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[BusinessCapabilityPosition]
     with HasRelationships
@@ -85,6 +96,8 @@ case class BusinessCapabilityPositionCompiler(
   def compile: CompiledBusinessCapabilityPosition =
     CompiledBusinessCapabilityPosition(
       view,
+      viewTitle,
+      groupTitle(view.forCapability),
       viewComponents(
         enterprise.toList ++ capabilities ++ servingCapabilities ++ servingEnterprises
       )

@@ -29,7 +29,6 @@ case class FileSystemAssetRepository(targetBasePath: Path)
     .map(targetBasePath.relativize(_).toString)
 
   private def getListOfFiles(directory: File): List[File] = {
-    println(s"reading ${directory}")
     if (directory.exists && directory.isDirectory)
       directory.listFiles.filter(_.isFile).toList ::: directory.listFiles
         .filter(_.isDirectory)

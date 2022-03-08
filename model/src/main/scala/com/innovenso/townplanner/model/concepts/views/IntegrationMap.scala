@@ -54,6 +54,8 @@ trait CanAddIntegrationMaps extends CanAddProperties with CanAddRelationships {
 
 case class CompiledIntegrationMap(
     view: IntegrationMap,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[IntegrationMap]
     with HasRelationships
@@ -71,6 +73,8 @@ case class IntegrationMapCompiler(
   def compile: CompiledIntegrationMap =
     CompiledIntegrationMap(
       view,
+      viewTitle,
+      "Integration Maps",
       viewComponents(
         systems ++ relationships
       )

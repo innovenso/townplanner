@@ -55,8 +55,6 @@ class SystemIntegrationInteractionViewSpec
     val compiledView: Option[CompiledSystemIntegrationInteractionView] =
       townPlan.systemIntegrationInteractionViews.headOption
 
-    println(compiledView)
-
     assert(
       compiledView.exists(v =>
         v.containers.contains(microservice) && v.containers.contains(database)

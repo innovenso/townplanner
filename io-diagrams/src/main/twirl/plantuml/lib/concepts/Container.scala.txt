@@ -1,4 +1,6 @@
 @import com.innovenso.townplanner.model.concepts.ItContainer
 @import com.innovenso.townplanner.model.meta.ADay
 @import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
-@(container: ItContainer, pointInTime: ADay) Container(@Key(container), "@Title(container)", "@Description(container)", "@container.containerType", "technologies", "@Lifecycle(container, pointInTime)")
+@import com.innovenso.townplanner.model.concepts.HasTechnologies
+@import plantuml.lib.concepts.txt.Technologies
+@(container: ItContainer, pointInTime: ADay, technologyHolder: HasTechnologies) Container(@Key(container).body.trim, "@Title(container).body.trim", "@Description(container).body.trim", "@container.containerType", "@Technologies(technologyHolder, container)", "@Lifecycle(container, pointInTime).body.trim")

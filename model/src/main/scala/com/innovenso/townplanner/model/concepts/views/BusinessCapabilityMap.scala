@@ -31,6 +31,14 @@ case class BusinessCapabilityMap(
 
 }
 
+object BusinessCapabilityMap {
+  def apply(
+      forEnterprise: Enterprise
+  ) = new BusinessCapabilityMap(
+    forEnterprise = forEnterprise.key
+  )
+}
+
 trait HasBusinessCapabilityMaps
     extends HasViews
     with HasBusinessCapabilities
@@ -57,6 +65,8 @@ trait CanAddBusinessCapabilityMaps
 
 case class CompiledBusinessCapabilityMap(
     view: BusinessCapabilityMap,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[BusinessCapabilityMap]
     with HasRelationships
@@ -76,6 +86,8 @@ case class BusinessCapabilityMapCompiler(
   def compile: CompiledBusinessCapabilityMap =
     CompiledBusinessCapabilityMap(
       view,
+      viewTitle,
+      groupTitle(view.forEnterprise),
       viewComponents(
         enterprise.toList ++ capabilities ++ servingCapabilities ++ servingEnterprises
       )

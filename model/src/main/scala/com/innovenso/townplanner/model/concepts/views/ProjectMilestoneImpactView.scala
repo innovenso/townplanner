@@ -1,10 +1,58 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, HasArchitectureBuildingBlocks, HasBusinessCapabilities, HasEnterprises, HasItContainers, HasItPlatforms, HasItSystemIntegrations, HasItSystems, HasProjects, HasTechnologies, ItContainer, ItPlatform, ItProject, ItProjectMilestone, ItSystem, ItSystemIntegration, Technology}
-import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
-import com.innovenso.townplanner.model.concepts.relationships.{Association, CanAddRelationships, CanBeImpacted, ChangeImpact, CreateImpact, HasRelationships, KeepImpact, Relationship, RemoveImpact}
-import com.innovenso.townplanner.model.language.{CompiledView, HasViews, ModelComponent, View, ViewCompiler}
-import com.innovenso.townplanner.model.meta.{ADay, ApplicationLayer, ImplementationLayer, Key, Layer, ModelComponentType, SortKey, Today}
+import com.innovenso.townplanner.model.concepts.{
+  ArchitectureBuildingBlock,
+  BusinessCapability,
+  Enterprise,
+  HasArchitectureBuildingBlocks,
+  HasBusinessCapabilities,
+  HasEnterprises,
+  HasItContainers,
+  HasItPlatforms,
+  HasItSystemIntegrations,
+  HasItSystems,
+  HasProjects,
+  HasTechnologies,
+  ItContainer,
+  ItPlatform,
+  ItProject,
+  ItProjectMilestone,
+  ItSystem,
+  ItSystemIntegration,
+  Technology
+}
+import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  Property
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  Association,
+  CanAddRelationships,
+  CanBeImpacted,
+  ChangeImpact,
+  CreateImpact,
+  HasRelationships,
+  KeepImpact,
+  Relationship,
+  RemoveImpact
+}
+import com.innovenso.townplanner.model.language.{
+  CompiledView,
+  HasViews,
+  ModelComponent,
+  View,
+  ViewCompiler
+}
+import com.innovenso.townplanner.model.meta.{
+  ADay,
+  ApplicationLayer,
+  ImplementationLayer,
+  Key,
+  Layer,
+  ModelComponentType,
+  SortKey,
+  Today
+}
 
 case class ProjectMilestoneImpactView(
     key: Key = Key(),
@@ -21,6 +69,15 @@ case class ProjectMilestoneImpactView(
 
   def withProperty(property: Property): ProjectMilestoneImpactView =
     copy(properties = this.properties + (property.key -> property))
+}
+
+object ProjectMilestoneImpactView {
+  def apply(
+      forProjectMilestone: ItProjectMilestone
+  ) =
+    new ProjectMilestoneImpactView(
+      forProjectMilestone = forProjectMilestone.key
+    )
 }
 
 trait HasProjectMilestoneImpactViews
@@ -55,6 +112,8 @@ trait CanAddProjectMilestoneImpactViews
 
 case class CompiledProjectMilestoneImpactView(
     view: ProjectMilestoneImpactView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[ProjectMilestoneImpactView]
     with HasRelationships
@@ -67,14 +126,36 @@ case class CompiledProjectMilestoneImpactView(
     with HasItContainers
     with HasTechnologies
     with HasItPlatforms {
-  private def impacted[ImpactType <: Relationship, TargetClassType <: CanBeImpacted](impactRelationshipClass: Class[ImpactType], targetClass: Class[TargetClassType]): Set[TargetClassType] = relationships.filter(impactRelationshipClass.isInstance).flatMap(relationshipParticipants).filter(targetClass.isInstance).map(targetClass.cast).toSet
-  def added[TargetClassType <: CanBeImpacted](targetClass: Class[TargetClassType]): Set[TargetClassType] = impacted(classOf[CreateImpact], targetClass)
-  def removed[TargetClassType <: CanBeImpacted](targetClass: Class[TargetClassType]): Set[TargetClassType] = impacted(classOf[RemoveImpact], targetClass)
-  def kept[TargetClassType <: CanBeImpacted](targetClass: Class[TargetClassType]): Set[TargetClassType] = impacted(classOf[KeepImpact], targetClass)
-  def changed[TargetClassType <: CanBeImpacted](targetClass: Class[TargetClassType]): Set[TargetClassType] = impacted(classOf[ChangeImpact], targetClass)
+  private def impacted[
+      ImpactType <: Relationship,
+      TargetClassType <: CanBeImpacted
+  ](
+      impactRelationshipClass: Class[ImpactType],
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = relationships
+    .filter(impactRelationshipClass.isInstance)
+    .flatMap(relationshipParticipants)
+    .filter(targetClass.isInstance)
+    .map(targetClass.cast)
+    .toSet
+  def added[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[CreateImpact], targetClass)
+  def removed[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[RemoveImpact], targetClass)
+  def kept[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[KeepImpact], targetClass)
+  def changed[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[ChangeImpact], targetClass)
 
-  def project: ItProject = itProjects.headOption.getOrElse(ItProject(title = "Unknown Project"))
-  def milestone: ItProjectMilestone = itProjectMilestone(view.forProjectMilestone).getOrElse(ItProjectMilestone(title = "Unknown Milestone"))
+  def project: ItProject =
+    itProjects.headOption.getOrElse(ItProject(title = "Unknown Project"))
+  def milestone: ItProjectMilestone = itProjectMilestone(
+    view.forProjectMilestone
+  ).getOrElse(ItProjectMilestone(title = "Unknown Milestone"))
 }
 
 case class ProjectMilestoneImpactViewCompiler(
@@ -88,6 +169,8 @@ case class ProjectMilestoneImpactViewCompiler(
   def compile: CompiledProjectMilestoneImpactView =
     CompiledProjectMilestoneImpactView(
       view,
+      viewTitle,
+      groupTitle(view.forProjectMilestone),
       viewComponents(
         enterprises ++ projects ++ milestones ++ capabilities ++ buildingBlocks ++ systems ++ integrations ++ platforms ++ technologies ++ containers ++ relationships
       )
@@ -100,30 +183,46 @@ case class ProjectMilestoneImpactViewCompiler(
 
   private def enterprises: Set[Enterprise] = projects.flatMap(source.enterprise)
 
-  private def capabilities: Set[BusinessCapability] = impacted(classOf[BusinessCapability])
+  private def capabilities: Set[BusinessCapability] = impacted(
+    classOf[BusinessCapability]
+  )
 
-  private def buildingBlocks: Set[ArchitectureBuildingBlock] = impacted(classOf[ArchitectureBuildingBlock])
+  private def buildingBlocks: Set[ArchitectureBuildingBlock] = impacted(
+    classOf[ArchitectureBuildingBlock]
+  )
 
   private def systems: Set[ItSystem] = impacted(classOf[ItSystem])
 
   private def containers: Set[ItContainer] = impacted(classOf[ItContainer])
 
-  private def integrations: Set[ItSystemIntegration] = impacted(classOf[ItSystemIntegration])
+  private def integrations: Set[ItSystemIntegration] = impacted(
+    classOf[ItSystemIntegration]
+  )
 
   private def platforms: Set[ItPlatform] = impacted(classOf[ItPlatform])
 
   private def technologies: Set[Technology] = impacted(classOf[Technology])
 
-  private def impacted[TargetClassType <: CanBeImpacted](targetClass: Class[TargetClassType]): Set[TargetClassType] = relationships.flatMap(source.relationshipParticipants).filter(targetClass.isInstance).map(targetClass.cast)
+  private def impacted[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = relationships
+    .flatMap(source.relationshipParticipants)
+    .filter(targetClass.isInstance)
+    .map(targetClass.cast)
 
-  private def createImpactRelationships: Set[Relationship] = milestones.flatMap(source.relationships(_, classOf[CreateImpact]))
+  private def createImpactRelationships: Set[Relationship] =
+    milestones.flatMap(source.relationships(_, classOf[CreateImpact]))
 
-  private def removedImpactRelationships: Set[Relationship] = milestones.flatMap(source.relationships(_, classOf[RemoveImpact]))
+  private def removedImpactRelationships: Set[Relationship] =
+    milestones.flatMap(source.relationships(_, classOf[RemoveImpact]))
 
-  private def changeImpactRelationships: Set[Relationship] = milestones.flatMap(source.relationships(_, classOf[ChangeImpact]))
+  private def changeImpactRelationships: Set[Relationship] =
+    milestones.flatMap(source.relationships(_, classOf[ChangeImpact]))
 
-  private def keepImpactRelationships: Set[Relationship] = milestones.flatMap(source.relationships(_, classOf[KeepImpact]))
+  private def keepImpactRelationships: Set[Relationship] =
+    milestones.flatMap(source.relationships(_, classOf[KeepImpact]))
 
-  private def relationships: Set[Relationship] = createImpactRelationships ++ removedImpactRelationships ++ changeImpactRelationships ++ keepImpactRelationships
+  private def relationships: Set[Relationship] =
+    createImpactRelationships ++ removedImpactRelationships ++ changeImpactRelationships ++ keepImpactRelationships
 
 }

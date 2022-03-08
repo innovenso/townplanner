@@ -1,3 +1,2 @@
-@import com.innovenso.townplanner.model.concepts.BusinessCapability
 @import plantuml.lib.txt.{Key, Title}
-@(capability: BusinessCapability) Strategy_Capability(@Key(capability), "@Title(capability)")
+@(capability: com.innovenso.townplanner.model.concepts.BusinessCapability) Strategy_Capability(@Key(capability), "@Title(capability)")

@@ -40,15 +40,17 @@ lazy val application = project
   .in(file("application"))
   .dependsOn(model, ioCore, ioDiagrams)
   .settings(
-      name := "innovenso-townplanner-application",
-        libraryDependencies += scalactic,
-    libraryDependencies += scalaTest,
+    name := "innovenso-townplanner-application",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest
   )
 lazy val sample = project
   .in(file("sample"))
   .dependsOn(application)
   .settings(
-    name := "innovenso-townplanner-sample"
+    name := "innovenso-townplanner-sample",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest
   )
 
 val scalactic = "org.scalactic" %% "scalactic" % "3.2.11"

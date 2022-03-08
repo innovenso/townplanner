@@ -117,12 +117,6 @@ class ItProjectSpec extends AnyFlatSpec with GivenWhenThen {
         .size == 1
     )
     And("it has the correct due date")
-    println(
-      townPlan
-        .itProject(pspImplementationProject.key)
-        .get
-        .dueDate
-    )
 
     assert(
       townPlan
@@ -131,9 +125,6 @@ class ItProjectSpec extends AnyFlatSpec with GivenWhenThen {
         .dueDate
         .exists(_.date == Day(2022, 8, 1))
     )
-
-    And("is has the correct number of life events")
-    println(townPlan.itProject(pspImplementationProject.key).get.lifeEvents)
 
     And("it has the correct number of milestones")
     assert(townPlan.itProjectMilestones(pspImplementationProject).size == 1)

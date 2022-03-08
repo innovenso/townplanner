@@ -5,22 +5,27 @@ trait OutputFileType {
   def name: String
 }
 
-object Pdf extends OutputFileType {
+case object Pdf extends OutputFileType {
   val extension = ".pdf"
   val name = "PDF"
 }
 
-object Eps extends OutputFileType {
+case object Eps extends OutputFileType {
   val extension = ".eps"
   val name = "Embedded Postscript"
 }
 
-object Svg extends OutputFileType {
+case object Svg extends OutputFileType {
   val extension = ".svg"
   val name = "Scalable Vector Graphics"
 }
 
-object Png extends OutputFileType {
+case object Png extends OutputFileType {
   val extension = ".png"
   val name = "Portable Network Graphics"
+}
+
+case object PlantUML extends OutputFileType {
+  val extension = ".puml"
+  val name = "PlantUML Specification"
 }

@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.io
 
-import com.innovenso.townplanner.model.concepts.properties.GoneToProduction
+import com.innovenso.townplanner.model.concepts.properties.{
+  GoneToProduction,
+  StartedDevelopment
+}
 import com.innovenso.townplanner.model.concepts.views.SystemContainerView
 import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.meta.{InTheFuture, Key}

@@ -10,7 +10,8 @@ import net.sourceforge.plantuml.{
   SourceStringReader
 }
 
-import java.io.{File, FileOutputStream}
+import java.io.{BufferedWriter, File, FileOutputStream, FileWriter, PrintWriter}
+import java.nio.file.Files
 import java.util.UUID
 
 object DiagramImageWriter {
@@ -30,6 +31,7 @@ object DiagramImageWriter {
   ): Output = {
     val outputFile =
       File.createTempFile(UUID.randomUUID.toString, fileFormat.getFileSuffix)
+
     val specificationReader = new SourceStringReader(
       specification.plantumlSpecification
     )

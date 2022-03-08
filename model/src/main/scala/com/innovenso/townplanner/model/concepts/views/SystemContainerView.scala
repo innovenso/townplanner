@@ -31,6 +31,20 @@ case class SystemContainerView(
     copy(properties = this.properties + (property.key -> property))
 }
 
+object SystemContainerView {
+  def apply(
+      forSystem: ItSystem,
+      pointInTime: ADay
+  ) = new SystemContainerView(
+    forSystem = forSystem.key,
+    pointInTime = pointInTime
+  )
+
+  def apply(
+      forSystem: ItSystem
+  ) = new SystemContainerView(forSystem = forSystem.key)
+}
+
 trait HasSystemContainerViews
     extends HasViews
     with HasItSystems
@@ -55,6 +69,8 @@ trait CanAddSystemContainerViews
 
 case class CompiledSystemContainerView(
     view: SystemContainerView,
+    title: String,
+    groupTitle: String,
     modelComponents: Map[Key, ModelComponent]
 ) extends CompiledView[SystemContainerView]
     with HasItSystems
@@ -79,6 +95,8 @@ case class SystemContainerViewCompiler(
   def compile: CompiledSystemContainerView =
     CompiledSystemContainerView(
       view,
+      viewTitle,
+      groupTitle(view.forSystem),
       viewComponents(systems ++ containers ++ actors ++ flows)
     )
 
