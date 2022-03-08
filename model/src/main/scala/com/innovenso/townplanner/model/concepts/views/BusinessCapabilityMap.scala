@@ -19,12 +19,11 @@ case class BusinessCapabilityMap(
     forEnterprise: Key,
     title: String = "Business Capability Map",
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends View {
+) extends TimelessView {
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Business Capability Map"
   )
   val layer: Layer = StrategyLayer
-  val pointInTime: ADay = Today
 
   def withProperty(property: Property): BusinessCapabilityMap =
     copy(properties = this.properties + (property.key -> property))

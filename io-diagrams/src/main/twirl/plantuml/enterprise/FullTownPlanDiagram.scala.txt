@@ -1,6 +1,9 @@
 @import plantuml.lib.concepts.txt._
 @import plantuml.lib.relationships.txt.Relations
 @import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
+@import com.innovenso.townplanner.model.concepts.relationships.Composition
+@import com.innovenso.townplanner.model.concepts.relationships.Serving
+@import com.innovenso.townplanner.model.concepts.relationships.Realization
 @(model: CompiledFullTownPlanView)
 @plantuml.lib.txt.Uml {
   @if(model.enterprise.nonEmpty) {
@@ -9,7 +12,9 @@
       @ArchitectureBuildingBlocks(blocks = model.architectureBuildingBlocks, pointInTime = model.pointInTime)
       @Platforms(platforms = model.platforms, pointInTime = model.pointInTime)
       @Systems(systems = model.systems, pointInTime = model.pointInTime)
-      @Containers(containers = model.containers, pointInTime = model.pointInTime)
-      @Relations(relationships = model.relationships)
+      @Containers(containers = model.containers, pointInTime = model.pointInTime, technologyHolder = model)
+      @Relations(relationships = model.relationshipsWithType(classOf[Composition]))
+      @Relations(relationships = model.relationshipsWithType(classOf[Serving]))
+      @Relations(relationships = model.relationshipsWithType(classOf[Realization]))
   }
 }

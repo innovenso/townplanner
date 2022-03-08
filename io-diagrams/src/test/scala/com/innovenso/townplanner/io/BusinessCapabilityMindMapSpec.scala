@@ -9,41 +9,21 @@ import org.scalatest.flatspec.AnyFlatSpec
 class BusinessCapabilityMindMapSpec extends AnyFlatSpec with GivenWhenThen {
   "Specifications and diagrams are created" can "for business capability maps" in new DiagramIO {
     Given("an enterprise")
-    val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
-    val apple: Enterprise = ea has Enterprise(title = "Apple")
+    val innovenso: Enterprise = samples.enterprise
+    val apple: Enterprise = samples.enterprise
 
     And("some business capabilities")
     val marketing: BusinessCapability =
-      ea describes BusinessCapability(title = "Marketing") as { it =>
-        it has Description(
-          "One of the most important capabilities of a modern enterprise"
-        )
-        it serves innovenso
-      }
-
+      samples.capability(servedEnterprise = Some(innovenso))
     val customerSegmentation: BusinessCapability =
-      ea describes BusinessCapability(title = "Customer Segmentation") as {
-        it =>
-          it serves marketing
-      }
-
+      samples.capability(parentCapability = Some(marketing))
     val product: BusinessCapability =
-      ea describes BusinessCapability(title = "Product") as { it =>
-        it serves innovenso
-      }
-
+      samples.capability(servedEnterprise = Some(innovenso))
     val productDesign: BusinessCapability =
-      ea describes BusinessCapability(title = "Product Design") as { it =>
-        it serves product
-      }
-
+      samples.capability(parentCapability = Some(product))
     val productDevelopment: BusinessCapability =
-      ea describes BusinessCapability(title = "Product Development") as { it =>
-        it serves product
-      }
-
-    val otherEnterpriseCapability: BusinessCapability =
-      ea has BusinessCapability(title = "something else")
+      samples.capability(parentCapability = Some(product))
+    val otherEnterpriseCapability: BusinessCapability = samples.capability()
 
     When("a business capability map is requested")
     val businessCapabilityMap: BusinessCapabilityMap =

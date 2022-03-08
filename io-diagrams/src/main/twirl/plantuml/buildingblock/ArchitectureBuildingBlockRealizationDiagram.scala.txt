@@ -2,6 +2,10 @@
 @import plantuml.lib.relationships.txt.Relations
 @import com.innovenso.townplanner.model.concepts.views.CompiledArchitectureBuildingBlockRealizationView
 @import plantuml.lib.txt.Uml
+@import com.innovenso.townplanner.model.concepts.relationships.Composition
+@import com.innovenso.townplanner.model.concepts.relationships.Serving
+@import com.innovenso.townplanner.model.concepts.relationships.Serving
+@import com.innovenso.townplanner.model.concepts.relationships.Realization
 @(model: CompiledArchitectureBuildingBlockRealizationView)
 @Uml {
     @if(model.buildingBlock.nonEmpty) {
@@ -17,7 +21,9 @@
 
         @Containers(containers = model.containers, pointInTime = model.pointInTime, technologyHolder = model)
 
-        @Relations(relationships = model.relationships)
+        @Relations(relationships = model.relationshipsWithType(classOf[Composition]))
+        @Relations(relationships = model.relationshipsWithType(classOf[Serving]))
+        @Relations(relationships = model.relationshipsWithType(classOf[Realization]))
 
     }
 }

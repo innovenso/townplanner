@@ -57,6 +57,6 @@ val scalactic = "org.scalactic" %% "scalactic" % "3.2.11"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.2.11" % "test"
 val scalaLogging = "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4"
 val commonsText = "org.apache.commons" % "commons-text" % "1.9"
-val lorem = "com.thedeanda" % "lorem" % "2.1" % Test
+val lorem = "com.thedeanda" % "lorem" % "2.1"
 val commonsIo = "commons-io" % "commons-io" % "2.11.0"
 val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2021.16"

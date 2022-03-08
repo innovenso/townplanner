@@ -4,7 +4,8 @@ import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   Composition,
-  HasRelationships
+  HasRelationships,
+  Implementation
 }
 import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.language._
@@ -40,7 +41,9 @@ object SystemIntegrationInteractionView {
   )
 }
 
-trait HasSystemIntegrationInteractionViews extends HasViews {
+trait HasSystemIntegrationInteractionViews
+    extends HasViews
+    with HasTechnologies {
   def systemIntegrationInteractionViews
       : List[CompiledSystemIntegrationInteractionView] =
     components(classOf[SystemIntegrationInteractionView]).map(
@@ -74,7 +77,8 @@ case class CompiledSystemIntegrationInteractionView(
     with HasItContainers
     with HasItPlatforms
     with HasRelationships
-    with HasBusinessActors {
+    with HasBusinessActors
+    with HasTechnologies {
   def otherSystems: List[ItSystem] = systems.filterNot(systemContexts.toSet)
 
   def systemContexts: List[ItSystem] =
@@ -111,7 +115,7 @@ case class SystemIntegrationInteractionViewCompiler(
       viewTitle,
       groupTitle(view.forSystemIntegration),
       viewComponents(
-        integration.toSet ++ elementsIncludingSystemContexts ++ compositions
+        integration.toSet ++ elementsIncludingSystemContexts ++ compositions ++ technologies ++ implementingTechnologies
       )
     )
 
@@ -137,6 +141,14 @@ case class SystemIntegrationInteractionViewCompiler(
       )
   )
 
+  private def containers: Set[ItContainer] = elements
+    .filter(_.isInstanceOf[ItContainer])
+    .map(_.asInstanceOf[ItContainer])
+    .toSet
+
+  private def technologies: Set[Technology] =
+    containers.flatMap(source.technologies(_))
+
   private def elementsIncludingSystemContexts: Set[Element] =
     elements.toSet ++ systemContexts.toSet
 
@@ -149,4 +161,16 @@ case class SystemIntegrationInteractionViewCompiler(
         )
         .map(_.asInstanceOf[Composition])
     )
+
+  def implementingTechnologies: Set[Implementation] = technologies
+    .flatMap(it =>
+      source.relationships(it, classOf[Implementation], classOf[ItContainer])
+    )
+    .filter(r =>
+      source
+        .relationshipParticipantsOfType(r, classOf[ItContainer])
+        .forall(containers.contains(_))
+    )
+    .map(_.asInstanceOf[Implementation])
+
 }

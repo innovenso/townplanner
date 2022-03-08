@@ -6,26 +6,19 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Response
 }
 import com.innovenso.townplanner.model.concepts.views.FlowView
-import com.innovenso.townplanner.model.concepts.{
-  Actor,
-  ItSystem,
-  Microservice
-}
+import com.innovenso.townplanner.model.concepts.{Actor, ItSystem, Microservice}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
 class FlowViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
   "a specification and diagram" should "be written for each flow view" in new DiagramIO {
     Given("some systems")
-    val system1: ItSystem = ea has ItSystem(title = "A System")
-    val system2: ItSystem = ea has ItSystem(title = "Another System")
+    val system1: ItSystem = samples.system(withContainers = false)
+    val system2: ItSystem = samples.system(withContainers = false)
     And("a user")
-    val user: Actor = ea has Actor(title = "A user")
+    val user: Actor = samples.actor
     And("a container")
-    val container1: Microservice =
-      ea describes Microservice(title = "A microservice") as { it =>
-        it isPartOf system1
-      }
+    val container1: Microservice = samples.microservice(system1)
 
     When("a flow view is requested")
     val flowView: FlowView = ea needs FlowView(title = "The Flow View") and {

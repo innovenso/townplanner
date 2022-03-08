@@ -6,7 +6,7 @@
 @(model: CompiledFlowView)
 @Uml {
     @for(systemContext <- model.systemContexts) {
-        @SystemContext(systemContext, model.pointInTime, model.containers(systemContext))
+        @SystemContext(systemContext, model.pointInTime, model.containers(systemContext), model)
     }
     @Systems(model.otherSystems, model.pointInTime)
     @BusinessActors(model.actorNouns, model.pointInTime)

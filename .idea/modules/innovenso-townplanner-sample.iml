@@ -12,6 +12,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="innovenso-townplanner-application" exported="" />
+    <orderEntry type="library" name="sbt: com.thedeanda:lorem:2.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.play:twirl-api_2.13:1.5.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.typesafe.scala-logging:scala-logging_2.13:3.9.4:jar" level="project" />
     <orderEntry type="library" name="sbt: commons-io:commons-io:2.11.0:jar" level="project" />

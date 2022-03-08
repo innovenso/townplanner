@@ -10,9 +10,11 @@ import com.innovenso.townplanner.model.concepts.{
   HasItContainers,
   HasItPlatforms,
   HasItSystems,
+  HasTechnologies,
   ItContainer,
   ItPlatform,
-  ItSystem
+  ItSystem,
+  Technology
 }
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
@@ -22,6 +24,7 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   Composition,
   HasRelationships,
+  Implementation,
   Realization,
   Serving
 }
@@ -39,7 +42,6 @@ import com.innovenso.townplanner.model.meta.{
   Layer,
   ModelComponentType,
   SortKey,
-  StrategyLayer,
   Today
 }
 
@@ -84,7 +86,8 @@ trait HasFullTownPlanViews
     with HasItPlatforms
     with HasItSystems
     with HasItContainers
-    with HasEnterprises {
+    with HasEnterprises
+    with HasTechnologies {
   def fullTownPlanViews: List[CompiledFullTownPlanView] =
     components(
       classOf[FullTownPlanView]
@@ -119,7 +122,8 @@ case class CompiledFullTownPlanView(
     with HasArchitectureBuildingBlocks
     with HasItPlatforms
     with HasItSystems
-    with HasItContainers {
+    with HasItContainers
+    with HasTechnologies {
   def enterprise: Option[Enterprise] = enterprises.headOption
 }
 
@@ -137,7 +141,7 @@ case class FullTownPlanViewCompiler(
       viewTitle,
       groupTitle(view.forEnterprise),
       viewComponents(
-        enterprises ++ capabilities ++ buildingBlocks ++ platforms ++ systems ++ containers ++ servingCapabilities ++ servingEnterprises ++ realizingBuildingBlocks ++ realizingPlatforms ++ realizingSystems ++ composingSystems ++ composingContainers
+        enterprises ++ capabilities ++ buildingBlocks ++ platforms ++ systems ++ containers ++ technologies ++ servingCapabilities ++ servingEnterprises ++ realizingBuildingBlocks ++ realizingPlatforms ++ realizingSystems ++ composingSystems ++ composingContainers ++ implementingTechnologies
       )
     )
 
@@ -163,6 +167,8 @@ case class FullTownPlanViewCompiler(
 
   def containers: Set[ItContainer] =
     if (view.includeContainers) systems.flatMap(source.containers) else Set()
+
+  def technologies: Set[Technology] = containers.flatMap(source.technologies(_))
 
   def servingCapabilities: Set[Serving] = capabilities
     .flatMap(c =>
@@ -253,5 +259,16 @@ case class FullTownPlanViewCompiler(
         .forall(systems.contains(_))
     )
     .map(_.asInstanceOf[Composition])
+
+  def implementingTechnologies: Set[Implementation] = technologies
+    .flatMap(it =>
+      source.relationships(it, classOf[Implementation], classOf[ItContainer])
+    )
+    .filter(r =>
+      source
+        .relationshipParticipantsOfType(r, classOf[ItContainer])
+        .forall(containers.contains(_))
+    )
+    .map(_.asInstanceOf[Implementation])
 
 }

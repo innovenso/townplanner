@@ -6,6 +6,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
 }
 import com.innovenso.townplanner.model.concepts.views.SystemContainerView
 import com.innovenso.townplanner.model.concepts._
+import com.innovenso.townplanner.model.concepts.relationships.Flow
 import com.innovenso.townplanner.model.meta.{InTheFuture, Key}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
@@ -13,51 +14,35 @@ import org.scalatest.flatspec.AnyFlatSpec
 class SystemContainerViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
   "A diagram specification and diagram" should "be written for each system container view" in new DiagramIO {
     Given("some systems")
-    val system1: ItSystem =
-      ea has ItSystem(key = Key("system1"), title = "System 1")
-    val system2: ItSystem =
-      ea has ItSystem(key = Key("system2"), title = "System 2")
-    val system3: ItSystem =
-      ea has ItSystem(key = Key("system3"), title = "System 3")
+    val system1: ItSystem = samples.system(withContainers = false)
+    val system2: ItSystem = samples.system(withContainers = false)
+    val system3: ItSystem = samples.system(withContainers = false)
     And("a system that goes live in the future")
     val system4: ItSystem =
-      ea describes ItSystem(key = Key("system4"), title = "System 4") as { it =>
-        it has GoneToProduction() on InTheFuture
-      }
+      samples.system(fatherTime = Set(samples.goneToProduction(2500, 1, 1)))
 
     And("containers as part of the systems")
-    val ms1: Microservice =
-      ea describes Microservice(key = Key("ms1"), title = "Microservice 1") as {
-        it =>
-          it isPartOf system1
-      }
+    val ms1: Microservice = samples.microservice(system1)
 
-    val db1: Database =
-      ea describes Database(key = Key("db1"), title = "Database 1") as { it =>
-        it isPartOf system1
-        it isUsedBy ms1
-      }
+    val db1: Database = samples.database(system1)
 
-    val ms2: Microservice =
-      ea describes Microservice(key = Key("ms2"), title = "Microservice 2") as {
-        it =>
-          it isPartOf system2
-          it isUsedBy ms1
-          it isUsedBy system1
-          it uses system3
-          it uses system4
-      }
+    samples.flow(ms1, db1)
+
+    val ms2: Microservice = samples.microservice(system2)
+
+    samples.flow(ms1, ms2)
+    samples.flow(system1, ms2)
+    samples.flow(ms2, system3)
+    samples.flow(ms2, system4)
 
     And("some business actors")
-    val user1: Actor =
-      ea describes Actor(key = Key("user1"), title = "User 1") as { it =>
-        it uses ms2
-        it uses system1
-        it uses system4
-      }
+    val user1: Actor = samples.actor
 
-    val user2: Actor =
-      ea has Actor(key = Key("user2"), title = "User 2")
+    samples.flow(user1, ms2)
+    samples.flow(user1, system1)
+    samples.flow(user1, system4)
+
+    val user2: Actor = samples.actor
 
     And("some individuals")
     val jurgenlust: Person =

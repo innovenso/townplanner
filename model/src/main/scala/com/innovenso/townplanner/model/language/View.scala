@@ -2,11 +2,15 @@ package com.innovenso.townplanner.model.language
 
 import com.innovenso.townplanner.model.concepts.properties.HasFatherTime
 import com.innovenso.townplanner.model.concepts.relationships.HasRelationships
-import com.innovenso.townplanner.model.meta.{ADay, Key, Layer}
+import com.innovenso.townplanner.model.meta.{ADay, Key, Layer, Today}
 
 trait View extends Concept {
   def pointInTime: ADay
   def layer: Layer
+}
+
+trait TimelessView extends View {
+  override val pointInTime: ADay = Today
 }
 
 trait CompiledView[ViewType <: View]
@@ -45,7 +49,10 @@ trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
   def visible(key: Key): Boolean =
     source.component(key, classOf[ModelComponent]).exists(visible)
 
-  def visible(modelComponent: ModelComponent): Boolean =
+  def visible(modelComponent: ModelComponent): Boolean = if (
+    view.isInstanceOf[TimelessView]
+  ) true
+  else
     modelComponent match {
       case tm: HasFatherTime =>
         tm.isActive(view.pointInTime) || tm.isPhasingOut(view.pointInTime) || tm

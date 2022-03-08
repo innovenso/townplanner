@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="sbt: com.thedeanda:lorem:2.1:jar" level="project" />
+    <orderEntry type="library" name="sbt: com.thedeanda:lorem:2.1:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.commons:commons-lang3:3.11:jar" level="project" />
     <orderEntry type="library" name="sbt: org.apache.commons:commons-text:1.9:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: org.scala-lang.modules:scala-xml_2.13:2.0.1:jar" level="project" />

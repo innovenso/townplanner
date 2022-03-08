@@ -21,17 +21,10 @@ class SystemIntegrationInteractionDiagramSpec
     val system1: ItSystem = ea has ItSystem(title = "A System")
     val system2: ItSystem = ea has ItSystem(title = "Another System")
     And("a user")
-    val user: Actor = ea has Actor(title = "A user")
+    val user: Actor = samples.actor
     And("some containers")
-    val microservice: Microservice =
-      ea describes Microservice(title = "A microservice") as { it =>
-        it isPartOf system1
-      }
-
-    val database: Database = ea describes Database(title = "A database") as {
-      it =>
-        it isPartOf system1
-    }
+    val microservice: Microservice = samples.microservice(system1)
+    val database: Database = samples.database(system1)
     And("a system integration")
 
     val integration: ItSystemIntegration =

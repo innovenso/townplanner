@@ -274,7 +274,7 @@ case class ArchitectureBuildingBlockRealizationViewCompiler(
 
   def implementingTechnologies: Set[Implementation] = technologies
     .flatMap(it =>
-      source.relationships(it, classOf[Implementation], classOf[ItSystem])
+      source.relationships(it, classOf[Implementation], classOf[ItContainer])
     )
     .filter(r =>
       source

@@ -6,7 +6,7 @@
 @Uml {
     @if(model.centralSystem.nonEmpty) {
         @if(model.containers.nonEmpty) {
-            @SystemContext(system = model.centralSystem.get, pointInTime = model.pointInTime, containers = model.containers)
+            @SystemContext(system = model.centralSystem.get, pointInTime = model.pointInTime, containers = model.containers, technologyHolder = model)
         } else {
             @System(system = model.centralSystem.get, pointInTime = model.pointInTime)
         }

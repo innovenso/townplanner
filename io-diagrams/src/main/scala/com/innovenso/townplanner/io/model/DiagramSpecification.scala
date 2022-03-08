@@ -1,7 +1,11 @@
 package com.innovenso.townplanner.io.model
 
 import com.innovenso.townplan.io.context.OutputFileType
-import com.innovenso.townplanner.model.language.{CompiledView, View}
+import com.innovenso.townplanner.model.language.{
+  CompiledView,
+  TimelessView,
+  View
+}
 import com.innovenso.townplanner.model.meta.{
   ADay,
   InTheFuture,
@@ -15,13 +19,15 @@ case class DiagramSpecification(
     filenameAppendix: Option[String] = None
 ) {
   def assetName(fileType: OutputFileType): String =
-    view.layer.name + "/" + view.groupTitle + "/" + pointInTimeName(
-      view.pointInTime
-    ) + "/" + view.title + filenameAppendix
+    view.layer.name + "/" + view.groupTitle + "/" + pointInTimeDirectory + view.title + filenameAppendix
       .map(appendix => s" $appendix")
       .getOrElse("") + fileType.extension
 
-  def pointInTimeName(day: ADay): String =
+  private def pointInTimeDirectory: String =
+    if (view.view.isInstanceOf[TimelessView]) ""
+    else pointInTimeName(view.pointInTime) + "/"
+
+  private def pointInTimeName(day: ADay): String =
     if (day == Today) "As Is Today"
     else if (day == InThePast) "As Was"
     else if (day == InTheFuture) "To Be"

@@ -4,7 +4,8 @@ import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
   Composition,
-  HasRelationships
+  HasRelationships,
+  Implementation
 }
 import com.innovenso.townplanner.model.concepts._
 import com.innovenso.townplanner.model.language._
@@ -16,13 +17,12 @@ case class FlowView(
     title: String,
     withStepCounter: Boolean = true,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends View
+) extends TimelessView
     with HasDescription
     with HasInteractions
     with HasExternalIds
     with HasLinks {
   val modelComponentType: ModelComponentType = ModelComponentType("Flow View")
-  val pointInTime: ADay = Today
   val layer: Layer = ApplicationLayer
 
   def withProperty(property: Property): FlowView =
@@ -30,7 +30,7 @@ case class FlowView(
 
 }
 
-trait HasFlowViews extends HasViews {
+trait HasFlowViews extends HasViews with HasTechnologies {
   def flowViews: List[CompiledFlowView] =
     components(classOf[FlowView]).map(FlowViewCompiler(_, this).compile)
   def flowView(key: Key): Option[CompiledFlowView] =
@@ -47,7 +47,8 @@ case class CompiledFlowView(
     with HasItContainers
     with HasItPlatforms
     with HasRelationships
-    with HasBusinessActors {
+    with HasBusinessActors
+    with HasTechnologies {
   def otherSystems: List[ItSystem] = systems.filterNot(systemContexts.toSet)
 
   def systemContexts: List[ItSystem] =
@@ -81,7 +82,7 @@ case class FlowViewCompiler(
       view,
       viewTitle,
       "Flows",
-      viewComponents(allElements ++ compositions)
+      viewComponents(allElements ++ compositions ++ implementingTechnologies)
     )
 
   private def elements: List[Element] =
@@ -103,7 +104,17 @@ case class FlowViewCompiler(
           )
       )
 
-  private def allElements: List[Element] = elements ++ systemContexts
+  private def allElements: List[Element] =
+    elements ++ systemContexts ++ technologies
+
+  private def containers: Set[ItContainer] = elements
+    .filter(_.isInstanceOf[ItContainer])
+    .map(_.asInstanceOf[ItContainer])
+    .toSet
+
+  private def technologies: Set[Technology] =
+    containers.flatMap(source.technologies(_))
+
   private def compositions: List[Composition] = allElements.flatMap(element =>
     source
       .relationships(element, classOf[Composition])
@@ -112,6 +123,18 @@ case class FlowViewCompiler(
       )
       .map(_.asInstanceOf[Composition])
   )
+
+  def implementingTechnologies: Set[Implementation] = technologies
+    .flatMap(it =>
+      source.relationships(it, classOf[Implementation], classOf[ItContainer])
+    )
+    .filter(r =>
+      source
+        .relationshipParticipantsOfType(r, classOf[ItContainer])
+        .forall(containers.contains(_))
+    )
+    .map(_.asInstanceOf[Implementation])
+
 }
 
 case class FlowViewConfigurer(

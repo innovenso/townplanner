@@ -40,6 +40,7 @@ import com.innovenso.townplanner.model.language.{
   CompiledView,
   HasViews,
   ModelComponent,
+  TimelessView,
   View,
   ViewCompiler
 }
@@ -60,12 +61,11 @@ case class ProjectMilestoneImpactView(
     title: String = "Project Milestone Impact",
     forProjectMilestone: Key,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends View {
+) extends TimelessView {
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Project Milestone Impact"
   )
   val layer: Layer = ImplementationLayer
-  val pointInTime: ADay = Today
 
   def withProperty(property: Property): ProjectMilestoneImpactView =
     copy(properties = this.properties + (property.key -> property))
