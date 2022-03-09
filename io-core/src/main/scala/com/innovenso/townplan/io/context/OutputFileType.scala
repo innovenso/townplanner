@@ -29,3 +29,8 @@ case object PlantUML extends OutputFileType {
   val extension = ".puml"
   val name = "PlantUML Specification"
 }
+
+case object Html extends OutputFileType {
+  val extension = ".html"
+  val name = "HTML"
+}

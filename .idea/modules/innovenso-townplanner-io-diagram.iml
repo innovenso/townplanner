@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../io-diagrams/src/test/scala" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../io-diagrams/target/scala-2.13/twirl/main" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../io-diagrams/target/scala-2.13/twirl/main" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../io-diagrams/target/scala-2.13/twirl/main" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../io-diagrams/target/streams" />
       <excludeFolder url="file://$MODULE_DIR$/../../io-diagrams/target" />
       <excludeFolder url="file://$MODULE_DIR$/../../io-diagrams/target/test-reports" />

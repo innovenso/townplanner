@@ -7,6 +7,8 @@ abstract class ArchitectureVerdict extends Property {
   val canBePlural: Boolean = false
   val sortKey: SortKey = SortKey.next
   def name: String
+  def description: String
+  def descriptionOption: Option[String] = Option(description).filter(!_.isBlank)
 
   def radarCircle: Int
 }

@@ -7,8 +7,10 @@ A Townplanner project is a Scala project, with a dependency to the townplanner l
 You need the following software installed on your computer to use the Townplanner Gradle Plugin:
 
 - Java Development Kit 17
+- Scala 2.13
 - SBT (Scala Build Tool) 1.6.2 or higher
 - Graphviz, any version [supported by PlantUML](https://plantuml.com/faq)
+- NodeJS with NPM (if you want to use Technology Radar export)
 - Blender 2.80 or higher (if you want to use Blender export)
 - Git (if you want to version control your town plan)
 - Intellij Idea or Eclipse to edit the town plan (it's Scala after all!)
@@ -37,7 +39,7 @@ lazy val townplan = project
     .in(file("."))
     .settings(
         name := "wayneenterprises-townplan",
-        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.2.1"
+        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.3.0"
     )
 ```
 
@@ -61,7 +63,7 @@ import com.innovenso.townplan.application.EnterpriseArchitectureAsCode
 object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
     println("Hello World, this is the Wayne Enterprises Town Plan")   
 
-    diagrams
+    diagrams()
 }
 ```
 

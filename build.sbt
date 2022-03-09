@@ -11,11 +11,39 @@ import sbt.Keys.libraryDependencies
 
 import java.time.Instant
 
-val townplannerVersion = "1.2.1"
+val townplannerVersion = "1.3.0"
 ThisBuild / organization := "com.innovenso.townplanner"
+ThisBuild / organizationName := "Innovenso"
+ThisBuild / organizationHomepage := Some(url("https://innovenso.com"))
 ThisBuild / version := townplannerVersion
 ThisBuild / scalaVersion := "2.13.8"
 ThisBuild / resolvers += Resolver.mavenLocal
+ThisBuild / versionScheme := Some("early-semver")
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url("https://bitbucket.org/innovenso/innovenso-townplanner"),
+    "scm:git@bitbucket.org:innovenso/innovenso-townplanner.git"
+  )
+)
+ThisBuild / developers := List(
+  Developer(
+    id = "jlust",
+    name = "Jurgen Lust",
+    email = "jurgen@innovenso.com",
+    url = url("https://innovenso.com")
+  )
+)
+
+ThisBuild / description := "The Innovenso Townplanner is a set of libraries used to document a company's enterprise architecture."
+ThisBuild / licenses := List(
+  "GNU General Public License v3" -> new URL(
+    "https://www.gnu.org/licenses/gpl-3.0.txt"
+  )
+)
+ThisBuild / homepage := Some(url("https://townplanner.be"))
+
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+ThisBuild / publishTo := sonatypePublishToBundle.value
 
 lazy val model = project
   .in(file("model"))
@@ -48,9 +76,19 @@ lazy val ioDiagrams = project
     libraryDependencies += scalaLogging
   )
   .enablePlugins(SbtTwirl)
+lazy val ioRadar = project
+  .in(file("io-radar"))
+  .dependsOn(model, ioCore)
+  .settings(
+    name := "innovenso-townplanner-io-radar",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem,
+    libraryDependencies += json
+  )
 lazy val application = project
   .in(file("application"))
-  .dependsOn(model, ioCore, ioDiagrams)
+  .dependsOn(model, ioCore, ioDiagrams, ioRadar)
   .settings(
     name := "innovenso-townplanner-application",
     libraryDependencies += scalactic,
@@ -86,6 +124,7 @@ val commonsText = "org.apache.commons" % "commons-text" % "1.9"
 val lorem = "com.thedeanda" % "lorem" % "2.1"
 val commonsIo = "commons-io" % "commons-io" % "2.11.0"
 val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2021.16"
+val json = "net.liftweb" %% "lift-json" % "3.5.0"
 
 val montserratURL = "https://fonts.googleapis.com/css?family=Montserrat"
 

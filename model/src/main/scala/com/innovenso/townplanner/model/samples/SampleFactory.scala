@@ -13,11 +13,17 @@ import com.innovenso.townplanner.model.concepts.{
   ItSystemIntegration,
   Language,
   Microservice,
+  Platform,
   Queue,
+  Technique,
+  Tool,
   WebUI
 }
 import com.innovenso.townplanner.model.concepts.properties.{
+  ArchitectureVerdict,
+  BeEliminated,
   BeInvestedIn,
+  BeMigrated,
   BeTolerated,
   Decommissioned,
   Description,
@@ -47,11 +53,8 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     Locale.getAvailableLocales.toList(index)
   }
 
-  def randomInt(bound: Int): Int = {
-    val theRandomInt = random.nextInt(bound)
-    println(theRandomInt)
-    if (theRandomInt == 0) 1 else theRandomInt
-  }
+  def randomInt(bound: Int): Int =
+    random.nextInt(bound) + 1
 
   def url: String = lorem.getUrl
 
@@ -71,14 +74,37 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     it has Description(description)
   }
 
+  def verdict: ArchitectureVerdict = randomInt(4) match {
+    case 1 => BeInvestedIn(description)
+    case 2 => BeEliminated(description)
+    case 3 => BeTolerated(description)
+    case 4 => BeMigrated(description)
+  }
+
   def language: Language = ea describes Language(title = title) as { it =>
     it has Description(description)
-    it should BeInvestedIn()
+    it should verdict
   }
 
   def framework: Framework = ea describes Framework(title = title) as { it =>
     it has Description(description)
-    it should BeTolerated()
+    it should verdict
+  }
+
+  def tool: Tool = ea describes Tool(title = title) as { it =>
+    it has Description(description)
+    it should verdict
+  }
+
+  def technique: Technique = ea describes Technique(title = title) as { it =>
+    it has Description(description)
+    it should verdict
+  }
+
+  def platformTechnology: Platform = ea describes Platform(title = title) as {
+    it =>
+      it has Description(description)
+      it should verdict
   }
 
   def microservice(system: ItSystem): Microservice = {

@@ -24,5 +24,6 @@ object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
 
   val views: Views = Views()
 
-  diagrams
+  diagrams()
+  technologyRadar("Wayne Enterprises")
 }

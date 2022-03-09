@@ -3,16 +3,6 @@ package com.innovenso.townplanner.io
 import com.innovenso.townplan.io.context.{OutputContext, Success}
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.model.DiagramSpecification
-import com.innovenso.townplanner.model.concepts.properties.{
-  BeInvestedIn,
-  Description
-}
-import com.innovenso.townplanner.model.concepts.{
-  ItSystem,
-  Language,
-  Microservice,
-  Technology
-}
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
 import com.innovenso.townplanner.model.samples.SampleFactory
@@ -20,8 +10,6 @@ import com.innovenso.townplanner.model.{EnterpriseArchitecture, TownPlan}
 
 import java.io.File
 import java.nio.file.Files
-import java.security.SecureRandom
-import java.util.{Locale, UUID}
 
 trait DiagramIO {
   val ea = new EnterpriseArchitecture()
