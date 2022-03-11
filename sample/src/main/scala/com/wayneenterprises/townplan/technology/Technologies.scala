@@ -15,7 +15,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Description
 }
 
-case class TechnologyRadar()(implicit ea: EnterpriseArchitecture) {
+case class Technologies()(implicit ea: EnterpriseArchitecture) {
   val java: Language = ea describes Language(title = "Java") as { it =>
     it has Description(
       "Java is a high-level, class-based, object-oriented programming language."

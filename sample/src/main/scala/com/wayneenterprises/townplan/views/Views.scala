@@ -5,7 +5,8 @@ import com.innovenso.townplanner.model.concepts.views.{
   ArchitectureBuildingBlockRealizationView,
   BusinessCapabilityMap,
   FullTownPlanView,
-  SystemContainerView
+  SystemContainerView,
+  TechnologyRadar
 }
 import com.innovenso.townplanner.model.meta.Day
 import com.wayneenterprises.townplan.application.{BuildingBlocks, Systems}
@@ -14,6 +15,7 @@ import com.wayneenterprises.townplan.strategy.{
   BusinessCapabilities,
   Enterprises
 }
+import com.wayneenterprises.townplan.technology.Technologies
 
 case class Views()(implicit
     ea: EnterpriseArchitecture,
@@ -48,5 +50,7 @@ case class Views()(implicit
     forSystem = systems.bcms,
     pointInTime = Day(2030, 1, 1)
   )
+
+  ea needs TechnologyRadar(title = "Wayne Enterprises")
 
 }

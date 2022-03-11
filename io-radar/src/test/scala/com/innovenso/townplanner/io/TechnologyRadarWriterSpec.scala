@@ -7,6 +7,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeTolerated,
   Description
 }
+import com.innovenso.townplanner.model.concepts.views.TechnologyRadar
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -20,8 +21,10 @@ class TechnologyRadarWriterSpec extends AnyFlatSpec with GivenWhenThen {
       samples.technique
       samples.platformTechnology
     }
+    And("a technology radar is requests")
+    val radar: TechnologyRadar = ea needs TechnologyRadar()
     Then("the technology radar is written to JSON")
-    assert(jsonIsWritten)
+    assert(jsonIsWritten(radar))
   }
 
   "Technology Radar Site" should "be generated" in new RadarIO {
@@ -64,7 +67,10 @@ class TechnologyRadarWriterSpec extends AnyFlatSpec with GivenWhenThen {
     }
     samples.tool
     samples.technique
-    When("some technologies")
+
+    And("a technology radar is requested")
+    val radar: TechnologyRadar = ea needs TechnologyRadar()
+
     Then("the technology radar is generated")
     assert(siteIsGenerated)
   }

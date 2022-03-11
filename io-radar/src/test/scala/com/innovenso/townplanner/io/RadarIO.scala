@@ -3,6 +3,7 @@ package com.innovenso.townplanner.io
 import com.innovenso.townplan.io.context.{OutputContext, Success}
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.model.Radar
+import com.innovenso.townplanner.model.concepts.views.TechnologyRadar
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
 import com.innovenso.townplanner.model.samples.SampleFactory
@@ -23,16 +24,21 @@ trait RadarIO {
   val townPlanTechnologyRadarWriter: TownPlanTechnologyRadarWriter =
     TownPlanTechnologyRadarWriter(assetRepository)
 
-  def jsonIsWritten: Boolean = TechnologyRadarJsonWriter
-    .write(targetDirectory, Radar(townPlan))
-    .map(file => {
-      println(Source.fromFile(file).getLines.mkString)
-      file.canRead
-    })
-    .getOrElse(false)
+  def jsonIsWritten(technologyRadar: TechnologyRadar): Boolean =
+    townPlan
+      .technologyRadar(technologyRadar.key)
+      .exists(view =>
+        TechnologyRadarJsonWriter
+          .write(targetDirectory, Radar(view))
+          .map(file => {
+            println(Source.fromFile(file).getLines.mkString)
+            file.canRead
+          })
+          .getOrElse(false)
+      )
 
   def siteIsGenerated: Boolean = TownPlanTechnologyRadarWriter(assetRepository)
-    .write(townPlan, OutputContext(Nil), None)
+    .write(townPlan, OutputContext(Nil))
     .outputs
     .size == 1
 

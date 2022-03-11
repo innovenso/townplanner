@@ -6,12 +6,12 @@ import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.meta._
 import com.wayneenterprises.townplan.business.Actors
 import com.wayneenterprises.townplan.strategy._
-import com.wayneenterprises.townplan.technology.TechnologyRadar
+import com.wayneenterprises.townplan.technology.Technologies
 
 case class Systems()(implicit
     ea: EnterpriseArchitecture,
     enterprises: Enterprises,
-    technologyRadar: TechnologyRadar,
+    technologyRadar: Technologies,
     capabilities: BusinessCapabilities,
     buildingBlocks: BuildingBlocks,
     actors: Actors

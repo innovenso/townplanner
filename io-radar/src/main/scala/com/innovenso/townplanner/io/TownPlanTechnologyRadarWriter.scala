@@ -13,20 +13,20 @@ case class TownPlanTechnologyRadarWriter(
 ) {
   def write(
       townPlan: TownPlan,
-      outputContext: OutputContext,
-      title: Option[String]
+      outputContext: OutputContext
   ): OutputContext = {
     val workingDirectory: File =
       Files.createTempDirectory("TownplannerRadar").toFile
 
-    val radar: Radar =
-      if (title.isDefined) Radar(townPlan, title.get) else Radar(townPlan)
-
     outputContext.withOutputs(
-      TechnologyRadarJsonWriter
-        .write(workingDirectory, radar)
-        .map(TechnologyRadarSiteWriter.write(_, radar, assetRepository))
-        .getOrElse(Nil)
+      townPlan.technologyRadars
+        .map(Radar(_))
+        .flatMap(radar =>
+          TechnologyRadarJsonWriter
+            .write(workingDirectory, radar)
+            .map(TechnologyRadarSiteWriter.write(_, radar, assetRepository))
+            .getOrElse(Nil)
+        )
     )
   }
 }

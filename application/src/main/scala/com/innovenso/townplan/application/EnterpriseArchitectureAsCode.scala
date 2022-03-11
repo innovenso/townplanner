@@ -26,11 +26,11 @@ trait EnterpriseArchitectureAsCode extends App {
   def townPlan: TownPlan = ea.townPlan
 
   implicit var outputContext: OutputContext = OutputContext(Nil)
+
   def diagrams()(implicit outputContext: OutputContext): Unit =
     this.outputContext = townPlanDiagramWriter.write(townPlan, outputContext)
 
-  def technologyRadar(
-      title: String = "Technology Radar"
-  )(implicit outputContext: OutputContext): Unit = this.outputContext =
-    townPlanTechnologyRadarWriter.write(townPlan, outputContext, Some(title))
+  def technologyRadarWebsite()(implicit outputContext: OutputContext): Unit =
+    this.outputContext =
+      townPlanTechnologyRadarWriter.write(townPlan, outputContext)
 }

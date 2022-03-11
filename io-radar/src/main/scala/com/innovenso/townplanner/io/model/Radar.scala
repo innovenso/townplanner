@@ -15,6 +15,10 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeMigrated,
   BeTolerated
 }
+import com.innovenso.townplanner.model.concepts.views.{
+  CompiledTechnologyRadar,
+  TechnologyRadar
+}
 import com.innovenso.townplanner.model.language.TimelessView
 import com.innovenso.townplanner.model.meta.{
   Key,
@@ -56,12 +60,9 @@ object Radar {
   val languagesAndFrameworks = "Languages & Frameworks"
   val platforms = "Platforms"
 
-  def apply(townPlan: TownPlan) = new Radar(
-    blips = townPlan.technologies.map(Blip(_))
+  def apply(technologyRadar: CompiledTechnologyRadar) = new Radar(
+    blips = technologyRadar.technologies.map(Blip(_))
   )
-
-  def apply(townPlan: TownPlan, title: String) =
-    new Radar(title = title, blips = townPlan.technologies.map(Blip(_)))
 }
 
 case class Blip(
