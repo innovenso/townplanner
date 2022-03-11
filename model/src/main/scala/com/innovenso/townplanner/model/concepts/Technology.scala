@@ -11,7 +11,7 @@ sealed trait Technology
     with HasLinks
     with HasSWOT
     with HasArchitectureVerdict
-      with CanBeImpacted
+    with CanBeImpacted
     with CanImplement {
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
   val aspect: Aspect = PassiveStructure
@@ -46,10 +46,10 @@ case class Language(
 }
 
 case class Framework(
-                     key: Key = Key(),
-                     title: String,
-                     properties: Map[Key, Property] = Map.empty[Key, Property]
-                   ) extends LanguageOrFramework {
+    key: Key = Key(),
+    title: String,
+    properties: Map[Key, Property] = Map.empty[Key, Property]
+) extends LanguageOrFramework {
   def withProperty(property: Property): Framework =
     copy(properties = this.properties + (property.key -> property))
 }
@@ -76,25 +76,12 @@ case class Tool(
     copy(properties = this.properties + (property.key -> property))
 }
 
-case class TechnologyRadar(
-    tools: List[Tool],
-    techniques: List[Technique],
-    languagesAndFrameworks: List[LanguageOrFramework],
-    platforms: List[Platform]
-)
-
 trait CanBeImplementedByTechnologies extends CanBeImplemented
 
 trait HasTechnologies extends HasModelComponents with HasRelationships {
   def technologies: List[Technology] = components(classOf[Technology])
   def technology(key: Key): Option[Technology] =
     component(key, classOf[Technology])
-  def technologyRadar: TechnologyRadar = TechnologyRadar(
-    tools = components(classOf[Tool]),
-    techniques = components(classOf[Technique]),
-    languagesAndFrameworks = components(classOf[LanguageOrFramework]),
-    platforms = components(classOf[Platform])
-  )
   def technologies(element: CanBeImplementedByTechnologies): List[Technology] =
     directIncomingDependencies(
       element,
