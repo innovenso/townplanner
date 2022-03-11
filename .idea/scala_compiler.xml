@@ -2,6 +2,6 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <option name="incrementalityType" value="SBT" />
-    <profile name="sbt 1" modules="Innovenso Townplanner,innovenso-townplanner,innovenso-townplanner-application,innovenso-townplanner-docs,innovenso-townplanner-io-core,innovenso-townplanner-io-diagram,innovenso-townplanner-io-radar,innovenso-townplanner-model,innovenso-townplanner-model_3519,innovenso-townplanner-sample,ioCore,ioDiagrams,model,model.innovenso-townplanner-model,sample" />
+    <profile name="sbt 1" modules="Innovenso Townplanner,innovenso-townplanner,innovenso-townplanner-application,innovenso-townplanner-docs,innovenso-townplanner-io-core,innovenso-townplanner-io-diagram,innovenso-townplanner-io-radar,innovenso-townplanner-model,innovenso-townplanner-model_3519,innovenso-townplanner-sample,innovenso-towplanner-io-latex-common,ioCore,ioDiagrams,model,model.innovenso-townplanner-model,sample" />
   </component>
 </project>

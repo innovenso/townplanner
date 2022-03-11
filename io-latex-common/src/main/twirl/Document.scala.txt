@@ -1,0 +1,3 @@
+@import txt.Environment
+@(content: Txt)
+@Environment(name = "document")(content = content)

@@ -86,6 +86,16 @@ lazy val ioRadar = project
     libraryDependencies += lorem,
     libraryDependencies += json
   )
+lazy val ioLatexCommon = project
+  .in(file("io-latex-common"))
+  .dependsOn(model, ioCore)
+  .settings(
+    name := "innovenso-towplanner-io-latex-common",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem
+  )
+  .enablePlugins(SbtTwirl)
 lazy val application = project
   .in(file("application"))
   .dependsOn(model, ioCore, ioDiagrams, ioRadar)

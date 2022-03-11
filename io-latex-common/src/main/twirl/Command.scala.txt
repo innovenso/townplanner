@@ -1,0 +1,3 @@
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@(name: String, optionalParameters: List[String] = Nil, requiredParameters: List[String] = Nil)
+\@name@optionalParameters.map(param => s"[${LatexFormat.escape(param)}]").mkString@requiredParameters.map(param => s"{${LatexFormat.escape(param)}}").mkString

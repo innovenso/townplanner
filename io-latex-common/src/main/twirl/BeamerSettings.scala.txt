@@ -1,0 +1,6 @@
+@import txt.UsePackage
+@import txt.Command
+@()
+@UsePackage(name = "opensans", parameters = Some("default,oldstyle,scale=0.95"))
+@Command(name = "pgfplotsset", requiredParameters = List("width=7cm,compat=1.8"))
+@Command(name = "setkeys", requiredParameters = List("Gin","keepaspectratio"))

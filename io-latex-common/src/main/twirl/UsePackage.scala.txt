@@ -1,0 +1,3 @@
+@import txt.Command
+@(name: String, parameters: Option[String] = None, forTheme: Boolean = false)
+@if(forTheme) { @Command(name = "RequirePackage", optionalParameters = parameters.toList, requiredParameters = List(name))} else { @Command(name = "usepackage", optionalParameters = parameters.toList, requiredParameters = List(name))}

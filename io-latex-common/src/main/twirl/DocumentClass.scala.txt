@@ -1,0 +1,4 @@
+@import txt.Environment
+@import txt.Command
+@(name: String)
+@Command(name = "documentclass", requiredParameters = List(name))

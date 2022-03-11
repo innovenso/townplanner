@@ -1,0 +1,5 @@
+@import txt.UsePackage
+@import txt.Command
+@()
+@Command(name = "pgfplotsset", requiredParameters = List("width=15cm,compat=1.8"))
+@Command(name = "setkeys", requiredParameters = List("Gin","keepaspectratio"))

@@ -1,0 +1,5 @@
+@import txt.Command
+@(name: String, parameters: List[String] = Nil)(content: Txt)
+@Command(name = "begin", requiredParameters = name :: parameters)
+@content
+@Command(name = "end", requiredParameters = List(name))
