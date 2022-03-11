@@ -58,7 +58,7 @@ Let's create the main entry point for our town plan in `src/main/scala/com/wayne
 ```scala
 package com.wayneenterprises.townplan
 
-import com.innovenso.townplan.application.EnterpriseArchitectureAsCode
+...
 
 object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
     println("Hello World, this is the Wayne Enterprises Town Plan")   
@@ -121,9 +121,7 @@ We put the enterprise in its own class, `com.wayneenterprises.townplan.strategy.
 ```scala
 package com.wayneenterprises.townplan.strategy
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.Enterprise
-import com.innovenso.townplanner.model.concepts.properties.Description
+...
 
 case class Enterprises()(implicit ea: EnterpriseArchitecture) {
     val wayneCorp: Enterprise =
@@ -140,9 +138,7 @@ We also put the Views in a class, `com.wayneenterprises.townplan.views.Views`:
 ```scala
 package com.wayneenterprises.townplan.views
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.views.{BusinessCapabilityMap,FullTownPlanView}
-import com.wayneenterprises.townplan.strategy.Enterprises
+...
 
 case class Views()(implicit ea: EnterpriseArchitecture, enterprises: Enterprises) {
     ea needs BusinessCapabilityMap(forEnterprise = enterprises.wayneCorp)
@@ -155,9 +151,7 @@ Now the main class looks like this:
 ```scala
 package com.wayneenterprises.townplan
 
-import com.innovenso.townplan.application.EnterpriseArchitectureAsCode
-import com.wayneenterprises.townplan.strategy.Enterprises
-import com.wayneenterprises.townplan.views.Views
+...
 
 object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
     println("Hello World, this is the Wayne Enterprises Town Plan")   
@@ -174,9 +168,7 @@ Let's add some business capabilities, in `com.wayneenterprises.townplan.strategy
 ```scala
 package com.wayneenterprises.townplan.strategy
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.BusinessCapability
-import com.innovenso.townplanner.model.concepts.properties.Description
+...
 
 case class BusinessCapabilities()(implicit ea: EnterpriseArchitecture, enterprises: Enterprises) {
     val offeringSuperheroServices: BusinessCapability = ea describes BusinessCapability(title="Offering Superhero Services") as { it =>
@@ -202,9 +194,7 @@ Next, we define an Architectural Building Block that will realize the Secret Lai
 ```scala
 package com.wayneenterprises.townplan.application
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
-import com.wayneenterprises.townplan.strategy.{BusinessCapabilities,Enterprises}
+...
 
 case class BuildingBlocks()(implicit ea: EnterpriseArchitecture, capabilities: BusinessCapabilities, enterprises: Enterprises) {
     val lairManagement: ArchitectureBuildingBlock =
@@ -222,9 +212,7 @@ Before we add the system that realizes this building block, let's add some techn
 ```scala
 package com.wayneenterprises.townplan.technology
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.{Framework, Language, Platform}
-import com.innovenso.townplanner.model.concepts.properties.{BeEliminated, BeInvestedIn, BeTolerated, Description}
+...
 
 case class TechnologyRadar()(implicit ea: EnterpriseArchitecture) {
     val java: Language = ea describes Language(title = "Java") as { it =>
@@ -261,14 +249,7 @@ Note that all of the above is in fact optional if you only want to render a C4 C
 ```scala
 package com.wayneenterprises.townplan.application
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts._
-import com.innovenso.townplanner.model.concepts.properties._
-import com.innovenso.townplanner.model.meta._
-import com.wayneenterprises.townplan.business.Actors
-import com.wayneenterprises.townplan.strategy._
-import com.wayneenterprises.townplan.technology.TechnologyRadar
-
+...
 
 case class Systems()(implicit ea: EnterpriseArchitecture, enterprises: Enterprises, technologyRadar: TechnologyRadar, capabilities: BusinessCapabilities, buildingBlocks: BuildingBlocks) {
     val batCaveDestructionDay: Day = Day(2027, 10, 31)
@@ -321,11 +302,7 @@ All we need now is the *business actor* to use the system, which we do again in 
 ```scala
 package com.wayneenterprises.townplan.business
 
-import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.properties._
-import com.innovenso.townplanner.model.concepts._
-import com.wayneenterprises.townplan.strategy.Enterprises
-import com.wayneenterprises.townplan.application.Systems
+...
 
 case class Actors()(implicit ea: EnterpriseArchitecture, enterprises: Enterprises, systems: Systems) {
     val robin: Actor = ea describes Actor(title = "Prospect Employee") as { he =>

@@ -8,7 +8,7 @@ import com.innovenso.townplan.io.context.{
   Success
 }
 import com.innovenso.townplan.repository.AssetRepository
-import com.innovenso.townplanner.io.context.RadarOutput
+import com.innovenso.townplanner.io.context.RadarWebsiteOutput
 import com.innovenso.townplanner.io.model.Radar
 import org.apache.commons.lang3.SystemUtils
 
@@ -42,7 +42,7 @@ object TechnologyRadarSiteWriter {
           Failure("Radar Generator Failed"),
           None,
           Html,
-          RadarOutput,
+          RadarWebsiteOutput,
           radar.pointInTime
         )
       )
@@ -69,7 +69,7 @@ object TechnologyRadarSiteWriter {
             )
           ),
           Html,
-          RadarOutput,
+          RadarWebsiteOutput,
           radar.pointInTime
         )
       )

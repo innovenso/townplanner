@@ -44,8 +44,11 @@ We should indicate in the main class that we want a tech radar:
 ...
 object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
 ...
+  ea needs TechnologyRadar(title = "Wayne Enterprises")
+
+
   diagrams()
-  technologyRadar("Wayne Enterprises")
+  technologyRadarWebsite()
 }
 
 ```

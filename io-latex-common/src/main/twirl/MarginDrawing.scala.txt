@@ -1,0 +1,9 @@
+@import txt.Environment
+@import txt.Command
+@(caption: Option[String])(content: Txt)
+@Environment("marginfigure") {
+  @Environment("tikzpicture") {
+    @content
+  }
+  @if(caption.isDefined) { @Command(name = "caption", requiredParameters = caption.toList) }
+}

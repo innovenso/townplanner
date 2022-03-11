@@ -88,7 +88,7 @@ lazy val ioRadar = project
   )
 lazy val ioLatexCommon = project
   .in(file("io-latex-common"))
-  .dependsOn(model, ioCore)
+  .dependsOn(model, ioCore, ioDiagrams)
   .settings(
     name := "innovenso-towplanner-io-latex-common",
     libraryDependencies += scalactic,
