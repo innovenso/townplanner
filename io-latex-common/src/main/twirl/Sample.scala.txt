@@ -12,7 +12,9 @@
 @import txt.CommonSettings
 @import txt.BookSettings
 @import txt.MarginDrawing
-@(samples: SampleFactory)
+@import com.innovenso.townplan.io.context.Output
+@import txt.Image
+@(sampleOutput: Output, samples: SampleFactory)
 @DocumentClass("article")
 @CommonSettings()
 @BookSettings()
@@ -40,6 +42,8 @@
     this is section 2
     @SubSection(title = samples.title) {
       this is subsection 1
+
+      @Image(Some("a sample impage"), sampleOutput)
 
       @Text(samples.description)
     }

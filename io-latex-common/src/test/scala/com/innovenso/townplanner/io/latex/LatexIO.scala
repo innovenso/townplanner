@@ -1,7 +1,9 @@
 package com.innovenso.townplanner.io.latex
 
-import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.context.{OutputContext, Success}
 import com.innovenso.townplan.repository.FileSystemAssetRepository
+import com.innovenso.townplanner.io.TownPlanDiagramWriter
+import com.innovenso.townplanner.model.meta.Key
 import com.innovenso.townplanner.model.samples.SampleFactory
 import com.innovenso.townplanner.model.{EnterpriseArchitecture, TownPlan}
 
@@ -16,7 +18,14 @@ trait LatexIO {
   val assetDirectory = new File(targetDirectory, "assets")
   val assetRepository = new FileSystemAssetRepository(assetDirectory.toPath)
   val samples: SampleFactory = SampleFactory(ea)
+  val townPlanDiagramWriter: TownPlanDiagramWriter =
+    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
 
   def townPlan: TownPlan = ea.townPlan
+
+  def diagramsAreWritten(viewKey: Key): OutputContext = {
+    townPlanDiagramWriter
+      .write(townPlan, viewKey.value, OutputContext(Nil))
+  }
 
 }

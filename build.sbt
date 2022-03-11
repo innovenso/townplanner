@@ -62,7 +62,8 @@ lazy val ioCore = project
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest,
     libraryDependencies += lorem,
-    libraryDependencies += commonsIo
+    libraryDependencies += commonsIo,
+    libraryDependencies += commonsCodec
   )
 lazy val ioDiagrams = project
   .in(file("io-diagrams"))
@@ -135,6 +136,7 @@ val lorem = "com.thedeanda" % "lorem" % "2.1"
 val commonsIo = "commons-io" % "commons-io" % "2.11.0"
 val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2021.16"
 val json = "net.liftweb" %% "lift-json" % "3.5.0"
+val commonsCodec = "commons-codec" % "commons-codec" % "1.15"
 
 val montserratURL = "https://fonts.googleapis.com/css?family=Montserrat"
 

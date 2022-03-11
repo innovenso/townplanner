@@ -37,4 +37,5 @@
 @Command(name = "usetikzlibrary", requiredParameters = List("fadings"))
 @Command(name = "usetikzlibrary", requiredParameters = List("mindmap,trees"))
 
+\graphicspath{{images/}}
 

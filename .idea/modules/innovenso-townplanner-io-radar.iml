@@ -14,6 +14,7 @@
     <orderEntry type="module" module-name="innovenso-townplanner-io-core" exported="" />
     <orderEntry type="library" name="sbt: com.thedeanda:lorem:2.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.thoughtworks.paranamer:paranamer:2.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: commons-codec:commons-codec:1.15:jar" level="project" />
     <orderEntry type="library" name="sbt: commons-io:commons-io:2.11.0:jar" level="project" />
     <orderEntry type="library" name="sbt: net.java.dev.jna:jna:5.9.0:jar" level="project" />
     <orderEntry type="library" name="sbt: net.liftweb:lift-json_2.13:3.5.0:jar" level="project" />
