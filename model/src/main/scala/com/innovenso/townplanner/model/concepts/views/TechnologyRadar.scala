@@ -1,7 +1,9 @@
 package com.innovenso.townplanner.model.concepts.views
 
 import com.innovenso.townplanner.model.concepts.{
+  BusinessActor,
   BusinessCapability,
+  CanBeImplementedByTechnologies,
   Enterprise,
   HasBusinessActors,
   HasBusinessCapabilities,
@@ -24,19 +26,25 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   Composition,
   HasRelationships,
   Implementation,
+  Knowledge,
   Serving
 }
 import com.innovenso.townplanner.model.language.{
   CompiledView,
+  Element,
   HasViews,
   ModelComponent,
   TimelessView,
   ViewCompiler
 }
 import com.innovenso.townplanner.model.meta.{
+  Amber,
+  Green,
   Key,
   Layer,
   ModelComponentType,
+  Red,
+  Severity,
   SortKey,
   StrategyLayer,
   TechnologyLayer
@@ -107,6 +115,96 @@ case class CompiledTechnologyRadar(
     systemsImplementedWith(technology)
       .flatMap(relationships(_, classOf[Composition], classOf[ItPlatform]))
       .flatMap(relationshipParticipantsOfType(_, classOf[ItPlatform]))
+  def businessActorsWithKnowledgeOf(
+      technology: Technology
+  ): List[BusinessActor] =
+    relationships(technology, classOf[Knowledge], classOf[BusinessActor])
+      .flatMap(relationshipParticipantsOfType(_, classOf[BusinessActor]))
+
+  val technologiesWithKnowledge: List[Technology] =
+    relationshipsWithType(classOf[Knowledge])
+      .flatMap(relationshipParticipantsOfType(_, classOf[Technology]))
+
+  val technologiesWithoutKnowledge
+      : List[TechnologyRadarRiskAssessment[Technology]] =
+    technologies
+      .filterNot(technologiesWithKnowledge.toSet)
+      .map(TechnologyWithoutKnowledgeRiskAssessment)
+
+  val containersWithToleratedTechnologies
+      : List[TechnologyRadarRiskAssessment[ItContainer]] =
+    technologies
+      .filter(_.isToBeTolerated)
+      .flatMap(containersImplementedWith)
+      .map(ElementWithToleratedTechnologyAssessment(_))
+
+  val containersWithInvestedTechnologies
+      : List[TechnologyRadarRiskAssessment[ItContainer]] =
+    technologies
+      .filter(_.isToBeInvestedIn)
+      .flatMap(containersImplementedWith)
+      .map(ElementWithInvestedTechnologyAssessment(_))
+
+  val containersWithMigratedTechnologies
+      : List[TechnologyRadarRiskAssessment[ItContainer]] =
+    technologies
+      .filter(_.isToBeMigrated)
+      .flatMap(containersImplementedWith)
+      .map(ElementWithMigratedTechnologyAssessment(_))
+
+  val containersWithEliminatedTechnologies
+      : List[TechnologyRadarRiskAssessment[ItContainer]] =
+    technologies
+      .filter(_.isToBeEliminated)
+      .flatMap(containersImplementedWith)
+      .map(ElementWithEliminatedTechnologyAssessment(_))
+
+}
+
+trait TechnologyRadarRiskAssessment[Subject <: Element] {
+  def element: Subject
+  def severity: Severity
+}
+
+case class TechnologyWithoutKnowledgeRiskAssessment(element: Technology)
+    extends TechnologyRadarRiskAssessment[Technology] {
+  val severity: Severity = Red
+}
+case class ElementWithEliminatedTechnologyAssessment[
+    ElementType <: Element with CanBeImplementedByTechnologies
+](
+    element: ElementType
+) extends TechnologyRadarRiskAssessment[
+      ElementType
+    ] {
+  val severity: Severity = Red
+}
+case class ElementWithMigratedTechnologyAssessment[
+    ElementType <: Element with CanBeImplementedByTechnologies
+](
+    element: ElementType
+) extends TechnologyRadarRiskAssessment[
+      ElementType
+    ] {
+  val severity: Severity = Amber
+}
+case class ElementWithToleratedTechnologyAssessment[
+    ElementType <: Element with CanBeImplementedByTechnologies
+](
+    element: ElementType
+) extends TechnologyRadarRiskAssessment[
+      ElementType
+    ] {
+  val severity: Severity = Amber
+}
+case class ElementWithInvestedTechnologyAssessment[
+    ElementType <: Element with CanBeImplementedByTechnologies
+](
+    element: ElementType
+) extends TechnologyRadarRiskAssessment[
+      ElementType
+    ] {
+  val severity: Severity = Green
 }
 
 case class TechnologyRadarCompiler(
@@ -123,7 +221,7 @@ case class TechnologyRadarCompiler(
       viewTitle,
       "Technology Radar",
       viewComponents(
-        technologies ++ containers ++ systems ++ platforms ++ implementingTechnologies ++ composingContainers ++ composingSystems
+        technologies ++ containers ++ systems ++ platforms ++ businessActors ++ implementingTechnologies ++ composingContainers ++ composingSystems ++ knowingBusinessActors
       )
     )
 
@@ -155,6 +253,18 @@ case class TechnologyRadarCompiler(
       .relationships(it, classOf[Composition], classOf[ItPlatform])
       .map(_.asInstanceOf[Composition])
   )
+
+  private def knowingBusinessActors: List[Knowledge] =
+    technologies.flatMap(it =>
+      source
+        .relationships(it, classOf[Knowledge], classOf[BusinessActor])
+        .map(_.asInstanceOf[Knowledge])
+    )
+
+  private def businessActors: List[BusinessActor] =
+    knowingBusinessActors.flatMap(
+      source.relationshipParticipantsOfType(_, classOf[BusinessActor])
+    )
 
   private def platforms: Set[ItPlatform] = composingSystems.flatMap(
     source.relationshipParticipantsOfType(_, classOf[ItPlatform])
