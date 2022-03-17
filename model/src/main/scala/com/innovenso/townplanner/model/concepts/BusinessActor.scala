@@ -21,7 +21,8 @@ sealed trait BusinessActor
     with CanBeStakeholder
     with CanBeRaci
     with CanCompose
-    with CanBeComposedOf {
+    with CanBeComposedOf
+    with CanKnow {
   val layer: Layer = BusinessLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -54,7 +55,7 @@ case class Organisation(
     sortKey: SortKey = SortKey.next,
     title: String,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends BusinessActor  {
+) extends BusinessActor {
   def withProperty(property: Property): Organisation =
     copy(properties = this.properties + (property.key -> property))
 }
@@ -115,7 +116,8 @@ case class BusinessActorConfigurer[BusinessActorType <: BusinessActor](
     with CanConfigureInfluenceSource[BusinessActorType]
     with CanConfigureStakeholderSource[BusinessActorType]
     with CanConfigureCompositionSource[BusinessActorType]
-    with CanConfigureCompositionTarget[BusinessActorType] {
+    with CanConfigureCompositionTarget[BusinessActorType]
+    with CanConfigureKnowledgeSource[BusinessActorType] {
   def as(
       body: BusinessActorConfigurer[BusinessActorType] => Any
   ): BusinessActorType = {

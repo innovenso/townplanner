@@ -30,7 +30,8 @@ case class ItSystem(
     with CanBeImplemented
     with CanImplement
     with CanBeImpacted
-    with CanBeDelivered {
+    with CanBeDelivered
+    with CanBeKnown {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -95,7 +96,8 @@ case class ItSystemConfigurer(
     with CanConfigureRealizationSource[ItSystem]
     with CanConfigureImplementationTarget[ItSystem]
     with CanConfigureImplementationSource[ItSystem]
-    with CanConfigureDeliveryTarget[ItSystem] {
+    with CanConfigureDeliveryTarget[ItSystem]
+    with CanConfigureKnowledgeTarget[ItSystem] {
   def as(
       body: ItSystemConfigurer => Any
   ): ItSystem = {

@@ -26,7 +26,8 @@ case class ItSystemIntegration(
     with CanBeAssociated
     with CanBeImplemented
     with CanBeImpacted
-    with CanBeDelivered {
+    with CanBeDelivered
+    with CanBeKnown {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -86,7 +87,8 @@ case class ItSystemIntegrationConfigurer(
     with CanConfigureInteractions[ItSystemIntegration]
     with CanConfigureAssociations[ItSystemIntegration]
     with CanConfigureImplementationTarget[ItSystemIntegration]
-    with CanConfigureDeliveryTarget[ItSystemIntegration] {
+    with CanConfigureDeliveryTarget[ItSystemIntegration]
+    with CanConfigureKnowledgeTarget[ItSystemIntegration] {
   def between(system: ItSystem): ItSystemIntegrationConfigurer =
     copy(modelComponent = modelComponent.copy(source = system.key))
   def and(system: ItSystem): ItSystemIntegrationConfigurer =

@@ -24,7 +24,8 @@ trait ItContainer
     with CanBeImplemented
     with CanBeDelivered
     with CanBeImpacted
-    with CanBeImplementedByTechnologies {
+    with CanBeImplementedByTechnologies
+    with CanBeKnown {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -291,7 +292,8 @@ case class ItContainerConfigurer[ContainerType <: ItContainer](
     with CanConfigureFlowTarget[ContainerType]
     with CanConfigureAssociations[ContainerType]
     with CanConfigureCompositionTarget[ContainerType]
-    with CanConfigureDeliveryTarget[ContainerType] {
+    with CanConfigureDeliveryTarget[ContainerType]
+    with CanConfigureKnowledgeTarget[ContainerType] {
   def as(
       body: ItContainerConfigurer[ContainerType] => Any
   ): ContainerType = {

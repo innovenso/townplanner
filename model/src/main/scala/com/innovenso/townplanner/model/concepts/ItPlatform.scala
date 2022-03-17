@@ -27,7 +27,8 @@ case class ItPlatform(
     with CanBeAssociated
     with CanBeComposedOf
     with CanBeImpacted
-    with CanBeImplemented {
+    with CanBeImplemented
+    with CanBeKnown {
   val layer: Layer = ApplicationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -77,7 +78,8 @@ case class ItPlatformConfigurer(
     with CanConfigureTriggerTarget[ItPlatform]
     with CanConfigureAssociations[ItPlatform]
     with CanConfigureRealizationSource[ItPlatform]
-    with CanConfigureImplementationTarget[ItPlatform] {
+    with CanConfigureImplementationTarget[ItPlatform]
+    with CanConfigureKnowledgeTarget[ItPlatform] {
   def as(
       body: ItPlatformConfigurer => Any
   ): ItPlatform = {
