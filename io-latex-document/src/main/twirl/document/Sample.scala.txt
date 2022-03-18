@@ -14,21 +14,21 @@
 @import txt.MarginDrawing
 @import com.innovenso.townplan.io.context.Output
 @import txt.Image
-@(sampleOutput: Output, samples: SampleFactory)
+@import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
+@(view: CompiledFullTownPlanView)
 @DocumentClass("article")
 @CommonSettings()
 @BookSettings()
-@Preamble(title = Some(samples.title), author = Some(samples.name))
+@Preamble(title = Some(view.title), author = None)
 @Document {
   @DocumentTitle()
 
-  @Section(title = samples.title) {
+  @Section(title = view.title) {
     this is section 1
 
-    @Text(samples.description)
-    @Text(samples.description)
+    @Text("This is the full town plan")
 
-    @Drawing(caption = Some(samples.title)) {
+    @Drawing(caption = Some(view.title)) {
       \draw[] (1cm,0) arc[start angle=0, end angle=90,radius=1cm];
       \draw[] (2cm,0) arc[start angle=0, end angle=90,radius=2cm];
       \draw[] (3cm,0) arc[start angle=0, end angle=90,radius=3cm];
@@ -38,14 +38,12 @@
     }
   }
 
-  @Section(title = samples.title) {
+  @Section(title = view.title) {
     this is section 2
-    @SubSection(title = samples.title) {
+    @SubSection(title = view.title) {
       this is subsection 1
 
-      @Image(Some("a sample impage"), sampleOutput)
-
-      @Text(samples.description)
+      @Text("And another text")
     }
   }
 }

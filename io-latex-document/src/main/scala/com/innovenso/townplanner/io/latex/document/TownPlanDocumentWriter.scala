@@ -15,10 +15,12 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
     outputContext.withOutputs(
       views(townPlan)
         .flatMap(view =>
-          DiagramSpecificationWriter
+          DocumentSpecificationWriter
             .specifications(townPlan, view)
         )
-        .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
+        .flatMap(spec =>
+          DocumentPdfWriter.documents(spec, assetRepository, outputContext)
+        )
     )
 
   def write(
@@ -28,9 +30,11 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
   ): OutputContext = outputContext.withOutputs(
     view(townPlan, Key(viewKey)).toList
       .flatMap(modelComponent =>
-        DiagramSpecificationWriter.specifications(townPlan, modelComponent)
+        DocumentSpecificationWriter.specifications(townPlan, modelComponent)
       )
-      .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
+      .flatMap(spec =>
+        DocumentPdfWriter.documents(spec, assetRepository, outputContext)
+      )
   )
 
   def view(townPlan: TownPlan, key: Key): Option[_ <: CompiledView[_ <: View]] =

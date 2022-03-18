@@ -11,6 +11,7 @@ import com.innovenso.townplan.io.context.{
   Success
 }
 import com.innovenso.townplan.repository.AssetRepository
+import com.innovenso.townplanner.io.latex.model.LatexSpecification
 import com.innovenso.townplanner.model.language.View
 import org.apache.commons.io.FileUtils
 
@@ -26,10 +27,7 @@ import java.util.concurrent.Executors
 import scala.util.Try
 
 case class LatexPdfWriter(
-    sourceCode: String,
-    view: View,
-    outputType: OutputType,
-    assetName: String,
+    specification: LatexSpecification,
     assetRepository: AssetRepository,
     outputContext: OutputContext
 ) {
@@ -63,7 +61,7 @@ case class LatexPdfWriter(
     Try {
       val outputFile = new File(workingDirectory, "document.tex")
       val fileWriter = new FileWriter(outputFile)
-      fileWriter.write(sourceCode)
+      fileWriter.write(specification.latexSourceCode)
       fileWriter.close()
       println(outputFile.getAbsolutePath)
       outputFile
@@ -87,25 +85,25 @@ case class LatexPdfWriter(
     val exitCode = process.waitFor
     if (exitCode != 0) {
       Output(
-        view,
+        specification.view.view,
         Failure("LaTeX Compilation Failed"),
         None,
         Pdf,
-        outputType,
-        view.pointInTime
+        specification.outputType,
+        specification.view.pointInTime
       )
     } else {
       assetRepository.write(
         new File(sourceCodeFile.getParentFile, "document.pdf"),
-        assetName
+        specification.assetName
       )
       Output(
-        view,
+        specification.view.view,
         Success,
-        Some(assetName),
+        Some(specification.assetName),
         Pdf,
-        outputType,
-        view.pointInTime
+        specification.outputType,
+        specification.view.pointInTime
       )
     }
   }
