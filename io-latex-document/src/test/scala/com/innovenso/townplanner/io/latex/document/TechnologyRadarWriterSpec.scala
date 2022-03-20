@@ -24,11 +24,13 @@ class TechnologyRadarWriterSpec extends AnyFlatSpec with GivenWhenThen {
     val system: ItSystem =
       samples.system(realizedBuildingBlock = Some(buildingBlock))
 
-    samples.technique
-    samples.tool
-    samples.language
-    samples.framework
-    samples.platformTechnology
+    (1 to 20).foreach(it => {
+      samples.technique
+      samples.tool
+      samples.language
+      samples.framework
+      samples.platformTechnology
+    })
 
     And("a technology radar")
     val view: TechnologyRadar =
