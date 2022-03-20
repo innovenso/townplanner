@@ -3,3 +3,8 @@
 @()
 @Command(name = "pgfplotsset", requiredParameters = List("width=15cm,compat=1.8"))
 @Command(name = "setkeys", requiredParameters = List("Gin","keepaspectratio"))
+@UsePackage(name = "kaorefs")
+
+@Command(name = "makeindex", optionalParameters = List("columns=3,title=Alphabetical Index,intoc"))
+@Command(name = "makeglossaries")
+@Command(name = "makenomenclature")

@@ -15,13 +15,18 @@
 @import com.innovenso.townplan.io.context.Output
 @import txt.Image
 @import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
+@import txt.FrontMatter
+@import txt.BookTableOfContents
+@import txt.MainMatter
+@import txt.KaoBook
 @(view: CompiledFullTownPlanView)
-@DocumentClass("kaobook")
-@CommonSettings()
-@BookSettings()
-@Preamble(title = Some(view.title), author = None)
+@KaoBook()
 @Document {
+  @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
   @DocumentTitle()
+  @FrontMatter()
+  @BookTableOfContents()
+  @MainMatter()
 
   @Section(title = view.title) {
     this is section 1

@@ -15,9 +15,19 @@ import com.innovenso.townplanner.model.concepts.{
   ItContainer,
   ItPlatform,
   ItSystem,
-  Technology
+  Language,
+  LanguageOrFramework,
+  Platform,
+  Technique,
+  Technology,
+  Tool
 }
 import com.innovenso.townplanner.model.concepts.properties.{
+  ArchitectureVerdict,
+  BeEliminated,
+  BeInvestedIn,
+  BeMigrated,
+  BeTolerated,
   CanAddProperties,
   Property
 }
@@ -90,6 +100,11 @@ trait CanAddTechnologyRadars extends CanAddProperties with CanAddRelationships {
     has(technologyRadar)
 }
 
+case class TechnologyRadarCategory(
+    name: String,
+    technologyClass: Class[_ <: Technology]
+)
+
 case class CompiledTechnologyRadar(
     view: TechnologyRadar,
     title: String,
@@ -102,6 +117,18 @@ case class CompiledTechnologyRadar(
     with HasItSystems
     with HasItContainers
     with HasTechnologies {
+  val circles: List[ArchitectureVerdict] =
+    List(BeInvestedIn(), BeTolerated(), BeMigrated(), BeEliminated())
+  val categories: List[TechnologyRadarCategory] = List(
+    TechnologyRadarCategory("Techniques", classOf[Technique]),
+    TechnologyRadarCategory("Platforms", classOf[Platform]),
+    TechnologyRadarCategory("Tools", classOf[Tool]),
+    TechnologyRadarCategory(
+      "Languages & Frameworks",
+      classOf[LanguageOrFramework]
+    )
+  )
+
   def containersImplementedWith(technology: Technology): Set[ItContainer] = {
     relationships(technology, classOf[Implementation], classOf[ItContainer])
       .flatMap(relationshipParticipantsOfType(_, classOf[ItContainer]))

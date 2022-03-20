@@ -1,0 +1,11 @@
+@()
+\begingroup
+\setlength{\textheight}{230\hscale}
+\etocstandarddisplaystyle
+\etocstandardlines
+\tableofcontents
+\listoffigures
+\let\cleardoublepage\bigskip
+\let\clearpage\bigskip
+\listoftables
+\endgroup

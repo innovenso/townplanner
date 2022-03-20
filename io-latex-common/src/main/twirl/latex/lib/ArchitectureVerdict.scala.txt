@@ -1,0 +1,7 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import txt.Text
+@import com.innovenso.townplanner.model.concepts.properties.HasArchitectureVerdict
+@(concept: HasArchitectureVerdict)
+@if(concept.architectureVerdict.descriptionOption.isDefined) {
+  @Text(content = concept.architectureVerdict.description)
+}

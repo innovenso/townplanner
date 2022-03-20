@@ -1,0 +1,7 @@
+@import txt.DocumentClass
+@import txt.CommonSettings
+@import txt.BookSettings
+@()
+@DocumentClass(name = "kaobook", options = List("a4paper", "fontsize=10pt", "twoside=true", "numbers=noenddot"))
+@CommonSettings()
+@BookSettings()

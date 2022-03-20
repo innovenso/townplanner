@@ -1,10 +1,12 @@
 @import java.time.LocalDate
 @import txt.Command
 @import com.innovenso.townplanner.io.latex.LatexFormat
-@(title: Option[String] = None, subtitle: Option[String] = None, author: Option[String] = None, institute: Option[String] = None, date: Option[LocalDate] = Some(LocalDate.now()), version: Option[String] = None)
+@(title: Option[String] = None, subtitle: Option[String] = None, author: Option[String] = None, institute: Option[String] = None, date: Option[LocalDate] = Some(LocalDate.now()), version: Option[String] = None, titleHead: Option[String] = None, subject: Option[String] = None)
 @if(institute.isDefined) { @Command(name = "institute", requiredParameters = institute.toList)}
 @if(date.isDefined) { @Command(name = "date", requiredParameters = List(s"${date.get.getYear}-${date.get.getMonth}-${date.get.getDayOfMonth}"))}
 @if(version.isDefined) { @Command(name = "version", requiredParameters = List(LatexFormat.escape(version.get)))}
 @if(title.isDefined) { @Command(name = "title", requiredParameters = title.toList)}
 @if(subtitle.isDefined) { @Command(name = "subtitle", requiredParameters = subtitle.toList)}
 @if(author.isDefined) { @Command(name = "author", requiredParameters = author.toList)}
+@if(titleHead.isDefined) { @Command(name = "titlehead", requiredParameters = titleHead.toList)}
+@if(subject.isDefined) { @Command(name = "subject", requiredParameters = subject.toList)}

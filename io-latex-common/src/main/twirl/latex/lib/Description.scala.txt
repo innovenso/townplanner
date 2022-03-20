@@ -1,0 +1,6 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import txt.Text
+@(concept: HasDescription)
+@for(desc <- concept.descriptions) {
+  @Text(content = desc.value)
+}

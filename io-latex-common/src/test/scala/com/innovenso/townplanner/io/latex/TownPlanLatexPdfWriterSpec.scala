@@ -13,40 +13,6 @@ import org.scalatest.flatspec.AnyFlatSpec
 import txt.Sample
 
 class TownPlanLatexPdfWriterSpec extends AnyFlatSpec with GivenWhenThen {
-  "a document" should "be rendered to PDF" in new LatexIO {
-    Given("an enterprise")
-    val enterprise: Enterprise = samples.enterprise
-    And("a view")
-    val townplanView: FullTownPlanView =
-      ea needs FullTownPlanView(forEnterprise = enterprise)
-    And("diagrams have been rendered")
-    val diagramOutputContext: OutputContext =
-      diagramsAreWritten(townplanView.key)
-
-    When("a LaTeX specification is created")
-    val sample: String =
-      Sample(
-        diagramOutputContext.outputsOfFileType(Eps).head,
-        samples
-      ).body
-    val specification: LatexSpecification = LatexSpecification(
-      view = townPlan.fullTownPlanView(townplanView.key).get,
-      latexSourceCode = sample,
-      dependencies = diagramOutputContext.outputsOfFileType(Eps),
-      filenameAppendix = None,
-      outputType = Book
-    )
-
-    And("a PDF is rendered")
-    val output: List[Output] = LatexPdfWriter(
-      specification,
-      assetRepository,
-      diagramOutputContext
-    ).document
-    Then("the PDF exists")
-    assert(output.nonEmpty)
-  }
-
   "a document with a custom LaTeX template" should "be rendered to PDF" in new LatexIO {
     Given("an enterprise")
     val enterprise: Enterprise = samples.enterprise
@@ -61,8 +27,7 @@ class TownPlanLatexPdfWriterSpec extends AnyFlatSpec with GivenWhenThen {
     val sample: String =
       Sample(
         diagramOutputContext.outputsOfFileType(Eps).head,
-        samples,
-        "kaobook"
+        samples
       ).body
     val specification: LatexSpecification = LatexSpecification(
       view = townPlan.fullTownPlanView(townplanView.key).get,

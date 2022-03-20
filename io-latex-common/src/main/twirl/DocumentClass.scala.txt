@@ -1,4 +1,8 @@
 @import txt.Environment
 @import txt.Command
-@(name: String)
-\documentclass{@name}
+@(name: String, options: List[String] = Nil)
+@if(options.nonEmpty) {
+    \documentclass[@options.mkString(",")]{@name}
+} else {
+    \documentclass{@name}
+}

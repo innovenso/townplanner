@@ -1,0 +1,75 @@
+@import txt.DocumentClass
+@import txt.Preamble
+@import com.thedeanda.lorem.LoremIpsum
+@import com.innovenso.townplanner.model.samples.SampleFactory
+@import txt.Document
+@import txt.DocumentTitle
+@import txt.UsePackage
+@import txt.Section
+@import txt.Text
+@import txt.SubSection
+@import txt.Drawing
+@import txt.CommonSettings
+@import txt.BookSettings
+@import txt.MarginDrawing
+@import com.innovenso.townplan.io.context.Output
+@import txt.Image
+@import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
+@import txt.FrontMatter
+@import txt.BookTableOfContents
+@import txt.MainMatter
+@import txt.KaoBook
+@import com.innovenso.townplanner.model.concepts.views.CompiledTechnologyRadar
+@import txt.Part
+@import txt.Chapter
+@import latex.lib.txt.Description
+@import latex.lib.txt.ArchitectureVerdict
+@(view: CompiledTechnologyRadar)
+@KaoBook()
+@Document {
+  @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
+  @DocumentTitle()
+  @FrontMatter()
+  @BookTableOfContents()
+  @MainMatter()
+
+  @Part(title = "Radar") {
+    @for(category <- view.categories) {
+      @Chapter(title = category.name) {
+        @for(circle <- view.circles) {
+          @Section(title = circle.name) {
+            @for(technology <- view.technologies(category.technologyClass, circle.getClass)) {
+              @SubSection(title = technology.title) {
+                @Description(technology)
+                @ArchitectureVerdict(technology)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @Section(title = view.title) {
+    this is section 1
+
+    @Text("This is the full town plan")
+
+    @Drawing(caption = Some(view.title)) {
+      \draw[] (1cm,0) arc[start angle=0, end angle=90,radius=1cm];
+      \draw[] (2cm,0) arc[start angle=0, end angle=90,radius=2cm];
+      \draw[] (3cm,0) arc[start angle=0, end angle=90,radius=3cm];
+      \draw[] (0,4cm) arc[start angle=90, end angle=0,radius=4cm];
+
+      \draw (0,0) -- (0,4cm);
+    }
+  }
+
+  @Section(title = view.title) {
+    this is section 2
+    @SubSection(title = view.title) {
+      this is subsection 1
+
+      @Text("And another text")
+    }
+  }
+}

@@ -10,7 +10,7 @@
 @UsePackage(name = "inputenc", parameters = Some("utf8"))
 @UsePackage(name = "fontenc", parameters = Some("T1"))
 @UsePackage(name = "fontawesome5")
-@UsePackage(name = "babel", parameters = Some("english,dutch,french"))
+@UsePackage(name = "babel", parameters = Some("dutch,french,english"))
 @UsePackage(name = "multicol")
 @UsePackage(name = "pgffor")
 @UsePackage(name = "tikzscale")

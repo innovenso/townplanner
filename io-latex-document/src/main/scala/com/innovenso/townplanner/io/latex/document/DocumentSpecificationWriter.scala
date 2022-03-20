@@ -1,11 +1,17 @@
 package com.innovenso.townplanner.io.latex.document
 
-import com.innovenso.townplanner.io.latex.model.{Book, LatexSpecification}
+import com.innovenso.townplanner.io.latex.model.{
+  Book,
+  KaoBookLibrary,
+  LatexSpecification
+}
 import com.innovenso.townplanner.model.TownPlan
-import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
+import com.innovenso.townplanner.model.concepts.views.{
+  CompiledFullTownPlanView,
+  CompiledTechnologyRadar
+}
 import com.innovenso.townplanner.model.language.{CompiledView, View}
-import com.innovenso.townplanner.model.samples.SampleFactory
-import document.txt.Sample
+import document.txt.{FullTownPlan, TechnologyRadarDocument}
 
 object DocumentSpecificationWriter {
   def specifications(
@@ -16,7 +22,17 @@ object DocumentSpecificationWriter {
       List(
         LatexSpecification(
           view = fullTownPlanView,
-          latexSourceCode = Sample(fullTownPlanView).body,
+          latexSourceCode = FullTownPlan(fullTownPlanView).body,
+          latexLibraries = List(KaoBookLibrary),
+          outputType = Book
+        )
+      )
+    case technologyRadar: CompiledTechnologyRadar =>
+      List(
+        LatexSpecification(
+          view = technologyRadar,
+          latexSourceCode = TechnologyRadarDocument(technologyRadar).body,
+          latexLibraries = List(KaoBookLibrary),
           outputType = Book
         )
       )

@@ -89,6 +89,18 @@ trait HasTechnologies extends HasModelComponents with HasRelationships {
       classOf[Implementation],
       classOf[Technology]
     )
+  def technologies[TechnologyType <: Technology](
+      technologyClass: Class[TechnologyType]
+  ): List[TechnologyType] = technologies
+    .filter(technologyClass.isInstance(_))
+    .map(technologyClass.cast(_))
+  def technologies[TechnologyType <: Technology](
+      technologyClass: Class[TechnologyType],
+      verdictClass: Class[_ <: ArchitectureVerdict]
+  ): List[TechnologyType] = technologies(technologyClass).filter(tech =>
+    verdictClass.isInstance(tech.architectureVerdict)
+  )
+
 }
 
 case class TechnologyRadarConfigurer[TechnologyType <: Technology](
