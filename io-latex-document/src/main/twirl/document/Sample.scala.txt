@@ -16,7 +16,7 @@
 @import txt.Image
 @import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
 @(view: CompiledFullTownPlanView)
-@DocumentClass("article")
+@DocumentClass("kaobook")
 @CommonSettings()
 @BookSettings()
 @Preamble(title = Some(view.title), author = None)

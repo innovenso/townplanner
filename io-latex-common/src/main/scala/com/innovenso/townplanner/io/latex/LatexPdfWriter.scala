@@ -35,7 +35,7 @@ case class LatexPdfWriter(
     Files.createTempDirectory("TownplannerLatex").toFile
   val imagesDirectory: File = new File(workingDirectory, "images")
 
-  def prepareDependencies(): Unit = {
+  private def prepareDependencies(): Unit = {
     imagesDirectory.mkdirs()
     outputContext
       .outputsOfFileType(Eps)
@@ -49,7 +49,12 @@ case class LatexPdfWriter(
       )
   }
 
+  private def prepareLibraries(): Unit = {
+    specification.latexLibraries.foreach(_.write(workingDirectory))
+  }
+
   def document: List[Output] = {
+    prepareLibraries()
     prepareDependencies()
     sourceCodeFile
       .map(pdf)
@@ -57,7 +62,7 @@ case class LatexPdfWriter(
       .toList
   }
 
-  def sourceCodeFile: Try[File] =
+  private def sourceCodeFile: Try[File] =
     Try {
       val outputFile = new File(workingDirectory, "document.tex")
       val fileWriter = new FileWriter(outputFile)
@@ -67,7 +72,7 @@ case class LatexPdfWriter(
       outputFile
     }
 
-  def pdf(
+  private def pdf(
       sourceCodeFile: File
   ): Output = {
     println("writing PDF file")

@@ -21,6 +21,7 @@ import com.innovenso.townplanner.model.meta.{
 case class LatexSpecification(
     view: CompiledView[_ <: View],
     latexSourceCode: String,
+    latexLibraries: List[LatexLibrary] = Nil,
     dependencies: List[Output] = Nil,
     filenameAppendix: Option[String] = None,
     outputType: OutputType

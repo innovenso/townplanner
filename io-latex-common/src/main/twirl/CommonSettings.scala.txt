@@ -22,7 +22,6 @@
 @UsePackage(name = "pgfgantt")
 @UsePackage(name = "smartdiagram")
 @UsePackage(name = "longtable")
-@UsePackage(name = "verse")
 @UsePackage(name = "forloop")
 @UsePackage(name = "booktabs")
 

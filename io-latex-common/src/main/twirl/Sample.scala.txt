@@ -14,8 +14,8 @@
 @import txt.MarginDrawing
 @import com.innovenso.townplan.io.context.Output
 @import txt.Image
-@(sampleOutput: Output, samples: SampleFactory)
-@DocumentClass("article")
+@(sampleOutput: Output, samples: SampleFactory, documentClass: String = "article")
+@DocumentClass(documentClass)
 @CommonSettings()
 @BookSettings()
 @Preamble(title = Some(samples.title), author = Some(samples.name))
