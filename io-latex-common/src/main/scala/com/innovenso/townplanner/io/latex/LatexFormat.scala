@@ -36,7 +36,6 @@ object LatexFormat {
         case '£'  => builder.append("\\textpounds ")
         case '|'  => builder.append("\\textbar ")
         case '-'  => builder.append("\\textendash ")
-        case '~'  => builder.append("\\textasciitilde{} ")
         case 'ç'  => builder.append("\\c{c}")
 
         case c => builder += c

@@ -2,6 +2,7 @@ package com.innovenso.townplan.application
 
 import com.innovenso.townplan.io.context.OutputContext
 import com.innovenso.townplan.repository.FileSystemAssetRepository
+import com.innovenso.townplanner.io.latex.document.TownPlanDocumentWriter
 import com.innovenso.townplanner.io.{
   TownPlanDiagramWriter,
   TownPlanTechnologyRadarWriter
@@ -22,6 +23,9 @@ trait EnterpriseArchitectureAsCode extends App {
     TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
   val townPlanTechnologyRadarWriter: TownPlanTechnologyRadarWriter =
     TownPlanTechnologyRadarWriter(assetRepository)
+  val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
+    assetRepository
+  )
 
   def townPlan: TownPlan = ea.townPlan
 
@@ -33,4 +37,7 @@ trait EnterpriseArchitectureAsCode extends App {
   def technologyRadarWebsite()(implicit outputContext: OutputContext): Unit =
     this.outputContext =
       townPlanTechnologyRadarWriter.write(townPlan, outputContext)
+
+  def documents()(implicit outputContext: OutputContext): Unit =
+    this.outputContext = townPlanDocumentWriter.write(townPlan, outputContext)
 }

@@ -11,7 +11,7 @@ import sbt.Keys.libraryDependencies
 
 import java.time.Instant
 
-val townplannerVersion = "1.4.0"
+val townplannerVersion = "1.5.0"
 ThisBuild / organization := "com.innovenso.townplanner"
 ThisBuild / organizationName := "Innovenso"
 ThisBuild / organizationHomepage := Some(url("https://innovenso.com"))
@@ -110,7 +110,7 @@ lazy val ioLatexDocument = project
 
 lazy val application = project
   .in(file("application"))
-  .dependsOn(model, ioCore, ioDiagrams, ioRadar)
+  .dependsOn(model, ioCore, ioDiagrams, ioRadar, ioLatexCommon, ioLatexDocument)
   .settings(
     name := "innovenso-townplanner-application",
     libraryDependencies += scalactic,
