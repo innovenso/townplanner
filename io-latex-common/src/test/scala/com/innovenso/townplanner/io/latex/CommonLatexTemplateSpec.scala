@@ -1,5 +1,8 @@
 package com.innovenso.townplanner.io.latex
 
+import com.innovenso.townplan.io.context.Output
+import latex.lib.techradar.txt.RadarPositionPicture
+import latex.lib.tikz.txt.TikzDocument
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 import play.twirl.api.Txt
@@ -52,5 +55,18 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
         content = Txt("hello")
       )
     println(f.body)
+  }
+
+  "A radar position drawing" should "render correctly" in new LatexIO {
+    assert(
+      assetsExistWhen(
+        pdfIsWritten(
+          TikzDocument("Radar Position")(
+            RadarPositionPicture(technology = samples.technique)
+          ).body
+        )
+      )
+    )
+
   }
 }

@@ -1,10 +1,9 @@
 @import txt.Environment
 @import txt.Command
+@import latex.lib.tikz.txt.TikzPicture
 @(caption: Option[String])(content: Txt)
 @Environment("figure") {
   @Command(name = "centering")
-  @Environment("tikzpicture") {
-    @content
-  }
+  @content
   @if(caption.isDefined) { @Command(name = "caption", requiredParameters = caption.toList) }
 }

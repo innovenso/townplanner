@@ -1,0 +1,10 @@
+@import txt.DocumentClass
+@import txt.CommonSettings
+@import txt.Document
+@(title: String)(content: Txt)
+@DocumentClass(name = "standalone", options = List("tikz"))
+@CommonSettings()
+@Document {
+  @content
+}
+

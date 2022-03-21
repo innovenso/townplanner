@@ -24,6 +24,10 @@
 @import txt.Chapter
 @import latex.lib.txt.Description
 @import latex.lib.txt.ArchitectureVerdict
+@import txt.Paragraph
+@import txt.SubParagraph
+@import latex.lib.txt.Dictionary
+@import latex.lib.techradar.txt.RadarPositionPicture
 @(view: CompiledTechnologyRadar)
 @KaoBook()
 @Document {
@@ -35,41 +39,55 @@
 
   @Part(title = "Radar") {
     @for(category <- view.categories) {
-      @Chapter(title = category.name) {
-        @for(circle <- view.circles) {
-          @Section(title = circle.name) {
-            @for(technology <- view.technologies(category.technologyClass, circle.getClass)) {
-              @SubSection(title = technology.title) {
-                @Description(technology)
-                @ArchitectureVerdict(technology)
+      @if(view.technologies(category.technologyClass).nonEmpty) {
+        @Chapter(title = category.name) {
+          @for(circle <- view.circles) {
+            @if(view.technologies(category.technologyClass, circle.getClass).nonEmpty) {
+              @Section(title = circle.name) {
+                @for(technology <- view.technologies(category.technologyClass, circle.getClass)) {
+                  @SubSection(title = technology.title) {
+                    @MarginDrawing(caption = Some(technology.title)) {
+                      @RadarPositionPicture(technology)
+                    }
+                    @Description(technology)
+                    @Paragraph(title = "Architecture Verdict") {
+                      @ArchitectureVerdict(technology)
+                    }
+                    @Paragraph(title = "Usage") {
+                    @if(view.isUsed(technology)) {
+                        @if(view.isUsedByPlatforms(technology)) {
+                          @SubParagraph(title = "Platforms") {
+                            @Dictionary(view.platformsImplementedWith(technology).map(it => (it.title, it.descriptions.headOption.map(_.value).getOrElse("-"))).toList)
+                          }
+                        }
+                        @if(view.isUsedBySystems(technology)) {
+                          @SubParagraph(title = "Systems") {
+                            @Dictionary(view.systemsImplementedWith(technology).map(it => (it.title, it.descriptions.headOption.map(_.value).getOrElse("-"))).toList)
+                          }
+                        }
+                        @if(view.isUsedByContainers(technology)) {
+                          @SubParagraph(title = "Containers") {
+                            @Dictionary(view.containersImplementedWith(technology).map(it => (it.title, it.descriptions.headOption.map(_.value).getOrElse("-"))).toList)
+                          }
+                        }
+                      } else {
+                        @Text(s"We don't know of any IT Platforms, IT Systems or IT Containers where ${technology.title} is currently used.")
+                      }
+                    }
+                    @Paragraph(title = "Knowledge") {
+                      @if(view.isKnown(technology)) {
+                          @Dictionary(view.businessActorsWithKnowledgeOf(technology).map(it => (it.title, it.descriptions.headOption.map(_.value).getOrElse("-"))))
+                      } else {
+                        @Text(s"We don't know of any person or team that currently has knowledge of ${technology.title}.")
+                      }
+                    }
+                  }
+                }
               }
             }
           }
         }
       }
-    }
-  }
-  @Section(title = view.title) {
-    this is section 1
-
-    @Text("This is the full town plan")
-
-    @Drawing(caption = Some(view.title)) {
-      \draw[] (1cm,0) arc[start angle=0, end angle=90,radius=1cm];
-      \draw[] (2cm,0) arc[start angle=0, end angle=90,radius=2cm];
-      \draw[] (3cm,0) arc[start angle=0, end angle=90,radius=3cm];
-      \draw[] (0,4cm) arc[start angle=90, end angle=0,radius=4cm];
-
-      \draw (0,0) -- (0,4cm);
-    }
-  }
-
-  @Section(title = view.title) {
-    this is section 2
-    @SubSection(title = view.title) {
-      this is subsection 1
-
-      @Text("And another text")
     }
   }
 }

@@ -129,6 +129,20 @@ case class CompiledTechnologyRadar(
     )
   )
 
+  def isUsed(technology: Technology): Boolean = containersImplementedWith(
+    technology
+  ).nonEmpty
+  def isKnown(technology: Technology): Boolean = businessActorsWithKnowledgeOf(
+    technology
+  ).nonEmpty
+  def isUsedByPlatforms(technology: Technology): Boolean =
+    platformsImplementedWith(technology).nonEmpty
+  def isUsedBySystems(technology: Technology): Boolean = systemsImplementedWith(
+    technology
+  ).nonEmpty
+  def isUsedByContainers(technology: Technology): Boolean =
+    containersImplementedWith(technology).nonEmpty
+
   def containersImplementedWith(technology: Technology): Set[ItContainer] = {
     relationships(technology, classOf[Implementation], classOf[ItContainer])
       .flatMap(relationshipParticipantsOfType(_, classOf[ItContainer]))

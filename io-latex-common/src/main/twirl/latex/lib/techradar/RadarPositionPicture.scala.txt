@@ -1,0 +1,40 @@
+@import com.innovenso.townplanner.model.concepts.Technology
+@import txt.Drawing
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.model.concepts.properties.BeInvestedIn
+@import com.innovenso.townplanner.model.concepts.properties.BeTolerated
+@import com.innovenso.townplanner.model.concepts.properties.BeMigrated
+@import com.innovenso.townplanner.model.concepts.properties.BeEliminated
+@import latex.lib.tikz.txt.TikzPicture
+@(technology: Technology)
+@TikzPicture() {
+    \draw[] (1cm,0) arc[start angle=0, end angle=90,radius=1cm];
+    \draw[] (2cm,0) arc[start angle=0, end angle=90,radius=2cm];
+    \draw[] (3cm,0) arc[start angle=0, end angle=90,radius=3cm];
+    \draw[] (0,4cm) arc[start angle=90, end angle=0,radius=4cm];
+
+    \draw (0,0) -- (0,4cm);
+
+    \node[rotate=90, text=lightgray, font=\footnotesize, text centered] at (-2mm, 2cm) (){ @LatexFormat.escape(technology.technologyType) };
+
+    \draw (0,0) -- (1cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeInvestedIn().name) };
+    \draw (1cm,0) -- (2cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeTolerated().name) };
+    \draw (2cm,0) -- (3cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeMigrated().name) };
+    \draw (3cm,0) -- (4cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeEliminated().name) };
+
+    @technology.architectureVerdict match {
+      case _: BeInvestedIn => {
+          \node[font=\small] at (45:0.5cm)  { \faMapMarker* };
+      }
+      case _: BeTolerated => {
+          \node[font=\small] at (45:1.5cm)  { \faMapMarker* };
+      }
+      case _: BeMigrated => {
+          \node[font=\small] at (45:2.5cm)  { \faMapMarker* };
+      }
+      case _: BeEliminated => {
+          \node[font=\small] at (45:3.5cm)  { \faMapMarker* };
+      }
+      case _ => {}
+    }
+}

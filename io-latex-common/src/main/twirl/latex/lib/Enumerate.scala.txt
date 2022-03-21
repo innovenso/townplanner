@@ -1,0 +1,11 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@(items: List[String])
+@if(items.nonEmpty) {
+    @Environment("enumerate") {
+        @for(item <- items) {
+          \item @LatexFormat.escape(item)
+        }
+    }
+}

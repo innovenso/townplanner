@@ -1,0 +1,5 @@
+@import txt.Environment
+@()(content: Txt)
+@Environment("tikzpicture") {
+    @content
+}

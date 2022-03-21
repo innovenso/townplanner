@@ -1,0 +1,11 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@(items: List[(String,String)])
+@if(items.nonEmpty) {
+    @Environment("description") {
+        @for(item <- items) {
+          \item[@LatexFormat.escape(item._1)] @LatexFormat.escape(item._2)
+        }
+    }
+}
