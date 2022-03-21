@@ -28,6 +28,9 @@
 @import txt.SubParagraph
 @import latex.lib.txt.Dictionary
 @import latex.lib.techradar.txt.RadarPositionPicture
+@import com.innovenso.townplanner.model.concepts.properties.BeEliminated
+@import com.innovenso.townplanner.model.concepts.properties.BeMigrated
+@import com.innovenso.townplanner.model.concepts.properties.BeMigrated
 @(view: CompiledTechnologyRadar)
 @KaoBook()
 @Document {
@@ -84,6 +87,30 @@
                   }
                 }
               }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @if(view.hasRisks) {
+    @Part(title = "Risks") {
+      @if(view.technologiesWithoutKnowledge.nonEmpty) {
+        @Chapter(title = "Technologies where we lack expertise") {
+          @Dictionary(view.technologiesWithoutKnowledge.map(it => (it.element.title, it.element.descriptions.headOption.map(_.value).getOrElse("-"))))
+        }
+      }
+      @if(view.hasLegacyTechnologiesInUse) {
+        @Chapter(title = "Legacy technologies still in use") {
+          @if(view.containersWithEliminatedTechnologies.nonEmpty) {
+            @Section(title = BeEliminated().name) {
+              @Dictionary(view.containersWithEliminatedTechnologies.map(it => (it.element.title, it.element.descriptions.headOption.map(_.value).getOrElse("-"))))
+            }
+          }
+          @if(view.containersWithMigratedTechnologies.nonEmpty) {
+            @Section(title = BeMigrated().name) {
+              @Dictionary(view.containersWithMigratedTechnologies.map(it => (it.element.title, it.element.descriptions.headOption.map(_.value).getOrElse("-"))))
             }
           }
         }

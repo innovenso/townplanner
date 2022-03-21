@@ -200,6 +200,12 @@ case class CompiledTechnologyRadar(
       .flatMap(containersImplementedWith)
       .map(ElementWithEliminatedTechnologyAssessment(_))
 
+  val hasLegacyTechnologiesInUse: Boolean =
+    containersWithEliminatedTechnologies.nonEmpty || containersWithMigratedTechnologies.nonEmpty
+
+  val hasRisks: Boolean =
+    technologiesWithoutKnowledge.nonEmpty || hasLegacyTechnologiesInUse
+
 }
 
 trait TechnologyRadarRiskAssessment[Subject <: Element] {
