@@ -14,8 +14,9 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeTolerated,
   Description
 }
+import com.wayneenterprises.townplan.business.Actors
 
-case class Technologies()(implicit ea: EnterpriseArchitecture) {
+case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
   val java: Language = ea describes Language(title = "Java") as { it =>
     it has Description(
       "Java is a high-level, class-based, object-oriented programming language."
@@ -23,6 +24,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture) {
     it should BeInvestedIn(
       "Although other programming languages have become popular the last few years, we still consider Java to be the default choice for backend development, due to its rich ecosystem, robustness and availability of developers"
     )
+    it isKnownBy actors.bruceWayne
   }
 
   val kubernetes: Platform = ea describes Platform(title = "Kubernetes") as {
@@ -33,6 +35,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture) {
       it should BeInvestedIn(
         "For now, Kubernetes is the best bet for cloud applications, since it is supported by all major public clouds and as such leaves the door open for a multi-cloud strategy."
       )
+      it isKnownBy actors.bruceWayne
   }
 
   val react: Framework = ea describes Framework(title = "React") as { it =>
@@ -42,6 +45,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture) {
     it should BeTolerated(
       "At Wayne Enterprises we prefer to take the HTML/CSS-first approach, rather than the Javascript-first approach made popular by SPA in recent years."
     )
+    it isKnownBy actors.bruceWayne
   }
 
   val mongodb: Platform = ea describes Platform(title = "MongoDB") as { it =>
@@ -51,6 +55,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture) {
     it should BeEliminated(
       "As we are moving to a fully event-sourced architecture, we prefer a databaseless approach."
     )
+    it isKnownBy actors.bruceWayne
   }
 
   val mobbing: Technique = ea describes Technique(title = "Mobbing") as { it =>
@@ -60,6 +65,9 @@ case class Technologies()(implicit ea: EnterpriseArchitecture) {
     it should BeInvestedIn(
       "mob programming typically results in better, more readable code. It can actually speed up development and it makes sure decisions are shared by the team."
     )
+    it isKnownBy actors.bruceWayne
+    it isKnownBy actors.justiceLeague
+    it isKnownBy actors.robin
   }
 
   val townplanner: Tool =
@@ -68,5 +76,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture) {
       it should BeInvestedIn(
         "Rather than struggling with hundreds of complicated pop-up screens in traditional EA tools, the Townplanner allows architects to model the enterprise architecture using a DSL."
       )
+      it isKnownBy actors.bruceWayne
+      it isKnownBy actors.robin
     }
 }

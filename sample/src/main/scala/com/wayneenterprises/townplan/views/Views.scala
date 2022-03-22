@@ -51,6 +51,6 @@ case class Views()(implicit
     pointInTime = Day(2030, 1, 1)
   )
 
-  ea needs TechnologyRadar(title = "Wayne Enterprises")
+  ea needs TechnologyRadar(title = "Wayne Enterprises Technology Radar")
 
 }

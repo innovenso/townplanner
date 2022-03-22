@@ -17,8 +17,8 @@ import com.wayneenterprises.townplan.views.Views
 object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
   implicit val enterprises: Enterprises = Enterprises()
   implicit val capabilities: BusinessCapabilities = BusinessCapabilities()
-  implicit val technologyRadar: Technologies = Technologies()
   implicit val actors: Actors = Actors()
+  implicit val technologyRadar: Technologies = Technologies()
   implicit val buildingBlocks: BuildingBlocks = BuildingBlocks()
   implicit val systems: Systems = Systems()
 
@@ -26,4 +26,5 @@ object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
 
   diagrams()
   technologyRadarWebsite()
+  documents()
 }
