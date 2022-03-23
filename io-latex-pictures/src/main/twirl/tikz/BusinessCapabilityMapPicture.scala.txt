@@ -13,9 +13,9 @@
 
     @TikzStyle("level_zero", List(Rectangle, RoundedCorners, InnerSep(2)))
     @TikzStyle("level_one", List(Rectangle, Fill("white"), InnerSep(1), RoundedCorners))
-    @TikzStyle("level_two", List(Rectangle, TinyFont, TextCentered, MinimumWidth(20), TextWidth(18), InnerSep(0.5), OuterSep(0)))
-    @TikzStyle("level_zero_title", List(TextCentered, Text("white"), TinyFont, MinimumWidth(20), TextWidth(18), InnerSep(1), OuterSep(0)))
-    @TikzStyle("level_one_title", List(TextCentered, TinyFont, MinimumWidth(20), TextWidth(18), InnerSep(1), OuterSep(0)))
+    @TikzStyle("level_two", List(Rectangle, TinyFont, TextCentered, MinimumWidth(30), TextWidth(28), InnerSep(0.5), OuterSep(0)))
+    @TikzStyle("level_zero_title", List(TextCentered, Text("white"), TinyFont, MinimumWidth(30), TextWidth(28), InnerSep(1), OuterSep(0)))
+    @TikzStyle("level_one_title", List(TextCentered, TinyFont, MinimumWidth(30), TextWidth(28), InnerSep(1), OuterSep(0)))
     @TikzStyle("level_one_title_line", List(LineWidth(0.1), Draw("black")))
     @TikzStyle("level_two_title_line", List(LineWidth(0.05), Draw("gray")))
     @TikzPictureEnvironment(parameters = List("node distance=1mm and 5mm")) {

@@ -15,6 +15,7 @@
     <orderEntry type="module" module-name="innovenso-townplanner-io-diagram" exported="" />
     <orderEntry type="module" module-name="innovenso-townplanner-io-latex-common" exported="" />
     <orderEntry type="module" module-name="innovenso-townplanner-io-latex-document" exported="" />
+    <orderEntry type="module" module-name="innovenso-townplanner-io-latex-pictures" exported="" />
     <orderEntry type="module" module-name="innovenso-townplanner-io-radar" exported="" />
     <orderEntry type="library" name="sbt: com.thedeanda:lorem:2.1:jar" level="project" />
     <orderEntry type="library" name="sbt: com.thoughtworks.paranamer:paranamer:2.8:jar" level="project" />
