@@ -91,7 +91,17 @@ lazy val ioLatexCommon = project
   .in(file("io-latex-common"))
   .dependsOn(model, ioCore, ioDiagrams)
   .settings(
-    name := "innovenso-towplanner-io-latex-common",
+    name := "innovenso-townplanner-io-latex-common",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem
+  )
+  .enablePlugins(SbtTwirl)
+lazy val ioLatexPictures = project
+  .in(file("io-latex-pictures"))
+  .dependsOn(model, ioCore, ioLatexCommon)
+  .settings(
+    name := "innovenso-townplanner-io-latex-pictures",
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest,
     libraryDependencies += lorem
@@ -101,7 +111,7 @@ lazy val ioLatexDocument = project
   .in(file("io-latex-document"))
   .dependsOn(model, ioCore, ioDiagrams, ioLatexCommon)
   .settings(
-    name := "innovenso-towplanner-io-latex-document",
+    name := "innovenso-townplanner-io-latex-document",
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest,
     libraryDependencies += lorem

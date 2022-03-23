@@ -1,5 +1,7 @@
 @import txt.UsePackage
 @import txt.Command
+@import com.innovenso.townplan.io.model.IOConfiguration
+@import txt.DefineColor
 @()
 @UsePackage(name = "tikz")
 @UsePackage(name = "setspace")
@@ -16,6 +18,7 @@
 @UsePackage(name = "tikzscale")
 @UsePackage(name = "tikzpeople")
 @UsePackage(name = "pgfplots")
+@UsePackage(name = "pgfbaselayers")
 @UsePackage(name = "mathpazo")
 @UsePackage(name = "tcolorbox", parameters = Some("most"))
 @UsePackage(name = "wrapfig")
@@ -36,5 +39,8 @@
 @Command(name = "usetikzlibrary", requiredParameters = List("fadings"))
 @Command(name = "usetikzlibrary", requiredParameters = List("mindmap,trees"))
 
+@for(colorEntry <- IOConfiguration.colorScheme.toMap) {
+    @DefineColor(color = colorEntry._2, name = colorEntry._1)
+}
 \graphicspath{{images/}}
 

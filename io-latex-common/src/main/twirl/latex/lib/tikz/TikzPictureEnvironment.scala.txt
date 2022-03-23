@@ -1,0 +1,6 @@
+@import txt.Environment
+@import com.innovenso.townplanner.io.latex.model.TikzInstruction
+@(parameters: List[String] = Nil)(content: Txt)
+@Environment(name = "tikzpicture", optionalParameters = parameters) {
+  @content
+}

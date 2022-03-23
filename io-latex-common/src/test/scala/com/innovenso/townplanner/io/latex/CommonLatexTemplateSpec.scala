@@ -1,8 +1,17 @@
 package com.innovenso.townplanner.io.latex
 
 import com.innovenso.townplan.io.context.Output
+import com.innovenso.townplanner.io.latex.model.{
+  Bold,
+  Fill,
+  InnerSep,
+  Rectangle,
+  Uppercase,
+  VeryHugeFont
+}
+import com.innovenso.townplanner.io.latex.test.LatexIO
 import latex.lib.techradar.txt.RadarPositionPicture
-import latex.lib.tikz.txt.TikzDocument
+import latex.lib.tikz.txt.{TikzDocument, TikzStyle}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 import play.twirl.api.Txt
@@ -22,9 +31,24 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
     assert(command2 == "\\section[param1][param2]{required1}")
   }
 
+  "Text Variants" should "be applied correctly" in {
+    val original = "This is a text"
+    val variants = List(Bold, Uppercase)
+    assert(
+      LatexFormat.apply(
+        variants,
+        original
+      ) == "\\uppercase{\\textbf{This is a text}}"
+    )
+  }
+
   "An environment" should "be rendered properly" in {
     val document =
-      Environment(name = "section", parameters = Nil)(content = Txt(""))
+      Environment(
+        name = "section",
+        parameters = List("frame"),
+        optionalParameters = List("hello")
+      )(content = Txt(""))
     println(document.body)
   }
 
@@ -55,6 +79,19 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
         content = Txt("hello")
       )
     println(f.body)
+  }
+
+  "A TikZ style" should "render correctly" in {
+    val s = TikzStyle(
+      "block",
+      List(Rectangle, Fill("green"), VeryHugeFont, InnerSep(0.5))
+    )
+    println(s.body)
+  }
+
+  "A radar position drawing" should "output TikZ syntax" in new LatexIO {
+    val p = RadarPositionPicture(technology = samples.technique)
+    println(p.body)
   }
 
   "A radar position drawing" should "render correctly" in new LatexIO {

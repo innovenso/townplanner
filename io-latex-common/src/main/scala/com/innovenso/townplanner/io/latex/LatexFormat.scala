@@ -1,6 +1,19 @@
 package com.innovenso.townplanner.io.latex
 
+import com.innovenso.townplanner.io.latex.model.TextVariant
+
+import scala.annotation.tailrec
+
 object LatexFormat {
+
+  def escapeAndApply(text: String, variants: List[TextVariant]): String =
+    apply(variants, escape(text))
+
+  def apply(variants: List[TextVariant], text: String): String =
+    variants match {
+      case Nil       => text
+      case x :: tail => apply(tail, x.apply(text))
+    }
 
   def escape(text: String): String = {
     var i = 0

@@ -1,0 +1,3 @@
+@import com.innovenso.townplanner.io.latex.model.TikzInstruction
+@(instruction: TikzInstruction)
+@instruction.print

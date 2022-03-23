@@ -44,6 +44,11 @@ trait HasBusinessCapabilities
   )
   def businessCapability(key: Key): Option[BusinessCapability] =
     component(key, classOf[BusinessCapability])
+  def level(businessCapability: BusinessCapability): Int =
+    parentBusinessCapability(businessCapability)
+      .map(level(_) + 1)
+      .getOrElse(0)
+
   def level0businessCapabilities(
       enterprise: Enterprise
   ): List[BusinessCapability] = directIncomingDependencies(

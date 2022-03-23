@@ -1,5 +1,8 @@
 @import txt.Environment
-@()(content: Txt)
+@import com.innovenso.townplanner.io.latex.model.TikzInstruction
+@(instructions: List[TikzInstruction])
 @Environment("tikzpicture") {
-    @content
+    @for(instruction <- instructions) {
+      @instruction.print
+    }
 }

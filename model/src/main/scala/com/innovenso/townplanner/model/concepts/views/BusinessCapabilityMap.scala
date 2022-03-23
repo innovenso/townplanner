@@ -72,6 +72,8 @@ case class CompiledBusinessCapabilityMap(
     with HasBusinessCapabilities
     with HasEnterprises {
   def enterprise: Option[Enterprise] = enterprises.headOption
+  def level0BusinessCapabilities: List[BusinessCapability] =
+    enterprise.map(level0businessCapabilities).getOrElse(Nil)
 }
 
 case class BusinessCapabilityMapCompiler(

@@ -8,10 +8,11 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-docs.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-docs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-core.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-diagram.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-diagram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-latex-common.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-latex-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-latex-document.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-latex-document.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-latex-pictures.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-latex-pictures.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-radar.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-io-radar.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-townplanner-sample.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-townplanner-sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-towplanner-io-latex-common.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-towplanner-io-latex-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/innovenso-towplanner-io-latex-document.iml" filepath="$PROJECT_DIR$/.idea/modules/innovenso-towplanner-io-latex-document.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/model.innovenso-townplanner-model.iml" filepath="$PROJECT_DIR$/.idea/modules/model.innovenso-townplanner-model.iml" />
     </modules>
   </component>

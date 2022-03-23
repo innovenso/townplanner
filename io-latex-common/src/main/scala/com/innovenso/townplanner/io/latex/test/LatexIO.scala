@@ -1,4 +1,4 @@
-package com.innovenso.townplanner.io.latex
+package com.innovenso.townplanner.io.latex.test
 
 import com.innovenso.townplan.io.context.{
   Output,
@@ -8,27 +8,19 @@ import com.innovenso.townplan.io.context.{
 }
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.TownPlanDiagramWriter
+import com.innovenso.townplanner.io.latex.LatexPdfWriter
 import com.innovenso.townplanner.io.latex.model.LatexSpecification
 import com.innovenso.townplanner.model.language.{
   CompiledView,
   ModelComponent,
   View
 }
-import com.innovenso.townplanner.model.meta.{
-  ADay,
-  ApplicationLayer,
-  Key,
-  Layer,
-  ModelComponentType,
-  SortKey,
-  Today
-}
+import com.innovenso.townplanner.model.meta._
 import com.innovenso.townplanner.model.samples.SampleFactory
 import com.innovenso.townplanner.model.{EnterpriseArchitecture, TownPlan}
 
 import java.io.File
 import java.nio.file.Files
-import scala.io.Source
 
 trait LatexIO {
   val ea = new EnterpriseArchitecture()

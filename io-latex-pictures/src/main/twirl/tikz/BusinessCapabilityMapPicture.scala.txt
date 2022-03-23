@@ -1,0 +1,53 @@
+@import com.innovenso.townplanner.io.latex.model._
+@import com.innovenso.townplanner.io.latex.picture.BusinessCapabilityLayoutHelper
+@import com.innovenso.townplanner.model.concepts.views.CompiledBusinessCapabilityMap
+@import latex.lib.tikz.txt.{Tikz, TikzDocument, TikzPictureEnvironment, TikzStyle}
+@import txt.Environment
+@import com.innovenso.townplanner.model.meta.Key
+@(view: CompiledBusinessCapabilityMap, helper: BusinessCapabilityLayoutHelper)
+@TikzDocument(view.title) {
+    \pgfdeclarelayer{layerZero}
+    \pgfdeclarelayer{layerOne}
+    \pgfdeclarelayer{main}
+    \pgfsetlayers{layerZero,layerOne,main}
+
+    @TikzStyle("level_zero", List(Rectangle, RoundedCorners, InnerSep(2)))
+    @TikzStyle("level_one", List(Rectangle, Fill("white"), InnerSep(1), RoundedCorners))
+    @TikzStyle("level_two", List(Rectangle, TinyFont, TextCentered, MinimumWidth(20), TextWidth(18), InnerSep(0.5), OuterSep(0)))
+    @TikzStyle("level_zero_title", List(TextCentered, Text("white"), TinyFont, MinimumWidth(20), TextWidth(18), InnerSep(1), OuterSep(0)))
+    @TikzStyle("level_one_title", List(TextCentered, TinyFont, MinimumWidth(20), TextWidth(18), InnerSep(1), OuterSep(0)))
+    @TikzStyle("level_one_title_line", List(LineWidth(0.1), Draw("black")))
+    @TikzStyle("level_two_title_line", List(LineWidth(0.05), Draw("gray")))
+    @TikzPictureEnvironment(parameters = List("node distance=1mm and 5mm")) {
+        @for(level0 <- view.level0BusinessCapabilities) {
+            @Environment(name = "pgfonlayer", parameters = List("layerOne")) {
+                @Tikz(TikzNode(title = level0.title, textVariants = List(Bold, Uppercase), identifier = level0.key, configuration = List(TikzStyleRef("level_zero_title")) ::: helper.positionInstruction(level0).toList ::: List(Anchor(SouthWest))))
+            }
+
+            @for(level1 <- view.childBusinessCapabilities(level0)) {
+                @Environment(name = "pgfonlayer", parameters = List("main")) {
+                    @Tikz(TikzNode (title = level1.title, identifier = level1.key, textVariants = List(Bold), configuration = List (TikzStyleRef ("level_one_title") ) ::: helper.positionInstruction (level1).toList ) )
+                    @Tikz(TikzLineBetween(origin = s"${level1.key.camelCased}.south west", target = s"${level1.key.camelCased}.south east", lineConfiguration = List(TikzStyleRef("level_one_title_line"))))
+                }
+                @for((level2,level2Index) <- view.childBusinessCapabilities (level1).zip(LazyList from 0) ) {
+                    @Tikz(TikzNode (title = level2.title, identifier = level2.key, configuration = List (TikzStyleRef ("level_two") ) ::: helper.positionInstruction(level2).toList) )
+                    @if(level2Index > 0) {
+                        @Tikz(TikzLineBetween(origin = s"[yshift=0.5mm]${level2.key.camelCased}.north west", target = s"[yshift=0.5mm]${level2.key.camelCased}.north east", lineConfiguration = List(TikzStyleRef("level_two_title_line"))))
+                    }
+                }
+                @Environment(name = "pgfonlayer", parameters = List ("layerOne") ) {
+                    @Tikz(TikzNode (title = "", identifier = Key(level1.key.camelCased + "_box"), configuration = List (TikzStyleRef ("level_one"), helper.boxFitInstruction(level1) ) ) )
+                }
+            }
+
+        }
+
+        @for(level0 <- view.level0BusinessCapabilities) {
+            @Environment(name = "pgfonlayer", parameters = List("layerZero")) {
+                @Tikz(TikzNode (title = "", identifier = Key (level0.key.camelCased + "_box"), configuration = List (TikzStyleRef ("level_zero"), helper.boxFitInstruction(level0)) ::: helper.backgroundColorInstruction(level0).toList) )
+            }
+        }
+
+    }
+}
+

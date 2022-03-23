@@ -1,5 +1,6 @@
 @import txt.Command
-@(name: String, parameters: List[String] = Nil)(content: Txt)
-@Command(name = "begin", requiredParameters = name :: parameters)
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@(name: String, parameters: List[String] = Nil, optionalParameters: List[String] = Nil)(content: Txt)
+\begin{@LatexFormat.escape(name)}@parameters.map(param => s"{${LatexFormat.escape(param)}}").mkString@optionalParameters.map(param => s"[${LatexFormat.escape(param)}]").mkString
 @content
-@Command(name = "end", requiredParameters = List(name))
+\end{@LatexFormat.escape(name)}

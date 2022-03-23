@@ -1,0 +1,3 @@
+@import com.innovenso.townplanner.io.latex.model.TikzStyleInstruction
+@(name: String, instructions: List[TikzStyleInstruction])
+\tikzstyle{@name}=[@instructions.map(_.value).mkString(",")]

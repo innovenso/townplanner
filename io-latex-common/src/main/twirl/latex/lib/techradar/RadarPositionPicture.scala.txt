@@ -6,35 +6,42 @@
 @import com.innovenso.townplanner.model.concepts.properties.BeMigrated
 @import com.innovenso.townplanner.model.concepts.properties.BeEliminated
 @import latex.lib.tikz.txt.TikzPicture
+@import com.innovenso.townplanner.io.latex.model.TikzThis
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.Rotate
+@import com.innovenso.townplanner.io.latex.model.Text
+@import com.innovenso.townplanner.io.latex.model.FootnoteFont
+@import com.innovenso.townplanner.io.latex.model.TextCentered
+@import com.innovenso.townplanner.io.latex.model.TikzLine
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.North
+@import com.innovenso.townplanner.io.latex.model.Midway
+@import com.innovenso.townplanner.io.latex.model.TextHeight
 @(technology: Technology)
-@TikzPicture() {
-    \draw[] (1cm,0) arc[start angle=0, end angle=90,radius=1cm];
-    \draw[] (2cm,0) arc[start angle=0, end angle=90,radius=2cm];
-    \draw[] (3cm,0) arc[start angle=0, end angle=90,radius=3cm];
-    \draw[] (0,4cm) arc[start angle=90, end angle=0,radius=4cm];
-
-    \draw (0,0) -- (0,4cm);
-
-    \node[rotate=90, text=lightgray, font=\footnotesize, text centered] at (-2mm, 2cm) (){ @LatexFormat.escape(technology.technologyType) };
-
-    \draw (0,0) -- (1cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeInvestedIn().name) };
-    \draw (1cm,0) -- (2cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeTolerated().name) };
-    \draw (2cm,0) -- (3cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeMigrated().name) };
-    \draw (3cm,0) -- (4cm,0) node [font=\tiny, anchor=north, midway, black, text height=2mm] { @LatexFormat.escape(BeEliminated().name) };
-
-    @technology.architectureVerdict match {
-      case _: BeInvestedIn => {
-          \node[font=\small] at (45:0.5cm)  { \faMapMarker* };
-      }
-      case _: BeTolerated => {
-          \node[font=\small] at (45:1.5cm)  { \faMapMarker* };
-      }
-      case _: BeMigrated => {
-          \node[font=\small] at (45:2.5cm)  { \faMapMarker* };
-      }
-      case _: BeEliminated => {
-          \node[font=\small] at (45:3.5cm)  { \faMapMarker* };
-      }
-      case _ => {}
+@TikzPicture(List(
+  TikzThis("\\draw[] (1cm,0) arc[start angle=0, end angle=90,radius=1cm]"),
+  TikzThis("\\draw[] (2cm,0) arc[start angle=0, end angle=90,radius=2cm]"),
+    TikzThis("\\draw[] (3cm,0) arc[start angle=0, end angle=90,radius=3cm]"),
+    TikzThis("\\draw[] (0,4cm) arc[start angle=90, end angle=0,radius=4cm]"),
+    TikzThis("\\draw (0,0) -- (0,4cm)"),
+    TikzNode(title = technology.technologyType, at=Some((-2,20)), configuration = List(Rotate(90), Text("lightgray"), FootnoteFont, TextCentered)),
+    TikzLine(0, 0, 10, 0, Some(BeInvestedIn().name), List(TinyFont, Anchor(North), Midway, Text("black"), TextHeight(2))),
+    TikzLine(10, 0, 20, 0, Some(BeTolerated().name), List(TinyFont, Anchor(North), Midway, Text("black"), TextHeight(2))),
+    TikzLine(20, 0, 30, 0, Some(BeMigrated().name), List(TinyFont, Anchor(North), Midway, Text("black"), TextHeight(2))),
+    TikzLine(30, 0, 40, 0, Some(BeEliminated().name), List(TinyFont, Anchor(North), Midway, Text("black"), TextHeight(2))),
+    technology.architectureVerdict match {
+        case _: BeInvestedIn => {
+            TikzThis("\\node[font=\\small] at (45:0.5cm)  { \\faMapMarker* }");
+        }
+        case _: BeTolerated => {
+            TikzThis("\\node[font=\\small] at (45:1.5cm)  { \\faMapMarker* }");
+        }
+        case _: BeMigrated => {
+            TikzThis("\\node[font=\\small] at (45:2.5cm)  { \\faMapMarker* }");
+        }
+        case _: BeEliminated => {
+            TikzThis("\\node[font=\\small] at (45:3.5cm)  { \\faMapMarker* }");
+        }
     }
-}
+))

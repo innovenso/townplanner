@@ -6,6 +6,7 @@ import com.innovenso.townplanner.io.latex.model.{
   KaoBookLibrary,
   LatexSpecification
 }
+import com.innovenso.townplanner.io.latex.test.LatexIO
 import com.innovenso.townplanner.model.concepts.Enterprise
 import com.innovenso.townplanner.model.concepts.views.FullTownPlanView
 import org.scalatest.GivenWhenThen
