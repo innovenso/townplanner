@@ -1,3 +1,5 @@
 @import txt.Environment
-@(title: String, subtitle: Option[String] = None)(content: Txt)
-@Environment(name = "frame", parameters = List(title) ++ subtitle.toList)(content = content)
+@(title: String, subtitle: Option[String] = None, condition: Boolean = true)(content: Txt)
+@if(condition) {
+    @Environment(name = "frame", parameters = List(title) ++ subtitle.toList)(content = content)
+}

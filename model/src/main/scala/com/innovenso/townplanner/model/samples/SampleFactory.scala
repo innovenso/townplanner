@@ -6,6 +6,10 @@ import com.innovenso.townplanner.model.concepts.{
   ArchitectureBuildingBlock,
   BusinessCapability,
   Database,
+  Decision,
+  DecisionOption,
+  DecisionStatus,
+  DesignPrinciple,
   Enterprise,
   Framework,
   ItPlatform,
@@ -13,7 +17,10 @@ import com.innovenso.townplanner.model.concepts.{
   ItSystemIntegration,
   Language,
   Microservice,
+  NotStarted,
+  Person,
   Platform,
+  Principle,
   Queue,
   Technique,
   Tool,
@@ -21,15 +28,39 @@ import com.innovenso.townplanner.model.concepts.{
 }
 import com.innovenso.townplanner.model.concepts.properties.{
   ArchitectureVerdict,
+  Assumption,
+  Availability,
   BeEliminated,
   BeInvestedIn,
   BeMigrated,
   BeTolerated,
+  Confidentiality,
+  Consequence,
+  Constraint,
+  CurrentState,
   Decommissioned,
   Description,
+  DoesNotMeetExpectations,
+  ExceedsExpectations,
   FatherTime,
+  FunctionalRequirement,
+  Goal,
   GoneToProduction,
-  StartedDevelopment
+  HealthDataCompliance,
+  HighImpact,
+  Integrity,
+  LowImpact,
+  MediumImpact,
+  MeetsExpectations,
+  Opportunity,
+  PCICompliance,
+  PrivacyCompliance,
+  QualityAttributeRequirement,
+  StartedDevelopment,
+  Strength,
+  Threat,
+  Weakness,
+  Website
 }
 import com.innovenso.townplanner.model.concepts.relationships.{
   Flow,
@@ -175,6 +206,129 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     ea describes ItPlatform(title = title) as { it =>
       it has Description(description)
       if (realizedBuildingBlock.isDefined) it realizes realizedBuildingBlock.get
+    }
+
+  def decision(
+      forEnterprise: Option[Enterprise] = None,
+      status: DecisionStatus = NotStarted
+  ): Decision = {
+    val stakeholders = (1 to randomInt(10)).map(_ => person(forEnterprise))
+    val responsible = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val accountable = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val consulted = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val informed = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val technologies = (1 to randomInt(5)).map(_ => language)
+    val theCapability = capability(forEnterprise)
+    val theBuildingBlock = buildingBlock(Some(theCapability))
+    val systems = (1 to randomInt(3)).map(_ =>
+      system(realizedBuildingBlock = Some(theBuildingBlock))
+    )
+    val principles = (1 to randomInt(5)).map(_ => principle(forEnterprise))
+
+    val theDecision = ea describes Decision(
+      title = title,
+      outcome = description,
+      status = status
+    ) as { it =>
+      (1 to randomInt(5)).foreach(_ => it has Description(description))
+      (1 to randomInt(5)).foreach(_ =>
+        it has CurrentState(description = description)
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has Assumption(description = description)
+      )
+      (1 to randomInt(5)).foreach(_ => it has Goal(description = description))
+      (1 to randomInt(5)).foreach(_ =>
+        it has Consequence(description = description)
+      )
+      val functionalRequirements = (1 to randomInt(5)).map(_ =>
+        it has FunctionalRequirement(title = title, description = description)
+      )
+      val qar = (1 to randomInt(5)).map(_ =>
+        it has QualityAttributeRequirement(
+          title = title,
+          sourceOfStimulus = name,
+          stimulus = description,
+          environment = title,
+          response = description,
+          responseMeasure = title
+        )
+      )
+      val constraints = (1 to randomInt(5)).map(_ =>
+        it has Constraint(title = title, description = description)
+      )
+      (1 to randomInt(5)).foreach(_ => it has Website(title = title, url = url))
+      it dealsWith PrivacyCompliance(description)
+      it dealsWith PCICompliance(description)
+      it dealsWith HealthDataCompliance(description)
+      it has HighImpact on Confidentiality(description = description)
+      it has MediumImpact on Integrity(description = description)
+      it has LowImpact on Availability(description = description)
+
+      stakeholders.foreach(them => it hasStakeholder them)
+      responsible.foreach(them => it isResponsibilityOf them)
+      accountable.foreach(them => it isAccountabilityOf them)
+      consulted.foreach(them => it hasConsulted them)
+      informed.foreach(them => it hasInformed them)
+
+      principles.foreach(them => it isInfluencedBy them)
+
+      technologies.foreach(t => it changes t)
+      it creates theCapability
+      it keeps theBuildingBlock
+      systems.foreach(s => it changes s)
+    }
+
+    (1 to randomInt(6)).foreach(_ =>
+      ea describes DecisionOption(title = title) as { option =>
+        (1 to randomInt(5)).foreach(_ => option has Description(description))
+        (1 to randomInt(5)).foreach(_ =>
+          option has Website(title = title, url = url)
+        )
+        (1 to randomInt(5)).foreach(_ =>
+          option has Strength(description = description)
+        )
+        (1 to randomInt(5)).foreach(_ =>
+          option has Weakness(description = description)
+        )
+        (1 to randomInt(5)).foreach(_ =>
+          option has Opportunity(description = description)
+        )
+        (1 to randomInt(5)).foreach(_ =>
+          option has Threat(description = description)
+        )
+
+        theDecision.functionalRequirements.foreach(f =>
+          option scores MeetsExpectations(description =
+            description
+          ) on f.key.value of theDecision
+        )
+        theDecision.qualityAttributeRequirements.foreach(f =>
+          option scores DoesNotMeetExpectations(description =
+            description
+          ) on f.key.value of theDecision
+        )
+        theDecision.constraints.foreach(f =>
+          option scores ExceedsExpectations(description =
+            description
+          ) on f.key.value of theDecision
+        )
+      }
+    )
+
+    theDecision
+  }
+
+  def person(forEnterprise: Option[Enterprise] = None): Person =
+    ea describes Person(title = name) as { it =>
+      if (forEnterprise.isDefined) it serves forEnterprise.get
+      it has Description(description)
+    }
+
+  def principle(forEnterprise: Option[Enterprise] = None): Principle =
+    ea describes DesignPrinciple(title = title) as { it =>
+      it has Description(description)
+      if (forEnterprise.isDefined) it serves forEnterprise.get
     }
 
   def system(

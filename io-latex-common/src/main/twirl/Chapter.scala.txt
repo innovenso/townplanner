@@ -1,5 +1,7 @@
 @import txt.Environment
 @import txt.Command
-@(title: String, numbered: Boolean = true)(content: Txt)
-@Command(name = if(numbered) "chapter" else "chapter*", requiredParameters = List(title))
-@content
+@(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)
+@if(condition) {
+    @Command(name = if(numbered) "chapter" else "chapter*", requiredParameters = List(title))
+    @content
+}

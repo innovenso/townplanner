@@ -1,11 +1,13 @@
 @import txt.Environment
 @import txt.Command
-@(title: String, forBook: Boolean = false)(content: Txt)
-@if(forBook) {
-    @Command(name = "pagelayout", requiredParameters = List("wide"))
+@(title: String, forBook: Boolean = false, condition: Boolean = true)(content: Txt)
+@if(condition) {
+    @if(forBook) {
+        @Command(name = "pagelayout", requiredParameters = List("wide"))
+    }
+    @Command(name = "part", requiredParameters = List(title))
+    @if(forBook) {
+        @Command(name = "pagelayout", requiredParameters = List("margin"))
+    }
+    @content
 }
-@Command(name = "part", requiredParameters = List(title))
-@if(forBook) {
-    @Command(name = "pagelayout", requiredParameters = List("margin"))
-}
-@content

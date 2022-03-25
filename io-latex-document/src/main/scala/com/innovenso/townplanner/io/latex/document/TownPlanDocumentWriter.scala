@@ -41,6 +41,6 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
     views(townPlan).find(_.key == key)
 
   def views(townPlan: TownPlan): List[_ <: CompiledView[_ <: View]] =
-    townPlan.businessCapabilityMaps ++ townPlan.fullTownPlanViews ++ townPlan.projectMilestoneImpactViews ++ townPlan.technologyRadars
+    townPlan.businessCapabilityMaps ++ townPlan.fullTownPlanViews ++ townPlan.projectMilestoneImpactViews ++ townPlan.technologyRadars ++ townPlan.architectureDecisionRecords
 
 }

@@ -1,0 +1,11 @@
+@import com.innovenso.townplanner.io.latex.model.tables.LatexTable
+@import txt.Environment
+@import txt.Command
+@import latex.lib.tables.txt.Tabular
+@(table: LatexTable, title: Option[String] = None)
+@Environment("table*", optionalParameters = List("h!")) {
+    @Tabular(table)
+    @if(title.isDefined) {
+        @Command("caption", requiredParameters = title.toList)
+    }
+}

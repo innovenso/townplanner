@@ -1,0 +1,76 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledArchitectureDecisionRecord
+@import txt.KaoBook
+@import txt.Document
+@import txt.Preamble
+@import txt.DocumentTitle
+@import txt.FrontMatter
+@import txt.BookTableOfContents
+@import txt.MainMatter
+@import txt.Chapter
+@import txt.Text
+@import latex.lib.txt.Description
+@import txt.Section
+@import txt.Paragraph
+@import txt.SubSection
+@import txt.SubSubSection
+@import latex.lib.txt.Itemize
+@import latex.lib.txt.Dictionary
+@import latex.lib.tables.txt.Table
+@import com.innovenso.townplanner.io.latex.document.model.RaciTable
+@import latex.lib.tables.txt.WideTable
+@(view: CompiledArchitectureDecisionRecord)
+@KaoBook()
+@Document {
+    @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
+    @DocumentTitle()
+    @FrontMatter()
+    @BookTableOfContents()
+    @MainMatter()
+
+    @for(decoratedDecision <- view.decoratedDecisions) {
+      @Chapter(decoratedDecision.decision.title) {
+        @Section("Context", condition = decoratedDecision.hasContext) {
+
+            @Description(decoratedDecision.decision)
+
+
+            @SubSection("Current Conditions", condition = decoratedDecision.hasCurrentConditions) {
+                @for(currentCondition <- decoratedDecision.decision.currentState) {
+                  @Paragraph(currentCondition.title) {
+                    @Text(currentCondition.description)
+                  }
+                }
+            }
+            @SubSection("Goals", condition = decoratedDecision.hasGoals) {
+              @for(goal <- decoratedDecision.decision.goals) {
+                  @Paragraph(goal.title) {
+                      @Text(goal.description)
+                  }
+              }
+            }
+            @SubSection("Assumptions", condition = decoratedDecision.hasAssumptions) {
+              @for(assumption <- decoratedDecision.decision.assumptions) {
+                  @Paragraph(assumption.title) {
+                      @Text(assumption.description)
+                  }
+              }
+            }
+
+                @WideTable(table = RaciTable(decoratedDecision).table, title = Some(decoratedDecision.decision.title + " - RACI"))
+
+              @SubSection("Influencers", condition = decoratedDecision.hasInfluencers || decoratedDecision.hasInfluencingPrinciples) {
+                      @SubSubSection("People", condition = decoratedDecision.hasInfluencers) {
+                          @Itemize(decoratedDecision.influencers.map(_.title))
+                      }
+                  @SubSubSection("Principles", condition = decoratedDecision.hasInfluencingPrinciples) {
+                      @Dictionary(decoratedDecision.influencingPrinciples.map(p => (p.title, p.descriptions.headOption.map(_.value).getOrElse("-"))))
+                  }
+              }
+            @SubSection("Stakeholders", condition = decoratedDecision.hasStakeholders) {
+                    @Itemize(decoratedDecision.stakeholders.map(_.title))
+            }
+        }
+
+      }
+    }
+}

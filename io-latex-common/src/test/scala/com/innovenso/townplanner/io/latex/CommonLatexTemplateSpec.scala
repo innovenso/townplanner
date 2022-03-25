@@ -1,6 +1,18 @@
 package com.innovenso.townplanner.io.latex
 
 import com.innovenso.townplan.io.context.Output
+import com.innovenso.townplanner.io.latex.model.tables.{
+  ColumnCenter,
+  ColumnLeft,
+  ColumnParagraph,
+  ColumnRight,
+  LatexBodyRow,
+  LatexEmptyCell,
+  LatexHeaderRow,
+  LatexSecondaryHeaderRow,
+  LatexTable,
+  LatexTextCell
+}
 import com.innovenso.townplanner.io.latex.model.{
   Bold,
   Fill,
@@ -10,11 +22,12 @@ import com.innovenso.townplanner.io.latex.model.{
   VeryHugeFont
 }
 import com.innovenso.townplanner.io.latex.test.LatexIO
+import latex.lib.tables.txt.Table
 import latex.lib.techradar.txt.RadarPositionPicture
 import latex.lib.tikz.txt.{TikzDocument, TikzStyle}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
-import play.twirl.api.Txt
+import play.twirl.api.{Txt, TxtFormat}
 import txt.{Command, Environment, Frame, Preamble, Section, UsePackage}
 
 import java.time.LocalDate
@@ -104,6 +117,42 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
         )
       )
     )
+  }
 
+  "A table" should "output correct syntax" in new LatexIO {
+    val headerRow: LatexHeaderRow = LatexHeaderRow(
+      List(
+        LatexEmptyCell,
+        LatexTextCell(samples.title),
+        LatexTextCell(samples.title),
+        LatexTextCell(samples.title)
+      )
+    )
+    val secondaryHeaderRow: LatexSecondaryHeaderRow = LatexSecondaryHeaderRow(
+      List(
+        LatexEmptyCell,
+        LatexTextCell(samples.title, colspan = 2),
+        LatexTextCell(samples.title)
+      )
+    )
+    val bodyRows: List[LatexBodyRow] = (1 to 10)
+      .map(_ =>
+        LatexBodyRow((1 to 4).map(_ => LatexTextCell(samples.title)).toList)
+      )
+      .toList
+    val table: LatexTable =
+      LatexTable(
+        List(ColumnParagraph(50), ColumnCenter, ColumnCenter, ColumnRight),
+        secondaryHeaderRow :: headerRow :: bodyRows
+      )
+    val output: TxtFormat.Appendable = Table(table, title = Some(samples.title))
+    println(output.body)
+    assert(
+      assetsExistWhen(
+        pdfIsWritten(
+          TikzDocument("Table")(output).body
+        )
+      )
+    )
   }
 }

@@ -3,6 +3,8 @@ package com.innovenso.townplanner.model.concepts.relationships
 import com.innovenso.townplanner.model.concepts.properties.Property
 import com.innovenso.townplanner.model.meta.Key
 
+trait RACI extends Relationship
+
 case class Responsible(
     key: Key = Key(),
     source: Key,
@@ -10,7 +12,7 @@ case class Responsible(
     title: String = "is responsible for",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends RACI {
   val relationshipType: RelationshipType = RelationshipType(
     "is responsible for",
     "The responsible relationship represents that a element, typically an individual or team, is responsible for another element."
@@ -31,7 +33,7 @@ case class Accountable(
     title: String = "is accountable for",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends RACI {
   val relationshipType: RelationshipType = RelationshipType(
     "is accountable for",
     "The accountable relationship represents that a element, typically an individual or team, is accountable for another element."
@@ -49,7 +51,7 @@ case class Consulted(
     title: String = "is consulted about",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends RACI {
   val relationshipType: RelationshipType = RelationshipType(
     "is consulted about",
     "The consulted relationship represents that a element, typically an individual or team, has been consulted about another element."
@@ -67,7 +69,7 @@ case class Informed(
     title: String = "is informed about",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends RACI {
   val relationshipType: RelationshipType = RelationshipType(
     "is informed about",
     "The informed relationship represents that a element, typically an individual or team, has been informed about another element."

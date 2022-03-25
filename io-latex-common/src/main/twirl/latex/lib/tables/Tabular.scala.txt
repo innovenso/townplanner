@@ -1,0 +1,12 @@
+@import com.innovenso.townplanner.io.latex.model.tables.LatexTable
+@import txt.Environment
+@import txt.Command
+@(table: LatexTable)
+\begin{tabular}{@table.alignment.map(_.value).mkString}
+    @Command("toprule")
+    @for(row <- table.rows) {
+        @row.print
+    }
+    @Command("bottomrule")
+\end{tabular}
+
