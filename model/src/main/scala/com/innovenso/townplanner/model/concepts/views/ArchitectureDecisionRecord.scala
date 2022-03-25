@@ -192,6 +192,13 @@ case class DecisionDecorator(
 
   val hasContext: Boolean =
     hasNemawashi || hasDescriptions || hasCurrentConditions || hasGoals || hasAssumptions || hasInfluencers || hasInfluencingPrinciples
+
+  val hasRequirements: Boolean = decision.requirements.nonEmpty
+  val hasFunctionalRequirements: Boolean =
+    decision.functionalRequirements.nonEmpty
+  val hasQualityAttributeRequirements: Boolean =
+    decision.qualityAttributeRequirements.nonEmpty
+  val hasConstraints: Boolean = decision.constraints.nonEmpty
 }
 
 case class ArchitectureDecisionRecordCompiler(

@@ -1,0 +1,18 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.model.concepts.properties.FunctionalRequirement
+@import com.innovenso.townplanner.io.latex.model.Bold
+@import latex.lib.txt.RequirementWeightMarginNote
+@(items: List[FunctionalRequirement], forBook: Boolean = false)
+@if(items.nonEmpty) {
+    @Environment("description") {
+        @for(item <- items) {
+          @if(forBook) {
+              \item[@LatexFormat.escape(item.title)] @RequirementWeightMarginNote(item) @LatexFormat.escape(item.description)
+          } else {
+              \item[@LatexFormat.escape(item.title) (@LatexFormat.escape(item.weight.name))] @LatexFormat.escape(item.description)
+          }
+        }
+    }
+}

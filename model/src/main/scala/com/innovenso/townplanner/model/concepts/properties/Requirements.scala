@@ -61,30 +61,41 @@ trait CanConfigureRequirements[
 
 trait RequirementWeight {
   def name: String
+  def description: String
   def weight: Int
 }
 
 case object MustHave extends RequirementWeight {
   val name: String = "Must Have"
+  val description: String =
+    "This requirement is non-negotiable. Any option that does not meet it should be rejected."
   val weight: Int = 21
 }
 
 case object ShouldHave extends RequirementWeight {
   val name: String = "Should Have"
+  val description: String =
+    "This requirement is very important and should weigh heavily on any decision."
   val weight: Int = 13
 }
 
 case object CouldHave extends RequirementWeight {
   val name: String = "Could Have"
+  val description: String =
+    "This requirement can be used to tip the balance in case multiple options meet the same must-haves and should-haves."
   val weight: Int = 8
 }
 
 case object WouldHave extends RequirementWeight {
   val name: String = "Would Have"
+  val description: String =
+    "Not really a requirement, but would be nice to have."
   val weight: Int = 5
 }
 
 case object UnknownRequirementWeight extends RequirementWeight {
   val name: String = "Unknown"
+  val description: String =
+    "The weight of this requirement has not been determined yet."
   val weight: Int = 1
 }

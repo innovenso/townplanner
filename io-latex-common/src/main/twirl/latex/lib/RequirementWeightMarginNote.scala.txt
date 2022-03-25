@@ -1,0 +1,5 @@
+@import com.innovenso.townplanner.model.concepts.properties.Requirement
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.io.latex.model.Bold
+@(requirement: Requirement)
+\marginnote[2pt]{@LatexFormat.escapeAndApply(requirement.weight.name, List(Bold)) @LatexFormat.escape(requirement.weight.description)}

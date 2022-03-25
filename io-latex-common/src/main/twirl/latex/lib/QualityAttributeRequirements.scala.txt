@@ -1,0 +1,38 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.model.concepts.properties.FunctionalRequirement
+@import com.innovenso.townplanner.io.latex.model.Bold
+@import latex.lib.txt.RequirementWeightMarginNote
+@import txt.Paragraph
+@import txt.Paragraph
+@import com.innovenso.townplanner.model.concepts.properties.QualityAttributeRequirement
+@import txt.SubParagraph
+@import txt.Text
+@import txt.SubSubSection
+@(items: List[QualityAttributeRequirement], forBook: Boolean = false)
+@if(items.nonEmpty) {
+        @for(item <- items) {
+            @SubSubSection(item.title) {
+                  @if(forBook) {
+                    @RequirementWeightMarginNote(item)
+                  }
+                  @LatexFormat.escape(item.description)
+                  @SubParagraph("Source of Stimulus", condition = !item.sourceOfStimulus.isBlank) {
+                    @Text(item.sourceOfStimulus)
+                  }
+                @SubParagraph("Stimulus", condition = !item.stimulus.isBlank) {
+                    @Text(item.stimulus)
+                }
+                @SubParagraph("Environment", condition = !item.environment.isBlank) {
+                    @Text(item.environment)
+                }
+                @SubParagraph("Response", condition = !item.response.isBlank) {
+                    @Text(item.response)
+                }
+                @SubParagraph("Response Measure", condition = !item.responseMeasure.isBlank) {
+                    @Text(item.responseMeasure)
+                }
+            }
+        }
+}

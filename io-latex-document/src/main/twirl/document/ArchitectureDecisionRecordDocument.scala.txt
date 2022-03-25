@@ -18,6 +18,9 @@
 @import latex.lib.tables.txt.Table
 @import com.innovenso.townplanner.io.latex.document.model.RaciTable
 @import latex.lib.tables.txt.WideTable
+@import latex.lib.txt.FunctionalRequirements
+@import latex.lib.txt.QualityAttributeRequirements
+@import latex.lib.txt.Constraints
 @(view: CompiledArchitectureDecisionRecord)
 @KaoBook()
 @Document {
@@ -69,6 +72,26 @@
             @SubSection("Stakeholders", condition = decoratedDecision.hasStakeholders) {
                     @Itemize(decoratedDecision.stakeholders.map(_.title))
             }
+        }
+
+        @Section("Analysis", condition = decoratedDecision.hasRequirements) {
+          @SubSection("Functional Requirements", condition = decoratedDecision.hasFunctionalRequirements) {
+            @FunctionalRequirements(decoratedDecision.decision.functionalRequirements, forBook = true)
+          }
+            @SubSection("Quality Attribute Requirements", condition = decoratedDecision.hasQualityAttributeRequirements) {
+                @QualityAttributeRequirements(decoratedDecision.decision.qualityAttributeRequirements, forBook = true)
+            }
+            @SubSection("Constraints", condition = decoratedDecision.hasConstraints) {
+                @Constraints(decoratedDecision.decision.constraints, forBook = true)
+            }
+        }
+
+        @Section("Options Considered") {
+          @for(decisionOption <- view.options(decoratedDecision.decision)) {
+            @SubSection(decisionOption.title) {
+              Hello
+            }
+          }
         }
 
       }
