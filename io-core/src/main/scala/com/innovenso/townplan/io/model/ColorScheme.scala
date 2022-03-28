@@ -1,5 +1,7 @@
 package com.innovenso.townplan.io.model
 
+import com.innovenso.townplanner.model.meta.Color
+
 case class ColorScheme(
     textColor: Color = Color(37, 26, 6),
     highlightColor: Color = Color(8, 136, 140),
@@ -45,4 +47,3 @@ case class ColorScheme(
   )
 }
 
-case class Color(red: Int, green: Int, blue: Int)

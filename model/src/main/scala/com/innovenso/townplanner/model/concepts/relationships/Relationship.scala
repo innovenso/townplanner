@@ -1,6 +1,9 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  CanConfigureDescription,
+  CanConfigureFatherTime,
   HasDescription,
   HasFatherTime
 }
@@ -228,6 +231,13 @@ trait HasRelationships extends HasModelComponents {
       r.source == element.key || r.target == element.key
     )
 }
+
+case class RelationshipConfigurer[RelationshipType <: Relationship](
+    modelComponent: RelationshipType,
+    propertyAdder: CanAddProperties,
+    relationshipAdder: CanAddRelationships
+) extends CanConfigureDescription[RelationshipType]
+    with CanConfigureFatherTime[RelationshipType] {}
 
 trait CanAddRelationships extends CanAddModelComponents {
   def hasRelationship(relationship: Relationship): Relationship = {

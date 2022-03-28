@@ -281,6 +281,7 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
 
     (1 to randomInt(6)).foreach(_ =>
       ea describes DecisionOption(title = title) as { option =>
+        option isPartOf theDecision
         (1 to randomInt(5)).foreach(_ => option has Description(description))
         (1 to randomInt(5)).foreach(_ =>
           option has Website(title = title, url = url)

@@ -26,3 +26,8 @@ case object ImplementationLayer extends Layer {
 case object MotivationLayer extends Layer {
   val name = "Motivation"
 }
+
+case object OtherLayer extends Layer {
+  val name = "Other"
+}
+
