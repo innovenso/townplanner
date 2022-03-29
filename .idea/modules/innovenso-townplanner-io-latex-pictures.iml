@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../io-latex-pictures/target/scala-2.13/twirl/main" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../io-latex-pictures/target" />
       <excludeFolder url="file://$MODULE_DIR$/../../io-latex-pictures/target/streams" />
+      <excludeFolder url="file://$MODULE_DIR$/../../io-latex-pictures/target/test-reports" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

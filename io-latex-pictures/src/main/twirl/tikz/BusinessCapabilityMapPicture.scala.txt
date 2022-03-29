@@ -20,7 +20,7 @@
     @TikzStyle("level_one_title_line", List(LineWidth(0.1), Draw("black")))
     @TikzStyle("level_two_title_line", List(LineWidth(0.05), Draw("gray")))
     @TikzStyle("tag", List(Rectangle, InnerSep(0), MinimumHeight(0.5), MinimumWidth(3), Anchor(West)))
-    @TikzPictureEnvironment(parameters = List("node distance=1mm and 5mm")) {
+    @TikzPictureEnvironment(parameters = List("node distance=1mm and 6mm")) {
         @for(level0 <- view.level0BusinessCapabilities) {
             @Environment(name = "pgfonlayer", parameters = List("layerOne")) {
                 @Tikz(TikzNode(title = level0.title, textVariants = List(Bold, Uppercase), identifier = level0.key, configuration = List(TikzStyleRef("level_zero_title")) ::: helper.positionInstruction(level0).toList ::: List(Anchor(SouthWest))))

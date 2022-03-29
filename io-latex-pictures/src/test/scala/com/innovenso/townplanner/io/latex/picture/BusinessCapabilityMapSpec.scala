@@ -181,10 +181,10 @@ class BusinessCapabilityMapSpec extends AnyFlatSpec with GivenWhenThen {
     val enterprise: Enterprise = samples.enterprise
     (1 to 3).foreach(_ => {
       val level0 = samples.capability(Some(enterprise))
-      (1 to samples.randomInt(4)).foreach(_ => {
+      (1 to samples.randomInt(10)).foreach(_ => {
         val level1 = samples.capability(parentCapability = Some(level0))
-        (1 to samples.randomInt(3)).foreach(_ => {
-          val tags = (1 to samples.randomInt(4)).toList.map(_ => samples.tag)
+        (1 to samples.randomInt(10)).foreach(_ => {
+          val tags = (1 to samples.randomInt(10)).toList.map(_ => samples.tag)
           samples.capability(parentCapability = Some(level1), tags = tags)
         })
       })
@@ -205,11 +205,11 @@ class BusinessCapabilityMapSpec extends AnyFlatSpec with GivenWhenThen {
   "A business capability map" should "render correctly" in new LatexIO {
     val enterprise: Enterprise = samples.enterprise
 
-    (1 to 3).foreach(_ => {
+    (1 to 20).foreach(_ => {
       val level0 = samples.capability(Some(enterprise))
-      (1 to samples.randomInt(4)).foreach(_ => {
+      (1 to samples.randomInt(10)).foreach(_ => {
         val level1 = samples.capability(parentCapability = Some(level0))
-        (1 to samples.randomInt(3)).foreach(_ => {
+        (1 to samples.randomInt(10)).foreach(_ => {
           val tags = (1 to samples.randomInt(4)).toList.map(_ => samples.tag)
           val level2 = samples.capability(parentCapability = Some(level1), tags = tags)
         })
