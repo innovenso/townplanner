@@ -1,4 +1,4 @@
-@import com.innovenso.townplan.io.model.Color
 @import txt.Command
+@import com.innovenso.townplanner.model.meta.Color
 @(color: Color, name: String)
 @Command("definecolor", requiredParameters = List(name, "RGB", s"${color.red},${color.green},${color.blue}"))

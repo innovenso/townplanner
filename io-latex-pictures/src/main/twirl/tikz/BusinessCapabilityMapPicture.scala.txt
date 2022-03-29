@@ -4,8 +4,9 @@
 @import latex.lib.tikz.txt.{Tikz, TikzDocument, TikzPictureEnvironment, TikzStyle}
 @import txt.Environment
 @import com.innovenso.townplanner.model.meta.Key
-@(view: CompiledBusinessCapabilityMap, helper: BusinessCapabilityLayoutHelper)
-@TikzDocument(view.title) {
+@import com.innovenso.townplanner.model.TownPlan
+@(townPlan: TownPlan, view: CompiledBusinessCapabilityMap, helper: BusinessCapabilityLayoutHelper)
+@TikzDocument( view.title, townPlan) {
     \pgfdeclarelayer{layerZero}
     \pgfdeclarelayer{layerOne}
     \pgfdeclarelayer{main}
@@ -13,11 +14,12 @@
 
     @TikzStyle("level_zero", List(Rectangle, RoundedCorners, InnerSep(2)))
     @TikzStyle("level_one", List(Rectangle, Fill("white"), InnerSep(1), RoundedCorners))
-    @TikzStyle("level_two", List(Rectangle, TinyFont, TextCentered, MinimumWidth(30), TextWidth(28), InnerSep(0.5), OuterSep(0)))
+    @TikzStyle("level_two", List(Rectangle, TinyFont, TextCentered, MinimumWidth(30), TextWidth(28), InnerSep(0.75), OuterSep(0.5)))
     @TikzStyle("level_zero_title", List(TextCentered, Text("white"), TinyFont, MinimumWidth(30), TextWidth(28), InnerSep(1), OuterSep(0)))
     @TikzStyle("level_one_title", List(TextCentered, TinyFont, MinimumWidth(30), TextWidth(28), InnerSep(1), OuterSep(0)))
     @TikzStyle("level_one_title_line", List(LineWidth(0.1), Draw("black")))
     @TikzStyle("level_two_title_line", List(LineWidth(0.05), Draw("gray")))
+    @TikzStyle("tag", List(Rectangle, InnerSep(0), MinimumHeight(0.5), MinimumWidth(3), Anchor(West)))
     @TikzPictureEnvironment(parameters = List("node distance=1mm and 5mm")) {
         @for(level0 <- view.level0BusinessCapabilities) {
             @Environment(name = "pgfonlayer", parameters = List("layerOne")) {
@@ -31,6 +33,9 @@
                 }
                 @for((level2,level2Index) <- view.childBusinessCapabilities (level1).zip(LazyList from 0) ) {
                     @Tikz(TikzNode (title = level2.title, identifier = level2.key, configuration = List (TikzStyleRef ("level_two") ) ::: helper.positionInstruction(level2).toList) )
+                    @for(tag <- view.tags(level2)) {
+                        @Tikz(TikzNode(title = "", orAt = Some(s"${level2.key.camelCased}.south west"), configuration = List(TikzStyleRef("tag")) ::: helper.tagColor(tag).toList ::: helper.tagPosition(tag, level2).toList))
+                    }
                     @if(level2Index > 0) {
                         @Tikz(TikzLineBetween(origin = s"[yshift=0.5mm]${level2.key.camelCased}.north west", target = s"[yshift=0.5mm]${level2.key.camelCased}.north east", lineConfiguration = List(TikzStyleRef("level_two_title_line"))))
                     }

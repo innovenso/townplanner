@@ -20,7 +20,7 @@ object PictureSpecificationWriter {
       List(
         LatexSpecification(
           view = businessCapabilityMap,
-          latexSourceCode = BusinessCapabilityMapPicture(
+          latexSourceCode = BusinessCapabilityMapPicture(townPlan,
             businessCapabilityMap,
             BusinessCapabilityLayoutHelper(businessCapabilityMap)
           ).body,

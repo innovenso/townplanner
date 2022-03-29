@@ -1,7 +1,8 @@
 @import txt.DocumentClass
 @import txt.CommonSettings
 @import txt.BookSettings
-@()
+@import com.innovenso.townplanner.model.TownPlan
+@(townPlan: TownPlan)
 @DocumentClass(name = "kaobook", options = List("a4paper", "fontsize=10pt", "twoside=true", "numbers=noenddot", "secnumdepth=3"))
-@CommonSettings()
+@CommonSettings(townPlan)
 @BookSettings()

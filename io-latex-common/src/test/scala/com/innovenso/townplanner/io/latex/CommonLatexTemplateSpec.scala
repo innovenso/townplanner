@@ -111,7 +111,7 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
     assert(
       assetsExistWhen(
         pdfIsWritten(
-          TikzDocument("Radar Position")(
+          TikzDocument("Radar Position", townPlan)(
             RadarPositionPicture(technology = samples.technique)
           ).body
         )
@@ -150,7 +150,7 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
     assert(
       assetsExistWhen(
         pdfIsWritten(
-          TikzDocument("Table")(output).body
+          TikzDocument("Table", townPlan)(output).body
         )
       )
     )

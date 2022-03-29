@@ -1,16 +1,9 @@
 package com.innovenso.townplanner.io.latex.picture
 
 import com.innovenso.townplan.io.model.{ColorScheme, IOConfiguration}
-import com.innovenso.townplanner.io.latex.model.{
-  AboveOf,
-  BelowOf,
-  Fill,
-  Fit,
-  LeftOf,
-  RightOf,
-  TikzStyleInstruction
-}
-import com.innovenso.townplanner.model.concepts.BusinessCapability
+import com.innovenso.townplanner.io.latex.model.{AboveOf, BelowOf, Draw, Fill, Fit, LeftOf, RightOf, TikzStyleInstruction, XShift}
+import com.innovenso.townplanner.model.concepts.properties.TagProperty
+import com.innovenso.townplanner.model.concepts.{BusinessCapability, Tag}
 import com.innovenso.townplanner.model.concepts.views.CompiledBusinessCapabilityMap
 
 case class BusinessCapabilityLayoutHelper(
@@ -61,6 +54,20 @@ case class BusinessCapabilityLayoutHelper(
   def backgroundColorInstruction(
       businessCapability: BusinessCapability
   ): Option[TikzStyleInstruction] = {
+    view.firstTag(businessCapability).map(tag => Some(Fill(s"tag${tag.key.camelCased}"))).getOrElse(backgroundColorInstructionFromColorScheme(businessCapability))
+  }
+
+  def tagColor (tag: Tag): Option[TikzStyleInstruction] = {
+    Some(Fill(s"tag${tag.key.camelCased}"))
+  }
+
+  def tagPosition (tag: Tag, businessCapability: BusinessCapability): Option[TikzStyleInstruction] = {
+    val position: Int = businessCapability.tags.indexWhere(p => p.tagKey == tag.key)
+    if (position > 0) Some(XShift(3.5 * position)) else None
+  }
+
+
+  private def backgroundColorInstructionFromColorScheme(businessCapability: BusinessCapability): Option[TikzStyleInstruction] = {
     val index = view.level0BusinessCapabilities.indexOf(businessCapability)
     val colorScheme: ColorScheme = IOConfiguration.colorScheme
     if (index < 0) None

@@ -42,7 +42,7 @@ trait HasBusinessCapabilityMaps
     extends HasViews
     with HasBusinessCapabilities
     with HasEnterprises
-    with HasBusinessActors {
+    with HasBusinessActors with HasTags {
   def businessCapabilityMaps: List[CompiledBusinessCapabilityMap] = components(
     classOf[BusinessCapabilityMap]
   ).map(view => BusinessCapabilityMapCompiler(view, this).compile)
@@ -70,15 +70,17 @@ case class CompiledBusinessCapabilityMap(
 ) extends CompiledView[BusinessCapabilityMap]
     with HasRelationships
     with HasBusinessCapabilities
-    with HasEnterprises {
+    with HasEnterprises
+    with HasTags {
   def enterprise: Option[Enterprise] = enterprises.headOption
   def level0BusinessCapabilities: List[BusinessCapability] =
     enterprise.map(level0businessCapabilities).getOrElse(Nil)
+  def firstTag(businessCapability: BusinessCapability): Option[Tag] = tags(businessCapability).headOption
 }
 
 case class BusinessCapabilityMapCompiler(
     view: BusinessCapabilityMap,
-    source: HasBusinessCapabilities
+    source: HasBusinessCapabilityMaps
 ) extends ViewCompiler[
       BusinessCapabilityMap,
       CompiledBusinessCapabilityMap,
@@ -90,23 +92,25 @@ case class BusinessCapabilityMapCompiler(
       viewTitle,
       groupTitle(view.forEnterprise),
       viewComponents(
-        enterprise.toList ++ capabilities ++ servingCapabilities ++ servingEnterprises
+        enterprise.toList ++ capabilities ++ servingCapabilities ++ servingEnterprises ++ tags
       )
     )
 
   private def enterprise: Option[Enterprise] =
     source.enterprise(view.forEnterprise)
 
-  private def capabilities: Iterable[BusinessCapability] =
+  private def capabilities: List[BusinessCapability] =
     enterprise.map(source.businessCapabilityMap).getOrElse(Nil)
 
-  private def servingCapabilities: Iterable[Serving] = capabilities
+  private def tags: List[Tag] = capabilities.flatMap(source.tags(_)).distinct
+
+  private def servingCapabilities: List[Serving] = capabilities
     .flatMap(c =>
       source.relationships(c, classOf[Serving], classOf[BusinessCapability])
     )
     .map(_.asInstanceOf[Serving])
 
-  private def servingEnterprises: Iterable[Serving] = capabilities
+  private def servingEnterprises: List[Serving] = capabilities
     .flatMap(c =>
       source.relationships(c, classOf[Serving], classOf[Enterprise])
     )

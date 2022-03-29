@@ -13,12 +13,12 @@ trait TikzInstruction {
 case class TikzNode(
     title: String,
     identifier: Key = Key(),
-    at: Option[(Int, Int)] = None,
+    at: Option[(Int, Int)] = None, orAt: Option[String] = None,
     configuration: List[TikzStyleInstruction] = Nil,
     textVariants: List[TextVariant] = Nil
 ) extends TikzInstruction {
   private val position: String =
-    at.map(pos => s"at (${pos._1}mm,${pos._2}mm)").getOrElse("")
+    at.map(pos => s"at (${pos._1}mm,${pos._2}mm)").getOrElse(orAt.map(pos => s"at (${pos})").getOrElse(""))
   val value =
     s"\\node[${configuration.map(_.value).mkString(",")}] ${position} (${identifier.camelCased}) {${LatexFormat
         .escapeAndApply(title, textVariants)}}"

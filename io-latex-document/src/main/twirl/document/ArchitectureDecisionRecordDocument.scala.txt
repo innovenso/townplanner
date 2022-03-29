@@ -21,8 +21,9 @@
 @import latex.lib.txt.FunctionalRequirements
 @import latex.lib.txt.QualityAttributeRequirements
 @import latex.lib.txt.Constraints
-@(view: CompiledArchitectureDecisionRecord)
-@KaoBook()
+@import com.innovenso.townplanner.model.TownPlan
+@(townPlan: TownPlan, view: CompiledArchitectureDecisionRecord)
+@KaoBook(townPlan)
 @Document {
     @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
     @DocumentTitle()

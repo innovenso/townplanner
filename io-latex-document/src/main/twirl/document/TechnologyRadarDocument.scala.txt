@@ -31,8 +31,9 @@
 @import com.innovenso.townplanner.model.concepts.properties.BeEliminated
 @import com.innovenso.townplanner.model.concepts.properties.BeMigrated
 @import com.innovenso.townplanner.model.concepts.properties.BeMigrated
-@(view: CompiledTechnologyRadar)
-@KaoBook()
+@import com.innovenso.townplanner.model.TownPlan
+@(townPlan: TownPlan, view: CompiledTechnologyRadar)
+@KaoBook(townPlan)
 @Document {
   @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
   @DocumentTitle()

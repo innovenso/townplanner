@@ -27,7 +27,7 @@ object DocumentSpecificationWriter {
       List(
         LatexSpecification(
           view = fullTownPlanView,
-          latexSourceCode = FullTownPlan(fullTownPlanView).body,
+          latexSourceCode = FullTownPlan(townPlan, fullTownPlanView).body,
           latexLibraries = List(KaoBookLibrary),
           outputType = Book
         )
@@ -36,7 +36,7 @@ object DocumentSpecificationWriter {
       List(
         LatexSpecification(
           view = technologyRadar,
-          latexSourceCode = TechnologyRadarDocument(technologyRadar).body,
+          latexSourceCode = TechnologyRadarDocument(townPlan, technologyRadar).body,
           latexLibraries = List(KaoBookLibrary),
           outputType = Book
         )
@@ -45,7 +45,7 @@ object DocumentSpecificationWriter {
       List(
         LatexSpecification(
           view = adr,
-          latexSourceCode = ArchitectureDecisionRecordDocument(adr).body,
+          latexSourceCode = ArchitectureDecisionRecordDocument(townPlan, adr).body,
           latexLibraries = List(KaoBookLibrary),
           outputType = Book
         )

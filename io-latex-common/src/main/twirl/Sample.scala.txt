@@ -20,8 +20,9 @@
 @import txt.MainMatter
 @import txt.Part
 @import txt.Chapter
-@(sampleOutput: Output, samples: SampleFactory)
-@KaoBook()
+@import com.innovenso.townplanner.model.TownPlan
+@(sampleOutput: Output, samples: SampleFactory, townPlan: TownPlan)
+@KaoBook(townPlan)
 
 @Document {
   @Preamble(title = Some(samples.title), author = Some(samples.name), titleHead = Some(samples.title))

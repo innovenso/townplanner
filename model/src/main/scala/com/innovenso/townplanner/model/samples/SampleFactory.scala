@@ -1,71 +1,9 @@
 package com.innovenso.townplanner.model.samples
 
 import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.{
-  Actor,
-  ArchitectureBuildingBlock,
-  BusinessCapability,
-  Database,
-  Decision,
-  DecisionOption,
-  DecisionStatus,
-  DesignPrinciple,
-  Enterprise,
-  Framework,
-  ItPlatform,
-  ItSystem,
-  ItSystemIntegration,
-  Language,
-  Microservice,
-  NotStarted,
-  Person,
-  Platform,
-  Principle,
-  Queue,
-  Technique,
-  Tool,
-  WebUI
-}
-import com.innovenso.townplanner.model.concepts.properties.{
-  ArchitectureVerdict,
-  Assumption,
-  Availability,
-  BeEliminated,
-  BeInvestedIn,
-  BeMigrated,
-  BeTolerated,
-  Confidentiality,
-  Consequence,
-  Constraint,
-  CurrentState,
-  Decommissioned,
-  Description,
-  DoesNotMeetExpectations,
-  ExceedsExpectations,
-  FatherTime,
-  FunctionalRequirement,
-  Goal,
-  GoneToProduction,
-  HealthDataCompliance,
-  HighImpact,
-  Integrity,
-  LowImpact,
-  MediumImpact,
-  MeetsExpectations,
-  Opportunity,
-  PCICompliance,
-  PrivacyCompliance,
-  QualityAttributeRequirement,
-  StartedDevelopment,
-  Strength,
-  Threat,
-  Weakness,
-  Website
-}
-import com.innovenso.townplanner.model.concepts.relationships.{
-  Flow,
-  Relationship
-}
+import com.innovenso.townplanner.model.concepts.{Actor, ArchitectureBuildingBlock, BusinessCapability, Database, Decision, DecisionOption, DecisionStatus, DesignPrinciple, Enterprise, Framework, ItPlatform, ItSystem, ItSystemIntegration, Language, Microservice, NotStarted, Person, Platform, Principle, Queue, Tag, Technique, Tool, WebUI}
+import com.innovenso.townplanner.model.concepts.properties.{ArchitectureVerdict, Assumption, Availability, BeEliminated, BeInvestedIn, BeMigrated, BeTolerated, Confidentiality, Consequence, Constraint, CurrentState, Decommissioned, Description, DoesNotMeetExpectations, ExceedsExpectations, FatherTime, FunctionalRequirement, Goal, GoneToProduction, HealthDataCompliance, HighImpact, Integrity, LowImpact, MediumImpact, MeetsExpectations, Opportunity, PCICompliance, PrivacyCompliance, QualityAttributeRequirement, StartedDevelopment, Strength, Threat, Weakness, Website}
+import com.innovenso.townplanner.model.concepts.relationships.{Flow, Relationship}
 import com.innovenso.townplanner.model.language.Element
 import com.innovenso.townplanner.model.meta.Day
 
@@ -102,6 +40,10 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
   def name: String = lorem.getNameFemale
 
   def actor: Actor = ea describes Actor(title = title) as { it =>
+    it has Description(description)
+  }
+
+  def tag: Tag = ea describes Tag(title = title) as { it =>
     it has Description(description)
   }
 
@@ -184,12 +126,14 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
 
   def capability(
       servedEnterprise: Option[Enterprise] = None,
-      parentCapability: Option[BusinessCapability] = None
+      parentCapability: Option[BusinessCapability] = None,
+      tags: List[Tag] = Nil
   ): BusinessCapability =
     ea describes BusinessCapability(title = title) as { it =>
       it has Description(description)
       if (servedEnterprise.isDefined) it serves servedEnterprise.get
       if (parentCapability.isDefined) it serves parentCapability.get
+      tags.foreach(tag => it isTagged tag)
     }
 
   def buildingBlock(

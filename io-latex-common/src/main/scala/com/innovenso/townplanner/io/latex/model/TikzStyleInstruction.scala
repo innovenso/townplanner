@@ -74,6 +74,14 @@ case class OuterYSep(mm: Double) extends TikzStyleInstruction {
   val value: String = s"outer ysep=${mm}mm"
 }
 
+case class XShift(mm: Double) extends TikzStyleInstruction {
+  val value: String = s"xshift=${mm}mm"
+}
+
+case class YShift(mm: Double) extends TikzStyleInstruction {
+  val value: String = s"yshift=${mm}mm"
+}
+
 case class Fit(identifiers: List[String]) extends TikzStyleInstruction {
   val value: String = s"fit=${identifiers.map("(" + _ + ")").mkString(" ")}"
 }

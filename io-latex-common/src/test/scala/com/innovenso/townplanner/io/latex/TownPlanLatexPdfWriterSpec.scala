@@ -28,7 +28,7 @@ class TownPlanLatexPdfWriterSpec extends AnyFlatSpec with GivenWhenThen {
     val sample: String =
       Sample(
         diagramOutputContext.outputsOfFileType(Eps).head,
-        samples
+        samples, townPlan
       ).body
     val specification: LatexSpecification = LatexSpecification(
       view = townPlan.fullTownPlanView(townplanView.key).get,

@@ -17,8 +17,8 @@ class WayneEnterprisesSpec extends AnyFlatSpec with GivenWhenThen {
     Given("the Wayne Enterprises town plan")
     implicit val enterprises: Enterprises = Enterprises()
     implicit val capabilities: BusinessCapabilities = BusinessCapabilities()
-    implicit val technologyRadar: Technologies = Technologies()
     implicit val actors: Actors = Actors()
+    implicit val technologyRadar: Technologies = Technologies()
     implicit val buildingBlocks: BuildingBlocks = BuildingBlocks()
     implicit val systems: Systems = Systems()
 

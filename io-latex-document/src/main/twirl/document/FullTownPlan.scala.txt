@@ -19,8 +19,9 @@
 @import txt.BookTableOfContents
 @import txt.MainMatter
 @import txt.KaoBook
-@(view: CompiledFullTownPlanView)
-@KaoBook()
+@import com.innovenso.townplanner.model.TownPlan
+@(townPlan: TownPlan, view: CompiledFullTownPlanView)
+@KaoBook(townPlan)
 @Document {
   @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
   @DocumentTitle()
