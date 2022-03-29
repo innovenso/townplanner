@@ -17,6 +17,7 @@ case class BusinessCapability(
     with HasArchitectureVerdict
     with HasCriticality
     with HasSWOT
+    with HasTagProperties
     with CanBeRealized
     with CanBeServed
     with CanServe
@@ -126,7 +127,8 @@ case class BusinessCapabilityMapConfigurerConfigurer(
     with CanConfigureFlowSource[BusinessCapability]
     with CanConfigureFlowTarget[BusinessCapability]
     with CanConfigureTriggerSource[BusinessCapability]
-    with CanConfigureTriggerTarget[BusinessCapability] {
+    with CanConfigureTriggerTarget[BusinessCapability]
+    with CanConfigureTagProperties[BusinessCapability] {
   def as(
       body: BusinessCapabilityMapConfigurerConfigurer => Any
   ): BusinessCapability = {
