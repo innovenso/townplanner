@@ -4,18 +4,27 @@ trait LatexTableRow {
   def cells: List[LatexTableCell]
   def print: String
   def numberOfColumns: Int = cells.map(_.colspan).sum
+  def isHeader: Boolean
+  def isFooter: Boolean
+  def isBody: Boolean = !isHeader && !isFooter
 }
 
 case class LatexBodyRow(cells: List[LatexTableCell]) extends LatexTableRow {
   val print: String = cells.map(_.print).mkString(" & ") + "\\\\"
+  val isHeader = false
+  val isFooter = false
 }
 
 case class LatexHeaderRow(cells: List[LatexTableCell]) extends LatexTableRow {
   val print: String = cells.map(_.print).mkString(" & ") + "\\\\\\midrule"
+  val isHeader = true
+  val isFooter = false
 }
 
 case class LatexFooterRow(cells: List[LatexTableCell]) extends LatexTableRow {
   val print: String = "\\midrule\\\\" + cells.map(_.print).mkString(" & ")
+  val isHeader = false
+  val isFooter = true
 }
 
 case class LatexSecondaryHeaderRow(cells: List[LatexTableCell])
@@ -33,4 +42,6 @@ case class LatexSecondaryHeaderRow(cells: List[LatexTableCell])
     .map(it => s"\\cmidrule(lr){${it}}")
     .mkString
   val print: String = cells.map(_.print).mkString(" & ") + s"\\\\${midrule}"
+  val isHeader = true
+  val isFooter = false
 }

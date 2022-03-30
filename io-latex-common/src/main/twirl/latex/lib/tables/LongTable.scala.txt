@@ -1,0 +1,31 @@
+@import com.innovenso.townplanner.io.latex.model.tables.LatexTable
+@import txt.Environment
+@import txt.Command
+@import latex.lib.tables.txt.Tabular
+@(table: LatexTable, title: Option[String] = None)
+\begin{longtable}{@table.alignment.map(_.value).mkString}
+    @Command("toprule")
+    @for(row <- table.headerRows) {
+        @row.print
+    }
+    @Command("endfirsthead")
+    @Command("toprule")
+    @for(row <- table.headerRows) {
+        @row.print
+    }
+    @Command("endhead")
+    @Command("bottomrule")
+    @Command("endfoot")
+    @for(row <- table.footerRows) {
+        @row.print
+    }
+    @Command("bottomrule")
+    @Command("endlastfoot")
+
+    @for(row <- table.bodyRows) {
+        @row.print
+    }
+    @if(title.isDefined) {
+        @Command("caption", requiredParameters = title.toList)
+    }
+\end{longtable}

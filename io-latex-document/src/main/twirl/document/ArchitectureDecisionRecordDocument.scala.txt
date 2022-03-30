@@ -23,6 +23,7 @@
 @import latex.lib.txt.Constraints
 @import com.innovenso.townplanner.model.TownPlan
 @import com.innovenso.townplanner.io.latex.document.model.DecisionOptionPricingTable
+@import latex.lib.tables.txt.LongTable
 @(townPlan: TownPlan, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
@@ -93,7 +94,7 @@
             @SubSection(decisionOption.option.title) {
               @Description(decisionOption.option)
 
-                @WideTable(table = DecisionOptionPricingTable(decisionOption).table, title = Some(decisionOption.option.title + " - Cost Impact"))
+                @LongTable(table = DecisionOptionPricingTable(decisionOption).table, title = Some(decisionOption.option.title + " - Cost Impact"))
 
                 @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
                 @Paragraph("Strenghts", condition = decisionOption.hasStrengths) {

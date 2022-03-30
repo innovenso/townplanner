@@ -1,0 +1,11 @@
+@import txt.DocumentClass
+@import txt.CommonSettings
+@import txt.Document
+@import com.innovenso.townplanner.model.TownPlan
+@(title: String, townPlan: TownPlan)(content: Txt)
+@DocumentClass(name = "article", options = List("a4paper"))
+@CommonSettings(townPlan)
+@Document {
+    @content
+}
+
