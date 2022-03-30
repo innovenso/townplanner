@@ -14,6 +14,10 @@ case class LatexHeaderRow(cells: List[LatexTableCell]) extends LatexTableRow {
   val print: String = cells.map(_.print).mkString(" & ") + "\\\\\\midrule"
 }
 
+case class LatexFooterRow(cells: List[LatexTableCell]) extends LatexTableRow {
+  val print: String = "\\midrule\\\\" + cells.map(_.print).mkString(" & ")
+}
+
 case class LatexSecondaryHeaderRow(cells: List[LatexTableCell])
     extends LatexTableRow {
   def columnStart(cell: LatexTableCell): Int =

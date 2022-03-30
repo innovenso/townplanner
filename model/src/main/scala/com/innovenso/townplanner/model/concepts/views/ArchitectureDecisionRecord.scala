@@ -1,83 +1,10 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{
-  BusinessActor,
-  BusinessCapability,
-  CanBeImplementedByTechnologies,
-  Decision,
-  Enterprise,
-  HasArchitectureBuildingBlocks,
-  HasBusinessActors,
-  HasBusinessCapabilities,
-  HasDecisions,
-  HasEnterprises,
-  HasItContainers,
-  HasItPlatforms,
-  HasItSystemIntegrations,
-  HasItSystems,
-  HasPrinciples,
-  HasTechnologies,
-  ItContainer,
-  ItPlatform,
-  ItSystem,
-  ItSystemIntegration,
-  Language,
-  LanguageOrFramework,
-  Person,
-  Platform,
-  Principle,
-  Technique,
-  Technology,
-  Tool
-}
-import com.innovenso.townplanner.model.concepts.properties.{
-  ArchitectureVerdict,
-  BeEliminated,
-  BeInvestedIn,
-  BeMigrated,
-  BeTolerated,
-  CanAddProperties,
-  Property
-}
-import com.innovenso.townplanner.model.concepts.relationships.{
-  Accountable,
-  CanAddRelationships,
-  Composition,
-  Consulted,
-  HasRelationships,
-  Implementation,
-  Influence,
-  Informed,
-  Knowledge,
-  RACI,
-  Relationship,
-  Responsible,
-  Serving,
-  Stakeholder
-}
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  Concept,
-  Element,
-  HasViews,
-  ModelComponent,
-  TimelessView,
-  ViewCompiler
-}
-import com.innovenso.townplanner.model.meta.{
-  Amber,
-  Green,
-  ImplementationLayer,
-  Key,
-  Layer,
-  ModelComponentType,
-  MotivationLayer,
-  Red,
-  Severity,
-  SortKey,
-  StrategyLayer,
-  TechnologyLayer
-}
+import com.innovenso.townplanner.model.concepts.{BusinessActor, BusinessCapability, CanBeImplementedByTechnologies, Decision, DecisionOption, Enterprise, HasArchitectureBuildingBlocks, HasBusinessActors, HasBusinessCapabilities, HasDecisions, HasEnterprises, HasItContainers, HasItPlatforms, HasItSystemIntegrations, HasItSystems, HasPrinciples, HasTechnologies, ItContainer, ItPlatform, ItSystem, ItSystemIntegration, Language, LanguageOrFramework, Person, Platform, Principle, Technique, Technology, Tool}
+import com.innovenso.townplanner.model.concepts.properties.{ArchitectureVerdict, BeEliminated, BeInvestedIn, BeMigrated, BeTolerated, CanAddProperties, Property}
+import com.innovenso.townplanner.model.concepts.relationships.{Accountable, CanAddRelationships, Composition, Consulted, HasRelationships, Implementation, Influence, Informed, Knowledge, RACI, Relationship, Responsible, Serving, Stakeholder}
+import com.innovenso.townplanner.model.language.{CompiledView, Concept, Element, HasViews, ModelComponent, TimelessView, ViewCompiler}
+import com.innovenso.townplanner.model.meta.{Amber, Green, ImplementationLayer, Key, Layer, ModelComponentType, MotivationLayer, Red, Severity, SortKey, StrategyLayer, TechnologyLayer}
 
 case class ArchitectureDecisionRecord(
     key: Key = Key(),
@@ -152,6 +79,14 @@ case class CompiledArchitectureDecisionRecord(
     decisions.map(DecisionDecorator(this, _))
 }
 
+case class DecisionOptionDecorator(view: CompiledArchitectureDecisionRecord, option: DecisionOption) {
+  val hasStrengths: Boolean = option.strengths.nonEmpty
+  val hasWeaknesses: Boolean = option.weaknesses.nonEmpty
+  val hasOpportunities: Boolean = option.opportunities.nonEmpty
+  val hasThreats: Boolean = option.threats.nonEmpty
+  val hasSWOT: Boolean = hasStrengths || hasWeaknesses || hasOpportunities || hasThreats
+}
+
 case class DecisionDecorator(
     view: CompiledArchitectureDecisionRecord,
     decision: Decision
@@ -199,6 +134,9 @@ case class DecisionDecorator(
   val hasQualityAttributeRequirements: Boolean =
     decision.qualityAttributeRequirements.nonEmpty
   val hasConstraints: Boolean = decision.constraints.nonEmpty
+
+  val options: List[DecisionOptionDecorator] = view.options(decision).map(DecisionOptionDecorator(view, _))
+
 }
 
 case class ArchitectureDecisionRecordCompiler(

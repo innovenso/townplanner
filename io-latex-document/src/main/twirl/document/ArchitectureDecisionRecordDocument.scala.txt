@@ -22,6 +22,7 @@
 @import latex.lib.txt.QualityAttributeRequirements
 @import latex.lib.txt.Constraints
 @import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionPricingTable
 @(townPlan: TownPlan, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
@@ -88,9 +89,26 @@
         }
 
         @Section("Options Considered") {
-          @for(decisionOption <- view.options(decoratedDecision.decision)) {
-            @SubSection(decisionOption.title) {
-              Hello
+          @for(decisionOption <- decoratedDecision.options) {
+            @SubSection(decisionOption.option.title) {
+              @Description(decisionOption.option)
+
+                @WideTable(table = DecisionOptionPricingTable(decisionOption).table, title = Some(decisionOption.option.title + " - Cost Impact"))
+
+                @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
+                @Paragraph("Strenghts", condition = decisionOption.hasStrengths) {
+                  @Itemize(decisionOption.option.strengths.map(_.description))
+                }
+                @Paragraph("Weaknesses", condition = decisionOption.hasWeaknesses) {
+                  @Itemize(decisionOption.option.weaknesses.map(_.description))
+                }
+                @Paragraph("Opportunities", condition = decisionOption.hasOpportunities) {
+                  @Itemize(decisionOption.option.opportunities.map(_.description))
+                }
+                @Paragraph("Threats", condition = decisionOption.hasThreats) {
+                  @Itemize(decisionOption.option.threats.map(_.description))
+                }
+              }
             }
           }
         }
