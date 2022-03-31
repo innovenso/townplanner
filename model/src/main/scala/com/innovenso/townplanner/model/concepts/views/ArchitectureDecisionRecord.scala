@@ -1,10 +1,86 @@
 package com.innovenso.townplanner.model.concepts.views
 
-import com.innovenso.townplanner.model.concepts.{BusinessActor, BusinessCapability, CanBeImplementedByTechnologies, Decision, DecisionOption, Enterprise, HasArchitectureBuildingBlocks, HasBusinessActors, HasBusinessCapabilities, HasDecisions, HasEnterprises, HasItContainers, HasItPlatforms, HasItSystemIntegrations, HasItSystems, HasPrinciples, HasTechnologies, ItContainer, ItPlatform, ItSystem, ItSystemIntegration, Language, LanguageOrFramework, Person, Platform, Principle, Technique, Technology, Tool}
-import com.innovenso.townplanner.model.concepts.properties.{ArchitectureVerdict, BeEliminated, BeInvestedIn, BeMigrated, BeTolerated, CanAddProperties, Property}
-import com.innovenso.townplanner.model.concepts.relationships.{Accountable, CanAddRelationships, Composition, Consulted, HasRelationships, Implementation, Influence, Informed, Knowledge, RACI, Relationship, Responsible, Serving, Stakeholder}
-import com.innovenso.townplanner.model.language.{CompiledView, Concept, Element, HasViews, ModelComponent, TimelessView, ViewCompiler}
-import com.innovenso.townplanner.model.meta.{Amber, Green, ImplementationLayer, Key, Layer, ModelComponentType, MotivationLayer, Red, Severity, SortKey, StrategyLayer, TechnologyLayer}
+import com.innovenso.townplanner.model.concepts.{
+  BusinessActor,
+  BusinessCapability,
+  CanBeImplementedByTechnologies,
+  Decision,
+  DecisionOption,
+  Enterprise,
+  HasArchitectureBuildingBlocks,
+  HasBusinessActors,
+  HasBusinessCapabilities,
+  HasDecisions,
+  HasEnterprises,
+  HasItContainers,
+  HasItPlatforms,
+  HasItSystemIntegrations,
+  HasItSystems,
+  HasPrinciples,
+  HasTechnologies,
+  ItContainer,
+  ItPlatform,
+  ItSystem,
+  ItSystemIntegration,
+  Language,
+  LanguageOrFramework,
+  Person,
+  Platform,
+  Principle,
+  Technique,
+  Technology,
+  Tool
+}
+import com.innovenso.townplanner.model.concepts.properties.{
+  ArchitectureVerdict,
+  BeEliminated,
+  BeInvestedIn,
+  BeMigrated,
+  BeTolerated,
+  CanAddProperties,
+  Property,
+  Requirement,
+  RequirementScore
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  Accountable,
+  CanAddRelationships,
+  Composition,
+  Consulted,
+  HasRelationships,
+  Implementation,
+  Influence,
+  Informed,
+  Knowledge,
+  RACI,
+  Relationship,
+  Responsible,
+  Serving,
+  Stakeholder
+}
+import com.innovenso.townplanner.model.language.{
+  CompiledView,
+  Concept,
+  Element,
+  HasViews,
+  ModelComponent,
+  TimelessView,
+  ViewCompiler
+}
+import com.innovenso.townplanner.model.meta.{
+  Amber,
+  Green,
+  ImplementationLayer,
+  Key,
+  Layer,
+  ModelComponentType,
+  MotivationLayer,
+  Red,
+  Severity,
+  SortKey,
+  StrategyLayer,
+  TechnologyLayer
+}
 
 case class ArchitectureDecisionRecord(
     key: Key = Key(),
@@ -79,14 +155,29 @@ case class CompiledArchitectureDecisionRecord(
     decisions.map(DecisionDecorator(this, _))
 }
 
-case class DecisionOptionDecorator(view: CompiledArchitectureDecisionRecord, option: DecisionOption) {
+case class DecisionOptionDecorator(
+    view: CompiledArchitectureDecisionRecord,
+    option: DecisionOption
+) {
   val hasStrengths: Boolean = option.strengths.nonEmpty
   val hasWeaknesses: Boolean = option.weaknesses.nonEmpty
   val hasOpportunities: Boolean = option.opportunities.nonEmpty
   val hasThreats: Boolean = option.threats.nonEmpty
-  val hasSWOT: Boolean = hasStrengths || hasWeaknesses || hasOpportunities || hasThreats
+  val hasSWOT: Boolean =
+    hasStrengths || hasWeaknesses || hasOpportunities || hasThreats
   val hasCostImpact: Boolean = option.costs.nonEmpty
-
+  val functionalScores: List[(Requirement, RequirementScore)] =
+    view.functionalRequirementScores(option)
+  val qualityAttributeRequirementScores: List[(Requirement, RequirementScore)] =
+    view.qualityAttributeRequirementScores(option)
+  val constraintScores: List[(Requirement, RequirementScore)] =
+    view.constraintScores(option)
+  val hasFunctionalRequirementScores: Boolean = functionalScores.nonEmpty
+  val hasQualityAttributeRequirementScores: Boolean =
+    qualityAttributeRequirementScores.nonEmpty
+  val hasConstraintScores: Boolean = constraintScores.nonEmpty
+  val hasRequirementScores: Boolean =
+    hasFunctionalRequirementScores || hasQualityAttributeRequirementScores || hasConstraintScores
 }
 
 case class DecisionDecorator(
@@ -137,7 +228,8 @@ case class DecisionDecorator(
     decision.qualityAttributeRequirements.nonEmpty
   val hasConstraints: Boolean = decision.constraints.nonEmpty
 
-  val options: List[DecisionOptionDecorator] = view.options(decision).map(DecisionOptionDecorator(view, _))
+  val options: List[DecisionOptionDecorator] =
+    view.options(decision).map(DecisionOptionDecorator(view, _))
 
 }
 

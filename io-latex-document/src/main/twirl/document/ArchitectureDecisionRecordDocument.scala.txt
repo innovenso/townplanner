@@ -24,6 +24,8 @@
 @import com.innovenso.townplanner.model.TownPlan
 @import com.innovenso.townplanner.io.latex.document.model.DecisionOptionPricingTables
 @import latex.lib.tables.txt.LongTable
+@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionRequirementsMatchTable
+@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionRequirementsMatchTable
 @(townPlan: TownPlan, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
@@ -96,6 +98,29 @@
             @SubSection(decisionOption.option.title) {
               @Description(decisionOption.option)
 
+                @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
+                    @Paragraph("Strenghts", condition = decisionOption.hasStrengths) {
+                      @Itemize(decisionOption.option.strengths.map(_.description))
+                    }
+                    @Paragraph("Weaknesses", condition = decisionOption.hasWeaknesses) {
+                      @Itemize(decisionOption.option.weaknesses.map(_.description))
+                    }
+                    @Paragraph("Opportunities", condition = decisionOption.hasOpportunities) {
+                      @Itemize(decisionOption.option.opportunities.map(_.description))
+                    }
+                    @Paragraph("Threats", condition = decisionOption.hasThreats) {
+                      @Itemize(decisionOption.option.threats.map(_.description))
+                    }
+                }
+
+                @SubSubSection("Requirement Scoring", decisionOption.hasRequirementScores) {
+                    \scriptsize
+
+                        @LongTable(table = DecisionOptionRequirementsMatchTable(decisionOption).table, title = None)
+
+                    \normalsize
+                }
+
                 @SubSubSection("Cost Impact", decisionOption.hasCostImpact) {
                     \scriptsize
 
@@ -106,20 +131,6 @@
                     \normalsize
                 }
 
-                @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
-                @Paragraph("Strenghts", condition = decisionOption.hasStrengths) {
-                  @Itemize(decisionOption.option.strengths.map(_.description))
-                }
-                @Paragraph("Weaknesses", condition = decisionOption.hasWeaknesses) {
-                  @Itemize(decisionOption.option.weaknesses.map(_.description))
-                }
-                @Paragraph("Opportunities", condition = decisionOption.hasOpportunities) {
-                  @Itemize(decisionOption.option.opportunities.map(_.description))
-                }
-                @Paragraph("Threats", condition = decisionOption.hasThreats) {
-                  @Itemize(decisionOption.option.threats.map(_.description))
-                }
-              }
             }
           }
         }

@@ -10,8 +10,8 @@ case class Capex(
     description: String = "",
     category: Category = Category(None),
     fiscalYear: Year = ThisYear,
-    numberOfUnits: UnitCount,
-    unitOfMeasure: UnitOfMeasure,
+    numberOfUnits: UnitCount = UnitCount(1),
+    unitOfMeasure: UnitOfMeasure = UnitOfMeasure("units"),
     costPerUnit: MonetaryAmount
 ) extends Cost
 
@@ -21,8 +21,8 @@ case class Opex(
     description: String = "",
     category: Category = Category(None),
     fiscalYear: Year = ThisYear,
-    numberOfUnits: UnitCount,
-    unitOfMeasure: UnitOfMeasure,
+    numberOfUnits: UnitCount = UnitCount(1),
+    unitOfMeasure: UnitOfMeasure = UnitOfMeasure("units"),
     costPerUnit: MonetaryAmount
 ) extends Cost
 

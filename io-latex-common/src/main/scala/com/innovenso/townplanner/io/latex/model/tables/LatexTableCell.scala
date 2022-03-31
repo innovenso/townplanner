@@ -24,3 +24,15 @@ case class LatexTextCell(
   val colspanSuffix: String = if (colspan > 1) "}" else ""
   val print: String = s"${colspanPrefix}${cellContents}${colspanSuffix}"
 }
+
+case class LatexRawTextCell(
+                          value: String,
+                          variants: List[TextVariant] = Nil,
+                          colspan: Int = 1
+                        ) extends LatexTableCell {
+  val cellContents: String = LatexFormat.apply(variants, value)
+  val colspanPrefix: String =
+    if (colspan > 1) s"\\multicolumn{${colspan}}{c}{" else ""
+  val colspanSuffix: String = if (colspan > 1) "}" else ""
+  val print: String = s"${colspanPrefix}${cellContents}${colspanSuffix}"
+}
