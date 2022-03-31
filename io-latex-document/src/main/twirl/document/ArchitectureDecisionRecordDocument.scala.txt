@@ -22,7 +22,7 @@
 @import latex.lib.txt.QualityAttributeRequirements
 @import latex.lib.txt.Constraints
 @import com.innovenso.townplanner.model.TownPlan
-@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionPricingTable
+@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionPricingTables
 @import latex.lib.tables.txt.LongTable
 @(townPlan: TownPlan, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
@@ -62,7 +62,9 @@
               }
             }
 
-                @WideTable(table = RaciTable(decoratedDecision).table, title = Some(decoratedDecision.decision.title + " - RACI"))
+
+            @WideTable(table = RaciTable(decoratedDecision).table, title = Some(decoratedDecision.decision.title + " - RACI"))
+
 
               @SubSection("Influencers", condition = decoratedDecision.hasInfluencers || decoratedDecision.hasInfluencingPrinciples) {
                       @SubSubSection("People", condition = decoratedDecision.hasInfluencers) {
@@ -94,7 +96,15 @@
             @SubSection(decisionOption.option.title) {
               @Description(decisionOption.option)
 
-                @LongTable(table = DecisionOptionPricingTable(decisionOption).table, title = Some(decisionOption.option.title + " - Cost Impact"))
+                @SubSubSection("Cost Impact", decisionOption.hasCostImpact) {
+                    \scriptsize
+
+                    @for(table <- DecisionOptionPricingTables(decisionOption).tables) {
+                        @LongTable(table = table, title = None)
+                    }
+
+                    \normalsize
+                }
 
                 @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
                 @Paragraph("Strenghts", condition = decisionOption.hasStrengths) {

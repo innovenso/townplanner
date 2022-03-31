@@ -25,7 +25,8 @@
     @for(row <- table.bodyRows) {
         @row.print
     }
-    @if(title.isDefined) {
-        @Command("caption", requiredParameters = title.toList)
-    }
+
+@if(title.isDefined) {
+    @Command("caption", requiredParameters = title.toList) \\
+}
 \end{longtable}

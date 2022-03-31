@@ -85,6 +85,8 @@ case class DecisionOptionDecorator(view: CompiledArchitectureDecisionRecord, opt
   val hasOpportunities: Boolean = option.opportunities.nonEmpty
   val hasThreats: Boolean = option.threats.nonEmpty
   val hasSWOT: Boolean = hasStrengths || hasWeaknesses || hasOpportunities || hasThreats
+  val hasCostImpact: Boolean = option.costs.nonEmpty
+
 }
 
 case class DecisionDecorator(

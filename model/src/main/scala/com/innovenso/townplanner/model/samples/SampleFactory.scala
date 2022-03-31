@@ -253,10 +253,10 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
         (0 to randomInt(3)).foreach(yearIndex => {
           val year = SomeYear(ThisYear.value + yearIndex)
           (1 to randomInt(10)).foreach(_ =>
-            option costs Capex(title = title, description = title, category = Category(Some(title)), fiscalYear = ThisYear, numberOfUnits = unitCount, unitOfMeasure = unitOfMeasure, costPerUnit = monetaryAmount)
+            option costs Capex(title = title, description = title, category = Category(Some(title)), fiscalYear = year, numberOfUnits = unitCount, unitOfMeasure = unitOfMeasure, costPerUnit = monetaryAmount)
           )
           (1 to randomInt(10)).foreach(_ =>
-            option costs Opex(title = title, description = title, category = Category(Some(title)), fiscalYear = ThisYear, numberOfUnits = unitCount, unitOfMeasure = unitOfMeasure, costPerUnit = monetaryAmount)
+            option costs Opex(title = title, description = title, category = Category(Some(title)), fiscalYear = year, numberOfUnits = unitCount, unitOfMeasure = unitOfMeasure, costPerUnit = monetaryAmount)
           )
 
         }

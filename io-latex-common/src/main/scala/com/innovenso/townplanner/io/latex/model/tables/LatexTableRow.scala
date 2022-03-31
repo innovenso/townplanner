@@ -22,7 +22,7 @@ case class LatexHeaderRow(cells: List[LatexTableCell]) extends LatexTableRow {
 }
 
 case class LatexFooterRow(cells: List[LatexTableCell]) extends LatexTableRow {
-  val print: String = "\\midrule\\\\" + cells.map(_.print).mkString(" & ")
+  val print: String = "\\midrule\n" + cells.map(_.print).mkString(" & ") + "\\\\"
   val isHeader = false
   val isFooter = true
 }
