@@ -172,6 +172,10 @@ case class DecisionOptionDecorator(
     view.qualityAttributeRequirementScores(option)
   val constraintScores: List[(Requirement, RequirementScore)] =
     view.constraintScores(option)
+  val decision: Option[Decision] = view.decision(option)
+
+  val scores: List[(Requirement, RequirementScore)] =
+    functionalScores ::: qualityAttributeRequirementScores ::: constraintScores
   val hasFunctionalRequirementScores: Boolean = functionalScores.nonEmpty
   val hasQualityAttributeRequirementScores: Boolean =
     qualityAttributeRequirementScores.nonEmpty

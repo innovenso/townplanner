@@ -1,0 +1,30 @@
+@import com.innovenso.townplanner.model.concepts.views.DecisionOptionDecorator
+@import com.innovenso.townplanner.model.TownPlan
+@import latex.lib.tikz.txt.TikzDocument
+@import latex.lib.tikz.txt.TikzPictureEnvironment
+@import com.innovenso.townplanner.io.latex.model.TikzCoordinate
+@import com.innovenso.townplanner.io.latex.model.TikzCoordinate
+@import com.innovenso.townplanner.model.meta.Key
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.TikzLineBetween
+@import com.innovenso.townplanner.io.latex.model.Shape
+@import txt.Environment
+@import com.innovenso.townplanner.io.latex.model.Fill
+@import com.innovenso.townplanner.io.latex.model.Opacity
+@(townPlan: TownPlan, option: DecisionOptionDecorator)
+
+@TikzDocument( option.option.title, townPlan) {
+
+    @TikzPictureEnvironment() {
+        @Tikz(TikzCoordinate(at = Some((0, 0)), identifier = Key("origin")))
+
+        @for((name, weight, index) <- option.scores.zip(LazyList from 1).map(pair => (pair._1._1.title, pair._1._2.weight, pair._2))) {
+            @Tikz(TikzCoordinate(identifier = Key(s"${index}"), orAtPolar = Some((index.toDouble * 360 / option.scores.length, 1 + weight.toDouble))))
+            @Tikz(TikzNode(identifier = Key(s"title${index}"), title = name, orAtPolar = Some((index.toDouble * 360 / option.scores.length, 7))))
+            @Tikz(TikzLineBetween(origin = Key(s"origin").camelCased, target = Key(s"title${index}").camelCased))
+        }
+
+        @Tikz(Shape((1 to option.scores.length).map(index => Key(s"${index}")).toList, shapeConfiguration = List(Fill("blue"), Opacity(0.4))))
+    }
+}

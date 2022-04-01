@@ -18,6 +18,10 @@ case class Fill(color: String) extends TikzStyleInstruction {
   val value: String = s"fill=$color"
 }
 
+case class Opacity(level: Double) extends TikzStyleInstruction {
+  val value: String = s"opacity=$level"
+}
+
 case class Draw(color: String) extends TikzStyleInstruction {
   val value: String = s"draw=$color"
 }

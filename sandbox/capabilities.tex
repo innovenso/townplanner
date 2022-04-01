@@ -1,4 +1,6 @@
-\documentclass[a4paper]{article}
+
+
+\documentclass[tikz]{standalone}
 
 
 \usepackage{tikz}
@@ -126,141 +128,77 @@
 
 \begin{document}
 
-    \begin{longtable}{p{40mm}p{20mm}rrp{40mm}}
-        \caption{hello there} \\
 
-        \toprule
 
-        \multicolumn{2}{c}{ThisYear} &  &  & \\\cmidrule(lr){1-2}
+    \begin{tikzpicture}
 
-        &  & Capex & Opex & Remarks\\\midrule
 
-        \endfirsthead
-        \toprule
+        \coordinate (Origin) at (0mm,0mm);
 
-        \multicolumn{2}{c}{ThisYear} &  &  & \\\cmidrule(lr){1-2}
 
-        &  & Capex & Opex & Remarks\\\midrule
+        \coordinate (One) at (25.714285714285715:4.0);
+        \node[] at (25.714285714285715:7.0) (TitleOne) {Taciti};
+        \draw (One) -- (TitleOne) ;
 
-        \endhead
-        \bottomrule
-        \endfoot
+        \coordinate (Two) at (51.42857142857143:4.0);
+        \node[] at (51.42857142857143:7.0) (TitleTwo) {Unum};
+        \draw (Two) -- (TitleTwo) ;
 
-        \midrule\\
+        \coordinate (Three) at (77.14285714285714:4.0);
+        \node[] at (77.14285714285714:7.0) (TitleThree) {Aeque cum};
+        \draw (Three) -- (TitleThree) ;
 
-        \multicolumn{2}{c}{total for ThisYear} & x & x & \\
+        \coordinate (Four) at (102.85714285714286:4.0);
+        \node[] at (102.85714285714286:7.0) (TitleFour) {Maximus Dictum};
+        \draw (Four) -- (TitleFour) ;
 
-        \bottomrule
-        \endlastfoot
+        \coordinate (Five) at (128.57142857142858:1.0);
+        \node[] at (128.57142857142858:7.0) (TitleFive) {Nam Dapibus};
+        \draw (Five) -- (TitleFive) ;
 
+        \coordinate (Six) at (154.28571428571428:1.0);
+        \node[] at (154.28571428571428:7.0) (TitleSix) {Iaculis};
+        \draw (Six) -- (TitleSix) ;
 
-        Expetendis & Iisque & x & x & Ludus Massa\\
+        \coordinate (Seven) at (180.0:1.0);
+        \node[] at (180.0:7.0) (TitleSeven) {Quem};
+        \draw (Seven) -- (TitleSeven) ;
 
-        Mea & Quod Amet & x & x & Expetendis\\
+        \coordinate (Eight) at (205.71428571428572:1.0);
+        \node[] at (205.71428571428572:7.0) (TitleEight) {Suscipit};
+        \draw (Eight) -- (TitleEight) ;
 
-        Maiorum Porttitor & Quaestio Reprimique & x & x & Qui Vocibus\\
+        \coordinate (Nine) at (231.42857142857142:1.0);
+        \node[] at (231.42857142857142:7.0) (TitleNine) {Proin};
+        \draw (Nine) -- (TitleNine) ;
 
-        Dis & Cubilia Sadipscing & x & x & Agam Moderatius\\
+        \coordinate (OneZero) at (257.14285714285717:6.0);
+        \node[] at (257.14285714285717:7.0) (TitleOneZero) {Magnis Appetere};
+        \draw (OneZero) -- (TitleOneZero) ;
 
-        Senectus Accusata & Ornare Evertitur & x & x & Interdum\\
+        \coordinate (OneOne) at (282.85714285714283:6.0);
+        \node[] at (282.85714285714283:7.0) (TitleOneOne) {Phasellus Conubia};
+        \draw (OneOne) -- (TitleOneOne) ;
 
-        Repudiandae Ipsum & Meliore & x & x & Fringilla\\
+        \coordinate (OneTwo) at (308.57142857142856:6.0);
+        \node[] at (308.57142857142856:7.0) (TitleOneTwo) {Atqui};
+        \draw (OneTwo) -- (TitleOneTwo) ;
 
-        Ipsum Dicam & Novum & x & x & Efficitur\\
+        \coordinate (OneThree) at (334.2857142857143:6.0);
+        \node[] at (334.2857142857143:7.0) (TitleOneThree) {Maiorum};
+        \draw (OneThree) -- (TitleOneThree) ;
 
-        Atomorum Torquent & Habitant Movet & x & x & Consequat Sadipscing\\
+        \coordinate (OneFour) at (360.0:6.0);
+        \node[] at (360.0:7.0) (TitleOneFour) {Definiebas};
+        \draw (OneFour) -- (TitleOneFour) ;
 
-        Scripserit Persecuti & Offendit & x & x & Detraxit Ullamcorper\\
 
-        Principes & Pri & x & x & Tortor\\
+        \draw[draw=blue!20] (One) -- (Two) -- (Three) -- (Four) -- (Five) -- (Six) -- (Seven) -- (Eight) -- (Nine) -- (OneZero) -- (OneOne) -- (OneTwo) -- (OneThree) -- (OneFour) --cycle;
 
-        Eu & Tortor & x & x & Neque\\
 
-        Detracto & Pulvinar & x & x & Accommodare\\
+    \end{tikzpicture}
 
-        Persius & Comprehensam & x & x & Deterruisset Expetenda\\
 
-        Ius pro & Quo Cursus & x & x & Augue\\
 
-        Meliore Minim & Malesuada Postulant & x & x & Per Possit\\
 
-        Splendide & Litora Lacus & x & x & Inimicus Quem\\
-
-        Facilisis & Scelerisque & x & x & Magnis Efficitur\\
-
-        Homero & Veniam Eruditi & x & x & Verterem\\
-
-        Primis & Felis & x & x & Simul Ipsum\\
-
-        Tantas Ubique & Recteque & x & x & Posse\\
-
-        Rutrum & Necessitatibus Delectus & x & x & Penatibus\\
-
-        Melius Qualisque & Iuvaret Tortor & x & x & Consetetur Urbanitas\\
-
-        Mandamus Prompta & Saepe & x & x & Iriure\\
-
-        Salutatus & Splendide Iisque & x & x & Aliquip Maiorum\\
-
-        Voluptatum Pharetra & Adolescens Propriae & x & x & Curae\\
-
-        Nam Gubergren & Partiendo & x & x & Persius\\
-
-        Amet & Omittantur & x & x & Urna Congue\\
-
-        Vocibus Atomorum & Pericula & x & x & Neglegentur Mediocrem\\
-
-        Vestibulum & Appetere Quod & x & x & Ante pri\\
-
-        Graeco ius & Qualisque Persecuti & x & x & Moderatius Mattis\\
-
-        Viris Aliquip & Ancillae & x & x & Mandamus Suavitate\\
-
-        Ex & Meliore & x & x & Liber Nisi\\
-
-        Iusto Adhuc & Ludus Civibus & x & x & Unum Eloquentiam\\
-
-        Ut Idque & Lacus Senectus & x & x & Eos\\
-
-        Graece Lacus & Lorem Aliquid & x & x & Periculis Malesuada\\
-
-        Mucius & Detraxit Habitant & x & x & Efficiantur\\
-
-        Debet Alia & Amet Ocurreret & x & x & Quaerendum\\
-
-        Dis & Qui & x & x & Vulputate\\
-
-        Periculis & Corrumpit Alia & x & x & Mediocritatem\\
-
-        Euismod & Rhoncus Mutat & x & x & Dapibus\\
-
-        Dolor & Similique & x & x & Luctus\\
-
-        Molestiae & Nulla & x & x & Aperiri\\
-
-        Reformidans & Docendi & x & x & Quaestio\\
-
-        Luptatum & Intellegebat & x & x & Urbanitas Legere\\
-
-        Hac Pretium & Ancillae Definitionem & x & x & Gubergren\\
-
-        Cu Adversarium & Tristique & x & x & Electram\\
-
-        Volumus & Sapientem Harum & x & x & Ad Pharetra\\
-
-        Tibique & Ac & x & x & Latine\\
-
-        Mediocritatem te & Quis Nihil & x & x & Mel Civibus\\
-
-        Atqui Nascetur & Tempor & x & x & Dolores\\
-
-        Utamur Finibus & Sit Contentiones & x & x & Facilisi Viris\\
-
-        Mauris & Cum mei & x & x & Numquam\\
-
-
-    \end{longtable}
 \end{document}
-
-
-

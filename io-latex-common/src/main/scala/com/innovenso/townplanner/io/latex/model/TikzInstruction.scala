@@ -13,15 +13,56 @@ trait TikzInstruction {
 case class TikzNode(
     title: String,
     identifier: Key = Key(),
-    at: Option[(Int, Int)] = None, orAt: Option[String] = None,
+    at: Option[(Int, Int)] = None,
+    orAt: Option[String] = None,
+    orAtPolar: Option[(Double, Double)] = None,
     configuration: List[TikzStyleInstruction] = Nil,
     textVariants: List[TextVariant] = Nil
 ) extends TikzInstruction {
   private val position: String =
-    at.map(pos => s"at (${pos._1}mm,${pos._2}mm)").getOrElse(orAt.map(pos => s"at (${pos})").getOrElse(""))
+    at.map(pos => s"at (${pos._1}mm,${pos._2}mm)")
+      .getOrElse(
+        orAt
+          .map(pos => s"at (${pos})")
+          .getOrElse(
+            orAtPolar.map(pos => s"at (${pos._1}:${pos._2})").getOrElse("")
+          )
+      )
   val value =
     s"\\node[${configuration.map(_.value).mkString(",")}] ${position} (${identifier.camelCased}) {${LatexFormat
         .escapeAndApply(title, textVariants)}}"
+}
+
+case class TikzCoordinate(
+    identifier: Key = Key(),
+    at: Option[(Int, Int)] = None,
+    orAt: Option[String] = None,
+    orAtPolar: Option[(Double, Double)] = None
+) extends TikzInstruction {
+  private val position: String =
+    at.map(pos => s"at (${pos._1}mm,${pos._2}mm)")
+      .getOrElse(
+        orAt
+          .map(pos => s"at (${pos})")
+          .getOrElse(
+            orAtPolar.map(pos => s"at (${pos._1}:${pos._2})").getOrElse("")
+          )
+      )
+  val value =
+    s"\\coordinate (${identifier.camelCased}) ${position}"
+
+}
+
+case class Shape(
+    coordinates: List[Key],
+    shapeConfiguration: List[TikzStyleInstruction] = Nil
+) extends TikzInstruction {
+  val shapeConfigString: String =
+    if (shapeConfiguration.isEmpty) ""
+    else s"[${shapeConfiguration.map(_.value).mkString(",")}]"
+  val coordinateString: String =
+    coordinates.map(c => s"(${c.camelCased})").mkString(" -- ")
+  val value = s"\\draw${shapeConfigString} ${coordinateString} --cycle"
 }
 
 case class TikzLineBetween(
