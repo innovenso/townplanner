@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Stakeholder(
@@ -26,14 +26,15 @@ trait CanHaveStakeholder extends CanBeRelationshipTarget
 
 trait CanConfigureStakeholderSource[ModelComponentType <: CanBeStakeholder] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isStakeholderFor(
-      target: CanHaveStakeholder
-  ): Relationship = isStakeholderFor(target, "is stakeholder for")
+  def hasInterestIn(target: CanHaveStakeholder, title: String = "is stakeholder for"): RelationshipConfigurer =
+    RelationshipConfigurer(isStakeholderFor(target, title), propertyAdder, relationshipAdder)
+
   def isStakeholderFor(
       target: CanHaveStakeholder,
-      title: String
+      title: String = "is stakeholder for"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Stakeholder(
@@ -46,13 +47,15 @@ trait CanConfigureStakeholderSource[ModelComponentType <: CanBeStakeholder] {
 
 trait CanConfigureStakeHolderTarget[ModelComponentType <: CanHaveStakeholder] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def hasStakeholder(target: CanBeStakeholder): Relationship =
-    hasStakeholder(target, "is stakeholder for")
+  def isInterestOf(target: CanBeStakeholder, title: String = "is stakeholder for"): RelationshipConfigurer =
+    RelationshipConfigurer(hasStakeholder(target, title), propertyAdder, relationshipAdder)
+
   def hasStakeholder(
       target: CanBeStakeholder,
-      title: String
+      title: String = "is stakeholder for"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Stakeholder(

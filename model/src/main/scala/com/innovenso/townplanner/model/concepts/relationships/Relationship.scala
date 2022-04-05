@@ -47,7 +47,9 @@ trait CanBeRelationshipTarget extends Element
 
 trait HasRelationships extends HasModelComponents {
   def relationship(key: Key): Option[Relationship] =
-    component(key, classOf[Relationship])
+    relationship(key, classOf[Relationship])
+
+  def relationship[RelationshipType <: Relationship](key: Key, relationshipType: Class[RelationshipType]): Option[RelationshipType] = component(key, relationshipType)
 
   def relationshipParticipants(key: Key): Set[Element] =
     relationship(key).map(r => relationshipParticipants(r)).getOrElse(Set())
@@ -232,12 +234,25 @@ trait HasRelationships extends HasModelComponents {
     )
 }
 
-case class RelationshipConfigurer[RelationshipType <: Relationship](
-    modelComponent: RelationshipType,
+case class RelationshipConfigurer(
+    modelComponent: Relationship,
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
-) extends CanConfigureDescription[RelationshipType]
-    with CanConfigureFatherTime[RelationshipType] {}
+) extends CanConfigureDescription[Relationship]
+    with CanConfigureFatherTime[Relationship] {
+
+  def and(body: RelationshipConfigurer => Unit): Relationship = {
+    body.apply(this)
+    propertyAdder.townPlan
+      .relationship(modelComponent.key, modelComponent.getClass)
+      .get
+  }
+
+  def period: Relationship = propertyAdder.townPlan
+    .relationship(modelComponent.key, modelComponent.getClass)
+    .get
+
+}
 
 trait CanAddRelationships extends CanAddModelComponents {
   def hasRelationship(relationship: Relationship): Relationship = {

@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Description, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Flow(
@@ -27,9 +27,15 @@ trait CanBeFlowTarget extends CanBeRelationshipTarget
 
 trait CanConfigureFlowSource[ModelComponentType <: CanBeFlowSource] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def uses(target: CanBeFlowTarget, title: String): Relationship =
+  def isUsing(target: CanBeFlowTarget): RelationshipConfigurer = isFlowingTo(target, "uses")
+
+  def isFlowingTo(target: CanBeFlowTarget, title: String = ""): RelationshipConfigurer =
+    RelationshipConfigurer(flowsTo(target, title), propertyAdder, relationshipAdder)
+
+  def uses(target: CanBeFlowTarget, title: String = "uses"): Relationship =
     flowsTo(target, title)
 
   def flowsTo(
@@ -40,15 +46,19 @@ trait CanConfigureFlowSource[ModelComponentType <: CanBeFlowSource] {
       Flow(source = modelComponent.key, target = target.key, title = title)
     )
 
-  def uses(target: CanBeFlowTarget): Relationship =
-    flowsTo(target, "uses")
 }
 
 trait CanConfigureFlowTarget[ModelComponentType <: CanBeFlowTarget] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isUsedBy(target: CanBeFlowSource, title: String): Relationship =
+  def isBeingUsedBy(target: CanBeFlowSource, title: String = "uses"): RelationshipConfigurer = isFlowingFrom(target, title)
+
+  def isFlowingFrom(target: CanBeFlowSource, title: String = ""): RelationshipConfigurer =
+    RelationshipConfigurer(flowsFrom(target, title), propertyAdder, relationshipAdder)
+
+  def isUsedBy(target: CanBeFlowSource, title: String = "uses"): Relationship =
     flowsFrom(target, title)
 
   def flowsFrom(
@@ -59,6 +69,4 @@ trait CanConfigureFlowTarget[ModelComponentType <: CanBeFlowTarget] {
       Flow(source = target.key, target = modelComponent.key, title = title)
     )
 
-  def isUsedBy(target: CanBeFlowSource): Relationship =
-    flowsFrom(target, "uses")
 }

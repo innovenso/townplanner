@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Composition(
@@ -26,13 +26,16 @@ trait CanCompose extends CanBeRelationshipTarget
 
 trait CanConfigureCompositionSource[ModelComponentType <: CanBeComposedOf] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isComposedOf(target: CanCompose): Relationship =
-    isComposedOf(target, "")
+
+  def contains(target: CanCompose, title: String = ""): RelationshipConfigurer =
+    RelationshipConfigurer(isComposedOf(target, title), propertyAdder, relationshipAdder)
+
   def isComposedOf(
       target: CanCompose,
-      title: String
+      title: String = ""
   ): Relationship =
     relationshipAdder.hasRelationship(
       Composition(
@@ -45,10 +48,15 @@ trait CanConfigureCompositionSource[ModelComponentType <: CanBeComposedOf] {
 
 trait CanConfigureCompositionTarget[ModelComponentType <: CanCompose] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
+
+  def belongsTo(target: CanBeComposedOf, title: String = ""): RelationshipConfigurer =
+    RelationshipConfigurer(isPartOf(target, title), propertyAdder, relationshipAdder)
 
   def isPartOf(target: CanBeComposedOf): Relationship =
     isPartOf(target, "")
+
   def isPartOf(
       target: CanBeComposedOf,
       title: String

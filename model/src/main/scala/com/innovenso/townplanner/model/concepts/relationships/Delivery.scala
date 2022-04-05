@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Delivery(
@@ -26,13 +26,15 @@ trait CanBeDelivered extends CanBeRelationshipTarget
 
 trait CanConfigureDeliverySource[ModelComponentType <: CanDeliver] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def delivers(target: CanBeDelivered): Relationship =
-    delivers(target, "delivers")
+  def isDelivering(target: CanBeDelivered, title: String = "delivers"): RelationshipConfigurer =
+    RelationshipConfigurer(delivers(target, title), propertyAdder, relationshipAdder)
+
   def delivers(
       target: CanBeDelivered,
-      title: String
+      title: String = "delivers"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Delivery(
@@ -45,13 +47,15 @@ trait CanConfigureDeliverySource[ModelComponentType <: CanDeliver] {
 
 trait CanConfigureDeliveryTarget[ModelComponentType <: CanBeDelivered] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isDeliveredBy(target: CanDeliver): Relationship =
-    isDeliveredBy(target, "delivers")
+  def isBeingDeliveredBy(target: CanDeliver, title: String = "delivers"): RelationshipConfigurer =
+    RelationshipConfigurer(isDeliveredBy(target, title), propertyAdder, relationshipAdder)
+
   def isDeliveredBy(
       target: CanDeliver,
-      title: String
+      title: String = "delivers"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Delivery(

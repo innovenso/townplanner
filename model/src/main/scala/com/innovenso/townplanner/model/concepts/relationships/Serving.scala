@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Serving(
@@ -26,13 +26,15 @@ trait CanBeServed extends CanBeRelationshipTarget
 
 trait CanConfigureServingSource[ModelComponentType <: CanServe] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def serves(target: CanBeServed): Relationship =
-    serves(target, "serves")
+  def isServing(target: CanBeServed, title: String = "serves"): RelationshipConfigurer =
+    RelationshipConfigurer(serves(target, title), propertyAdder, relationshipAdder)
+
   def serves(
       target: CanBeServed,
-      title: String
+      title: String = "serves"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Serving(
@@ -45,13 +47,16 @@ trait CanConfigureServingSource[ModelComponentType <: CanServe] {
 
 trait CanConfigureServingTarget[ModelComponentType <: CanBeServed] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isServedBy(target: CanServe): Relationship =
-    isServedBy(target, "serves")
+
+  def isBeingServedBy(target: CanServe, title: String = "serves"): RelationshipConfigurer =
+    RelationshipConfigurer(isServedBy(target, title), propertyAdder, relationshipAdder)
+
   def isServedBy(
       target: CanServe,
-      title: String
+      title: String = "serves"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Serving(

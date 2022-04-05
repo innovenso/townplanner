@@ -22,6 +22,6 @@ trait CanConfigureDescription[ModelComponentType <: HasDescription] {
   def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def has(description: Description): HasDescription =
+  def has(description: Description): ModelComponentType =
     propertyAdder.withProperty(modelComponent, description)
 }

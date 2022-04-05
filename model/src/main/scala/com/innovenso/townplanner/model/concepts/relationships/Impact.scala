@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class CreateImpact(
@@ -80,17 +80,15 @@ case class KeepImpact(
 
 trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def creates(target: CanBeImpacted): Relationship =
-    creates(target, "creates")
-
-  def removes(target: CanBeImpacted): Relationship =
-    removes(target, "removes")
+  def isRemoving(target: CanBeImpacted, title: String = "removes"): RelationshipConfigurer =
+    RelationshipConfigurer(removes(target, title), propertyAdder, relationshipAdder)
 
   def removes(
       target: CanBeImpacted,
-      title: String
+      title: String = "removes"
   ): Relationship =
     relationshipAdder.hasRelationship(
       RemoveImpact(
@@ -100,12 +98,12 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
       )
     )
 
-  def changes(target: CanBeImpacted): Relationship =
-    changes(target, "changes")
+  def isChanging(target: CanBeImpacted, title: String = "changes"): RelationshipConfigurer =
+    RelationshipConfigurer(changes(target, title), propertyAdder, relationshipAdder)
 
   def changes(
       target: CanBeImpacted,
-      title: String
+      title: String = "changes"
   ): Relationship =
     relationshipAdder.hasRelationship(
       ChangeImpact(
@@ -115,12 +113,12 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
       )
     )
 
-  def keeps(target: CanBeImpacted): Relationship =
-    keeps(target, "keeps")
+  def isCreating(target: CanBeImpacted, title: String = "creates"): RelationshipConfigurer =
+    RelationshipConfigurer(creates(target, title), propertyAdder, relationshipAdder)
 
   def creates(
       target: CanBeImpacted,
-      title: String
+      title: String = "creates"
   ): Relationship =
     relationshipAdder.hasRelationship(
       CreateImpact(
@@ -130,9 +128,12 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
       )
     )
 
+  def isKeeping(target: CanBeImpacted, title: String = "keeps"): RelationshipConfigurer =
+    RelationshipConfigurer(keeps(target, title), propertyAdder, relationshipAdder)
+
   def keeps(
       target: CanBeImpacted,
-      title: String
+      title: String = "keeps"
   ): Relationship =
     relationshipAdder.hasRelationship(
       KeepImpact(

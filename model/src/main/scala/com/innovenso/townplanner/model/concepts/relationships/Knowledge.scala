@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Knowledge(
@@ -26,13 +26,15 @@ trait CanKnow extends CanBeRelationshipSource
 
 trait CanConfigureKnowledgeSource[ModelComponentType <: CanKnow] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def hasKnowledgeOf(target: CanBeKnown): Relationship =
-    hasKnowledgeOf(target, "has knowledge of")
+  def hasExpertiseOf(target: CanBeKnown, title: String = "has knowledge of"): RelationshipConfigurer =
+    RelationshipConfigurer(hasKnowledgeOf(target, title), propertyAdder, relationshipAdder)
+
   def hasKnowledgeOf(
       target: CanBeKnown,
-      title: String
+      title: String = "has knowledge of"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Knowledge(
@@ -45,13 +47,15 @@ trait CanConfigureKnowledgeSource[ModelComponentType <: CanKnow] {
 
 trait CanConfigureKnowledgeTarget[ModelComponentType <: CanBeKnown] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isKnownBy(target: CanKnow): Relationship =
-    isKnownBy(target, "is known by")
+  def belongsToExpertiseOf(target: CanKnow, title: String = "has knowledge of"): RelationshipConfigurer =
+    RelationshipConfigurer(isKnownBy(target, title), propertyAdder, relationshipAdder)
+
   def isKnownBy(
       target: CanKnow,
-      title: String
+      title: String = "is known by"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Knowledge(

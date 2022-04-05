@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Association(
@@ -27,13 +27,15 @@ trait CanBeAssociated
 
 trait CanConfigureAssociations[ModelComponentType <: CanBeAssociated] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isAssociatedWith(target: CanBeAssociated): Relationship =
-    isAssociatedWith(target, "")
+  def hasAssociationWith(target: CanBeAssociated, title: String = ""): RelationshipConfigurer =
+    RelationshipConfigurer(isAssociatedWith(target, title), propertyAdder, relationshipAdder)
+
   def isAssociatedWith(
       target: CanBeAssociated,
-      title: String
+      title: String = ""
   ): Relationship =
     relationshipAdder.hasRelationship(
       Association(

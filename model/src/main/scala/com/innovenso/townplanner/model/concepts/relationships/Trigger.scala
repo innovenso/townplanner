@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Trigger(
@@ -26,14 +26,15 @@ trait CanBeTriggered extends CanBeRelationshipTarget
 
 trait CanConfigureTriggerSource[ModelComponentType <: CanTrigger] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def triggers(
-      target: CanBeTriggered
-  ): Relationship = triggers(target, "triggers")
+  def isTriggering(target: CanBeTriggered, title: String = "triggers"): RelationshipConfigurer =
+    RelationshipConfigurer(triggers(target, title), propertyAdder, relationshipAdder)
+
   def triggers(
       target: CanBeTriggered,
-      title: String
+      title: String = "triggers"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Trigger(source = modelComponent.key, target = target.key, title = title)
@@ -42,13 +43,15 @@ trait CanConfigureTriggerSource[ModelComponentType <: CanTrigger] {
 
 trait CanConfigureTriggerTarget[ModelComponentType <: CanBeTriggered] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isTriggeredBy(target: CanTrigger): Relationship =
-    isTriggeredBy(target, "is triggered by")
+  def hasTrigger(target: CanTrigger, title: String = "triggers"): RelationshipConfigurer =
+    RelationshipConfigurer(isTriggeredBy(target, title), propertyAdder, relationshipAdder)
+
   def isTriggeredBy(
       target: CanTrigger,
-      title: String
+      title: String = "triggers"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Trigger(

@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Implementation(
@@ -26,13 +26,14 @@ trait CanImplement extends CanBeRelationshipSource
 
 trait CanConfigureImplementationSource[ModelComponentType <: CanImplement] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def implements(target: CanBeImplemented): Relationship =
-    implements(target, "implements")
+  def isImplementing(target: CanBeImplemented, title: String = "implements"): RelationshipConfigurer =
+    RelationshipConfigurer(implements(target, title), propertyAdder, relationshipAdder)
   def implements(
       target: CanBeImplemented,
-      title: String
+      title: String = "implements"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Implementation(
@@ -45,13 +46,15 @@ trait CanConfigureImplementationSource[ModelComponentType <: CanImplement] {
 
 trait CanConfigureImplementationTarget[ModelComponentType <: CanBeImplemented] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isImplementedBy(target: CanImplement): Relationship =
-    isImplementedBy(target, "is implemented by")
+  def isBeingImplementedBy(target: CanImplement, title: String = "implements"): RelationshipConfigurer =
+    RelationshipConfigurer(isImplementedBy(target, title), propertyAdder, relationshipAdder)
+
   def isImplementedBy(
       target: CanImplement,
-      title: String
+      title: String = "implements"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Implementation(

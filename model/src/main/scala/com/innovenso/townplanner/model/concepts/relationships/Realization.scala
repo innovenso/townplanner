@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.Property
+import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
 import com.innovenso.townplanner.model.meta.Key
 
 case class Realization(
@@ -26,13 +26,15 @@ trait CanBeRealized extends CanBeRelationshipTarget
 
 trait CanConfigureRealizationSource[ModelComponentType <: CanRealize] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def realizes(target: CanBeRealized): Relationship =
-    realizes(target, "realizes")
+  def isRealizing(target: CanBeRealized, title: String = "realizes"): RelationshipConfigurer =
+    RelationshipConfigurer(realizes(target, title), propertyAdder, relationshipAdder)
+
   def realizes(
       target: CanBeRealized,
-      title: String
+      title: String = "realizes"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Realization(
@@ -45,13 +47,15 @@ trait CanConfigureRealizationSource[ModelComponentType <: CanRealize] {
 
 trait CanConfigureRealizationTarget[ModelComponentType <: CanBeRealized] {
   def relationshipAdder: CanAddRelationships
+  def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isRealizedBy(target: CanRealize): Relationship =
-    isRealizedBy(target, "uses")
+  def isBeingRealizedBy(target: CanRealize, title: String = "realizes"): RelationshipConfigurer =
+    RelationshipConfigurer(isRealizedBy(target, title), propertyAdder, relationshipAdder)
+
   def isRealizedBy(
       target: CanRealize,
-      title: String
+      title: String = "realizes"
   ): Relationship =
     relationshipAdder.hasRelationship(
       Realization(
