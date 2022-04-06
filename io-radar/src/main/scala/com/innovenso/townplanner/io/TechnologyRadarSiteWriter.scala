@@ -38,12 +38,12 @@ object TechnologyRadarSiteWriter {
     if (exitCode != 0) {
       List(
         Output(
-          radar,
-          Failure("Radar Generator Failed"),
-          None,
-          Html,
-          RadarWebsiteOutput,
-          radar.pointInTime
+          view = radar,
+          result = Failure("Radar Generator Failed"),
+          assetName = None,
+          fileType = Html,
+          outputType = RadarWebsiteOutput,
+          day = radar.pointInTime
         )
       )
     } else {
@@ -59,18 +59,18 @@ object TechnologyRadarSiteWriter {
       })
       List(
         Output(
-          radar,
-          Success,
-          Some(
+          view = radar,
+          result = Success,
+          assetName = Some(
             assetName(
               radar,
               targetDirectory,
               new File(targetDirectory, "index.html")
             )
           ),
-          Html,
-          RadarWebsiteOutput,
-          radar.pointInTime
+          fileType = Html,
+          outputType = RadarWebsiteOutput,
+          day = radar.pointInTime
         )
       )
     }

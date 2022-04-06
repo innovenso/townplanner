@@ -3,9 +3,9 @@
 @import com.innovenso.townplan.io.context.Output
 @(caption: Option[String], output: Output)
 @if(output.assetName.isDefined) {
-  @Environment("figure") {
+  @Environment("figure", optionalParameters = List("h!")) {
     @Command(name = "centering")
-    \includegraphics{@output.assetHashedName}
+    \includegraphics[max width=\textwidth]{@output.assetHashedName}
     @if(caption.isDefined) { @Command(name = "caption", requiredParameters = caption.toList) }
   }
 }

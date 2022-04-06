@@ -3,10 +3,8 @@ package com.innovenso.townplanner.io.latex.document
 import com.innovenso.townplan.io.context.OutputContext
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.TownPlanDiagramWriter
-import com.innovenso.townplanner.model.concepts.{
-  Enterprise,
-  EnterpriseConfigurer
-}
+import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
+import com.innovenso.townplanner.model.concepts.{Enterprise, EnterpriseConfigurer}
 import com.innovenso.townplanner.model.meta.Key
 import com.innovenso.townplanner.model.samples.SampleFactory
 import com.innovenso.townplanner.model.{EnterpriseArchitecture, TownPlan}
@@ -24,6 +22,7 @@ trait LatexDocumentIO {
   val townPlanDiagramWriter: TownPlanDiagramWriter =
     TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
 
+  val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(assetRepository)
   val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
     assetRepository
   )
@@ -35,11 +34,12 @@ trait LatexDocumentIO {
       .write(townPlan, viewKey.value, OutputContext(Nil))
   }
 
-  def documentsAreWritten(viewKey: Key): OutputContext = {
-    townPlanDocumentWriter.write(townPlan, viewKey.value, OutputContext(Nil))
+  def picturesAreWritten(viewKey: Key, outputContext: OutputContext = OutputContext(Nil)): OutputContext = {
+    townPlanPictureWriter.write(townPlan, viewKey.value, OutputContext(Nil))
   }
 
-  val curriedEnterprise: String => String => Enterprise = title =>
-    description => Enterprise(title = title, key = Key(description))
+  def documentsAreWritten(viewKey: Key, outputContext: OutputContext = OutputContext(Nil)): OutputContext = {
+    townPlanDocumentWriter.write(townPlan, viewKey.value, outputContext)
+  }
 
 }

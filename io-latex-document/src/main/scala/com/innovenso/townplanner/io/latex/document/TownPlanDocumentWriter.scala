@@ -16,7 +16,7 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
       views(townPlan)
         .flatMap(view =>
           DocumentSpecificationWriter
-            .specifications(townPlan, view)
+            .specifications(townPlan, outputContext, view)
         )
         .flatMap(spec =>
           DocumentPdfWriter.documents(spec, assetRepository, outputContext)
@@ -30,7 +30,7 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
   ): OutputContext = outputContext.withOutputs(
     view(townPlan, Key(viewKey)).toList
       .flatMap(modelComponent =>
-        DocumentSpecificationWriter.specifications(townPlan, modelComponent)
+        DocumentSpecificationWriter.specifications(townPlan, outputContext, modelComponent)
       )
       .flatMap(spec =>
         DocumentPdfWriter.documents(spec, assetRepository, outputContext)

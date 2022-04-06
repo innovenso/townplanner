@@ -28,6 +28,7 @@
 @UsePackage(name = "longtable")
 @UsePackage(name = "forloop")
 @UsePackage(name = "booktabs")
+    @UsePackage(name = "adjustbox", parameters = Some("export"))
 
 @Command(name = "usesmartdiagramlibrary", requiredParameters = List("additions"))
 @Command(name = "usetikzlibrary", requiredParameters = List("calc"))

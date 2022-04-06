@@ -1,26 +1,13 @@
 package com.innovenso.townplanner.io.latex.model
 
-import com.innovenso.townplan.io.context.{
-  Output,
-  OutputFileType,
-  OutputType,
-  Pdf
-}
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  TimelessView,
-  View
-}
-import com.innovenso.townplanner.model.meta.{
-  ADay,
-  InTheFuture,
-  InThePast,
-  Today
-}
+import com.innovenso.townplan.io.context.{Output, OutputFileType, OutputType, Pdf}
+import com.innovenso.townplanner.model.language.{CompiledView, ModelComponent, TimelessView, View}
+import com.innovenso.townplanner.model.meta.{ADay, InTheFuture, InThePast, Today}
 
 case class LatexSpecification(
     view: CompiledView[_ <: View],
     latexSourceCode: String,
+    relatedModelComponents: List[ModelComponent] = Nil,
     latexLibraries: List[LatexLibrary] = Nil,
     dependencies: List[Output] = Nil,
     filenameAppendix: Option[String] = None,

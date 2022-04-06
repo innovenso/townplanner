@@ -44,22 +44,22 @@ object DiagramImageWriter {
       val assetName = specification.assetName(outputFileType)
       assetRepository.write(outputFile, assetName)
       Output(
-        specification.view.view,
-        Success,
-        Some(assetName),
-        outputFileType,
-        Diagram,
-        specification.view.pointInTime
+        view = specification.view.view,
+        result = Success,
+        assetName = Some(assetName),
+        fileType = outputFileType,
+        outputType = Diagram,
+        day = specification.view.pointInTime
       )
     } catch {
       case error: Throwable =>
         Output(
-          specification.view.view,
-          Failure(error.getMessage),
-          None,
-          outputFileType,
-          Diagram,
-          specification.view.pointInTime
+          view = specification.view.view,
+          result = Failure(error.getMessage),
+          assetName = None,
+          fileType = outputFileType,
+          outputType = Diagram,
+          day = specification.view.pointInTime
         )
     } finally if (outputStream != null) outputStream.close()
   }

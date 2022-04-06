@@ -37,8 +37,7 @@ case class LatexPdfWriter(
 
   private def prepareDependencies(): Unit = {
     imagesDirectory.mkdirs()
-    outputContext
-      .outputsOfFileType(Eps)
+    specification.dependencies
       .foreach(output =>
         output.assetName
           .flatMap(assetRepository.read)
@@ -90,12 +89,12 @@ case class LatexPdfWriter(
     val exitCode = process.waitFor
     if (exitCode != 0) {
       Output(
-        specification.view.view,
-        Failure("LaTeX Compilation Failed"),
-        None,
-        Pdf,
-        specification.outputType,
-        specification.view.pointInTime
+        view = specification.view.view,
+        result = Failure("LaTeX Compilation Failed"),
+        assetName = None,
+        fileType = Pdf,
+        outputType = specification.outputType,
+        day = specification.view.pointInTime
       )
     } else {
       assetRepository.write(
@@ -103,12 +102,13 @@ case class LatexPdfWriter(
         specification.assetName
       )
       Output(
-        specification.view.view,
-        Success,
-        Some(specification.assetName),
-        Pdf,
-        specification.outputType,
-        specification.view.pointInTime
+        view = specification.view.view,
+        relatedModelComponents = specification.relatedModelComponents,
+        result = Success,
+        assetName = Some(specification.assetName),
+        fileType = Pdf,
+        outputType = specification.outputType,
+        day = specification.view.pointInTime
       )
     }
   }
@@ -120,5 +120,5 @@ case class LatexPdfWriter(
 private class OutputLogger(stream: InputStream) extends Runnable {
   override def run(): Unit = new BufferedReader(
     new InputStreamReader(stream)
-  ).lines.forEach(println(_))
+  ).lines.forEach(it => print("."))
 }

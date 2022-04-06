@@ -26,7 +26,11 @@
 @import latex.lib.tables.txt.LongTable
 @import com.innovenso.townplanner.io.latex.document.model.DecisionOptionRequirementsMatchTable
 @import com.innovenso.townplanner.io.latex.document.model.DecisionOptionRequirementsMatchTable
-@(townPlan: TownPlan, view: CompiledArchitectureDecisionRecord)
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.Pdf
+@import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
+@import txt.Image
+@(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
     @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
@@ -114,6 +118,9 @@
                 }
 
                 @SubSubSection("Requirement Scoring", decisionOption.hasRequirementScores) {
+                    @for(spiderDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzRequirementScoreSpiderDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision, decisionOption.option))) {
+                        @Image(Some(s"${decisionOption.option.title} Requirement Scores"), spiderDiagram)
+                    }
                     \scriptsize
 
                         @LongTable(table = DecisionOptionRequirementsMatchTable(decisionOption).table, title = None)
