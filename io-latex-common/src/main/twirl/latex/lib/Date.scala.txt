@@ -1,0 +1,11 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.model.meta.ADay
+@import com.innovenso.townplanner.model.concepts.properties.FatherTime
+@(day: Option[FatherTime])
+@if(day.isDefined) {
+    @day.get.date.year\textendash~@day.get.date.month\textendash~@day.get.date.day
+} else {
+  Unknown
+}

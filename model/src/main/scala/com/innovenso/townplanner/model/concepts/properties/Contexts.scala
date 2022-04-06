@@ -19,7 +19,7 @@ case class Assumption(
 ) extends Context
 case class Consequence(
     sortKey: SortKey = SortKey.next,
-    title: String = "Assumption",
+    title: String = "Consequence",
     description: String
 ) extends Context
 

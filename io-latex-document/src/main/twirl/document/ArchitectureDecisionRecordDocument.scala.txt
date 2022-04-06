@@ -31,6 +31,7 @@
 @import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
 @import txt.Image
 @import latex.lib.txt.MarginLinks
+@import latex.lib.txt.Date
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
@@ -46,6 +47,13 @@
             @MarginLinks(decoratedDecision.decision)
             @Description(decoratedDecision.decision)
 
+            @SubSection("Status and Due Date") {
+              @Paragraph("Status") { @Text(decoratedDecision.decision.status.name) }
+              @Paragraph("Due Date", decoratedDecision.hasDueDate) {
+                @Date(decoratedDecision.decision.dueDate)
+              }
+
+            }
 
             @SubSection("Current Conditions", condition = decoratedDecision.hasCurrentConditions) {
                 @for(currentCondition <- decoratedDecision.decision.currentState) {
@@ -144,6 +152,19 @@
           }
         }
 
+        @Section("Outcome", decoratedDecision.hasOutcome && decoratedDecision.hasConsequences) {
+          @SubSection("Conclusion", decoratedDecision.hasOutcome) {
+              @Text(decoratedDecision.decision.outcome)
+          }
+          @SubSection("Consequences", decoratedDecision.hasConsequences) {
+              @for(consequence <- decoratedDecision.decision.consequences) {
+                  @Paragraph(consequence.title) {
+                      @Text(consequence.description)
+                  }
+              }
+
+          }
+        }
       }
     }
 }

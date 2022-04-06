@@ -196,6 +196,8 @@ case class DecisionDecorator(
     decision.assumptions.nonEmpty
   val hasConsequences: Boolean =
     decision.consequences.nonEmpty
+  val hasDueDate: Boolean = decision.dueDate.isDefined
+  val hasOutcome: Boolean = !decision.outcome.isBlank
   val responsible: List[Person] =
     view.directDependencies(decision, classOf[Responsible], classOf[Person])
   val accountable: List[Person] =
