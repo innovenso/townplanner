@@ -4,10 +4,12 @@ import com.innovenso.townplan.io.context.Output
 import com.innovenso.townplanner.io.latex.model.tables.{ColumnCenter, ColumnLeft, ColumnParagraph, ColumnRight, LatexBodyRow, LatexEmptyCell, LatexHeaderRow, LatexSecondaryHeaderRow, LatexTable, LatexTextCell}
 import com.innovenso.townplanner.io.latex.model.{Bold, Fill, InnerSep, Rectangle, Uppercase, VeryHugeFont}
 import com.innovenso.townplanner.io.latex.test.LatexIO
+import com.innovenso.townplanner.model.concepts.properties.Website
 import latex.lib.tables.txt.{LongTable, Table}
 import latex.lib.techradar.txt.RadarPositionPicture
 import latex.lib.tikz.txt.{TikzDocument, TikzStyle}
-import latex.lib.txt.ArticleDocument
+import latex.lib.txt.{ArticleDocument, SimpleLink}
+import net.sourceforge.plantuml.cucadiagram.Link
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 import play.twirl.api.{Txt, TxtFormat}
@@ -97,6 +99,19 @@ class CommonLatexTemplateSpec extends AnyFlatSpec with GivenWhenThen {
           TikzDocument("Radar Position", townPlan)(
             RadarPositionPicture(technology = samples.technique)
           ).body
+        )
+      )
+    )
+  }
+
+  "A link" should "be rendered correctly" in new LatexIO {
+    val link: Website = Website("https://www.demorgen.be")
+    val output: TxtFormat.Appendable = SimpleLink(link)
+    println(output.body)
+    assert(
+      assetsExistWhen(
+        pdfIsWritten(
+          ArticleDocument("Link", townPlan)(output).body
         )
       )
     )

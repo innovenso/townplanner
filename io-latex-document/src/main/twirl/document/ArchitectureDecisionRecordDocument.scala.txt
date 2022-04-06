@@ -30,6 +30,7 @@
 @import com.innovenso.townplan.io.context.Pdf
 @import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
 @import txt.Image
+@import latex.lib.txt.MarginLinks
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
@@ -42,7 +43,7 @@
     @for(decoratedDecision <- view.decoratedDecisions) {
       @Chapter(decoratedDecision.decision.title) {
         @Section("Context", condition = decoratedDecision.hasContext) {
-
+            @MarginLinks(decoratedDecision.decision)
             @Description(decoratedDecision.decision)
 
 
@@ -100,7 +101,8 @@
         @Section("Options Considered") {
           @for(decisionOption <- decoratedDecision.options) {
             @SubSection(decisionOption.option.title) {
-              @Description(decisionOption.option)
+                @MarginLinks(decisionOption.option)
+                @Description(decisionOption.option)
 
                 @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
                     @Paragraph("Strenghts", condition = decisionOption.hasStrengths) {

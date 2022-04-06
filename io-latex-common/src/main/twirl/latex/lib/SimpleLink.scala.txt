@@ -1,0 +1,5 @@
+@import com.innovenso.townplanner.model.concepts.properties.Link
+@import txt.Text
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@(link: Link)
+@LatexFormat.escape(if (link.title.isBlank) link.name else link.title): \href{@LatexFormat.escape(link.url)}{@LatexFormat.escape(link.url)}

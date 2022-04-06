@@ -1,0 +1,8 @@
+@import com.innovenso.townplanner.model.concepts.properties.Link
+@import txt.Text
+@import latex.lib.txt.SimpleLink
+@import latex.lib.txt.MarginNote
+@(links: List[Link])
+@for(link <- links) {
+    @MarginNote(){@SimpleLink(link)}
+}

@@ -2,7 +2,7 @@ package com.innovenso.townplanner.model.samples
 
 import com.innovenso.townplanner.model.EnterpriseArchitecture
 import com.innovenso.townplanner.model.concepts.{Actor, ArchitectureBuildingBlock, BusinessCapability, Database, Decision, DecisionOption, DecisionStatus, DesignPrinciple, Enterprise, Framework, ItPlatform, ItSystem, ItSystemIntegration, Language, Microservice, NotStarted, Person, Platform, Principle, Queue, Tag, Technique, Tool, WebUI}
-import com.innovenso.townplanner.model.concepts.properties.{ArchitectureVerdict, Assumption, Availability, BeEliminated, BeInvestedIn, BeMigrated, BeTolerated, Capex, Confidentiality, Consequence, Constraint, CurrentState, Decommissioned, Description, DoesNotMeetExpectations, ExceedsExpectations, FatherTime, FunctionalRequirement, Goal, GoneToProduction, HealthDataCompliance, HighImpact, Integrity, LowImpact, MediumImpact, MeetsExpectations, Opex, Opportunity, PCICompliance, PrivacyCompliance, QualityAttributeRequirement, StartedDevelopment, Strength, Threat, Weakness, Website}
+import com.innovenso.townplanner.model.concepts.properties.{ArchitectureVerdict, Assumption, Availability, BeEliminated, BeInvestedIn, BeMigrated, BeTolerated, Capex, Confidentiality, Consequence, Constraint, CurrentState, Decommissioned, Description, DoesNotMeetExpectations, ExceedsExpectations, FatherTime, FunctionalRequirement, Goal, GoneToProduction, HealthDataCompliance, HighImpact, Integrity, LowImpact, MediumImpact, MeetsExpectations, Opex, Opportunity, PCICompliance, PrivacyCompliance, QualityAttributeRequirement, StartedDevelopment, Strength, Threat, Weakness, Website, Wiki}
 import com.innovenso.townplanner.model.concepts.relationships.{Flow, Relationship}
 import com.innovenso.townplanner.model.language.Element
 import com.innovenso.townplanner.model.meta.{Category, Day, MonetaryAmount, SomeYear, ThisYear, UnitCount, UnitOfMeasure}
@@ -193,6 +193,8 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       (1 to randomInt(5)).foreach(_ =>
         it has Consequence(description = description)
       )
+      (1 to randomInt(4)).foreach(_ => it has Website(url = url, title = name))
+      (1 to randomInt(3)).foreach(_ => it has Wiki(url = url, title = name))
       val functionalRequirements = (1 to randomInt(5)).map(_ =>
         it has FunctionalRequirement(title = title, description = description)
       )
@@ -206,6 +208,7 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
           responseMeasure = title
         )
       )
+
       val constraints = (1 to randomInt(5)).map(_ =>
         it has Constraint(title = title, description = description)
       )

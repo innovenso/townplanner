@@ -19,6 +19,7 @@
 @UsePackage(name = "tikzscale")
 @UsePackage(name = "tikzpeople")
 @UsePackage(name = "pgfplots")
+@UsePackage(name = "hyperref")
 @UsePackage(name = "pgfbaselayers")
 @UsePackage(name = "mathpazo")
 @UsePackage(name = "tcolorbox", parameters = Some("most"))
@@ -28,7 +29,7 @@
 @UsePackage(name = "longtable")
 @UsePackage(name = "forloop")
 @UsePackage(name = "booktabs")
-    @UsePackage(name = "adjustbox", parameters = Some("export"))
+@UsePackage(name = "adjustbox", parameters = Some("export"))
 
 @Command(name = "usesmartdiagramlibrary", requiredParameters = List("additions"))
 @Command(name = "usetikzlibrary", requiredParameters = List("calc"))

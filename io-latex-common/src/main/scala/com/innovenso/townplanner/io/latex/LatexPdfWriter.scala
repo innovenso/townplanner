@@ -120,5 +120,5 @@ case class LatexPdfWriter(
 private class OutputLogger(stream: InputStream) extends Runnable {
   override def run(): Unit = new BufferedReader(
     new InputStreamReader(stream)
-  ).lines.forEach(it => print("."))
+  ).lines.forEach(it => print(it))
 }
