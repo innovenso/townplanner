@@ -32,6 +32,8 @@
 @import txt.Image
 @import latex.lib.txt.MarginLinks
 @import latex.lib.txt.Date
+@import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
+@import txt.MarginImage
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {
@@ -92,6 +94,25 @@
             @SubSection("Stakeholders", condition = decoratedDecision.hasStakeholders) {
                     @Itemize(decoratedDecision.stakeholders.map(_.title))
             }
+
+          @SubSection("Security & Compliance", condition = decoratedDecision.hasSecurityImpact || decoratedDecision.hasComplianceImpact) {
+              @for(securityImpactDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzSecurityImpactDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision))) {
+                  @MarginImage(Some(s"${decoratedDecision.decision.title} Security Impact"), securityImpactDiagram)
+              }
+
+              @for(securityImpact <- decoratedDecision.decision.securityImpacts) {
+                @Paragraph(title = s"${securityImpact.name}: ${securityImpact.level.name}") {
+                  @Text(content = securityImpact.description)
+                }
+              }
+
+              @for(complianceImpact <- decoratedDecision.decision.complianceConcerns) {
+                @Paragraph(title = complianceImpact.name) {
+                  @Text(content = complianceImpact.description)
+                }
+              }
+
+          }
         }
 
         @Section("Analysis", condition = decoratedDecision.hasRequirements) {

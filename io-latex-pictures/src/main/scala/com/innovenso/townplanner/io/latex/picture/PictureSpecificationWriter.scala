@@ -1,11 +1,26 @@
 package com.innovenso.townplanner.io.latex.picture
 
-import com.innovenso.townplanner.io.latex.model.{Book, KaoBookLibrary, LatexSpecification}
-import com.innovenso.townplanner.io.latex.picture.context.{TikzBusinessCapabilityOnePager, TikzPicture, TikzRequirementScoreSpiderDiagram}
+import com.innovenso.townplanner.io.latex.model.{
+  Book,
+  KaoBookLibrary,
+  LatexSpecification
+}
+import com.innovenso.townplanner.io.latex.picture.context.{
+  TikzBusinessCapabilityOnePager,
+  TikzPicture,
+  TikzRequirementScoreSpiderDiagram
+}
+import com.innovenso.townplanner.io.latex.picture.specifications.ArchitectureDecisionRecordSpecificationFactory
 import com.innovenso.townplanner.model.TownPlan
-import com.innovenso.townplanner.model.concepts.views.{CompiledArchitectureDecisionRecord, CompiledBusinessCapabilityMap}
+import com.innovenso.townplanner.model.concepts.views.{
+  CompiledArchitectureDecisionRecord,
+  CompiledBusinessCapabilityMap
+}
 import com.innovenso.townplanner.model.language.{CompiledView, View}
-import tikz.txt.{BusinessCapabilityMapPicture, DecisionOptionRequirementScoreSpiderDiagram}
+import tikz.txt.{
+  BusinessCapabilityMapPicture,
+  DecisionOptionRequirementScoreSpiderDiagram
+}
 
 object PictureSpecificationWriter {
   def specifications(
@@ -25,24 +40,10 @@ object PictureSpecificationWriter {
         )
       )
     case architectureDecisionRecord: CompiledArchitectureDecisionRecord =>
-      architectureDecisionRecord.decoratedDecisions
-        .flatMap(_.options)
-        .map(optionDecorator =>
-          LatexSpecification(
-            view = architectureDecisionRecord,
-            relatedModelComponents = List(optionDecorator.option) ::: optionDecorator.decision.toList,
-            latexSourceCode = DecisionOptionRequirementScoreSpiderDiagram(
-              townPlan = townPlan,
-              option = optionDecorator
-            ).body,
-            filenameAppendix = Some(
-              optionDecorator.decision
-                .map(decision => decision.title + " - ")
-                .getOrElse("") + optionDecorator.option.title
-            ),
-            outputType = TikzRequirementScoreSpiderDiagram
-          )
-        )
+      ArchitectureDecisionRecordSpecificationFactory(
+        architectureDecisionRecord,
+        townPlan
+      ).specifications
     case _ => Nil
   }
 }

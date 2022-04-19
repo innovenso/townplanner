@@ -1,0 +1,8 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplan.io.context.Output
+@(caption: Option[String], output: Output)
+@Environment("marginfigure") {
+  \includegraphics[max width=\textwidth]{@output.assetHashedName}
+  @if(caption.isDefined) { @Command(name = "caption", requiredParameters = caption.toList) }
+}

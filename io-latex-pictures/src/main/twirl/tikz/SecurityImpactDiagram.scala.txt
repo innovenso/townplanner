@@ -1,0 +1,67 @@
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.views.DecisionDecorator
+@import latex.lib.tikz.txt.TikzDocument
+@import latex.lib.tikz.txt.TikzPictureEnvironment
+@import latex.lib.tikz.txt.TikzStyle
+@import com.innovenso.townplanner.io.latex.model.Rectangle
+@import com.innovenso.townplanner.io.latex.model.InnerSep
+@import com.innovenso.townplanner.io.latex.model.TextCentered
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.io.latex.model.TextWidth
+@import com.innovenso.townplanner.io.latex.model.MinimumHeight
+@import com.innovenso.townplanner.io.latex.model.TikzStyleRef
+@import com.innovenso.townplanner.io.latex.model.Fill
+@import com.innovenso.townplanner.io.latex.model.Text
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.NorthEast
+@import com.innovenso.townplanner.model.meta.Key
+@import com.innovenso.townplanner.io.latex.model.RightOf
+@import com.innovenso.townplanner.io.latex.model.BelowOf
+@import com.innovenso.townplanner.model.concepts.properties.ExtremelyHighImpact
+@import com.innovenso.townplanner.model.concepts.properties.ExtremelyHighImpact
+@import com.innovenso.townplanner.model.concepts.properties.HighImpact
+@import com.innovenso.townplanner.io.latex.model.LeftOf
+@import com.innovenso.townplanner.model.concepts.properties.MediumImpact
+@import com.innovenso.townplanner.model.concepts.properties.LowImpact
+@import com.innovenso.townplanner.model.concepts.properties.Confidentiality
+@import com.innovenso.townplanner.io.latex.model.East
+@import com.innovenso.townplanner.model.concepts.properties.HasSecurityImpact
+@import com.innovenso.townplanner.model.concepts.properties.Integrity
+@import com.innovenso.townplanner.model.concepts.properties.Availability
+@(townPlan: TownPlan, hasSecurityImpact: HasSecurityImpact, title: String)
+
+@TikzDocument(title, townPlan) {
+
+  @TikzStyle("impact_box", List(Rectangle, InnerSep(1), TextCentered, TinyFont, TextWidth(5), MinimumHeight(4)))
+  @TikzStyle("low_impact_box", List(TikzStyleRef("impact_box"), Fill("innovensoGreen!20"), Text("black")))
+  @TikzStyle("medium_impact_box", List(TikzStyleRef("impact_box"), Fill("innovensoGreen"), Text("black")))
+  @TikzStyle("high_impact_box", List(TikzStyleRef("impact_box"), Fill("innovensoAmber"), Text("black")))
+  @TikzStyle("xhigh_impact_box", List(TikzStyleRef("impact_box"), Fill("innovensoRed"), Text("white")))
+
+  @TikzPictureEnvironment(parameters = List("node distance=1mm")) {
+    @Tikz(TikzNode(title = "L", identifier = Key("Lowlabel"), configuration = List(Anchor(NorthEast), TikzStyleRef("impact_box"))))
+    @Tikz(TikzNode(title = "M", identifier = Key("Mediumlabel"), configuration = List(RightOf("Lowlabel"), TikzStyleRef("impact_box"))))
+    @Tikz(TikzNode(title = "H", identifier = Key("Highlabel"), configuration = List(RightOf("Mediumlabel"), TikzStyleRef("impact_box"))))
+    @Tikz(TikzNode(title = "EH", identifier = Key("Extremelabel"), configuration = List(RightOf("Highlabel"), TikzStyleRef("impact_box"))))
+
+    @Tikz(TikzNode(title = if(hasSecurityImpact.confidentialityImpact.exists(p => p.level == ExtremelyHighImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Confidentialityextreme"), configuration = List(BelowOf("Extremelabel"), TikzStyleRef("xhigh_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.confidentialityImpact.exists(p => p.level == HighImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Confidentialityhigh"), configuration = List(LeftOf("Confidentialityextreme"), TikzStyleRef("high_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.confidentialityImpact.exists(p => p.level == MediumImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Confidentialitymedium"), configuration = List(LeftOf("Confidentialityhigh"), TikzStyleRef("medium_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.confidentialityImpact.exists(p => p.level == LowImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Confidentialitylow"), configuration = List(LeftOf("Confidentialitymedium"), TikzStyleRef("low_impact_box"))))
+    @Tikz(TikzNode(title = Confidentiality().name, configuration = List(LeftOf("Confidentialitylow"), TinyFont, Anchor(East))))
+
+    @Tikz(TikzNode(title = if(hasSecurityImpact.integrityImpact.exists(p => p.level == ExtremelyHighImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Integrityextreme"), configuration = List(BelowOf("Confidentialityextreme"), TikzStyleRef("xhigh_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.integrityImpact.exists(p => p.level == HighImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Integrityhigh"), configuration = List(LeftOf("Integrityextreme"), TikzStyleRef("high_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.integrityImpact.exists(p => p.level == MediumImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Integritymedium"), configuration = List(LeftOf("Integrityhigh"), TikzStyleRef("medium_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.integrityImpact.exists(p => p.level == LowImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Integritylow"), configuration = List(LeftOf("Integritymedium"), TikzStyleRef("low_impact_box"))))
+    @Tikz(TikzNode(title = Integrity().name, configuration = List(LeftOf("Integritylow"), TinyFont, Anchor(East))))
+
+    @Tikz(TikzNode(title = if(hasSecurityImpact.availabilityImpact.exists(p => p.level == ExtremelyHighImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Availabilityextreme"), configuration = List(BelowOf("Integrityextreme"), TikzStyleRef("xhigh_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.availabilityImpact.exists(p => p.level == HighImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Availabilityhigh"), configuration = List(LeftOf("Availabilityextreme"), TikzStyleRef("high_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.availabilityImpact.exists(p => p.level == MediumImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Availabilitymedium"), configuration = List(LeftOf("Availabilityhigh"), TikzStyleRef("medium_impact_box"))))
+    @Tikz(TikzNode(title = if(hasSecurityImpact.availabilityImpact.exists(p => p.level == LowImpact)) "\\faCheck" else "", escapeTitle=false, identifier = Key("Availabilitylow"), configuration = List(LeftOf("Availabilitymedium"), TikzStyleRef("low_impact_box"))))
+    @Tikz(TikzNode(title = Availability().name, configuration = List(LeftOf("Availabilitylow"), TinyFont, Anchor(East))))
+  }
+}

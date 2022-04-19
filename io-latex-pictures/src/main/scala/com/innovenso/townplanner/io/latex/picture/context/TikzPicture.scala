@@ -10,10 +10,17 @@ case object TikzPicture extends OutputType {
 
 case object TikzRequirementScoreSpiderDiagram extends OutputType {
   val title: String = "Requirement Score Spider Diagram"
-  val description: String = "Visualizes the scoring on requirements as a spider diagram."
+  val description: String =
+    "Visualizes the scoring on requirements as a spider diagram."
+}
+
+case object TikzSecurityImpactDiagram extends OutputType {
+  val title: String = "Security Impact Diagram"
+  val description: String = "Visualizes the security impact as a CIA matrix"
 }
 
 case object TikzBusinessCapabilityOnePager extends OutputType {
   val title: String = "One Pager"
-  val description: String = "A one-page visualization of the business capability map"
+  val description: String =
+    "A one-page visualization of the business capability map"
 }

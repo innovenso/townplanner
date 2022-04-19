@@ -17,7 +17,8 @@ case class TikzNode(
     orAt: Option[String] = None,
     orAtPolar: Option[(Double, Double)] = None,
     configuration: List[TikzStyleInstruction] = Nil,
-    textVariants: List[TextVariant] = Nil
+    textVariants: List[TextVariant] = Nil,
+    escapeTitle: Boolean = true
 ) extends TikzInstruction {
   private val position: String =
     at.map(pos => s"at (${pos._1}mm,${pos._2}mm)")
@@ -28,9 +29,13 @@ case class TikzNode(
             orAtPolar.map(pos => s"at (${pos._1}:${pos._2})").getOrElse("")
           )
       )
+  private val titleString: String =
+    if (escapeTitle)
+      LatexFormat
+        .escapeAndApply(title, textVariants)
+    else LatexFormat.apply(textVariants, title)
   val value =
-    s"\\node[${configuration.map(_.value).mkString(",")}] ${position} (${identifier.camelCased}) {${LatexFormat
-        .escapeAndApply(title, textVariants)}}"
+    s"\\node[${configuration.map(_.value).mkString(",")}] ${position} (${identifier.camelCased}) {${titleString}}"
 }
 
 case class TikzCoordinate(

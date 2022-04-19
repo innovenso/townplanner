@@ -43,21 +43,21 @@ case object UnknownImpact extends SecurityImpactLevel {
 
 case class Confidentiality(
     level: SecurityImpactLevel = UnknownImpact,
-    description: String
+    description: String = ""
 ) extends SecurityImpact {
   val name = "Confidentiality"
 }
 
 case class Integrity(
     level: SecurityImpactLevel = UnknownImpact,
-    description: String
+    description: String = ""
 ) extends SecurityImpact {
   val name = "Integrity"
 }
 
 case class Availability(
     level: SecurityImpactLevel = UnknownImpact,
-    description: String
+    description: String = ""
 ) extends SecurityImpact {
   val name = "Availability"
 }

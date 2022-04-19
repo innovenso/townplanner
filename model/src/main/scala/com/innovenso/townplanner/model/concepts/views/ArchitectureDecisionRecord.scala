@@ -234,6 +234,9 @@ case class DecisionDecorator(
     decision.qualityAttributeRequirements.nonEmpty
   val hasConstraints: Boolean = decision.constraints.nonEmpty
 
+  val hasSecurityImpact: Boolean = decision.securityImpacts.nonEmpty
+  val hasComplianceImpact: Boolean = decision.complianceConcerns.nonEmpty
+
   val options: List[DecisionOptionDecorator] =
     view.options(decision).map(DecisionOptionDecorator(view, _))
 
