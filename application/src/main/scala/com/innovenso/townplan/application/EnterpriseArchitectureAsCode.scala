@@ -44,6 +44,7 @@ trait EnterpriseArchitectureAsCode extends App {
 
   def documents()(implicit outputContext: OutputContext): Unit = {
     this.outputContext = townPlanPictureWriter.write(townPlan, outputContext)
-    this.outputContext = townPlanDocumentWriter.write(townPlan, outputContext)
+    this.outputContext =
+      townPlanDocumentWriter.write(townPlan, this.outputContext)
   }
 }
