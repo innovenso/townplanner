@@ -1,6 +1,13 @@
 package com.innovenso.townplanner.io
 
-import com.innovenso.townplanner.model.concepts.{Framework, Language, Platform}
+import com.innovenso.townplanner.model.concepts.{
+  Framework,
+  ItSystem,
+  Language,
+  Microservice,
+  Platform,
+  Team
+}
 import com.innovenso.townplanner.model.concepts.properties.{
   BeEliminated,
   BeInvestedIn,
@@ -21,7 +28,7 @@ class TechnologyRadarWriterSpec extends AnyFlatSpec with GivenWhenThen {
       samples.technique
       samples.platformTechnology
     }
-    And("a technology radar is requests")
+    And("a technology radar is requested")
     val radar: TechnologyRadar = ea needs TechnologyRadar()
     Then("the technology radar is written to JSON")
     assert(jsonIsWritten(radar))
@@ -67,6 +74,18 @@ class TechnologyRadarWriterSpec extends AnyFlatSpec with GivenWhenThen {
     }
     samples.tool
     samples.technique
+
+    val team1: Team = ea describes Team(title = "Team 1") as { it =>
+      it hasKnowledgeOf mongodb
+      it hasKnowledgeOf kubernetes
+    }
+    val system1: ItSystem = samples.system()
+
+    val container1: Microservice =
+      ea describes Microservice(title = "microservice") as { it =>
+        it isPartOf system1
+        it isImplementedBy kubernetes
+      }
 
     And("a technology radar is requested")
     val radar: TechnologyRadar = ea needs TechnologyRadar()

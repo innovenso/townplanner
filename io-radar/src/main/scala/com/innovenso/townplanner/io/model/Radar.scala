@@ -61,7 +61,8 @@ object Radar {
   val platforms = "Platforms"
 
   def apply(technologyRadar: CompiledTechnologyRadar) = new Radar(
-    blips = technologyRadar.technologies.map(Blip(_))
+    blips =
+      technologyRadar.technologies.map(tech => Blip(tech, technologyRadar))
   )
 }
 
@@ -74,50 +75,60 @@ case class Blip(
 )
 
 object Blip {
-  def apply(technology: Technology): Blip = technology match {
-    case tool: Tool           => apply(tool)
-    case technique: Technique => apply(technique)
-    case language: Language   => apply(language)
-    case framework: Framework => apply(framework)
-    case platform: Platform   => apply(platform)
+  def apply(
+      technology: Technology,
+      technologyRadar: CompiledTechnologyRadar
+  ): Blip = technology match {
+    case tool: Tool           => apply(tool, technologyRadar)
+    case technique: Technique => apply(technique, technologyRadar)
+    case language: Language   => apply(language, technologyRadar)
+    case framework: Framework => apply(framework, technologyRadar)
+    case platform: Platform   => apply(platform, technologyRadar)
   }
-  def apply(tool: Tool) = new Blip(
+  def apply(tool: Tool, technologyRadar: CompiledTechnologyRadar) = new Blip(
     tool.title,
     Radar.tools,
     tool.architectureVerdict.name,
     false,
-    description(tool)
+    description(tool, technologyRadar)
   )
-  def apply(technique: Technique) = new Blip(
-    technique.title,
-    Radar.techniques,
-    technique.architectureVerdict.name,
-    false,
-    description(technique)
-  )
-  def apply(language: Language) = new Blip(
-    language.title,
-    Radar.languagesAndFrameworks,
-    language.architectureVerdict.name,
-    false,
-    description(language)
-  )
-  def apply(framework: Framework) = new Blip(
-    framework.title,
-    Radar.languagesAndFrameworks,
-    framework.architectureVerdict.name,
-    false,
-    description(framework)
-  )
-  def apply(platform: Platform) = new Blip(
-    platform.title,
-    Radar.platforms,
-    platform.architectureVerdict.name,
-    false,
-    description(platform)
-  )
+  def apply(technique: Technique, technologyRadar: CompiledTechnologyRadar) =
+    new Blip(
+      technique.title,
+      Radar.techniques,
+      technique.architectureVerdict.name,
+      false,
+      description(technique, technologyRadar)
+    )
+  def apply(language: Language, technologyRadar: CompiledTechnologyRadar) =
+    new Blip(
+      language.title,
+      Radar.languagesAndFrameworks,
+      language.architectureVerdict.name,
+      false,
+      description(language, technologyRadar)
+    )
+  def apply(framework: Framework, technologyRadar: CompiledTechnologyRadar) =
+    new Blip(
+      framework.title,
+      Radar.languagesAndFrameworks,
+      framework.architectureVerdict.name,
+      false,
+      description(framework, technologyRadar)
+    )
+  def apply(platform: Platform, technologyRadar: CompiledTechnologyRadar) =
+    new Blip(
+      platform.title,
+      Radar.platforms,
+      platform.architectureVerdict.name,
+      false,
+      description(platform, technologyRadar)
+    )
 
-  def description(technology: Technology): String = technology.descriptions
+  def description(
+      technology: Technology,
+      technologyRadar: CompiledTechnologyRadar
+  ): String = technology.descriptions
     .map(v => s"${v.value}")
     .mkString(
       "<br/>"
@@ -125,5 +136,14 @@ object Blip {
     .map(v => s"<b>$v</b><br/>")
     .getOrElse("") + technology.links
     .map(l => s"<a href=\"${l.url}\">${l.name}</a>")
-    .mkString("<br/>")
+    .mkString("<br/>") + "<br/>Used in IT Systems: " + technologyRadar
+    .systemsImplementedWith(technology)
+    .map(s => s"<i>${s.title}</i>")
+    .mkString(", ") + "<br/>Used in IT Container: " + technologyRadar
+    .containersImplementedWith(technology)
+    .map(s => s"<i>${s.title}</i>")
+    .mkString(", ") + "<br/>Known by: " + technologyRadar
+    .businessActorsWithKnowledgeOf(technology)
+    .map(s => s"<i>${s.title}</i>")
+    .mkString(", ")
 }

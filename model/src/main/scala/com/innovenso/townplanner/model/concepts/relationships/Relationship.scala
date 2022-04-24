@@ -1,5 +1,6 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
+import com.innovenso.townplanner.model.concepts.CanBeImplementedByTechnologies
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureDescription,
@@ -15,11 +16,17 @@ import com.innovenso.townplanner.model.language.{
 }
 import com.innovenso.townplanner.model.meta._
 
-trait Relationship extends Concept with HasDescription with HasFatherTime {
+trait Relationship
+    extends Concept
+    with HasDescription
+    with HasFatherTime
+    with CanBeImplementedByTechnologies {
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Relationship"
   )
   val sortKey: SortKey = SortKey.next
+  val aspect: Aspect = NoStructure
+  val layer: Layer = OtherLayer
 
   def key: Key
 
@@ -49,7 +56,10 @@ trait HasRelationships extends HasModelComponents {
   def relationship(key: Key): Option[Relationship] =
     relationship(key, classOf[Relationship])
 
-  def relationship[RelationshipType <: Relationship](key: Key, relationshipType: Class[RelationshipType]): Option[RelationshipType] = component(key, relationshipType)
+  def relationship[RelationshipType <: Relationship](
+      key: Key,
+      relationshipType: Class[RelationshipType]
+  ): Option[RelationshipType] = component(key, relationshipType)
 
   def relationshipParticipants(key: Key): Set[Element] =
     relationship(key).map(r => relationshipParticipants(r)).getOrElse(Set())
@@ -239,7 +249,8 @@ case class RelationshipConfigurer(
     propertyAdder: CanAddProperties,
     relationshipAdder: CanAddRelationships
 ) extends CanConfigureDescription[Relationship]
-    with CanConfigureFatherTime[Relationship] {
+    with CanConfigureFatherTime[Relationship]
+    with CanConfigureImplementationTarget[Relationship] {
 
   def and(body: RelationshipConfigurer => Unit): Relationship = {
     body.apply(this)
