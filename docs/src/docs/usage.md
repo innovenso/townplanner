@@ -14,6 +14,7 @@ You need the following software installed on your computer to use the Townplanne
 - Blender 2.80 or higher (if you want to use Blender export)
 - Git (if you want to version control your town plan)
 - Intellij Idea or Eclipse to edit the town plan (it's Scala after all!)
+- LaTeX (if you want to use Document export)
 
 ## Project setup
 
@@ -39,7 +40,7 @@ lazy val townplan = project
     .in(file("."))
     .settings(
         name := "wayneenterprises-townplan",
-        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.3.0"
+        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.10.0"
     )
 ```
 

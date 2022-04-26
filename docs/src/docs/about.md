@@ -9,14 +9,17 @@ Domain Specific Language (DSL).
 
 ## I love it when a town plan comes together
 
-This project is somewhat of an experiment gone crazy. It all started with a script that read 3 sheets from an Excel file, 
-with systems, containers and relationships, and generated C4 container diagrams from that. Next came an AWS import because
-I needed to give the CISO of my client at the time deployment diagrams of all our systems running in AWS.
+A craftsman makes his own tools. So, as a software craftsman, when I entered the field of Enterprise Achitecture, it
+was inevitable for me to create my EA tool. First I have tried many existing ones, like Sparx, Archi, Mega and Structurizr (although that last one is not really an EA tool),
+but I found most of them horrible to use, so eventually I did what everyone does, I reverted to Excel and a simple diagramming tool.
 
-After changing clients I piqued the interest of one of my colleagues, so I developed a UI on top of it, and after that I must have added a new
-element, aspect, diagram or export every week.
+Of course, after doing the same thing a few times, I wanted to automate a few things, so I wrote a little application that
+generated diagrams and documents from my Excel sheet. Soon I added things like AWS account scanning, a UI, technology radar
+rendering, Confluence and Miro export and Archimate export.
 
-The last few weekends, I've been working on the Domain Specific Language, partly because I don't really enjoy using a
-web UI, but mainly because I want to benefit from all the fun things you can do with Git and IDEs. I also decided to
-finally open source the tool, so more people can use it and build on it if they want.
+In its current version, the Innovenso Townplanner is based around an extensible model with a Domain Specific Language,
+and a number of export and import capabilities, which will grow over time as I need them. I do believe other enterprise
+architects who still like to code a bit will be able to benefit from it already, so I decided to release it as an
+open-source project.
 
+Enjoy!

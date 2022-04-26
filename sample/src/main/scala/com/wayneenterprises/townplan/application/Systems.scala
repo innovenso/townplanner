@@ -24,7 +24,10 @@ case class Systems()(implicit
         "A custom Lair Management System, designed and built by Lucius Fox"
       )
       it realizes buildingBlocks.lairManagement
-      it isUsedBy actors.bruceWayne
+      it isBeingUsedBy actors.bruceWayne and { that =>
+        that has Description("Bruce likes to stare at this intensely")
+      }
+      it isDeliveredBy actors.bruceWayne
     }
   }
 
