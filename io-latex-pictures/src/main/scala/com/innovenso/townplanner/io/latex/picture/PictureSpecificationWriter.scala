@@ -14,12 +14,14 @@ import com.innovenso.townplanner.io.latex.picture.specifications.ArchitectureDec
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledArchitectureDecisionRecord,
-  CompiledBusinessCapabilityMap
+  CompiledBusinessCapabilityMap,
+  CompiledKnowledgeMatrix
 }
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import tikz.txt.{
   BusinessCapabilityMapPicture,
-  DecisionOptionRequirementScoreSpiderDiagram
+  DecisionOptionRequirementScoreSpiderDiagram,
+  KnowledgeMatrixDiagram
 }
 
 object PictureSpecificationWriter {
@@ -39,6 +41,18 @@ object PictureSpecificationWriter {
           outputType = TikzBusinessCapabilityOnePager
         )
       )
+    case knowledgeMatrix: CompiledKnowledgeMatrix =>
+      List(
+        LatexSpecification(
+          view = knowledgeMatrix,
+          latexSourceCode = KnowledgeMatrixDiagram(
+            knowledgeMatrix,
+            townPlan
+          ).body,
+          outputType = TikzBusinessCapabilityOnePager
+        )
+      )
+
     case architectureDecisionRecord: CompiledArchitectureDecisionRecord =>
       ArchitectureDecisionRecordSpecificationFactory(
         architectureDecisionRecord,

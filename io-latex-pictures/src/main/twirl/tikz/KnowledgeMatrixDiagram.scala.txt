@@ -1,0 +1,21 @@
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.views.CompiledKnowledgeMatrix
+@import latex.lib.tikz.txt.TikzDocument
+@import latex.lib.tikz.txt.TikzPictureEnvironment
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.model.meta.Key
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.BelowOf
+@import com.innovenso.townplanner.io.latex.model.BelowOf
+@(view: CompiledKnowledgeMatrix, townPlan: TownPlan)
+
+@TikzDocument(view.title, townPlan) {
+    @TikzPictureEnvironment(parameters = List("node distance=1mm")) {
+        @Tikz(TikzNode(title = "Knowledge Matrix", identifier = Key("Title"), configuration = List()))
+        @Tikz(TikzNode(title = view.team.map(_.title).getOrElse(""), identifier = Key("Team"), configuration = List(Anchor(NorthWest), BelowOf("Title.south west"))))
+
+    }
+}

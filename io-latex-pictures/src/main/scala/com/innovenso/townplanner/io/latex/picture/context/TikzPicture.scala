@@ -24,3 +24,9 @@ case object TikzBusinessCapabilityOnePager extends OutputType {
   val description: String =
     "A one-page visualization of the business capability map"
 }
+
+case object KnowledgeMatrixOnePager extends OutputType {
+  val title: String = "One Pager"
+  val description: String =
+    "A one-page visualization of the knowledge matrix of a team"
+}
