@@ -50,6 +50,10 @@ case class DevelopmentUrl(url: String, title: String = "") extends Link {
   val name = "Development URL"
 }
 
+case class SourceCodeRepository(url: String, title: String = "") extends Link {
+  val name = "Source Code Repository"
+}
+
 trait HasLinks extends HasProperties {
   def links: List[Link] =
     props(classOf[Link])
@@ -68,6 +72,9 @@ trait HasLinks extends HasProperties {
   def productionLinks: List[Link] = props(classOf[ProductionUrl])
   def preProductionLinks: List[Link] = props(classOf[PreProductionUrl])
   def developmentLinks: List[Link] = props(classOf[DevelopmentUrl])
+  def sourceCodeRepositoryLinks: List[Link] = props(
+    classOf[SourceCodeRepository]
+  )
 }
 
 trait CanConfigureLinks[
