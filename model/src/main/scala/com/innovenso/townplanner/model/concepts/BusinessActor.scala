@@ -83,6 +83,17 @@ trait HasBusinessActors
   def teamActors: List[BusinessActor] =
     businessActors.filter(a => a.isInstanceOf[Team])
 
+  def teamMembers(ofTeam: Key): List[BusinessActor] =
+    businessActor(ofTeam)
+      .map(team =>
+        directOutgoingDependencies(
+          team,
+          classOf[Composition],
+          classOf[BusinessActor]
+        )
+      )
+      .getOrElse(Nil)
+
   def businessActors: List[BusinessActor] = components(
     classOf[BusinessActor]
   )

@@ -1,11 +1,89 @@
 package com.innovenso.townplanner.model.samples
 
 import com.innovenso.townplanner.model.EnterpriseArchitecture
-import com.innovenso.townplanner.model.concepts.{Actor, ArchitectureBuildingBlock, BusinessCapability, Database, Decision, DecisionOption, DecisionStatus, DesignPrinciple, Enterprise, Framework, ItPlatform, ItSystem, ItSystemIntegration, Language, Microservice, NotStarted, Person, Platform, Principle, Queue, Tag, Technique, Tool, WebUI}
-import com.innovenso.townplanner.model.concepts.properties.{ArchitectureVerdict, Assumption, Availability, BeEliminated, BeInvestedIn, BeMigrated, BeTolerated, Capex, Confidentiality, Consequence, Constraint, CurrentState, Decommissioned, Description, DoesNotMeetExpectations, ExceedsExpectations, FatherTime, FunctionalRequirement, Goal, GoneToProduction, HealthDataCompliance, HighImpact, Integrity, LowImpact, MediumImpact, MeetsExpectations, Opex, Opportunity, PCICompliance, PrivacyCompliance, QualityAttributeRequirement, StartedDevelopment, Strength, Threat, Weakness, Website, Wiki}
-import com.innovenso.townplanner.model.concepts.relationships.{Flow, Relationship}
+import com.innovenso.townplanner.model.concepts.{
+  Actor,
+  ArchitectureBuildingBlock,
+  BusinessCapability,
+  Database,
+  Decision,
+  DecisionOption,
+  DecisionStatus,
+  DesignPrinciple,
+  Enterprise,
+  Framework,
+  ItPlatform,
+  ItSystem,
+  ItSystemIntegration,
+  Language,
+  Microservice,
+  NotStarted,
+  Person,
+  Platform,
+  Principle,
+  Queue,
+  Tag,
+  Team,
+  Technique,
+  Technology,
+  Tool,
+  WebUI
+}
+import com.innovenso.townplanner.model.concepts.properties.{
+  ArchitectureVerdict,
+  Assumption,
+  Availability,
+  BeEliminated,
+  BeInvestedIn,
+  BeMigrated,
+  BeTolerated,
+  Capex,
+  Confidentiality,
+  Consequence,
+  Constraint,
+  CurrentState,
+  Decommissioned,
+  Description,
+  DoesNotMeetExpectations,
+  ExceedsExpectations,
+  FatherTime,
+  FunctionalRequirement,
+  Goal,
+  GoneToProduction,
+  HealthDataCompliance,
+  HighImpact,
+  Integrity,
+  LowImpact,
+  MediumImpact,
+  MeetsExpectations,
+  Opex,
+  Opportunity,
+  PCICompliance,
+  PrivacyCompliance,
+  QualityAttributeRequirement,
+  StartedDevelopment,
+  Strength,
+  Threat,
+  Weakness,
+  Website,
+  Wiki
+}
+import com.innovenso.townplanner.model.concepts.relationships.{
+  Flow,
+  Knowledge,
+  KnowledgeLevel,
+  Relationship
+}
 import com.innovenso.townplanner.model.language.Element
-import com.innovenso.townplanner.model.meta.{Category, Day, MonetaryAmount, SomeYear, ThisYear, UnitCount, UnitOfMeasure}
+import com.innovenso.townplanner.model.meta.{
+  Category,
+  Day,
+  MonetaryAmount,
+  SomeYear,
+  ThisYear,
+  UnitCount,
+  UnitOfMeasure
+}
 
 import java.security.SecureRandom
 import java.util.{Currency, Locale, UUID}
@@ -45,10 +123,37 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
 
   def unitOfMeasure: UnitOfMeasure = UnitOfMeasure(title)
 
-  def monetaryAmount: MonetaryAmount = MonetaryAmount(randomDouble(1000), Currency.getInstance("EUR"))
+  def monetaryAmount: MonetaryAmount =
+    MonetaryAmount(randomDouble(1000), Currency.getInstance("EUR"))
 
   def actor: Actor = ea describes Actor(title = title) as { it =>
     it has Description(description)
+  }
+
+  def person: Person = ea describes Person(title = title) as { it =>
+    it has Description(description)
+  }
+
+  def team: Team = ea describes Team(title = title) as { it =>
+    it has Description(description)
+  }
+
+  def knowledge(
+      person: Person,
+      technology: Technology,
+      level: KnowledgeLevel
+  ): Knowledge =
+    ea has Knowledge(
+      source = person.key,
+      target = technology.key,
+      title = title,
+      level = level
+    )
+
+  def teamMember(team: Team): Person = ea describes Person(title = title) as {
+    it =>
+      it has Description(description)
+      it isPartOf team
   }
 
   def tag: Tag = ea describes Tag(title = title) as { it =>
@@ -256,14 +361,29 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
         (0 to randomInt(3)).foreach(yearIndex => {
           val year = SomeYear(ThisYear.value + yearIndex)
           (1 to randomInt(10)).foreach(_ =>
-            option costs Capex(title = title, description = title, category = Category(Some(title)), fiscalYear = year, numberOfUnits = unitCount, unitOfMeasure = unitOfMeasure, costPerUnit = monetaryAmount)
+            option costs Capex(
+              title = title,
+              description = title,
+              category = Category(Some(title)),
+              fiscalYear = year,
+              numberOfUnits = unitCount,
+              unitOfMeasure = unitOfMeasure,
+              costPerUnit = monetaryAmount
+            )
           )
           (1 to randomInt(10)).foreach(_ =>
-            option costs Opex(title = title, description = title, category = Category(Some(title)), fiscalYear = year, numberOfUnits = unitCount, unitOfMeasure = unitOfMeasure, costPerUnit = monetaryAmount)
+            option costs Opex(
+              title = title,
+              description = title,
+              category = Category(Some(title)),
+              fiscalYear = year,
+              numberOfUnits = unitCount,
+              unitOfMeasure = unitOfMeasure,
+              costPerUnit = monetaryAmount
+            )
           )
 
-        }
-        )
+        })
 
         theDecision.functionalRequirements.foreach(f =>
           option scores MeetsExpectations(description =

@@ -121,6 +121,21 @@ trait HasRelationships extends HasModelComponents {
   def relationshipsWithTarget(element: Element): List[Relationship] =
     relationships.filter(r => r.target == element.key)
 
+  def relationshipsBetween(
+      element1: Element,
+      element2: Element
+  ): List[Relationship] =
+    relationships(element1).filter(r => r.participants.contains(element2.key))
+
+  def relationshipsBetween[RelationshipType <: Relationship](
+      element1: Element,
+      element2: Element,
+      relationshipType: Class[RelationshipType]
+  ): List[RelationshipType] =
+    relationshipsBetween(element1, element2)
+      .filter(relationshipType.isInstance)
+      .map(relationshipType.cast)
+
   def directDependencies(element: Element): List[Element] =
     directDependenciesOfType(element, classOf[Element])
 

@@ -41,6 +41,7 @@ case class TownPlan(
     with HasProjectMilestoneImpactViews
     with HasTechnologyRadars
     with HasArchitectureDecisionRecords
+    with HasKnowledgeMatrices
     with HasTags
 
 case class EnterpriseArchitecture()
@@ -70,4 +71,5 @@ case class EnterpriseArchitecture()
     with CanAddProjectMilestoneImpactViews
     with CanAddTechnologyRadars
     with CanAddArchitectureDecisionRecords
+    with CanAddKnowledgeMatrices
     with CanAddTags
