@@ -1,0 +1,14 @@
+@import com.innovenso.townplanner.model.concepts.Person
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.BelowOf
+@import com.innovenso.townplanner.io.latex.model.NorthEast
+@import tikz.knowledgematrix.txt.PersonTitle
+@(persons: List[Person], coordinate: String)
+
+@if(persons.nonEmpty) {
+    @Tikz(TikzNode(title = persons.head.title, identifier = persons.head.key, configuration = List(BelowOf(coordinate),Anchor(NorthEast))))
+
+    @PersonTitle(persons.tail, persons.head.key.camelCased + ".south east")
+}

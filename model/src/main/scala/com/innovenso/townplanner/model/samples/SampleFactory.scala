@@ -150,7 +150,7 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       level = level
     )
 
-  def teamMember(team: Team): Person = ea describes Person(title = title) as {
+  def teamMember(team: Team): Person = ea describes Person(title = name) as {
     it =>
       it has Description(description)
       it isPartOf team

@@ -50,6 +50,10 @@ case class TextHeight(mm: Double) extends TikzStyleInstruction {
   val value: String = s"text height=${mm}mm"
 }
 
+case class TextDepth(mm: Double) extends TikzStyleInstruction {
+  val value: String = s"text depth=${mm}mm"
+}
+
 case class LineWidth(mm: Double) extends TikzStyleInstruction {
   val value: String = s"line width=${mm}mm"
 }

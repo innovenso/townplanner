@@ -10,12 +10,32 @@
 @import com.innovenso.townplanner.io.latex.model.NorthWest
 @import com.innovenso.townplanner.io.latex.model.BelowOf
 @import com.innovenso.townplanner.io.latex.model.BelowOf
+@import com.innovenso.townplanner.model.concepts.Person
+@import tikz.knowledgematrix.txt.PersonTitle
+@import com.innovenso.townplanner.io.latex.model.TextWidth
+@import com.innovenso.townplanner.io.latex.model.ExtremelyLargeFont
+@import com.innovenso.townplanner.io.latex.model.MinimumHeight
+@import com.innovenso.townplanner.io.latex.model.TextDepth
+@import com.innovenso.townplanner.io.latex.model.LargeFont
+@import tikz.knowledgematrix.txt.TechnologyTitle
+@import com.innovenso.townplanner.io.latex.model.Text
+@import com.innovenso.townplanner.model.concepts.relationships.NoKnowledge
+@import com.innovenso.townplanner.io.latex.picture.model.KnowledgeMatrixLayoutHelper
 @(view: CompiledKnowledgeMatrix, townPlan: TownPlan)
 
 @TikzDocument(view.title, townPlan) {
     @TikzPictureEnvironment(parameters = List("node distance=1mm")) {
-        @Tikz(TikzNode(title = "Knowledge Matrix", identifier = Key("Title"), configuration = List()))
-        @Tikz(TikzNode(title = view.team.map(_.title).getOrElse(""), identifier = Key("Team"), configuration = List(Anchor(NorthWest), BelowOf("Title.south west"))))
+        @Tikz(TikzNode(title = "Knowledge Matrix", identifier = Key("Title"), configuration = List(TextWidth(60), ExtremelyLargeFont)))
+        @Tikz(TikzNode(title = view.team.map(_.title).getOrElse(""), identifier = Key("Team"), configuration = List(BelowOf("Title.south west"), Anchor(NorthWest), TextWidth(60), MinimumHeight(15), TextDepth(15), LargeFont)))
 
+        @PersonTitle(view.members, "Team.south east")
+
+        @TechnologyTitle(view.technologies, "Team.south east")
+
+      @for(person <- view.members) {
+        @for(technology <- view.technologies) {
+          @Tikz(TikzNode(title="\\faBrain", escapeTitle = false, orAt = Some(s"${technology.key.camelCased}.west|-${person.key.camelCased}.east"), configuration = KnowledgeMatrixLayoutHelper.levelTikzConfiguration(view.level(person, technology))))
+        }
+      }
     }
 }

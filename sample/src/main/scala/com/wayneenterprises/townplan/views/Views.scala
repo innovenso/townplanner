@@ -5,6 +5,7 @@ import com.innovenso.townplanner.model.concepts.views.{
   ArchitectureBuildingBlockRealizationView,
   BusinessCapabilityMap,
   FullTownPlanView,
+  KnowledgeMatrix,
   SystemContainerView,
   TechnologyRadar
 }
@@ -53,4 +54,5 @@ case class Views()(implicit
 
   ea needs TechnologyRadar(title = "Wayne Enterprises Technology Radar")
 
+  ea needs KnowledgeMatrix(forTeam = actors.justiceLeague)
 }

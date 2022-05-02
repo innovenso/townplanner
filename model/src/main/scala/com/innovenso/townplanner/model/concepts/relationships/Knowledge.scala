@@ -57,6 +57,17 @@ trait CanConfigureKnowledgeSource[ModelComponentType <: CanKnow] {
         level = level
       )
     )
+
+  def knows(
+      target: CanBeKnown,
+      title: String = "knows",
+      level: KnowledgeLevel = Knowledgeable
+  ): Relationship = hasKnowledgeOf(target, title, level)
+  def know(
+      target: CanBeKnown,
+      title: String = "knows",
+      level: KnowledgeLevel = Knowledgeable
+  ): Relationship = hasKnowledgeOf(target, title, level)
 }
 
 trait CanConfigureKnowledgeTarget[ModelComponentType <: CanBeKnown] {

@@ -14,6 +14,13 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeTolerated,
   Description
 }
+import com.innovenso.townplanner.model.concepts.relationships.{
+  Expert,
+  HighlyKnowledgeable,
+  Knowledgeable,
+  Learner,
+  NoKnowledge
+}
 import com.wayneenterprises.townplan.business.Actors
 
 case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
@@ -24,7 +31,8 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
     it should BeInvestedIn(
       "Although other programming languages have become popular the last few years, we still consider Java to be the default choice for backend development, due to its rich ecosystem, robustness and availability of developers"
     )
-    it isKnownBy actors.bruceWayne
+    it isKnownBy (target = actors.bruceWayne, level = Expert)
+    it isKnownBy (target = actors.clarkKent, level = Learner)
   }
 
   val kubernetes: Platform = ea describes Platform(title = "Kubernetes") as {
@@ -35,7 +43,8 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
       it should BeInvestedIn(
         "For now, Kubernetes is the best bet for cloud applications, since it is supported by all major public clouds and as such leaves the door open for a multi-cloud strategy."
       )
-      it isKnownBy actors.bruceWayne
+      it isKnownBy (target = actors.bruceWayne, level = Expert)
+      it isKnownBy (target = actors.clarkKent, level = Knowledgeable)
   }
 
   val react: Framework = ea describes Framework(title = "React") as { it =>
@@ -45,7 +54,8 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
     it should BeTolerated(
       "At Wayne Enterprises we prefer to take the HTML/CSS-first approach, rather than the Javascript-first approach made popular by SPA in recent years."
     )
-    it isKnownBy actors.bruceWayne
+    it isKnownBy (target = actors.bruceWayne, level = Expert)
+    it isKnownBy (target = actors.clarkKent, level = NoKnowledge)
   }
 
   val mongodb: Platform = ea describes Platform(title = "MongoDB") as { it =>
@@ -55,7 +65,8 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
     it should BeEliminated(
       "As we are moving to a fully event-sourced architecture, we prefer a databaseless approach."
     )
-    it isKnownBy actors.bruceWayne
+    it isKnownBy (target = actors.bruceWayne, level = Expert)
+    it isKnownBy (target = actors.clarkKent, level = HighlyKnowledgeable)
   }
 
   val mobbing: Technique = ea describes Technique(title = "Mobbing") as { it =>
@@ -65,9 +76,10 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
     it should BeInvestedIn(
       "mob programming typically results in better, more readable code. It can actually speed up development and it makes sure decisions are shared by the team."
     )
-    it isKnownBy actors.bruceWayne
     it isKnownBy actors.justiceLeague
     it isKnownBy actors.robin
+    it isKnownBy (target = actors.bruceWayne, level = Expert)
+    it isKnownBy (target = actors.clarkKent, level = Expert)
   }
 
   val townplanner: Tool =
@@ -78,5 +90,6 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
       )
       it isKnownBy actors.bruceWayne
       it isKnownBy actors.robin
+      it isKnownBy actors.clarkKent
     }
 }

@@ -1,0 +1,16 @@
+@import com.innovenso.townplanner.model.concepts.Technology
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.RightOf
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.Rotate
+@import com.innovenso.townplanner.io.latex.model.TextWidth
+@import tikz.knowledgematrix.txt.TechnologyTitle
+@(technologies: List[Technology], coordinate: String)
+
+@if(technologies.nonEmpty) {
+    @Tikz(TikzNode(title = technologies.head.title, identifier = technologies.head.key, configuration = List(RightOf(coordinate),Anchor(NorthWest), Rotate(90), TextWidth(30))))
+
+    @TechnologyTitle(technologies.tail, technologies.head.key.camelCased + ".south west")
+}

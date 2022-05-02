@@ -4,6 +4,7 @@ import com.innovenso.townplanner.model.EnterpriseArchitecture
 import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts._
 import com.wayneenterprises.townplan.strategy.Enterprises
+import com.wayneenterprises.townplan.technology.Technologies
 
 case class Actors()(implicit
     ea: EnterpriseArchitecture,
@@ -24,6 +25,12 @@ case class Actors()(implicit
       it has Description("Superheroes fighting powerful enemies together")
       it has Wiki("https://nl.wikipedia.org/wiki/Justice_League_(film)")
   }
+
+  val clarkKent: Person = ea describes Person(title = "Clark Ken") as { he =>
+    he has Description("I'm Superman")
+    he isPartOf justiceLeague
+  }
+
   val bruceWayne: Person = ea describes Person(title = "Bruce Wayne") as { he =>
     he has Description("I'm Batman")
     he isPartOf justiceLeague
