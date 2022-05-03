@@ -246,7 +246,8 @@ The knowledge relationship can indicate the level of knowledge an individual, te
 ```scala
 val bruceWayne: Person = ea describes Person(title = "Bruce Wayne") as { he =>
   ...
-  he hasKnowledgeOf(level = Expert) technologies.java
+  he knows(target=technologies.java, level = Expert)
+  he hasKnowledgeOf(target=technologies.typescript, level = Knowledgeable)
   ...
 }
 ```

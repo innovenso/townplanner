@@ -40,7 +40,7 @@ lazy val townplan = project
     .in(file("."))
     .settings(
         name := "wayneenterprises-townplan",
-        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.11.1"
+        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.12.0"
     )
 ```
 
