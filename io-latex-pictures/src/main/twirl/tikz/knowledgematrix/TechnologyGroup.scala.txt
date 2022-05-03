@@ -1,0 +1,22 @@
+@import com.innovenso.townplanner.model.concepts.Technology
+@import tikz.knowledgematrix.txt.TechnologyTitle
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.model.meta.Key
+@import com.innovenso.townplanner.io.latex.model.TikzLineBetween
+@import com.innovenso.townplanner.io.latex.model.Fit
+@import com.innovenso.townplanner.io.latex.model.DecorateWithBrace
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.South
+@import com.innovenso.townplanner.io.latex.model.Midway
+@import com.innovenso.townplanner.io.latex.model.TikzCoordinate
+@(technologies: List[Technology], coordinate: String, groupTitle: String, groupKey: Key)
+@if(technologies.nonEmpty) {
+    @TechnologyTitle(technologies, coordinate)
+
+    @Tikz(TikzCoordinate(orAt = Some(s"${technologies.last.key.camelCased}.south west"), identifier = groupKey))
+    @Tikz(TikzLineBetween(origin = s"${technologies.head.key.camelCased}.north east", target = s"${technologies.last.key.camelCased}.south east", title = Some(groupTitle), lineConfiguration = List(DecorateWithBrace), titleConfiguration = List(Midway, TinyFont, Anchor(South))))
+} else {
+    @Tikz(TikzCoordinate(orAt = Some(coordinate), identifier = groupKey))
+}

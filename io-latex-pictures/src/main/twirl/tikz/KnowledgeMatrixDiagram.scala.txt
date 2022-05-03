@@ -21,6 +21,8 @@
 @import com.innovenso.townplanner.io.latex.model.Text
 @import com.innovenso.townplanner.model.concepts.relationships.NoKnowledge
 @import com.innovenso.townplanner.io.latex.picture.model.KnowledgeMatrixLayoutHelper
+@import tikz.knowledgematrix.txt.TechnologyGroup
+@import com.innovenso.townplanner.model.concepts.Tool
 @(view: CompiledKnowledgeMatrix, townPlan: TownPlan)
 
 @TikzDocument(view.title, townPlan) {
@@ -30,11 +32,14 @@
 
         @PersonTitle(view.members, "Team.south east")
 
-        @TechnologyTitle(view.technologies, "Team.south east")
+        @TechnologyGroup(view.tools, "Team.south east", "tools", Key("Tools"))
+        @TechnologyGroup(view.techniques, s"${Key("Tools").camelCased}.south east", "techniques", Key("Techniques"))
+        @TechnologyGroup(view.languagesOrFrameworks, s"${Key("Techniques").camelCased}.south east", "languages & frameworks", Key("LanguagesFrameworks"))
+        @TechnologyGroup(view.platforms, s"${Key("LanguagesFrameworks").camelCased}.south east", "platforms", Key("Platforms"))
 
       @for(person <- view.members) {
         @for(technology <- view.technologies) {
-          @Tikz(TikzNode(title="\\faBrain", escapeTitle = false, orAt = Some(s"${technology.key.camelCased}.west|-${person.key.camelCased}.east"), configuration = KnowledgeMatrixLayoutHelper.levelTikzConfiguration(view.level(person, technology))))
+          @Tikz(TikzNode(title=s"${view.level(person, technology).level}", orAt = Some(s"${technology.key.camelCased}.west|-${person.key.camelCased}.east"), configuration = KnowledgeMatrixLayoutHelper.levelTikzConfiguration(view.level(person, technology))))
         }
       }
     }

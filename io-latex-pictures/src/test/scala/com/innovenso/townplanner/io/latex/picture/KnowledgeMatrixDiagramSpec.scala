@@ -24,6 +24,10 @@ class KnowledgeMatrixDiagramSpec extends AnyFlatSpec with GivenWhenThen {
     val language = samples.language
     val technique = samples.technique
     val platform = samples.platformTechnology
+    (1 to 4).foreach(_ => samples.language)
+    (1 to 2).foreach(_ => samples.tool)
+    (1 to 3).foreach(_ => samples.technique)
+    (1 to 5).foreach(_ => samples.platformTechnology)
     And("a team")
     val team = samples.team
     val member1 = samples.teamMember(team)

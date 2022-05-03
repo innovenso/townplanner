@@ -1,59 +1,57 @@
+\documentclass[tikz]{standalone}
 
 
-    \documentclass[tikz]{standalone}
+\usepackage{tikz}
 
+\usepackage{setspace}
 
- \usepackage{tikz}
+\usepackage{graphicx}
 
- \usepackage{setspace}
+\usepackage{xcolor}
 
- \usepackage{graphicx}
+\usepackage{xfp}
 
- \usepackage{xcolor}
+\usepackage{xparse}
 
- \usepackage{xfp}
+\usepackage[utf8]{inputenc}
 
- \usepackage{xparse}
+\usepackage[T1]{fontenc}
 
- \usepackage[utf8]{inputenc}
+\usepackage{fontawesome5}
 
- \usepackage[T1]{fontenc}
+\usepackage[dutch,french,english]{babel}
 
- \usepackage{fontawesome5}
+\usepackage{multicol}
 
- \usepackage[dutch,french,english]{babel}
+\usepackage{pgffor}
 
- \usepackage{multicol}
+\usepackage{tikzscale}
 
- \usepackage{pgffor}
+\usepackage{tikzpeople}
 
- \usepackage{tikzscale}
+\usepackage{pgfplots}
 
- \usepackage{tikzpeople}
+\usepackage{hyperref}
 
- \usepackage{pgfplots}
+\usepackage{pgfbaselayers}
 
- \usepackage{hyperref}
+\usepackage{mathpazo}
 
- \usepackage{pgfbaselayers}
+\usepackage[most]{tcolorbox}
 
- \usepackage{mathpazo}
+\usepackage{wrapfig}
 
- \usepackage[most]{tcolorbox}
+\usepackage{pgfgantt}
 
- \usepackage{wrapfig}
+\usepackage{smartdiagram}
 
- \usepackage{pgfgantt}
+\usepackage{longtable}
 
- \usepackage{smartdiagram}
+\usepackage{forloop}
 
- \usepackage{longtable}
+\usepackage{booktabs}
 
- \usepackage{forloop}
-
- \usepackage{booktabs}
-
- \usepackage[export]{adjustbox}
+\usepackage[export]{adjustbox}
 
 
 \usesmartdiagramlibrary{additions}
@@ -68,63 +66,63 @@
 \usetikzlibrary{mindmap,trees}
 
 
-    \definecolor{innovensoAccent6}{RGB}{104,158,19}
+\definecolor{innovensoAccent6}{RGB}{104,158,19}
 
-    \definecolor{innovensoAccent14}{RGB}{158,127,51}
+\definecolor{innovensoAccent14}{RGB}{158,127,51}
 
-    \definecolor{innovensoAccent20}{RGB}{141,24,245}
+\definecolor{innovensoAccent20}{RGB}{141,24,245}
 
-    \definecolor{innovensoRed}{RGB}{255,0,0}
+\definecolor{innovensoRed}{RGB}{255,0,0}
 
-    \definecolor{innovensoAccent11}{RGB}{59,121,235}
+\definecolor{innovensoAccent11}{RGB}{59,121,235}
 
-    \definecolor{innovensoHighLight}{RGB}{8,136,140}
+\definecolor{innovensoHighLight}{RGB}{8,136,140}
 
-    \definecolor{innovensoAccent16}{RGB}{104,158,19}
+\definecolor{innovensoAccent16}{RGB}{104,158,19}
 
-    \definecolor{innovensoAccent4}{RGB}{158,127,51}
+\definecolor{innovensoAccent4}{RGB}{158,127,51}
 
-    \definecolor{innovensoAccent10}{RGB}{141,24,245}
+\definecolor{innovensoAccent10}{RGB}{141,24,245}
 
-    \definecolor{innovensoHeader}{RGB}{115,81,18}
+\definecolor{innovensoHeader}{RGB}{115,81,18}
 
-    \definecolor{innovensoAccent17}{RGB}{235,79,49}
+\definecolor{innovensoAccent17}{RGB}{235,79,49}
 
-    \definecolor{innovensoAccent8}{RGB}{245,33,24}
+\definecolor{innovensoAccent8}{RGB}{245,33,24}
 
-    \definecolor{innovensoLink}{RGB}{140,131,79}
+\definecolor{innovensoLink}{RGB}{140,131,79}
 
-    \definecolor{innovensoAmber}{RGB}{255,255,0}
+\definecolor{innovensoAmber}{RGB}{255,255,0}
 
-    \definecolor{innovensoText}{RGB}{37,26,6}
+\definecolor{innovensoText}{RGB}{37,26,6}
 
-    \definecolor{innovensoBorder}{RGB}{77,77,77}
+\definecolor{innovensoBorder}{RGB}{77,77,77}
 
-    \definecolor{innovensoAccent3}{RGB}{8,156,61}
+\definecolor{innovensoAccent3}{RGB}{8,156,61}
 
-    \definecolor{innovensoBackground}{RGB}{222,212,196}
+\definecolor{innovensoBackground}{RGB}{222,212,196}
 
-    \definecolor{innovensoAccent7}{RGB}{235,79,49}
+\definecolor{innovensoAccent7}{RGB}{235,79,49}
 
-    \definecolor{innovensoAccent12}{RGB}{150,156,39}
+\definecolor{innovensoAccent12}{RGB}{150,156,39}
 
-    \definecolor{innovensoAccent18}{RGB}{245,33,24}
+\definecolor{innovensoAccent18}{RGB}{245,33,24}
 
-    \definecolor{innovensoAccent15}{RGB}{98,51,235}
+\definecolor{innovensoAccent15}{RGB}{98,51,235}
 
-    \definecolor{innovensoGreen}{RGB}{0,255,0}
+\definecolor{innovensoGreen}{RGB}{0,255,0}
 
-    \definecolor{innovensoAccent2}{RGB}{150,156,39}
+\definecolor{innovensoAccent2}{RGB}{150,156,39}
 
-    \definecolor{innovensoAccent9}{RGB}{47,87,158}
+\definecolor{innovensoAccent9}{RGB}{47,87,158}
 
-    \definecolor{innovensoAccent19}{RGB}{47,87,158}
+\definecolor{innovensoAccent19}{RGB}{47,87,158}
 
-    \definecolor{innovensoAccent1}{RGB}{59,121,235}
+\definecolor{innovensoAccent1}{RGB}{59,121,235}
 
-    \definecolor{innovensoAccent5}{RGB}{98,51,235}
+\definecolor{innovensoAccent5}{RGB}{98,51,235}
 
-    \definecolor{innovensoAccent13}{RGB}{8,156,61}
+\definecolor{innovensoAccent13}{RGB}{8,156,61}
 
 
 \graphicspath{{images/}}
@@ -132,27 +130,319 @@
 
 \begin{document}
 
-  
-    \begin{tikzpicture}[node distance=2mm]
 
-  
-        \node[text width=60mm, font=\LARGE]  (Title) {Knowledge Matrix };
-        \node[below=of Title.south west, anchor=north west,text width=60mm, minimum height=15mm, text depth=15mm, font=\large]  (Team) {Team Peaky Blinders with a longer name};
+    \begin{tikzpicture}[node distance=1mm]
 
-        \node[right=of Team.south east, anchor=north west, rotate=90, text width=30mm] (TechOne) { Technology 1};
-        \node[right=of TechOne.south west, anchor=north west, rotate=90, text width=30mm] (TechTwo) { Technology 2 with a long name};
 
-        \node[below=of Team.south east, anchor=north east]  (Jurgen) {Jurgen Lust};
+        \node[text width=60.0mm,font=\LARGE]  (Title) {Knowledge Matrix};
+        \node[below=of Title.south west,anchor=north west,text width=60.0mm,minimum height=15.0mm,text depth=15.0mm,font=\large]  (Team) {Legimus Laoreet};
 
-        \node (JurgenTechTwo) at (TechOne.west|-Jurgen.east) { \faBrain };
 
-\end{tikzpicture}
+
+        \node[below=of Team.south east,anchor=north east]  (EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab) {Patti Mendez};
+
+
+
+        \node[below=of EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.south east,anchor=north east]  (ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine) {Tracie Trujillo};
+
+
+
+        \node[below=of ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.south east,anchor=north east]  (CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef) {Chasity Whitaker};
+
+
+
+
+
+
+
+
+
+
+        \node[right=of Team.south east,anchor=north west,rotate=90,text width=30.0mm]  (EOneTwoEightFourFourEightEightFaZeroNineFourcSixfEightaaaSixeTwofSevencZeroFiveSixOnebSix) {Tellus};
+
+
+
+        \node[right=of EOneTwoEightFourFourEightEightFaZeroNineFourcSixfEightaaaSixeTwofSevencZeroFiveSixOnebSix.south west,anchor=north west,rotate=90,text width=30.0mm]  (BSevenaEightfSevenEightbAZeroFourbFourOneafBFourFiveeOnebeSixdZeroEightNineEightfce) {Ea};
+
+
+
+        \node[right=of BSevenaEightfSevenEightbAZeroFourbFourOneafBFourFiveeOnebeSixdZeroEightNineEightfce.south west,anchor=north west,rotate=90,text width=30.0mm]  (FEightFourdThreeeNineNineTwofdTwoFourTwoZeroeEightFiveFiveTwoFadOneeSevenSevenSevenFiveeEightSix) {Prompta};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        \coordinate (Tools) at (FEightFourdThreeeNineNineTwofdTwoFourTwoZeroeEightFiveFiveTwoFadOneeSevenSevenSevenFiveeEightSix.south west);
+        \draw[decorate, decoration={brace}] (EOneTwoEightFourFourEightEightFaZeroNineFourcSixfEightaaaSixeTwofSevencZeroFiveSixOnebSix.north east) -- (FEightFourdThreeeNineNineTwofdTwoFourTwoZeroeEightFiveFiveTwoFadOneeSevenSevenSevenFiveeEightSix.south east) node [midway,font=\tiny,anchor=south] {tools};
+
+
+
+
+
+        \node[right=of Tools.south east,anchor=north west,rotate=90,text width=30.0mm]  (SevenFivebNineTwoFiveZeroaFoureZeroSevenFourfEighteBTwoSevenThreeCTwoFiveFiveNineedbFourThreeEightc) {Proin};
+
+
+
+        \node[right=of SevenFivebNineTwoFiveZeroaFoureZeroSevenFourfEighteBTwoSevenThreeCTwoFiveFiveNineedbFourThreeEightc.south west,anchor=north west,rotate=90,text width=30.0mm]  (FourZeroNineTwoSevenOnedFiveThreeOneTwoSevenFourebZeroNinedSixNineTwodEightSixbdTwoOneEightTwoThreeTwo) {Tempus Utinam};
+
+
+
+        \node[right=of FourZeroNineTwoSevenOnedFiveThreeOneTwoSevenFourebZeroNinedSixNineTwodEightSixbdTwoOneEightTwoThreeTwo.south west,anchor=north west,rotate=90,text width=30.0mm]  (FiveaeTwoecceEbSixNineFourbEightZeroNineFoureZeroOneSixcOneSevenaOneFourbEightcf) {Posidonium Fermentum};
+
+
+
+        \node[right=of FiveaeTwoecceEbSixNineFourbEightZeroNineFoureZeroOneSixcOneSevenaOneFourbEightcf.south west,anchor=north west,rotate=90,text width=30.0mm]  (FOneNineSevenOneeebDOnebNineFourdaNineANineFivedTwoSevenNineThreeSevenTwoNineeThreeZeroFourEight) {Errem};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        \coordinate (Techniques) at (FOneNineSevenOneeebDOnebNineFourdaNineANineFivedTwoSevenNineThreeSevenTwoNineeThreeZeroFourEight.south west);
+        \draw[decorate, decoration={brace}] (SevenFivebNineTwoFiveZeroaFoureZeroSevenFourfEighteBTwoSevenThreeCTwoFiveFiveNineedbFourThreeEightc.north east) -- (FOneNineSevenOneeebDOnebNineFourdaNineANineFivedTwoSevenNineThreeSevenTwoNineeThreeZeroFourEight.south east) node [midway,font=\tiny,anchor=south] {techniques};
+
+
+
+
+
+        \node[right=of Techniques.south east,anchor=north west,rotate=90,text width=30.0mm]  (BEightfOnebSevenaSevenEightSixTwoNineFourFourFourfEightZeroThreeaEightFouraSevenSixdcfSixTwoTwob) {Consetetur Elaboraret};
+
+
+
+        \node[right=of BEightfOnebSevenaSevenEightSixTwoNineFourFourFourfEightZeroThreeaEightFouraSevenSixdcfSixTwoTwob.south west,anchor=north west,rotate=90,text width=30.0mm]  (EightedaabSixZeroBThreeEightSevenFouradTwoBEightOneOneFivedeaFivedbThreeNinebdNine) {Enim Invenire};
+
+
+
+        \node[right=of EightedaabSixZeroBThreeEightSevenFouradTwoBEightOneOneFivedeaFivedbThreeNinebdNine.south west,anchor=north west,rotate=90,text width=30.0mm]  (OnecOneZeroFiveTwoTwofTwoSixdFiveFourZeroNineNineEightcfdThreeOneFivedaaEightfSixFiveFourThree) {Splendide};
+
+
+
+        \node[right=of OnecOneZeroFiveTwoTwofTwoSixdFiveFourZeroNineNineEightcfdThreeOneFivedaaEightfSixFiveFourThree.south west,anchor=north west,rotate=90,text width=30.0mm]  (DZeroOnebFivefThreedZeroFourfNineFourbcNineBOneOneSixAZeroEightSixbccTwoSevenThreeZeroFive) {Utamur Quisque};
+
+
+
+        \node[right=of DZeroOnebFivefThreedZeroFourfNineFourbcNineBOneOneSixAZeroEightSixbccTwoSevenThreeZeroFive.south west,anchor=north west,rotate=90,text width=30.0mm]  (SixfZeroFiveSixFiveFiveaAEightSeveneFourdSixZeroAFivebbAdfThreefFoureOneecFourFive) {Antiopam};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        \coordinate (Languagesframeworks) at (SixfZeroFiveSixFiveFiveaAEightSeveneFourdSixZeroAFivebbAdfThreefFoureOneecFourFive.south west);
+        \draw[decorate, decoration={brace}] (BEightfOnebSevenaSevenEightSixTwoNineFourFourFourfEightZeroThreeaEightFouraSevenSixdcfSixTwoTwob.north east) -- (SixfZeroFiveSixFiveFiveaAEightSeveneFourdSixZeroAFivebbAdfThreefFoureOneecFourFive.south east) node [midway,font=\tiny,anchor=south] {languages \& frameworks};
+
+
+
+
+
+        \node[right=of Languagesframeworks.south east,anchor=north west,rotate=90,text width=30.0mm]  (DeEightdNineSevendTwoOneeFourZeroFourcFivecNinedTwoEightFourEightThreefFiveZerocSevenFourOneEighte) {Veniam Simul};
+
+
+
+        \node[right=of DeEightdNineSevendTwoOneeFourZeroFourcFivecNinedTwoEightFourEightThreefFiveZerocSevenFourOneEighte.south west,anchor=north west,rotate=90,text width=30.0mm]  (EZeroFiveeZeroOneNinedBbSixSixFourdfOneAThreeSixdTwofdSevenThreeNinecbZerodaTwo) {Labores Dapibus};
+
+
+
+        \node[right=of EZeroFiveeZeroOneNinedBbSixSixFourdfOneAThreeSixdTwofdSevenThreeNinecbZerodaTwo.south west,anchor=north west,rotate=90,text width=30.0mm]  (EightdcFivefSevenfdThreeThreeabFourSixeeNineEightSixEightAEightSeveneNinecEightecdThreeZero) {Suspendisse Animal};
+
+
+
+        \node[right=of EightdcFivefSevenfdThreeThreeabFourSixeeNineEightSixEightAEightSeveneNinecEightecdThreeZero.south west,anchor=north west,rotate=90,text width=30.0mm]  (BaEightdTwoFouraFourDbFiveSevenFourfFourThreeNineZeroSevenbTwodcccOneeNineOneNinebc) {Conclusionemque};
+
+
+
+        \node[right=of BaEightdTwoFouraFourDbFiveSevenFourfFourThreeNineZeroSevenbTwodcccOneeNineOneNinebc.south west,anchor=north west,rotate=90,text width=30.0mm]  (OneSixThreeSevenfThreecEightFiveThreeOneEightFourdTwoFiveBSixSixTwoZerodThreeFourZeroSevendSixFourEightSixNine) {Graeci Option};
+
+
+
+        \node[right=of OneSixThreeSevenfThreecEightFiveThreeOneEightFourdTwoFiveBSixSixTwoZerodThreeFourZeroSevendSixFourEightSixNine.south west,anchor=north west,rotate=90,text width=30.0mm]  (TwoeEightFiveTwocacDFiveTwobFourTwofFourNineSixSixeAeFivedfffOneSixThreeeNine) {Sententiae Posidonium};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        \coordinate (Platforms) at (TwoeEightFiveTwocacDFiveTwobFourTwofFourNineSixSixeAeFivedfffOneSixThreeeNine.south west);
+        \draw[decorate, decoration={brace}] (DeEightdNineSevendTwoOneeFourZeroFourcFivecNinedTwoEightFourEightThreefFiveZerocSevenFourOneEighte.north east) -- (TwoeEightFiveTwocacDFiveTwobFourTwofFourNineSixSixeAeFivedfffOneSixThreeeNine.south east) node [midway,font=\tiny,anchor=south] {platforms};
+
+
+
+
+
+        \node[text=white, fill=innovensoGreen, inner sep=0.5mm, circle] at (EOneTwoEightFourFourEightEightFaZeroNineFourcSixfEightaaaSixeTwofSevencZeroFiveSixOnebSix.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (ZerocZerodSixFivebcESixceFourSixFiveEightAfccFourThreeThreeSevenNineThreeNineOneEightOneEightFour) { 2 };
+
+        \node[text=innovensoRed] at (BEightfOnebSevenaSevenEightSixTwoNineFourFourFourfEightZeroThreeaEightFouraSevenSixdcfSixTwoTwob.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (FFiveFourcefdFourFourbfdFourdEightSevenEightdacNineOneNineaOneOneTwocEightfcFive) {\faBrain};
+
+        \node[text=innovensoRed] at (SevenFivebNineTwoFiveZeroaFoureZeroSevenFourfEighteBTwoSevenThreeCTwoFiveFiveNineedbFourThreeEightc.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (ThreeSixafeZerocbSeveneaOneFourEightFoureBSixFourFiveFThreeefNineOneSixFiveFourFivedFour) {\faBrain};
+
+        \node[text=innovensoRed] at (DeEightdNineSevendTwoOneeFourZeroFourcFivecNinedTwoEightFourEightThreefFiveZerocSevenFourOneEighte.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (FFiveZeroNineThreeNinebSixCThreeSevenfFouraSixdBfFourTwoSevenTwoFourSixeSixNineFiveSevenfNineZero) {\faBrain};
+
+        \node[text=innovensoRed] at (EightedaabSixZeroBThreeEightSevenFouradTwoBEightOneOneFivedeaFivedbThreeNinebdNine.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (SixOneaEightNinefcSixDZeroFourZeroFoureSixdNineSixFiveSevenCbNineThreeSevenEightFiveOneThreeSevenFiveTwo) {\faBrain};
+
+        \node[text=innovensoRed] at (OnecOneZeroFiveTwoTwofTwoSixdFiveFourZeroNineNineEightcfdThreeOneFivedaaEightfSixFiveFourThree.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (FiveeFourdEightOnebFourNineOneThreeZeroFourOneaThreeNineaSevenNineDTwoNineNinefdTwobFiveSixad) {\faBrain};
+
+        \node[text=innovensoRed] at (DZeroOnebFivefThreedZeroFourfNineFourbcNineBOneOneSixAZeroEightSixbccTwoSevenThreeZeroFive.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (CNineEightdThreeTwobcThreeFivefSevenFourSixfNineBOneThreeSevenTwodFiveOneaefecTwoNineFive) {\faBrain};
+
+        \node[text=innovensoRed] at (SixfZeroFiveSixFiveFiveaAEightSeveneFourdSixZeroAFivebbAdfThreefFoureOneecFourFive.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (SevenNineEightSixebThreeFourSixOneFiveZeroFourcOneTwoNineTwoZeroeNineTwoEighteEightThreedFourSixcFourSeven) {\faBrain};
+
+        \node[text=innovensoRed] at (BSevenaEightfSevenEightbAZeroFourbFourOneafBFourFiveeOnebeSixdZeroEightNineEightfce.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (EightSixceaFouraFourEightcNinefFourccThreeAdaSixNineOnefThreeFourTwofSevenEightFivebb) {\faBrain};
+
+        \node[text=innovensoRed] at (FEightFourdThreeeNineNineTwofdTwoFourTwoZeroeEightFiveFiveTwoFadOneeSevenSevenSevenFiveeEightSix.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (DThreeOneSixfbThreecBeTwoSevenFourThreebSixNinebEightEightBbdZeroTwoaFourEightSevendfOne) {\faBrain};
+
+        \node[text=innovensoRed] at (FourZeroNineTwoSevenOnedFiveThreeOneTwoSevenFourebZeroNinedSixNineTwodEightSixbdTwoOneEightTwoThreeTwo.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (DNineSixTwobEightFourfOneThreebFiveFourNineThreeaBFourdcFourbThreeEightSixaThreeNineSevenThreeee) {\faBrain};
+
+        \node[text=innovensoRed] at (FiveaeTwoecceEbSixNineFourbEightZeroNineFoureZeroOneSixcOneSevenaOneFourbEightcf.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (NineNineOneZerobTwoSevenfSevenSevenOnedFourFiveTwoThreeNineaSixOneFiveaZeroNineTwocThreeaFiveSixaSix) {\faBrain};
+
+        \node[text=innovensoRed] at (FOneNineSevenOneeebDOnebNineFourdaNineANineFivedTwoSevenNineThreeSevenTwoNineeThreeZeroFourEight.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (EZeroTwodbddThreeSixcFivebFourbafBTwoFiveSevenFourdEightbZeroSixeTwoNineOneeTwo) {\faBrain};
+
+        \node[text=innovensoRed] at (EZeroFiveeZeroOneNinedBbSixSixFourdfOneAThreeSixdTwofdSevenThreeNinecbZerodaTwo.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (FiveFourTwoOneTwoSevenEightThreeSevenThreeFourdFourEightbbASixTwofFourSixecOneOneSevenSevenFoureFourf) {\faBrain};
+
+        \node[text=innovensoRed] at (EightdcFivefSevenfdThreeThreeabFourSixeeNineEightSixEightAEightSeveneNinecEightecdThreeZero.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (NineNineSixEightFourTwobdOneThreeFiveNineFourFiveceEightFourNineSixAdcFourOneTwocTwodfSevenNine) {\faBrain};
+
+        \node[text=innovensoRed] at (BaEightdTwoFouraFourDbFiveSevenFourfFourThreeNineZeroSevenbTwodcccOneeNineOneNinebc.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (AcFourdEightFourFouraTwofOneOneFourOnebcANineZeroOneDNineSevenOneFourSevenThreedcbfc) {\faBrain};
+
+        \node[text=innovensoRed] at (OneSixThreeSevenfThreecEightFiveThreeOneEightFourdTwoFiveBSixSixTwoZerodThreeFourZeroSevendSixFourEightSixNine.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (ZerobOnedThreeOneThreeeFourSevenEightdFourfSevenOneAZeroFiveeOnecdEightThreeeTwoZeroThreeabc) {\faBrain};
+
+        \node[text=innovensoRed] at (TwoeEightFiveTwocacDFiveTwobFourTwofFourNineSixSixeAeFivedfffOneSixThreeeNine.west|-EThreecefOnefTwoZeroFourfNineFoureNinedNineccTwoEightbThreedSevenNineSixNineFiveThreeab.east) (FourNineFiveEightbTwodeOneSixFiveeFourFivefbBFourSixfThreeFourSevenThreeeZeroTwoThreeSixOneThreed) {\faBrain};
+
+
+
+        \node[text=innovensoRed] at (EOneTwoEightFourFourEightEightFaZeroNineFourcSixfEightaaaSixeTwofSevencZeroFiveSixOnebSix.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (SixbeOneSixfeTwoCSixSevenFiveFourdfcASixFourdOneNineOneaFiveNineFiveThreeFourSixTwoSix) {\faBrain};
+
+        \node[text=innovensoAmber] at (BEightfOnebSevenaSevenEightSixTwoNineFourFourFourfEightZeroThreeaEightFouraSevenSixdcfSixTwoTwob.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (CTwoeafOneZerobCadcFoureFoureNineeZeroZeroSixThreecThreeSevenfFiveeNineOneFived) {\faBrain};
+
+        \node[text=innovensoRed] at (SevenFivebNineTwoFiveZeroaFoureZeroSevenFourfEighteBTwoSevenThreeCTwoFiveFiveNineedbFourThreeEightc.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (DfaZeroNineSixTwocThreeZeroFiveNineFourTwodeNineEightThreeeSeveneeFourddfZeroFivefee) {\faBrain};
+
+        \node[text=innovensoRed] at (DeEightdNineSevendTwoOneeFourZeroFourcFivecNinedTwoEightFourEightThreefFiveZerocSevenFourOneEighte.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (EightbSixNineSixefOneFourfSevendFourTwoFourSixNineddEightFourSixcZerocfSixFiveFiveOneFiveTwo) {\faBrain};
+
+        \node[text=innovensoRed] at (EightedaabSixZeroBThreeEightSevenFouradTwoBEightOneOneFivedeaFivedbThreeNinebdNine.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (DSevenFourEightSevenaThreeaFourZeroNineFiveFourFourEightFourAEightaFiveNineSevendNineFourcTwoSixTwobFiveZero) {\faBrain};
+
+        \node[text=innovensoRed] at (OnecOneZeroFiveTwoTwofTwoSixdFiveFourZeroNineNineEightcfdThreeOneFivedaaEightfSixFiveFourThree.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (CZeroFourSixbFiveOnebETwoZerobFourecfNineFiveefETwocEightdOneSevenaOneSevenThreeThree) {\faBrain};
+
+        \node[text=innovensoRed] at (DZeroOnebFivefThreedZeroFourfNineFourbcNineBOneOneSixAZeroEightSixbccTwoSevenThreeZeroFive.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (EfSixSixOneffNineEightTwofThreeFourOneOnecBFiveSevenEightNineSixZerobSevenbbFivecZeroThreeTwo) {\faBrain};
+
+        \node[text=innovensoRed] at (SixfZeroFiveSixFiveFiveaAEightSeveneFourdSixZeroAFivebbAdfThreefFoureOneecFourFive.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (ThreeFourFiveFourNineThreedaBcZeroaFourbbFiveNinedbFourTwoEightdFiveSixFiveTwoFiveZeroeFourThree) {\faBrain};
+
+        \node[text=innovensoRed] at (BSevenaEightfSevenEightbAZeroFourbFourOneafBFourFiveeOnebeSixdZeroEightNineEightfce.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (ZerofabSevenSevenEightSevenFiveSixcNineFourThreeeFiveNinebSevenSixNineeOneSixfSevenbTwoSixSixSixNine) {\faBrain};
+
+        \node[text=innovensoRed] at (FEightFourdThreeeNineNineTwofdTwoFourTwoZeroeEightFiveFiveTwoFadOneeSevenSevenSevenFiveeEightSix.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (FourSevendaTwoThreeFivefCFivefFourFourThreeEightFourNinecFourZeroCThreeSevenceOnefSevenTwoSixThreeThree) {\faBrain};
+
+        \node[text=innovensoRed] at (FourZeroNineTwoSevenOnedFiveThreeOneTwoSevenFourebZeroNinedSixNineTwodEightSixbdTwoOneEightTwoThreeTwo.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (EcbOneFourEightNineOneEEightbZeroFourTwoZeroaAcSixThreeTwoeeNineeZeroSixNineNineNineaZero) {\faBrain};
+
+        \node[text=innovensoRed] at (FiveaeTwoecceEbSixNineFourbEightZeroNineFoureZeroOneSixcOneSevenaOneFourbEightcf.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (ENinefacdOneFourZeroaNineEightFourfSevenaAFiveFourcCFourThreeThreefcOneSevenSixFiveeSix) {\faBrain};
+
+        \node[text=innovensoRed] at (FOneNineSevenOneeebDOnebNineFourdaNineANineFivedTwoSevenNineThreeSevenTwoNineeThreeZeroFourEight.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (ThreeFourFiveZeroSevenTwofTwoDTwocFiveFourdZeroZeroEightdSixZeroCTwoeEightfNineFivefbcEightd) {\faBrain};
+
+        \node[text=innovensoRed] at (EZeroFiveeZeroOneNinedBbSixSixFourdfOneAThreeSixdTwofdSevenThreeNinecbZerodaTwo.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (FcOneEightThreebTwoTwoThreeThreeeZeroFourZeroafNinefTwoThreeZeroSevendNineNineFiveFourOneTwoNinebNine) {\faBrain};
+
+        \node[text=innovensoRed] at (EightdcFivefSevenfdThreeThreeabFourSixeeNineEightSixEightAEightSeveneNinecEightecdThreeZero.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (SevenbfFiveeFiveFouraSevenThreeEightdFourSevenNineOneBEightSixdEighteNineFourfOneTwodbNineTwob) {\faBrain};
+
+        \node[text=innovensoRed] at (BaEightdTwoFouraFourDbFiveSevenFourfFourThreeNineZeroSevenbTwodcccOneeNineOneNinebc.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (DFourThreeSevenSevenOneOneNineAdEightNineFourFiveefNineThreeSixNineASevencOnedEightffThreeFivebb) {\faBrain};
+
+        \node[text=innovensoRed] at (OneSixThreeSevenfThreecEightFiveThreeOneEightFourdTwoFiveBSixSixTwoZerodThreeFourZeroSevendSixFourEightSixNine.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (EdOneFiveNinefZeroaFcSixbFourfZeroEightBOneFoureZeroSevenbZeroSixaSixefOneSevenb) {\faBrain};
+
+        \node[text=innovensoRed] at (TwoeEightFiveTwocacDFiveTwobFourTwofFourNineSixSixeAeFivedfffOneSixThreeeNine.west|-ThreeSevenOneceaSixThreeFedFiveFourcaTwoEightNineSevenFourEOneOneeThreeZerocaTwofThreeNine.east) (FourddZeroSeveneeOneSixTwoNineOneFourdEightThreeASevendcAFourdbNineTwoFiveZeroffeSeven) {\faBrain};
+
+
+
+        \node[text=innovensoRed] at (EOneTwoEightFourFourEightEightFaZeroNineFourcSixfEightaaaSixeTwofSevencZeroFiveSixOnebSix.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (DcTwoEightTwoEightEightbBFiveTwocFouradSevenEightbeEightTwodaTwoeSixZeroSeveneZeroThreeOne) {\faBrain};
+
+        \node[text=innovensoRed] at (BEightfOnebSevenaSevenEightSixTwoNineFourFourFourfEightZeroThreeaEightFouraSevenSixdcfSixTwoTwob.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (BFivedaEightdFivecZeroSevenZeroEightFourcadAFoureFourSevenfSevenfFourNineFivebThreeeSevenEight) {\faBrain};
+
+        \node[text=innovensoRed!50] at (SevenFivebNineTwoFiveZeroaFoureZeroSevenFourfEighteBTwoSevenThreeCTwoFiveFiveNineedbFourThreeEightc.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (FourSixZeroeeNineEightFourTwocaThreeFoureSevenZeroNineTwobbTwodNineThreeaNinefNineeThreeFourSeven) {\faBrain};
+
+        \node[text=innovensoGreen!50] at (DeEightdNineSevendTwoOneeFourZeroFourcFivecNinedTwoEightFourEightThreefFiveZerocSevenFourOneEighte.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (ZeroSixSixSevenOneOneaSevenOneZerocFiveFoureEightSevenBSixSevenEightENineeOneSevenTwobSixcOnecZero) {\faBrain};
+
+        \node[text=innovensoRed] at (EightedaabSixZeroBThreeEightSevenFouradTwoBEightOneOneFivedeaFivedbThreeNinebdNine.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (BNineZeroThreeSevenThreebFiveFiveFiveFiveOneFourFiveFouraNineTwoSixeCZeroFiveThreedcThreeSevenaeNineSeven) {\faBrain};
+
+        \node[text=innovensoRed] at (OnecOneZeroFiveTwoTwofTwoSixdFiveFourZeroNineNineEightcfdThreeOneFivedaaEightfSixFiveFourThree.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (SixeThreeTwoSevenFourOneThreeOneSevenaTwoFourecZeroEightabaEightSixSevenThreeFiveaThreeFourEightFiveEightSeven) {\faBrain};
+
+        \node[text=innovensoRed] at (DZeroOnebFivefThreedZeroFourfNineFourbcNineBOneOneSixAZeroEightSixbccTwoSevenThreeZeroFive.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (CadfeSixdbTwoaFourZeroFouraFiveSixEightSevenThreeeZerofcNineSevenbThreeFiveZeroeFiveOne) {\faBrain};
+
+        \node[text=innovensoRed] at (SixfZeroFiveSixFiveFiveaAEightSeveneFourdSixZeroAFivebbAdfThreefFoureOneecFourFive.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (CbSixcOneeccZeroeThreeZeroFourbZeroSevenASixThreedZeroFiveSixSevenEightZeroZerofFourcThreeb) {\faBrain};
+
+        \node[text=innovensoRed] at (BSevenaEightfSevenEightbAZeroFourbFourOneafBFourFiveeOnebeSixdZeroEightNineEightfce.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (OneZeroZeroabNineZeroOneZeroThreeNineSixFourZeroThreeOneNineFiveFivefSevenEightcfTwoTwoZeroaeafb) {\faBrain};
+
+        \node[text=innovensoRed] at (FEightFourdThreeeNineNineTwofdTwoFourTwoZeroeEightFiveFiveTwoFadOneeSevenSevenSevenFiveeEightSix.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (AFivedbFoureFourSevenFourOneFoureFourfeFourBfeThreeFiveFourSixdNineEightbTwoccNineSeven) {\faBrain};
+
+        \node[text=innovensoRed] at (FourZeroNineTwoSevenOnedFiveThreeOneTwoSevenFourebZeroNinedSixNineTwodEightSixbdTwoOneEightTwoThreeTwo.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (ThreeZeroaSixdfOneEightFiveSixOneSixFourFouraNineNineThreecZeroOneSevenOneFivebTwoFiveFiveNineFouraFour) {\faBrain};
+
+        \node[text=innovensoRed] at (FiveaeTwoecceEbSixNineFourbEightZeroNineFoureZeroOneSixcOneSevenaOneFourbEightcf.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (BcEightedSixfOneFdSixZeroFouraebAThreeSevenFourSevenFoureTwoOneEightOneSevenZeroeSixThree) {\faBrain};
+
+        \node[text=innovensoRed] at (FOneNineSevenOneeebDOnebNineFourdaNineANineFivedTwoSevenNineThreeSevenTwoNineeThreeZeroFourEight.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (ThreeFourSeveneThreeeFourEightEZeroEightNineFourSevenaeBFiveaFiveThreeFiveeZeroFiveeFiveFourTwoTwodOne) {\faBrain};
+
+        \node[text=innovensoRed] at (EZeroFiveeZeroOneNinedBbSixSixFourdfOneAThreeSixdTwofdSevenThreeNinecbZerodaTwo.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (SevenEighteaFiveTwoZeroOneSevenSixTwoOneFourdSevendEightTwoThreefThreeNinedSevenbSixZeroOneThreefEightThree) {\faBrain};
+
+        \node[text=innovensoRed] at (EightdcFivefSevenfdThreeThreeabFourSixeeNineEightSixEightAEightSeveneNinecEightecdThreeZero.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (SixOnecOneeFourbNineNineFourZerodFourfNineaEightffSixDOneeTwoSixEightNineFourFoureTwoNine) {\faBrain};
+
+        \node[text=innovensoRed] at (BaEightdTwoFouraFourDbFiveSevenFourfFourThreeNineZeroSevenbTwodcccOneeNineOneNinebc.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (ThreeThreeThreeeThreebOnecSixNineadFoureFourOneBbNinebSevenThreeThreeOneTwocbdEightebZero) {\faBrain};
+
+        \node[text=innovensoRed] at (OneSixThreeSevenfThreecEightFiveThreeOneEightFourdTwoFiveBSixSixTwoZerodThreeFourZeroSevendSixFourEightSixNine.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (FouraEightZerobFiveSixFourFSevenfTwoFourSixEightSevenNineeTwodFouradFourdFiveNineaZerofaOne) {\faBrain};
+
+        \node[text=innovensoRed] at (TwoeEightFiveTwocacDFiveTwobFourTwofFourNineSixSixeAeFivedfffOneSixThreeeNine.west|-CeEightEightecEighteDFourTwobFourEightZeroNineAaOneOneThreeFiveFiveEightFiveOneZeroZeroFourdNinef.east) (AfbFiveFourcZeroTwoFiveSixceFoureFiveSixAOneZeroSevenCcFiveSixEighteZerodbTwodSeven) {\faBrain};
+
+
+
+
+    \end{tikzpicture}
 
 
 
 
 \end{document}
-
-
-
 

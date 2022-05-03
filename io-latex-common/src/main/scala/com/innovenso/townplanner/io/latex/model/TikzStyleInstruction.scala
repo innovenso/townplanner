@@ -10,6 +10,10 @@ case object Rectangle extends TikzStyleInstruction {
   val value: String = "rectangle"
 }
 
+case object Circle extends TikzStyleInstruction {
+  val value: String = "circle"
+}
+
 case object RoundedCorners extends TikzStyleInstruction {
   val value: String = "rounded corners"
 }
@@ -28,6 +32,10 @@ case class Draw(color: String) extends TikzStyleInstruction {
 
 case class Text(color: String) extends TikzStyleInstruction {
   val value: String = s"text=$color"
+}
+
+case object DecorateWithBrace extends TikzStyleInstruction {
+  val value: String = s"decorate, decoration={brace}"
 }
 
 case object TextCentered extends TikzStyleInstruction {
