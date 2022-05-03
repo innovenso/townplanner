@@ -26,7 +26,7 @@ case class Actors()(implicit
       it has Wiki("https://nl.wikipedia.org/wiki/Justice_League_(film)")
   }
 
-  val clarkKent: Person = ea describes Person(title = "Clark Ken") as { he =>
+  val clarkKent: Person = ea describes Person(title = "Clark Kent") as { he =>
     he has Description("I'm Superman")
     he isPartOf justiceLeague
   }
