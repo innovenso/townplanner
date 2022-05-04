@@ -38,7 +38,14 @@ RUN \
 RUN ln -s /opt/java/openjdk/bin/java /usr/local/bin/java
 
 #Install required tools for rendering
-RUN apt-get update && apt-get install graphviz blender nodejs texlive-full latexmk -yqq
+RUN apt-get update && apt-get install graphviz -yqq
+RUN apt-get install blender -yqq
+RUN apt-get install texlive-full latexmk -yqq
+
+#Install NodeJS
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o /tmp/nodesource_setup.sh
+RUN bash /tmp/nodesource_setup.sh
+RUN apt-get install nodejs yarn -yqq
 
 # Add and use user sbtuser
 RUN groupadd --gid $GROUP_ID sbtuser && useradd -m --gid $GROUP_ID --uid $USER_ID sbtuser --shell /bin/bash
