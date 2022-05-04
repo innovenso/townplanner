@@ -31,6 +31,30 @@ case class Actors()(implicit
     he isPartOf justiceLeague
   }
 
+  val diana: Person =
+    ea describes Person(title = "Diana") as { she =>
+      she has Description("Wonder Woman")
+      she isPartOf justiceLeague
+    }
+
+  val arthurCurry: Person =
+    ea describes Person(title = "Arthur Curry") as { he =>
+      he has Description("Aquaman")
+      he isPartOf justiceLeague
+    }
+
+  val barryAllen: Person =
+    ea describes Person(title = "Barry Allen") as { he =>
+      he has Description("The Flash")
+      he isPartOf justiceLeague
+    }
+
+  val victorStone: Person =
+    ea describes Person(title = "Victor Stone") as { he =>
+      he has Description("Cyborg")
+      he isPartOf justiceLeague
+    }
+
   val bruceWayne: Person = ea describes Person(title = "Bruce Wayne") as { he =>
     he has Description("I'm Batman")
     he isPartOf justiceLeague

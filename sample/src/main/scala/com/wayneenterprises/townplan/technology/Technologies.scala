@@ -171,6 +171,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
         "DORA metrics are a result of six years worth of surveys conducted by the DORA (DevOps Research and Assessments) team, that, among other data points, specifically measure deployment frequency (DF), mean lead time for changes (MLT), mean time to recover (MTTR) and change failure rate (CFR). These metrics serve as a guide to how well the engineering teams are performing and how successful a company is at DevOps, ranging from low performers to elite performers. They help answer the question: Are we better at DevOps now than we were a year ago? They help DevOps and engineering leaders measure software delivery throughput (velocity) and stability (quality). They show how development teams can deliver better software to their customers, faster. These metrics provide leaders with concrete data so they can gauge the organization’s DevOps performance—and so they can report to executives and recommend improvements. DORA metrics help align development goals with business goals. From a product management perspective, they offer a view into how and when development teams can meet customer needs. For engineering and DevOps leaders, these metrics can help prove that DevOps implementation has a clear business value."
       )
       it should BeInvestedIn()
+      it isKnownBy actors.diana
   }
 
   val nodeJs: Framework = ea describes Framework(title = "NodeJS") as { it =>
@@ -204,6 +205,8 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
         "OpenTelemetry is a set of APIs, SDKs, tooling and integrations that are designed for the creation and management of telemetry data such as traces, metrics, and logs. It is an open-source, vendor-neutral project, that is adopted and supported by industry leaders in the observability space."
       )
       it should BeInvestedIn()
+      it isKnownBy actors.victorStone
+      it isKnownBy (target = actors.barryAllen, level = Expert)
     }
 
   val kotlin: Language = ea describes Language(title = "Kotlin") as { it =>
