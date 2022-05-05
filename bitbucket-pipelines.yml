@@ -10,7 +10,7 @@ pipelines:
         name: Build and Deploy Documentation
         script:
           - sbt laikaSite
-          - pipe: atlassian/aws-s3-deploy:latest
+          - pipe: atlassian/aws-s3-deploy:1.1.0
             variables:
               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
@@ -18,7 +18,7 @@ pipelines:
               S3_BUCKET: $AWS_S3_BUCKET
               LOCAL_PATH: 'docs/target/docs/site'
               ACL: 'public-read'
-          - pipe: atlassian/aws-cloudfront-invalidate:latest
+          - pipe: atlassian/aws-cloudfront-invalidate:0.6.0
             variables:
               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
