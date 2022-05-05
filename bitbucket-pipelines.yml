@@ -1,0 +1,26 @@
+image: innovenso/townplanner:latest
+
+pipelines:
+  default:
+    - step:
+        name: Test
+        script:
+          - sbt test
+    - step:
+        name: Build and Deploy Documentation
+        script:
+          - sbt laikaSite
+          - pipe: atlassian/aws-s3-deploy:latest
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              S3_BUCKET: $AWS_S3_BUCKET
+              LOCAL_PATH: 'docs/target/docs/site'
+              ACL: 'public-read'
+          - pipe: atlassian/aws-cloudfront-invalidate:latest
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              DISTRIBUTION_ID: $AWS_DISTRIBUTION_ID
