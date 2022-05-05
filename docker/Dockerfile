@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11
+FROM eclipse-temurin:17
 
 #Environment variables
 ARG SCALA_VERSION
