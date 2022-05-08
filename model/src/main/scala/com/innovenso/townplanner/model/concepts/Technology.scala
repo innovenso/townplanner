@@ -13,7 +13,8 @@ sealed trait Technology
     with HasArchitectureVerdict
     with CanBeImpacted
     with CanImplement
-    with CanBeKnown {
+    with CanBeKnown
+    with HasTagProperties {
   val modelComponentType: ModelComponentType = ModelComponentType("Technology")
   val aspect: Aspect = PassiveStructure
   val layer: Layer = TechnologyLayer
@@ -111,6 +112,7 @@ case class TechnologyRadarConfigurer[TechnologyType <: Technology](
     with CanConfigureLinks[Technology]
     with CanConfigureSWOT[Technology]
     with CanConfigureArchitectureVerdict[Technology]
+    with CanConfigureTagProperties[Technology]
     with CanConfigureImplementationSource[Technology]
     with CanConfigureKnowledgeTarget[Technology] {
   def as(

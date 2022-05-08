@@ -5,6 +5,7 @@ import com.innovenso.townplanner.model.concepts.{
   Framework,
   Language,
   Platform,
+  Tag,
   Technique,
   Tool
 }
@@ -26,6 +27,8 @@ import com.innovenso.townplanner.model.concepts.relationships.{
 import com.wayneenterprises.townplan.business.Actors
 
 case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
+  val googleTag: Tag = ea has Tag(title = "Google")
+
   val java: Language = ea describes Language(title = "Java") as { it =>
     it has Description(
       "Java is a high-level, class-based, object-oriented programming language."
@@ -109,6 +112,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
     )
     it isKnownBy actors.bruceWayne
     it isKnownBy actors.clarkKent
+    it isTagged googleTag
   }
 
   val infrastructureAsCode: Technique =

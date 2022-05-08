@@ -19,8 +19,13 @@ import com.innovenso.townplanner.model.concepts.{
   Tool
 }
 import com.innovenso.townplanner.model.concepts.properties.{
+  BeEliminated,
+  BeInvestedIn,
+  BeMigrated,
+  BeTolerated,
   CanAddProperties,
-  Property
+  Property,
+  TagProperty
 }
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanAddRelationships,
@@ -50,6 +55,11 @@ case class KnowledgeMatrix(
     sortKey: SortKey = SortKey.next,
     forTeam: Key,
     title: String = "Knowledge Matrix",
+    includeToBeInvestedIn: Boolean = true,
+    includeToBeTolerated: Boolean = true,
+    includeToBeMigrated: Boolean = false,
+    includeToBeEliminated: Boolean = false,
+    includeTags: List[Tag] = Nil,
     properties: Map[Key, Property] = Map.empty[Key, Property]
 ) extends TimelessView {
   val modelComponentType: ModelComponentType = ModelComponentType(
@@ -66,6 +76,16 @@ object KnowledgeMatrix {
     forTeam = forTeam.key,
     title = s"${forTeam.title} Knowledge Matrix"
   )
+}
+
+object TaggedKnowledgeMatrix {
+  def apply(forTeam: Team, tags: List[Tag]): KnowledgeMatrix =
+    new KnowledgeMatrix(
+      forTeam = forTeam.key,
+      includeTags = tags,
+      title =
+        s"${forTeam.title} Knowledge Matrix ${tags.map(_.title).mkString(" ")}"
+    )
 }
 
 trait HasKnowledgeMatrices
@@ -135,7 +155,24 @@ case class KnowledgeMatrixCompiler(
       )
     )
 
-  private val technologies = source.technologies
+  private val tagFilter: Technology => Boolean = technology => {
+    if (view.includeTags.nonEmpty)
+      view.includeTags.exists(t => technology.hasTag(t))
+    else true
+  }
+
+  private val architectureVerdictFilter: Technology => Boolean = technology => {
+    technology.architectureVerdict match {
+      case i: BeInvestedIn => view.includeToBeInvestedIn
+      case t: BeTolerated  => view.includeToBeTolerated
+      case m: BeMigrated   => view.includeToBeMigrated
+      case e: BeEliminated => view.includeToBeEliminated
+      case _               => true
+    }
+  }
+
+  private val technologies =
+    source.technologies.filter(tagFilter).filter(architectureVerdictFilter)
 
   private val team: Option[BusinessActor] = source.businessActor(view.forTeam)
 
