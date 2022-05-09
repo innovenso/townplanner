@@ -1,6 +1,10 @@
 package com.innovenso.townplanner.model.views
 
-import com.innovenso.townplanner.model.concepts.properties.BeMigrated
+import com.innovenso.townplanner.model.concepts.properties.{
+  BeInvestedIn,
+  BeMigrated,
+  BeTolerated
+}
 import com.innovenso.townplanner.model.concepts.relationships.{
   Expert,
   HighlyKnowledgeable,
@@ -11,6 +15,8 @@ import com.innovenso.townplanner.model.concepts.relationships.{
 import com.innovenso.townplanner.model.concepts.{
   EnterpriseArchitectureContext,
   Language,
+  Platform,
+  Technique,
   Tool
 }
 import com.innovenso.townplanner.model.concepts.views.{
@@ -24,10 +30,18 @@ import org.scalatest.flatspec.AnyFlatSpec
 class KnowledgeMatrixSpec extends AnyFlatSpec with GivenWhenThen {
   "a knowledge matrix" should "contain all technologies, and have a knowledge level for each of them for every member of a team" in new EnterpriseArchitectureContext {
     Given("some technologies")
-    val tool = samples.tool
-    val language = samples.language
-    val technique = samples.technique
-    val platform = samples.platformTechnology
+    val tool = ea describes Tool(title = "Tool") as { it =>
+      it should BeInvestedIn()
+    }
+    val language = ea describes Language(title = "Language") as { it =>
+      it should BeTolerated()
+    }
+    val technique = ea describes Technique(title = "Technique") as { it =>
+      it should BeInvestedIn()
+    }
+    val platform = ea describes Platform(title = "Platform") as { it =>
+      it should BeInvestedIn()
+    }
     And("a team")
     val team = samples.team
     val member1 = samples.teamMember(team)
