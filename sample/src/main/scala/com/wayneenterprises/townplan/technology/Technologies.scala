@@ -27,7 +27,7 @@ import com.innovenso.townplanner.model.concepts.relationships.{
 import com.wayneenterprises.townplan.business.Actors
 
 case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
-  val googleTag: Tag = ea has Tag(title = "Google")
+  val relevantForArchitecture: Tag = ea has Tag(title = "Architecture")
 
   val java: Language = ea describes Language(title = "Java") as { it =>
     it has Description(
@@ -112,7 +112,7 @@ case class Technologies()(implicit ea: EnterpriseArchitecture, actors: Actors) {
     )
     it isKnownBy actors.bruceWayne
     it isKnownBy actors.clarkKent
-    it isTagged googleTag
+    it isTagged relevantForArchitecture
   }
 
   val infrastructureAsCode: Technique =
