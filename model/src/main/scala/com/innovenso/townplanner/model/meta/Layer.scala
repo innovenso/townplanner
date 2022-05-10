@@ -4,6 +4,10 @@ trait Layer {
   def name: String
 }
 
+object Layer {
+  val values: List[Layer] = List(StrategyLayer, BusinessLayer, ApplicationLayer, TechnologyLayer, ImplementationLayer, MotivationLayer)
+}
+
 case object StrategyLayer extends Layer {
   val name = "Strategy"
 }

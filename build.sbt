@@ -117,6 +117,15 @@ lazy val ioLatexDocument = project
     libraryDependencies += lorem
   )
   .enablePlugins(SbtTwirl)
+lazy val ioWebsite = project.in(file("io-website"))
+  .dependsOn(model, ioCore, ioDiagrams)
+  .settings(
+    name := "innovenso-townplanner-io-website",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem,
+    libraryDependencies += laikaPdf
+  ).enablePlugins(SbtTwirl)
 
 lazy val application = project
   .in(file("application"))
@@ -157,8 +166,8 @@ lazy val root = project
   )
   .enablePlugins(LaikaPlugin)
 
-val scalactic = "org.scalactic" %% "scalactic" % "3.2.11"
-val scalaTest = "org.scalatest" %% "scalatest" % "3.2.11" % "test"
+val scalactic = "org.scalactic" %% "scalactic" % "3.2.12"
+val scalaTest = "org.scalatest" %% "scalatest" % "3.2.12" % "test"
 val scalaLogging = "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4"
 val commonsText = "org.apache.commons" % "commons-text" % "1.9"
 val lorem = "com.thedeanda" % "lorem" % "2.1"
@@ -166,6 +175,7 @@ val commonsIo = "commons-io" % "commons-io" % "2.11.0"
 val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2021.16"
 val json = "net.liftweb" %% "lift-json" % "3.5.0"
 val commonsCodec = "commons-codec" % "commons-codec" % "1.15"
+val laikaPdf = "org.planet42" %% "laika-pdf" % "0.18.2"
 
 val montserratURL = "https://fonts.googleapis.com/css?family=Montserrat"
 

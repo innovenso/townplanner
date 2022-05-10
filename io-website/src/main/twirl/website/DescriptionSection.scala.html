@@ -1,0 +1,11 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@(element: Element)
+@element match {
+  case hasDescription: HasDescription => {
+    @for(description <- hasDescription.descriptions) {
+        <p>@description.value</p>
+    }
+  }
+  case _ => {}
+}

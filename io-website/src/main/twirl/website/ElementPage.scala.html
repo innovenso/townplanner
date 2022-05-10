@@ -1,0 +1,27 @@
+@import com.innovenso.townplanner.model.language.Element
+@import website.html.DescriptionSection
+@import website.html.DiagramSection
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplanner.io.model.NavigationContext
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.min.css">
+        <title>@element.title</title>
+    </head>
+    <body>
+        <main class="container">
+            <h1>@element.title</h1>
+
+            @DescriptionSection(element)
+
+            @DiagramSection(element, navigationContext, townPlan, outputContext)
+        </main>
+    </body>
+</html>
+

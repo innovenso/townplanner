@@ -34,3 +34,8 @@ case object Html extends OutputFileType {
   val extension = ".html"
   val name = "HTML"
 }
+
+case object MarkDown extends OutputFileType {
+  val extension = ".md"
+  val name = "MarkDown"
+}
