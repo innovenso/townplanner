@@ -1,0 +1,47 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasSWOT
+@(element: Element)
+@element match {
+    case hasSwot: HasSWOT => {
+      @if(hasSwot.swots.nonEmpty) {
+        <details>
+            <summary>SWOT</summary>
+            <section class="strength">
+                <header>Strengths</header>
+                <ul>
+                @for(swot <- hasSwot.strengths) {
+                    <li>@swot.description</li>
+                }
+                </ul>
+            </section>
+            <section class="weakness">
+                <header>Weaknesses</header>
+                <ul>
+                @for(swot <- hasSwot.weaknesses) {
+                    <li>@swot.description</li>
+                }
+                </ul>
+            </section>
+            <section class="opportunity">
+                <header>Opportunities</header>
+                <ul>
+                @for(swot <- hasSwot.opportunities) {
+                    <li>@swot.description</li>
+                }
+                </ul>
+            </section>
+            <section class="threat">
+                <header>Threats</header>
+                <ul>
+                @for(swot <- hasSwot.threats) {
+                    <li>@swot.description</li>
+                }
+                </ul>
+            </section>
+        </details>
+      }
+    }
+    case _ => {}
+}

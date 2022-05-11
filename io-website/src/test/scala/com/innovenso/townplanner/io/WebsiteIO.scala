@@ -22,9 +22,9 @@ trait WebsiteIO {
   val diagramWriter: TownPlanDiagramWriter =
     TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
 
-  def diagramsAreWritten(viewKey: Key): OutputContext = {
+  def diagramsAreWritten: OutputContext = {
     diagramWriter
-      .write(townPlan, viewKey.value, OutputContext(Nil))
+      .write(townPlan, OutputContext(Nil))
   }
 
   val websiteWriter: TownPlanWebsiteWriter =

@@ -35,6 +35,7 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = systemContainerView,
+          relatedModelComponents = systemContainerView.centralSystem.toList,
           plantumlSpecification =
             SystemContainerViewDiagram(systemContainerView).body
         )
@@ -43,6 +44,7 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = systemIntegrationView,
+          relatedModelComponents = systemIntegrationView.integration.toList,
           plantumlSpecification =
             SystemIntegrationViewDiagram(systemIntegrationView).body
         )
@@ -54,109 +56,123 @@ object DiagramSpecificationWriter {
           plantumlSpecification = FlowViewDiagram(flowView).body
         ),
         DiagramSpecification(
-          flowView,
-          FlowViewSequenceDiagram(flowView).body,
-          Some("Sequence")
+          view = flowView,
+          plantumlSpecification = FlowViewSequenceDiagram(flowView).body,
+          filenameAppendix = Some("Sequence")
         )
       )
     case businessCapabilityMap: CompiledBusinessCapabilityMap =>
       List(
         DiagramSpecification(
-          businessCapabilityMap,
-          BusinessCapabilityMindMap(businessCapabilityMap).body
+          view = businessCapabilityMap,
+          plantumlSpecification = BusinessCapabilityMindMap(businessCapabilityMap).body,
+          relatedModelComponents = businessCapabilityMap.enterprise.toList
         )
       )
     case businessCapabilityPosition: CompiledBusinessCapabilityPosition =>
       List(
         DiagramSpecification(
-          businessCapabilityPosition,
-          BusinessCapabilityPositionDiagram(businessCapabilityPosition).body
+          view = businessCapabilityPosition,
+          plantumlSpecification = BusinessCapabilityPositionDiagram(businessCapabilityPosition).body,
+          relatedModelComponents = businessCapabilityPosition.capability.toList
         )
       )
     case architectureBuildingBlockRealizationView: CompiledArchitectureBuildingBlockRealizationView =>
       List(
         DiagramSpecification(
-          architectureBuildingBlockRealizationView,
-          ArchitectureBuildingBlockRealizationDiagram(
+          view = architectureBuildingBlockRealizationView,
+          plantumlSpecification = ArchitectureBuildingBlockRealizationDiagram(
             architectureBuildingBlockRealizationView
           ).body,
-          if (architectureBuildingBlockRealizationView.view.includeContainers)
+          filenameAppendix = if (architectureBuildingBlockRealizationView.view.includeContainers)
             Some("Detailed")
-          else None
+          else None,
+          relatedModelComponents = architectureBuildingBlockRealizationView.buildingBlock.toList
         )
       )
     case integrationMap: CompiledIntegrationMap =>
       List(
         DiagramSpecification(
-          integrationMap,
-          IntegrationMapDiagram(integrationMap).body
+          view = integrationMap,
+          plantumlSpecification = IntegrationMapDiagram(integrationMap).body,
+          relatedModelComponents = townPlan.enterprises
         )
       )
     case fullTownPlanView: CompiledFullTownPlanView =>
       List(
         DiagramSpecification(
-          fullTownPlanView,
-          FullTownPlanDiagram(fullTownPlanView).body
+          view = fullTownPlanView,
+          plantumlSpecification = FullTownPlanDiagram(fullTownPlanView).body,
+          relatedModelComponents = fullTownPlanView.enterprise.toList
         )
       )
     case systemIntegrationInteractionView: CompiledSystemIntegrationInteractionView =>
       List(
         DiagramSpecification(
-          systemIntegrationInteractionView,
-          SystemIntegrationInteractionDiagram(
-            systemIntegrationInteractionView
-          ).body
-        ),
-        DiagramSpecification(
-          systemIntegrationInteractionView,
-          SystemIntegrationInteractionSequenceDiagram(
+          view = systemIntegrationInteractionView,
+          plantumlSpecification = SystemIntegrationInteractionDiagram(
             systemIntegrationInteractionView
           ).body,
-          Some("Sequence")
+          relatedModelComponents = systemIntegrationInteractionView.integration.toList
+        ),
+        DiagramSpecification(
+          view = systemIntegrationInteractionView,
+          plantumlSpecification = SystemIntegrationInteractionSequenceDiagram(
+            systemIntegrationInteractionView
+          ).body,
+          filenameAppendix = Some("Sequence"),
+          relatedModelComponents = systemIntegrationInteractionView.integration.toList
         )
       )
     case projectMilestoneImpactView: CompiledProjectMilestoneImpactView =>
       List(
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneItContainerImpactView(projectMilestoneImpactView).body,
-          Some("Containers")
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneItContainerImpactView(projectMilestoneImpactView).body,
+          filenameAppendix = Some("Containers"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneItSystemImpactView(projectMilestoneImpactView).body,
-          Some("Systems")
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneItSystemImpactView(projectMilestoneImpactView).body,
+          filenameAppendix = Some("Systems"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneItPlatformImpactView(projectMilestoneImpactView).body,
-          Some("Platforms")
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneItPlatformImpactView(projectMilestoneImpactView).body,
+          filenameAppendix = Some("Platforms"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneItSystemIntegrationImpactView(
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneItSystemIntegrationImpactView(
             projectMilestoneImpactView
           ).body,
-          Some("System Integrations")
+          filenameAppendix = Some("System Integrations"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneTechnologyImpactView(projectMilestoneImpactView).body,
-          Some("Technologies")
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneTechnologyImpactView(projectMilestoneImpactView).body,
+          filenameAppendix = Some("Technologies"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneBusinessCapabilityImpactView(
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneBusinessCapabilityImpactView(
             projectMilestoneImpactView
           ).body,
-          Some("Business Capabilities")
+          filenameAppendix = Some("Business Capabilities"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
-          projectMilestoneImpactView,
-          MilestoneArchitectureBuildingBlockImpactView(
+          view = projectMilestoneImpactView,
+          plantumlSpecification = MilestoneArchitectureBuildingBlockImpactView(
             projectMilestoneImpactView
           ).body,
-          Some("Architecture Building Blocks")
+          filenameAppendix = Some("Architecture Building Blocks"),
+          relatedModelComponents = List(projectMilestoneImpactView.milestone)
         )
       )
     case _ => Nil

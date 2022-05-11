@@ -4,6 +4,9 @@
 @import com.innovenso.townplanner.model.TownPlan
 @import com.innovenso.townplan.io.context.OutputContext
 @import com.innovenso.townplanner.io.model.NavigationContext
+@import website.html.LinkSection
+@import website.html.SwotSection
+@import website.html.BusinessCapabilitySection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -16,11 +19,19 @@
     </head>
     <body>
         <main class="container">
-            <h1>@element.title</h1>
+            <header>
+                <hgroup>
+                    <h1>@element.title</h1>
+                    <h2>@element.modelComponentType.value</h2>
+                </hgroup>
+            </header>
 
             @DescriptionSection(element)
 
             @DiagramSection(element, navigationContext, townPlan, outputContext)
+            @LinkSection(element)
+            @BusinessCapabilitySection(element, navigationContext, townPlan)
+            @SwotSection(element)
         </main>
     </body>
 </html>

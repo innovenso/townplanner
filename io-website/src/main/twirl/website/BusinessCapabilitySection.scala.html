@@ -1,0 +1,25 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasSWOT
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeServed
+@import com.innovenso.townplanner.model.concepts.Enterprise
+@import com.innovenso.townplanner.io.model.NavigationContext
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@element match {
+    case enterprise: Enterprise => {
+      @if(townPlan.level0businessCapabilities(enterprise).nonEmpty) {
+        <details>
+            <summary>Business Capabilities</summary>
+             <ul>
+                @for(capability <- townPlan.level0businessCapabilities(enterprise)) {
+                    <li><a href="@navigationContext.relativePathTo(capability)">@capability.title</a></li>
+                }
+                </ul>
+        </details>
+      }
+    }
+    case _ => {}
+}

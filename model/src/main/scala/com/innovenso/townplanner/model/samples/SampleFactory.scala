@@ -235,6 +235,21 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
 
   def enterprise: Enterprise = ea describes Enterprise(title = title) as { it =>
     it has Description(description)
+    it has Website(url, title)
+    it has Wiki(url, title)
+    (1 to randomInt(5)).foreach(_ =>
+      it has Strength(description = description)
+    )
+    (1 to randomInt(5)).foreach(_ =>
+      it has Weakness(description = description)
+    )
+    (1 to randomInt(5)).foreach(_ =>
+      it has Opportunity(description = description)
+    )
+    (1 to randomInt(5)).foreach(_ =>
+      it has Threat(description = description)
+    )
+
   }
 
   def capability(

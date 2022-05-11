@@ -1,21 +1,13 @@
 package com.innovenso.townplanner.io.model
 
 import com.innovenso.townplan.io.context.OutputFileType
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  TimelessView,
-  View
-}
-import com.innovenso.townplanner.model.meta.{
-  ADay,
-  InTheFuture,
-  InThePast,
-  Today
-}
+import com.innovenso.townplanner.model.language.{CompiledView, ModelComponent, TimelessView, View}
+import com.innovenso.townplanner.model.meta.{ADay, InTheFuture, InThePast, Today}
 
 case class DiagramSpecification(
     view: CompiledView[_ <: View],
     plantumlSpecification: String,
+    relatedModelComponents: List[ModelComponent] = Nil,
     filenameAppendix: Option[String] = None
 ) {
   def assetName(fileType: OutputFileType): String =

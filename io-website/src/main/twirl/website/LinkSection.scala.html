@@ -1,0 +1,19 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@(element: Element)
+@element match {
+    case hasLinks: HasLinks => {
+      @if(hasLinks.links.nonEmpty) {
+        <details>
+            <summary>Links</summary>
+            <ul>
+                @for(link <- hasLinks.links) {
+                    <li><a href="@link.url"> @link.name - @link.title </a></li>
+                }
+            </ul>
+        </details>
+      }
+    }
+    case _ => {}
+}

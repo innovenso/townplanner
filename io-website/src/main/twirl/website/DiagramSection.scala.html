@@ -6,13 +6,17 @@
 @import play.twirl.api.TwirlFeatureImports._
 @import com.innovenso.townplanner.io.model.NavigationContext
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
-@defining(outputContext.outputsOfFileType(Svg)) { outputs =>
+@defining(outputContext.outputs(ofFileType = Some(Svg), ofOutputType = Some(Diagram), forModelComponents = List(element))) { outputs =>
   @if(outputs.nonEmpty) {
-    <h2>Diagrams</h2>
+    <details>
+      <summary>Diagrams</summary>
       @for(output <- outputs) {
-        <p>@output.view.title</p>
-        <img src="@navigationContext.relativePathToStaticAsset(output)" alt="@output.view.title"/>
+          <figure>
+            <img src="@navigationContext.relativePathToStaticAsset(output)" alt="@output.view.title"/>
+            <figcaption>@output.view.title</figcaption>
+          </figure>
       }
+    </details>
   }
 }
 

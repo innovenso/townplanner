@@ -49,7 +49,8 @@ object DiagramImageWriter {
         assetName = Some(assetName),
         fileType = outputFileType,
         outputType = Diagram,
-        day = specification.view.pointInTime
+        day = specification.view.pointInTime,
+        relatedModelComponents = specification.relatedModelComponents
       )
     } catch {
       case error: Throwable =>

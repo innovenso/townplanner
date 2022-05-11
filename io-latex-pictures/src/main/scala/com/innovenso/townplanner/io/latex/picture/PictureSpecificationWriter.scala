@@ -33,6 +33,7 @@ object PictureSpecificationWriter {
       List(
         LatexSpecification(
           view = businessCapabilityMap,
+          relatedModelComponents = businessCapabilityMap.enterprise.toList,
           latexSourceCode = BusinessCapabilityMapPicture(
             townPlan,
             businessCapabilityMap,
@@ -45,6 +46,7 @@ object PictureSpecificationWriter {
       List(
         LatexSpecification(
           view = knowledgeMatrix,
+          relatedModelComponents = knowledgeMatrix.team.toList,
           latexSourceCode = KnowledgeMatrixDiagram(
             knowledgeMatrix,
             townPlan
