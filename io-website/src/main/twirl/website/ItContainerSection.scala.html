@@ -7,19 +7,22 @@
 @import com.innovenso.townplanner.model.concepts.ItSystem
 @import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
 @import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.concepts.Technology
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
     @defining(
         element match {
-            case architectureBuildingBlock: ArchitectureBuildingBlock => (townPlan.realizingPlatforms(architectureBuildingBlock), s"Platforms realizing ${element.title}")
+            case itSystem: ItSystem => (townPlan.containers(itSystem), s"Containers belonging to ${element.title}")
+            case technology: Technology => (townPlan.modelComponentsImplementedByTechnology(technology, classOf[ItContainer]), s"Containers implementing ${element.title}")
             case _ => (Nil, "")
         }
-    ) { platformsAndTitle =>
-      @if(platformsAndTitle._1.nonEmpty) {
+    ) { containersAndTitle =>
+      @if(containersAndTitle._1.nonEmpty) {
           <details>
-              <summary>@platformsAndTitle._2</summary>
+              <summary>@containersAndTitle._2</summary>
               <ul>
-              @for(platform <- platformsAndTitle._1) {
-                  <li><a href="@navigationContext.relativePathTo(platform)">@platform.title</a></li>
+              @for(itContainer <- containersAndTitle._1) {
+                  <li><a href="@navigationContext.relativePathTo(itContainer)">@itContainer.title</a></li>
               }
               </ul>
           </details>

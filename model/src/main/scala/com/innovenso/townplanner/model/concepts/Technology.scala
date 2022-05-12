@@ -90,6 +90,9 @@ trait HasTechnologies extends HasModelComponents with HasRelationships {
       classOf[Implementation],
       classOf[Technology]
     )
+  def technologiesKnownBy(element: CanKnow): List[Technology] = directOutgoingDependencies(element, classOf[Knowledge], classOf[Technology])
+  def modelComponentsImplementedByTechnology[ElementType <: CanBeImplementedByTechnologies](technology: Technology, elementClass: Class[ElementType]): List[ElementType] =
+    directOutgoingDependencies(technology, classOf[Implementation], elementClass)
   def technologies[TechnologyType <: Technology](
       technologyClass: Class[TechnologyType]
   ): List[TechnologyType] = technologies

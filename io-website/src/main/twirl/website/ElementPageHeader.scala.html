@@ -4,6 +4,8 @@
 @import com.innovenso.townplanner.model.concepts.BusinessCapability
 @import play.twirl.api.TwirlFeatureImports._
 @import website.html.TagSection
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.concepts.ItContainer
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
 <header>
     <hgroup>
@@ -21,6 +23,22 @@
                         and part of <a href="@navigationContext.relativePathTo(cap)">@cap.title</a>
                     }
                   }
+          }
+          case itSystem: ItSystem => {
+              @element.modelComponentType.value
+                @if(townPlan.systemPlatform(itSystem).nonEmpty) {
+                  @defining(townPlan.systemPlatform(itSystem).get) { platform =>
+                    belonging to <a href="@navigationContext.relativePathTo(platform)">@platform.title</a>
+                  }
+                }
+          }
+          case itContainer: ItContainer => {
+              @element.modelComponentType.value
+              @if(townPlan.system(itContainer).nonEmpty) {
+                  @defining(townPlan.system(itContainer).get) { system =>
+                      belonging to <a href="@navigationContext.relativePathTo(system)">@system.title</a>
+                  }
+              }
           }
           case _ => {
               @element.modelComponentType.value

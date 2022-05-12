@@ -41,7 +41,7 @@ case class BeEliminated(
   val radarCircle: Int = 4
 }
 
-case class DetermineLifecyle(description: String = "")
+case class UnknownArchitectureVerdict(description: String = "")
     extends ArchitectureVerdict {
   val name: String = "Unknown"
   val radarCircle: Int = 0
@@ -56,9 +56,11 @@ trait HasArchitectureVerdict extends HasProperties {
 
   def architectureVerdict: ArchitectureVerdict =
     props(classOf[ArchitectureVerdict]).headOption
-      .getOrElse(DetermineLifecyle())
+      .getOrElse(UnknownArchitectureVerdict())
 
   def isToBeMigrated: Boolean = architectureVerdict.isInstanceOf[BeMigrated]
+
+  def isUnknownArchitectureVerdict: Boolean = architectureVerdict.isInstanceOf[UnknownArchitectureVerdict]
 }
 
 trait CanConfigureArchitectureVerdict[

@@ -13,6 +13,9 @@
 @import website.html.TagSection
 @import website.html.ArchitectureBuildingBlockSection
 @import website.html.ItPlatformSection
+@import website.html.ItSystemSection
+@import website.html.ItContainerSection
+@import website.html.TechnologySection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -35,6 +38,9 @@
             @BusinessCapabilitySection(element, navigationContext, townPlan)
             @ArchitectureBuildingBlockSection(element, navigationContext, townPlan)
             @ItPlatformSection(element, navigationContext, townPlan)
+            @ItSystemSection(element, navigationContext, townPlan)
+            @ItContainerSection(element, navigationContext, townPlan)
+            @TechnologySection(element, navigationContext, townPlan)
             @SwotSection(element)
         </main>
     </body>

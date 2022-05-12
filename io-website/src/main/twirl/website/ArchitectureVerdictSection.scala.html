@@ -5,10 +5,12 @@
 @(element: Element)
 @element match {
     case hasArchitectureVerdict: HasArchitectureVerdict => {
-        <details>
-            <summary>Architecture Verdict - @hasArchitectureVerdict.architectureVerdict.name</summary>
-            <p>@hasArchitectureVerdict.architectureVerdict.description</p>
-        </details>
+      @if(!hasArchitectureVerdict.isUnknownArchitectureVerdict) {
+          <details>
+              <summary>Architecture Verdict - @hasArchitectureVerdict.architectureVerdict.name</summary>
+              <p>@hasArchitectureVerdict.architectureVerdict.description</p>
+          </details>
+      }
     }
     case _ => {}
 }

@@ -25,9 +25,6 @@ sealed trait BusinessActor
     with CanKnow {
   val layer: Layer = BusinessLayer
   val aspect: Aspect = ActiveStructure
-  val modelComponentType: ModelComponentType = ModelComponentType(
-    "Business Actor"
-  )
 }
 
 case class Actor(
@@ -38,6 +35,9 @@ case class Actor(
 ) extends BusinessActor {
   def withProperty(property: Property): Actor =
     copy(properties = this.properties + (property.key -> property))
+  val modelComponentType: ModelComponentType = ModelComponentType(
+    "Business Actor"
+  )
 }
 
 case class Person(
@@ -48,6 +48,9 @@ case class Person(
 ) extends BusinessActor {
   def withProperty(property: Property): Person =
     copy(properties = this.properties + (property.key -> property))
+  val modelComponentType: ModelComponentType = ModelComponentType(
+    "Person"
+  )
 }
 
 case class Organisation(
@@ -58,6 +61,9 @@ case class Organisation(
 ) extends BusinessActor {
   def withProperty(property: Property): Organisation =
     copy(properties = this.properties + (property.key -> property))
+  val modelComponentType: ModelComponentType = ModelComponentType(
+    "Organisation"
+  )
 }
 
 case class Team(
@@ -68,6 +74,9 @@ case class Team(
 ) extends BusinessActor {
   def withProperty(property: Property): Team =
     copy(properties = this.properties + (property.key -> property))
+  val modelComponentType: ModelComponentType = ModelComponentType(
+    "Team"
+  )
 }
 
 trait HasBusinessActors
