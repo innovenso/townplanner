@@ -1,0 +1,25 @@
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import play.twirl.api.TwirlFeatureImports._
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+<header>
+    <hgroup>
+        <h1>@element.title</h1>
+        @element match {
+          case businessCapability: BusinessCapability => {
+              <h2>@element.modelComponentType.value
+                  @if(townPlan.enterprise(businessCapability).nonEmpty) {
+                    @defining(townPlan.enterprise(businessCapability).get) { enterprise =>
+                      of <a href="@navigationContext.relativePathTo(enterprise)">@enterprise.title</a>
+                    }
+                  }
+              </h2>
+          }
+          case _ => {
+              <h2>@element.modelComponentType.value</h2>
+          }
+        }
+    </hgroup>
+</header>

@@ -1,0 +1,14 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasArchitectureVerdict
+@(element: Element)
+@element match {
+    case hasArchitectureVerdict: HasArchitectureVerdict => {
+        <details>
+            <summary>Architecture Verdict - @hasArchitectureVerdict.architectureVerdict.name</summary>
+            <p>@hasArchitectureVerdict.architectureVerdict.description</p>
+        </details>
+    }
+    case _ => {}
+}

@@ -1,0 +1,29 @@
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.io.model.NavigationTree
+@import com.innovenso.townplanner.io.model.CanNavigate
+@(canNavigate: CanNavigate, townPlan: TownPlan)
+<header class="container">
+    <nav>
+        <ul>
+            <li class="logo"><a href="@canNavigate.home">Innovenso Townplanner</a></li>
+        </ul>
+        @defining(NavigationTree(canNavigate, townPlan)) { navigationTree =>
+            <ul>
+            @for(menu <- navigationTree.mainMenu) {
+                <li role="list" dir="rtl">
+                    <a href="#" aria-haspopup="listbox">@menu.name</a>
+                    <ul role="listbox">
+                    @for(item <- menu.items) {
+                        <li><a href="@item.url">@item.title</a></li>
+                    }
+                    </ul>
+                </li>
+
+            }
+            </ul>
+        }
+    </nav>
+</header>

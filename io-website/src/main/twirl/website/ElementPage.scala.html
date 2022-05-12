@@ -7,6 +7,9 @@
 @import website.html.LinkSection
 @import website.html.SwotSection
 @import website.html.BusinessCapabilitySection
+@import website.html.WebsiteHeader
+@import website.html.ArchitectureVerdictSection
+@import website.html.ElementPageHeader
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -15,19 +18,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.min.css">
+        <link rel="stylesheet" href="@navigationContext.relativePathToStaticAsset("townplanner.css")">
         <title>@element.title</title>
     </head>
     <body>
+        @WebsiteHeader(navigationContext, townPlan)
         <main class="container">
-            <header>
-                <hgroup>
-                    <h1>@element.title</h1>
-                    <h2>@element.modelComponentType.value</h2>
-                </hgroup>
-            </header>
-
+            @ElementPageHeader(element, navigationContext, townPlan)
             @DescriptionSection(element)
-
+            @ArchitectureVerdictSection(element)
             @DiagramSection(element, navigationContext, townPlan, outputContext)
             @LinkSection(element)
             @BusinessCapabilitySection(element, navigationContext, townPlan)

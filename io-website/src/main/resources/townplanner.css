@@ -1,0 +1,17 @@
+body>header {
+    padding: 0;
+}
+
+body>main {
+    padding: 0;
+}
+
+header .logo a {
+    background-image: url(logo.svg);
+    display: block;
+    margin: 0 auto;
+    text-indent: -9999px;
+    height: 51px;
+    width: 50px;
+    background-size: cover;
+}

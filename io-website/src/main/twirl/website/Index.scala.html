@@ -1,0 +1,30 @@
+@import com.innovenso.townplanner.io.model.IndexPage
+@import website.html.WebsiteHeader
+@import com.innovenso.townplanner.model.TownPlan
+@(indexPage: IndexPage, townPlan: TownPlan)
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.min.css">
+        <link rel="stylesheet" href="@indexPage.relativePathToStaticAsset("townplanner.css")">
+        <title>@indexPage.title</title>
+    </head>
+    <body>
+        @WebsiteHeader(indexPage, townPlan)
+        <main class="container">
+            <header>
+                <hgroup>
+                    <h1>@indexPage.title</h1>
+                    <ul>
+                        @for(item <- indexPage.items) {
+                          <li><a href="@item.url">@item.title</a></li>
+                        }
+                    </ul>
+                </hgroup>
+            </header>
+        </main>
+    </body>
+</html>
