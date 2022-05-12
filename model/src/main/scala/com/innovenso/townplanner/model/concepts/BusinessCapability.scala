@@ -15,7 +15,6 @@ case class BusinessCapability(
     with HasLinks
     with HasExternalIds
     with HasArchitectureVerdict
-    with HasCriticality
     with HasSWOT
     with HasTagProperties
     with CanBeRealized
@@ -120,7 +119,6 @@ case class BusinessCapabilityMapConfigurerConfigurer(
     with CanConfigureExternalIds[BusinessCapability]
     with CanConfigureSWOT[BusinessCapability]
     with CanConfigureArchitectureVerdict[BusinessCapability]
-    with CanConfigureCriticality[BusinessCapability]
     with CanConfigureServingSource[BusinessCapability]
     with CanConfigureServingTarget[BusinessCapability]
     with CanConfigureRealizationTarget[BusinessCapability]

@@ -1,0 +1,16 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasTagProperties
+@import com.innovenso.townplanner.model.TownPlan
+@(element: Element, townPlan: TownPlan)
+@element match {
+    case hasTagProperties: HasTagProperties => {
+      @if(townPlan.tags(hasTagProperties).nonEmpty) {
+                @for(tag <- townPlan.tags(hasTagProperties)) {
+                    <span class="badge" style="background-color: rgba(@tag.color.red, @tag.color.green, @tag.color.blue, .5); border-color: rgb(@tag.color.red, @tag.color.green, @tag.color.blue);">@tag.title</span>
+                }
+      }
+    }
+    case _ => {}
+}

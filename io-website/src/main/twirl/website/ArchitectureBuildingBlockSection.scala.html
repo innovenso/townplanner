@@ -1,0 +1,28 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ItPlatform
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+    @defining(
+        element match {
+            case businessCapability: BusinessCapability => (townPlan.realizingArchitectureBuildingBlocks(businessCapability), s"Architecture Building Blocks realizing ${element.title}")
+            case itPlatform: ItPlatform => (townPlan.realizedArchitectureBuildingBlocks(itPlatform), s"Architecture Building Blocks realized by ${element.title}")
+            case itSystem: ItSystem => (townPlan.realizedArchitectureBuildingBlocks(itSystem), s"Architecture Building Blocks realized by ${element.title}")
+            case _ => (Nil, "")
+        }
+    ) { buildingBlocksAndTitle =>
+      @if(buildingBlocksAndTitle._1.nonEmpty) {
+          <details>
+              <summary>@buildingBlocksAndTitle._2</summary>
+              <ul>
+              @for(buildingBlock <- buildingBlocksAndTitle._1) {
+                  <li><a href="@navigationContext.relativePathTo(buildingBlock)">@buildingBlock.title</a></li>
+              }
+              </ul>
+          </details>
+      }
+    }
+

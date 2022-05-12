@@ -10,6 +10,8 @@
 @import website.html.WebsiteHeader
 @import website.html.ArchitectureVerdictSection
 @import website.html.ElementPageHeader
+@import website.html.TagSection
+@import website.html.ArchitectureBuildingBlockSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -30,6 +32,7 @@
             @DiagramSection(element, navigationContext, townPlan, outputContext)
             @LinkSection(element)
             @BusinessCapabilitySection(element, navigationContext, townPlan)
+            @ArchitectureBuildingBlockSection(element, navigationContext, townPlan)
             @SwotSection(element)
         </main>
     </body>

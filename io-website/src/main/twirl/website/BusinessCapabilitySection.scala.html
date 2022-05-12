@@ -7,6 +7,8 @@
 @import com.innovenso.townplanner.model.concepts.relationships.CanBeServed
 @import com.innovenso.townplanner.model.concepts.Enterprise
 @import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
 @element match {
     case enterprise: Enterprise => {
@@ -17,9 +19,33 @@
                 @for(capability <- townPlan.level0businessCapabilities(enterprise)) {
                     <li><a href="@navigationContext.relativePathTo(capability)">@capability.title</a></li>
                 }
-                </ul>
+             </ul>
         </details>
       }
+    }
+    case businessCapability: BusinessCapability => {
+      @if(townPlan.childBusinessCapabilities(businessCapability).nonEmpty) {
+        <details>
+            <summary>Child Capabilities</summary>
+            <ul>
+            @for(capability <- townPlan.childBusinessCapabilities(businessCapability)) {
+                <li><a href="@navigationContext.relativePathTo(capability)">@capability.title</a></li>
+            }
+            </ul>
+        </details>
+      }
+    }
+    case architectureBuildingBlock: ArchitectureBuildingBlock => {
+        @if(townPlan.realizedBusinessCapabilities(architectureBuildingBlock).nonEmpty) {
+            <details>
+                <summary>Business Capabilities realized by @element.title</summary>
+                <ul>
+                @for(capability <- townPlan.realizedBusinessCapabilities(architectureBuildingBlock)) {
+                    <li><a href="@navigationContext.relativePathTo(capability)">@capability.title</a></li>
+                }
+                </ul>
+            </details>
+        }
     }
     case _ => {}
 }

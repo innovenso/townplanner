@@ -1,7 +1,7 @@
 package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.io.context.OutputContext
-import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, ItSystem}
+import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, ItSystem, Tag}
 import com.innovenso.townplanner.model.concepts.views.{ArchitectureBuildingBlockRealizationView, BusinessCapabilityMap, BusinessCapabilityPosition, FullTownPlanView, SystemContainerView}
 import org.scalatest.{GivenWhenThen, fullstacks}
 import org.scalatest.flatspec.AnyFlatSpec
@@ -16,9 +16,11 @@ class TownPlanWebsiteWriterSpec extends AnyFlatSpec with GivenWhenThen {
   "Documentation website" should "be written" in new WebsiteIO {
     Given("an enterprise")
     val enterprise: Enterprise = samples.enterprise
-    val cap1: BusinessCapability = samples.capability(Some(enterprise))
+    val tag1: Tag = samples.tag
+    val tag2: Tag = samples.tag
+    val cap1: BusinessCapability = samples.capability(servedEnterprise = Some(enterprise), tags = List(tag1, tag2))
     val cap11: BusinessCapability = samples.capability(parentCapability = Some(cap1))
-    val cap2: BusinessCapability = samples.capability(Some(enterprise))
+    val cap2: BusinessCapability = samples.capability(servedEnterprise = Some(enterprise), tags = List(tag2))
     val bb1: ArchitectureBuildingBlock = samples.buildingBlock(Some(cap1))
     val system1: ItSystem = samples.system(realizedBuildingBlock = Some(bb1))
     ea needs BusinessCapabilityPosition(cap1)
