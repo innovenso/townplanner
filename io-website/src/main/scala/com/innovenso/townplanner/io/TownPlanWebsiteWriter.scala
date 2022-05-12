@@ -36,6 +36,7 @@ case class TownPlanWebsiteWriter()(implicit assetRepository: AssetRepository) {
   }
 
   def stylesAndImages(): Unit = {
+    copyClassPathResource("/pico.min.css", "pico.min.css")
     copyClassPathResource("/townplanner.css", "townplanner.css")
     copyClassPathResource("/logo.svg", "logo.svg")
   }

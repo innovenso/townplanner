@@ -12,6 +12,7 @@
 @import website.html.ElementPageHeader
 @import website.html.TagSection
 @import website.html.ArchitectureBuildingBlockSection
+@import website.html.ItPlatformSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -19,7 +20,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.min.css">
+        <link rel="stylesheet" href="@navigationContext.relativePathToStaticAsset("pico.min.css")">
         <link rel="stylesheet" href="@navigationContext.relativePathToStaticAsset("townplanner.css")">
         <title>@element.title</title>
     </head>
@@ -33,6 +34,7 @@
             @LinkSection(element)
             @BusinessCapabilitySection(element, navigationContext, townPlan)
             @ArchitectureBuildingBlockSection(element, navigationContext, townPlan)
+            @ItPlatformSection(element, navigationContext, townPlan)
             @SwotSection(element)
         </main>
     </body>
