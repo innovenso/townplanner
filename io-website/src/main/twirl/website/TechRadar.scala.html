@@ -1,0 +1,30 @@
+@import com.innovenso.townplanner.io.model.IndexPage
+@import website.html.WebsiteHeader
+@import com.innovenso.townplanner.model.TownPlan
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.io.model.TechnologyRadarDecorator
+@(indexPage: IndexPage, townPlan: TownPlan)
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="@indexPage.relativePathToStaticAsset("pico.min.css")">
+        <link rel="stylesheet" href="@indexPage.relativePathToStaticAsset("townplanner.css")">
+        <script src="@indexPage.relativePathToStaticAsset("d3.v4.min.js")"></script>
+        <script src="@indexPage.relativePathToStaticAsset("radar-0.6.js")"></script>
+        <title>Technology Radar</title>
+    </head>
+    <body>
+        <main class="container-fluid">
+            <svg id="radar"></svg>
+        </main>
+
+        @defining(townPlan.technologyRadars.head) { radar =>
+        <script>
+                @Html(s"radar_visualization(${TechnologyRadarDecorator(radar, indexPage).render});")
+        </script>
+        }
+    </body>
+</html>

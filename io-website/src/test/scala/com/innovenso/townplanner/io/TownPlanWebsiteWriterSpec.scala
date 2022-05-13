@@ -27,7 +27,8 @@ import com.innovenso.townplanner.model.concepts.views.{
   BusinessCapabilityPosition,
   DecisionImpactView,
   FullTownPlanView,
-  SystemContainerView
+  SystemContainerView,
+  TechnologyRadar
 }
 import com.innovenso.townplanner.model.meta.{Day, InTheFuture, InThePast}
 import org.scalatest.{GivenWhenThen, fullstacks}
@@ -85,6 +86,7 @@ class TownPlanWebsiteWriterSpec extends AnyFlatSpec with GivenWhenThen {
     ea needs SystemContainerView(system1, InTheFuture)
     ea needs SystemContainerView(system1, Day(2023, 7, 1))
     ea needs SystemContainerView(system2)
+    ea needs TechnologyRadar(title = "Innovenso Technology Radar")
     val diagramOutputContext: OutputContext = diagramsAreWritten
     When("the website is written")
     websiteWriter.write()(townPlan, diagramOutputContext)
