@@ -19,6 +19,11 @@
 @import website.html.FatherTimeSection
 @import website.html.CriticalitySection
 @import website.html.ResilienceMeasureSection
+@import website.html.CurrentStateSection
+@import website.html.GoalsSection
+@import website.html.AssumptionsSection
+@import website.html.ConsequencesSection
+@import website.html.RACISection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -35,6 +40,10 @@
         <main class="container">
             @ElementPageHeader(element, navigationContext, townPlan)
             @DescriptionSection(element)
+            @CurrentStateSection(element)
+            @GoalsSection(element)
+            @AssumptionsSection(element)
+            @RACISection(element, navigationContext, townPlan)
             @ArchitectureVerdictSection(element)
             @CriticalitySection(element)
             @ResilienceMeasureSection(element)
@@ -48,6 +57,7 @@
             @FatherTimeSection(element)
             @LinkSection(element)
             @SwotSection(element)
+            @ConsequencesSection(element)
         </main>
     </body>
 </html>

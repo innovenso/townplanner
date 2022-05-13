@@ -1,8 +1,18 @@
 package com.innovenso.townplanner.io.model
 
 import com.innovenso.townplan.io.context.OutputFileType
-import com.innovenso.townplanner.model.language.{CompiledView, ModelComponent, TimelessView, View}
-import com.innovenso.townplanner.model.meta.{ADay, InTheFuture, InThePast, Today}
+import com.innovenso.townplanner.model.language.{
+  CompiledView,
+  ModelComponent,
+  TimelessView,
+  View
+}
+import com.innovenso.townplanner.model.meta.{
+  ADay,
+  InTheFuture,
+  InThePast,
+  Today
+}
 
 case class DiagramSpecification(
     view: CompiledView[_ <: View],
@@ -15,5 +25,8 @@ case class DiagramSpecification(
       .map(appendix => s" $appendix")
       .getOrElse("") + fileType.extension
 
-  private def pointInTimeDirectory: String = view.pointInTimeName.getOrElse("")
+  private def pointInTimeDirectory: String =
+    view.pointInTimeName.getOrElse("") + "/"
+
+  def title: String = view.title + filenameAppendix.map(" " + _).getOrElse("")
 }

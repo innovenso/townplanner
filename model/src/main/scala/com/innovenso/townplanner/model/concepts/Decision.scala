@@ -51,7 +51,7 @@ case class DecisionOption(
     with HasSWOT
     with CanCompose
     with CanBeAssociated {
-  val layer: Layer = ImplementationLayer
+  val layer: Layer = MotivationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Decision Option"

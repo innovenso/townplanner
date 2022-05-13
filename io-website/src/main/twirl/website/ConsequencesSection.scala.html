@@ -1,0 +1,20 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.concepts.properties.HasContext
+@(element: Element)
+@element match {
+  case hasContext: HasContext => {
+    @if(hasContext.consequences.nonEmpty) {
+      <details>
+        <summary>Consequences</summary>
+        <dl>
+          @for(consequence <- hasContext.consequences) {
+            <dt>@consequence.title</dt>
+            <dd>@consequence.description</dd>
+          }
+        </dl>
+      </details>
+    }
+  }
+  case _ => {}
+}
