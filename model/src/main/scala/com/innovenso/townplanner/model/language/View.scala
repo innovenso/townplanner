@@ -2,15 +2,24 @@ package com.innovenso.townplanner.model.language
 
 import com.innovenso.townplanner.model.concepts.properties.HasFatherTime
 import com.innovenso.townplanner.model.concepts.relationships.HasRelationships
-import com.innovenso.townplanner.model.meta.{ADay, Key, Layer, Today}
+import com.innovenso.townplanner.model.meta.{ADay, InTheFuture, InThePast, Key, Layer, Today}
 
 trait View extends Concept {
   def pointInTime: ADay
   def layer: Layer
+  def pointInTimeName: Option[String] = pointInTime match {
+    case Today => Some("As Is Today")
+    case InThePast => Some("As Was")
+    case InTheFuture => Some("To Be")
+    case day : ADay if day.isBefore(Today) => Some(s"As Was on ${day.year}-${day.month}-${day.day}")
+    case day : ADay if day.isAfter(Today) => Some(s"To Be on ${day.year}-${day.month}-${day.day}")
+    case _ => None
+  }
 }
 
 trait TimelessView extends View {
   override val pointInTime: ADay = Today
+  override val pointInTimeName: Option[String] = None
 }
 
 trait CompiledView[ViewType <: View]
@@ -18,6 +27,7 @@ trait CompiledView[ViewType <: View]
     with HasRelationships {
   def view: ViewType
   def pointInTime: ADay = view.pointInTime
+  def pointInTimeName: Option[String] = view.pointInTimeName
   def layer: Layer = view.layer
   def title: String
   def key: Key = view.key

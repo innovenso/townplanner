@@ -16,6 +16,7 @@
 @import website.html.ItSystemSection
 @import website.html.ItContainerSection
 @import website.html.TechnologySection
+@import website.html.FatherTimeSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -41,6 +42,7 @@
             @ItSystemSection(element, navigationContext, townPlan)
             @ItContainerSection(element, navigationContext, townPlan)
             @TechnologySection(element, navigationContext, townPlan)
+            @FatherTimeSection(element)
             @SwotSection(element)
         </main>
     </body>

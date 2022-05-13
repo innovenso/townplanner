@@ -15,16 +15,5 @@ case class DiagramSpecification(
       .map(appendix => s" $appendix")
       .getOrElse("") + fileType.extension
 
-  private def pointInTimeDirectory: String =
-    if (view.view.isInstanceOf[TimelessView]) ""
-    else pointInTimeName(view.pointInTime) + "/"
-
-  private def pointInTimeName(day: ADay): String =
-    if (day == Today) "As Is Today"
-    else if (day == InThePast) "As Was"
-    else if (day == InTheFuture) "To Be"
-    else if (day.isBefore(Today))
-      s"As Was on ${day.year}-${day.month}-${day.day}"
-    else
-      s"To Be on ${day.year}-${day.month}-${day.day}"
+  private def pointInTimeDirectory: String = view.pointInTimeName.getOrElse("")
 }

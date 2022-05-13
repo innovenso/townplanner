@@ -1,0 +1,21 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasFatherTime
+@(element: Element)
+@element match {
+    case hasFatherTime: HasFatherTime => {
+      @if(hasFatherTime.lifeEvents.nonEmpty) {
+        <details>
+            <summary>Lifecycle</summary>
+            <dl>
+                @for(fatherTime <- hasFatherTime.lifeEvents) {
+                    <dt>@fatherTime.name on @fatherTime.date</dt>
+                    <dd>@fatherTime.description</dd>
+                }
+            </dl>
+        </details>
+      }
+    }
+    case _ => {}
+}

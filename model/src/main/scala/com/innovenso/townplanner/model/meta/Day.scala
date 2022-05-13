@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.model.meta
 
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 case class Day(year: Int, month: Int, day: Int) extends ADay
 
@@ -43,4 +44,7 @@ sealed trait ADay {
   def isAfterOrEqual(other: ADay): Boolean = toLocalDate.isAfter(
     other.toLocalDate
   ) || toLocalDate.isEqual(other.toLocalDate)
+
+  override def toString: String = toLocalDate.format(DateTimeFormatter.ISO_LOCAL_DATE)
+  def format(formatter: DateTimeFormatter): String = toLocalDate.format(formatter)
 }

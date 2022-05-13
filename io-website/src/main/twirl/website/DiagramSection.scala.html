@@ -13,7 +13,7 @@
       @for(output <- outputs) {
           <figure>
             <img src="@navigationContext.relativePathToStaticAsset(output)" alt="@output.view.title"/>
-            <figcaption>@output.view.title</figcaption>
+            <figcaption>@output.view.title @output.view.pointInTimeName.map(name => s" - ${name}").getOrElse("")</figcaption>
           </figure>
       }
     </details>
