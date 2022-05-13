@@ -2,12 +2,18 @@
 @import play.twirl.api.TwirlFeatureImports._
 @import com.innovenso.townplanner.model.concepts.properties.HasLinks
 @import com.innovenso.townplanner.model.concepts.properties.HasArchitectureVerdict
+@import com.innovenso.townplanner.model.concepts.Technology
 @(element: Element)
 @element match {
+    case technology: Technology => {
+      @if(!technology.isUnknownArchitectureVerdict && technology.architectureVerdict.description.nonEmpty) {
+        <p class="verdict">@technology.architectureVerdict.description</p>
+      }
+    }
     case hasArchitectureVerdict: HasArchitectureVerdict => {
       @if(!hasArchitectureVerdict.isUnknownArchitectureVerdict) {
           <details>
-              <summary>Architecture Verdict - @hasArchitectureVerdict.architectureVerdict.name</summary>
+              <summary>Architecture Verdict <span class="badge">@hasArchitectureVerdict.architectureVerdict.name</span></summary>
               <p>@hasArchitectureVerdict.architectureVerdict.description</p>
           </details>
       }

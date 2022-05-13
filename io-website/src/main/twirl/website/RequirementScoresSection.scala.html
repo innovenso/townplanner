@@ -1,0 +1,70 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.concepts.properties.HasContext
+@import com.innovenso.townplanner.model.concepts.properties.HasRequirements
+@import com.innovenso.townplanner.model.concepts.properties.HasRequirementScores
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.DecisionOption
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@element match {
+  case decisionOption: DecisionOption => {
+    @if(townPlan.scores(decisionOption).nonEmpty) {
+      <details>
+        <summary>Requirement Scores</summary>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>weight</th>
+              <th>score</th>
+              <th>explanation</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if(townPlan.functionalRequirementScores(decisionOption).nonEmpty) {
+              <tr>
+                <td colspan="4" class="subheader">Functional requirements</td>
+              </tr>
+            }
+            @for(requirementAndScore <- townPlan.functionalRequirementScores(decisionOption)) {
+              <tr>
+                <td>@requirementAndScore._1.title</td>
+                <td>@requirementAndScore._1.weight.name</td>
+                <td>@requirementAndScore._2.name</td>
+                <td>@requirementAndScore._2.description</td>
+              </tr>
+            }
+            @if(townPlan.qualityAttributeRequirementScores(decisionOption).nonEmpty) {
+              <tr>
+                <td colspan="4" class="subheader">Quality Attribute Requirements</td>
+              </tr>
+            }
+            @for(requirementAndScore <- townPlan.qualityAttributeRequirementScores(decisionOption)) {
+              <tr>
+                <td>@requirementAndScore._1.title</td>
+                <td>@requirementAndScore._1.weight.name</td>
+                <td>@requirementAndScore._2.name</td>
+                <td>@requirementAndScore._2.description</td>
+              </tr>
+            }
+            @if(townPlan.constraintScores(decisionOption).nonEmpty) {
+              <tr>
+                <td colspan="4" class="subheader">Constraints</td>
+              </tr>
+            }
+            @for(requirementAndScore <- townPlan.constraintScores(decisionOption)) {
+              <tr>
+                <td>@requirementAndScore._1.title</td>
+                <td>@requirementAndScore._1.weight.name</td>
+                <td>@requirementAndScore._2.name</td>
+                <td>@requirementAndScore._2.description</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </details>
+    }
+  }
+  case _ => {}
+}

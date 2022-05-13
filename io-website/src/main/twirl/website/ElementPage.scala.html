@@ -26,6 +26,11 @@
 @import website.html.RACISection
 @import website.html.StakeholderSection
 @import website.html.ImpactSection
+@import website.html.RequirementsSection
+@import website.html.OutcomeSection
+@import website.html.DecisionOptionSection
+@import website.html.RequirementScoresSection
+@import website.html.DecisionVerdictSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -42,11 +47,15 @@
         <main class="container">
             @ElementPageHeader(element, navigationContext, townPlan)
             @DescriptionSection(element)
+            @OutcomeSection(element)
+            @DecisionVerdictSection(element)
             @CurrentStateSection(element)
             @GoalsSection(element)
             @AssumptionsSection(element)
             @RACISection(element, navigationContext, townPlan)
             @StakeholderSection(element, navigationContext, townPlan)
+            @RequirementsSection(element)
+            @DecisionOptionSection(element, navigationContext, townPlan)
             @ArchitectureVerdictSection(element)
             @CriticalitySection(element)
             @ResilienceMeasureSection(element)
@@ -58,10 +67,11 @@
             @ItContainerSection(element, navigationContext, townPlan)
             @TechnologySection(element, navigationContext, townPlan)
             @FatherTimeSection(element)
-            @LinkSection(element)
             @SwotSection(element)
+            @RequirementScoresSection(element, navigationContext, townPlan)
             @ImpactSection(element, navigationContext, townPlan)
             @ConsequencesSection(element)
+            @LinkSection(element)
         </main>
     </body>
 </html>

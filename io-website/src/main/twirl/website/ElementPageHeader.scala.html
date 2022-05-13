@@ -6,6 +6,10 @@
 @import website.html.TagSection
 @import com.innovenso.townplanner.model.concepts.ItSystem
 @import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.concepts.Decision
+@import com.innovenso.townplanner.model.concepts.DecisionOption
+@import com.innovenso.townplanner.model.concepts.Technology
+@import com.innovenso.townplanner.model.concepts.Technology
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
 <header>
     <hgroup>
@@ -39,6 +43,20 @@
                       belonging to <a href="@navigationContext.relativePathTo(system)">@system.title</a>
                   }
               }
+          }
+          case decision: Decision => {
+              @element.modelComponentType.value <span class="badge">@decision.status.name</span>
+          }
+          case decisionOption: DecisionOption => {
+              @element.modelComponentType.value
+              @if(townPlan.decision(decisionOption).nonEmpty) {
+                  @defining(townPlan.decision(decisionOption).get) { decision =>
+                      of <a href="@navigationContext.relativePathTo(decision)">@decision.title</a> <span class="badge">@decisionOption.verdict.name</span>
+                  }
+              }
+          }
+          case technology: Technology => {
+              @element.modelComponentType.value - @technology.technologyType <span class="badge">@technology.architectureVerdict.name</span>
           }
           case _ => {
               @element.modelComponentType.value

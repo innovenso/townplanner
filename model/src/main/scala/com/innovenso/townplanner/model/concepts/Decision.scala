@@ -149,6 +149,7 @@ case object Decided extends DecisionStatus {
 
 sealed trait DecisionOptionVerdict {
   def name: String
+  def description: String
 }
 
 case class UnderInvestigation(description: String = "")

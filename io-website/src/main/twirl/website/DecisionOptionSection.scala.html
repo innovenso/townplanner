@@ -1,0 +1,41 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.relationships.CanHaveStakeholder
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.concepts.relationships.Stakeholder
+@import com.innovenso.townplanner.model.concepts.Decision
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@element match {
+    case decision: Decision => {
+      @defining(townPlan.options(decision)) { decisionOptions =>
+        @if(decisionOptions.nonEmpty) {
+            <details>
+                <summary>Options Considered</summary>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>description</th>
+                            <th>verdict</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(option <- decisionOptions) {
+                            <tr>
+                              <th><a href="@NavigationContext(decision).relativePathTo(option)">@option.title</a></th>
+                              <th>@option.descriptions.headOption.map(_.value).getOrElse("")</th>
+                              <th>@option.verdict.name</th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </details>
+        }
+      }
+    }
+    case _ => {}
+}

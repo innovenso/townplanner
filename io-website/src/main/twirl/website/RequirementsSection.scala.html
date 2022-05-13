@@ -1,0 +1,67 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.concepts.properties.HasContext
+@import com.innovenso.townplanner.model.concepts.properties.HasRequirements
+@(element: Element)
+@element match {
+  case hasRequirements: HasRequirements => {
+    @if(hasRequirements.functionalRequirements.nonEmpty) {
+      <details>
+        <summary>Functional Requirements</summary>
+        <dl>
+          @for(requirement <- hasRequirements.functionalRequirements) {
+            <dt>@requirement.title <span class="badge">@requirement.weight.name</span></dt>
+            <dd>@requirement.description</dd>
+          }
+        </dl>
+      </details>
+    }
+    @if(hasRequirements.qualityAttributeRequirements.nonEmpty) {
+      <details>
+        <summary>Quality Attribute Requirements</summary>
+        <dl>
+        @for(requirement <- hasRequirements.qualityAttributeRequirements) {
+          <dt>@requirement.title <span class="badge">@requirement.weight.name</span></dt>
+          <dd>
+            <dl>
+              @if(requirement.sourceOfStimulus.nonEmpty) {
+                <dt>source of stimulus</dt>
+                <dd>@requirement.sourceOfStimulus</dd>
+              }
+              @if(requirement.stimulus.nonEmpty) {
+                <dt>stimulus</dt>
+                <dd>@requirement.stimulus</dd>
+              }
+              @if(requirement.environment.nonEmpty) {
+                <dt>environment</dt>
+                <dd>@requirement.environment</dd>
+              }
+              @if(requirement.response.nonEmpty) {
+                <dt>response</dt>
+                <dd>@requirement.response</dd>
+              }
+              @if(requirement.responseMeasure.nonEmpty) {
+                <dt>response measure</dt>
+                <dd>@requirement.responseMeasure</dd>
+              }
+            </dl>
+          </dd>
+        }
+        </dl>
+      </details>
+    }
+    @if(hasRequirements.constraints.nonEmpty) {
+      <details>
+        <summary>Constraints</summary>
+        <dl>
+        @for(constraint <- hasRequirements.constraints) {
+          <dt>@constraint.title <span class="badge">@constraint.weight.name</span></dt>
+          <dd>@constraint.description</dd>
+        }
+        </dl>
+      </details>
+    }
+
+  }
+  case _ => {}
+}

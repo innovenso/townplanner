@@ -1,0 +1,13 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.concepts.Decision
+@import com.innovenso.townplanner.model.concepts.DecisionOption
+@(element: Element)
+@element match {
+  case decisionOption: DecisionOption => {
+    @if(decisionOption.verdict.description.nonEmpty) {
+      <p class="outcome">@decisionOption.verdict.description</p>
+    }
+  }
+  case _ => {}
+}

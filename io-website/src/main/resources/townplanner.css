@@ -24,3 +24,11 @@ header .logo a {
     border: 1px solid #aaa;
     margin-left: 5px;
 }
+
+.outcome, .verdict {
+    font-weight: bold;
+}
+
+td.subheader {
+    background-color: var(--table-border-color);
+}
