@@ -24,6 +24,8 @@
 @import website.html.AssumptionsSection
 @import website.html.ConsequencesSection
 @import website.html.RACISection
+@import website.html.StakeholderSection
+@import website.html.ImpactSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -44,6 +46,7 @@
             @GoalsSection(element)
             @AssumptionsSection(element)
             @RACISection(element, navigationContext, townPlan)
+            @StakeholderSection(element, navigationContext, townPlan)
             @ArchitectureVerdictSection(element)
             @CriticalitySection(element)
             @ResilienceMeasureSection(element)
@@ -57,6 +60,7 @@
             @FatherTimeSection(element)
             @LinkSection(element)
             @SwotSection(element)
+            @ImpactSection(element, navigationContext, townPlan)
             @ConsequencesSection(element)
         </main>
     </body>

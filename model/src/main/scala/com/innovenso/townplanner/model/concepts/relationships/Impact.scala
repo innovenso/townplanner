@@ -1,7 +1,12 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.properties.{CanAddProperties, Property}
+import com.innovenso.townplanner.model.concepts.properties.{
+  CanAddProperties,
+  Property
+}
 import com.innovenso.townplanner.model.meta.Key
+
+sealed trait Impact extends Relationship
 
 case class CreateImpact(
     key: Key = Key(),
@@ -10,7 +15,7 @@ case class CreateImpact(
     title: String = "creates",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends Impact {
   val relationshipType: RelationshipType = RelationshipType(
     "creates",
     "The creates relationship represents that a element, such as a project or decision, adds another element to the architecture."
@@ -31,7 +36,7 @@ case class RemoveImpact(
     title: String = "removes",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends Impact {
   val relationshipType: RelationshipType = RelationshipType(
     "removes",
     "The removes relationship represents that a element, such as a project or decision, removes another element from the architecture."
@@ -49,7 +54,7 @@ case class ChangeImpact(
     title: String = "changes",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends Impact {
   val relationshipType: RelationshipType = RelationshipType(
     "changes",
     "The changes relationship represents that a element, such as a project or decision, changes another element in the architecture."
@@ -67,7 +72,7 @@ case class KeepImpact(
     title: String = "keeps",
     bidirectional: Boolean = false,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends Relationship {
+) extends Impact {
   val relationshipType: RelationshipType = RelationshipType(
     "keeps",
     "The keeps relationship represents that a element, such as a project or decision, keeps another element in the architecture as it is."
@@ -83,8 +88,15 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
   def propertyAdder: CanAddProperties
   def modelComponent: ModelComponentType
 
-  def isRemoving(target: CanBeImpacted, title: String = "removes"): RelationshipConfigurer =
-    RelationshipConfigurer(removes(target, title), propertyAdder, relationshipAdder)
+  def isRemoving(
+      target: CanBeImpacted,
+      title: String = "removes"
+  ): RelationshipConfigurer =
+    RelationshipConfigurer(
+      removes(target, title),
+      propertyAdder,
+      relationshipAdder
+    )
 
   def removes(
       target: CanBeImpacted,
@@ -98,8 +110,15 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
       )
     )
 
-  def isChanging(target: CanBeImpacted, title: String = "changes"): RelationshipConfigurer =
-    RelationshipConfigurer(changes(target, title), propertyAdder, relationshipAdder)
+  def isChanging(
+      target: CanBeImpacted,
+      title: String = "changes"
+  ): RelationshipConfigurer =
+    RelationshipConfigurer(
+      changes(target, title),
+      propertyAdder,
+      relationshipAdder
+    )
 
   def changes(
       target: CanBeImpacted,
@@ -113,8 +132,15 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
       )
     )
 
-  def isCreating(target: CanBeImpacted, title: String = "creates"): RelationshipConfigurer =
-    RelationshipConfigurer(creates(target, title), propertyAdder, relationshipAdder)
+  def isCreating(
+      target: CanBeImpacted,
+      title: String = "creates"
+  ): RelationshipConfigurer =
+    RelationshipConfigurer(
+      creates(target, title),
+      propertyAdder,
+      relationshipAdder
+    )
 
   def creates(
       target: CanBeImpacted,
@@ -128,8 +154,15 @@ trait CanConfigureImpactSource[ModelComponentType <: CanImpact] {
       )
     )
 
-  def isKeeping(target: CanBeImpacted, title: String = "keeps"): RelationshipConfigurer =
-    RelationshipConfigurer(keeps(target, title), propertyAdder, relationshipAdder)
+  def isKeeping(
+      target: CanBeImpacted,
+      title: String = "keeps"
+  ): RelationshipConfigurer =
+    RelationshipConfigurer(
+      keeps(target, title),
+      propertyAdder,
+      relationshipAdder
+    )
 
   def keeps(
       target: CanBeImpacted,

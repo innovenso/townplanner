@@ -1,0 +1,46 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.relationships.CanHaveStakeholder
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.concepts.relationships.Stakeholder
+@import com.innovenso.townplanner.model.concepts.relationships.CanImpact
+@import com.innovenso.townplanner.model.concepts.relationships.Impact
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.ItPlatform
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.concepts.Technology
+@import com.innovenso.townplanner.model.concepts.Technology
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@element match {
+    case canImpact: CanImpact => {
+      @for(elementAndTitle <- List(
+          (classOf[BusinessCapability], "Business Capabilities"),
+          (classOf[ArchitectureBuildingBlock], "Architecture Building Blocks"),
+          (classOf[ItPlatform], "IT Platforms"),
+          (classOf[ItSystem], "IT Systems"),
+          (classOf[ItContainer], "IT Containers"),
+          (classOf[Technology], "Technologies")
+      )) {
+          @defining(townPlan.directOutgoingDependencies(canImpact, classOf[Impact], elementAndTitle._1)) { impactedList =>
+              @if(impactedList.nonEmpty) {
+                  <details>
+                      <summary>Impacted @elementAndTitle._2</summary>
+                      <ul>
+                      @for(impact <- impactedList) {
+                          <li><a href="@NavigationContext(canImpact).relativePathTo(impact)">@impact.title</a></li>
+                      }
+                      </ul>
+                  </details>
+              }
+          }
+      }
+    }
+    case _ => {}
+}

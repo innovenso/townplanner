@@ -1,0 +1,27 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.relationships.CanHaveStakeholder
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.concepts.relationships.Stakeholder
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@element match {
+    case canHaveStakeholders: CanHaveStakeholder => {
+      @defining(townPlan.directIncomingDependencies(canHaveStakeholders, classOf[Stakeholder], classOf[BusinessActor])) { stakeholders =>
+          @if(stakeholders.nonEmpty) {
+          <details>
+              <summary>Stakeholders</summary>
+              <ul>
+              @for(stakeholder <- stakeholders) {
+                  <li><a href="@NavigationContext(canHaveStakeholders).relativePathTo(stakeholder)">@stakeholder.title</a></li>
+              }
+              </ul>
+          </details>
+      }
+      }
+    }
+    case _ => {}
+}
