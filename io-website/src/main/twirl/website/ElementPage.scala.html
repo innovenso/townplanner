@@ -31,6 +31,7 @@
 @import website.html.DecisionOptionSection
 @import website.html.RequirementScoresSection
 @import website.html.DecisionVerdictSection
+@import website.html.CostSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -69,6 +70,7 @@
             @FatherTimeSection(element)
             @SwotSection(element)
             @RequirementScoresSection(element, navigationContext, townPlan)
+            @CostSection(element)
             @ImpactSection(element, navigationContext, townPlan)
             @ConsequencesSection(element)
             @LinkSection(element)

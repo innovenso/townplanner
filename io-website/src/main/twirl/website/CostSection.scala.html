@@ -1,0 +1,50 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasCosts
+@import com.innovenso.townplanner.model.concepts.properties.Capex
+@import com.innovenso.townplanner.model.concepts.properties.Opex
+@(element: Element)
+@element match {
+    case hasCosts: HasCosts => {
+      @if(hasCosts.costs.nonEmpty) {
+        <details>
+            <summary>Costs</summary>
+            <table role="grid">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>category</th>
+                        <th>description</th>
+                        <th>unit of measure</th>
+                        <th>cost per unit</th>
+                        <th>number of units</th>
+                        <th>total capex</th>
+                        <th>total opex</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(fiscalYear <- hasCosts.costFiscalYears) {
+                      <tr>
+                        <td colspan="8" class="subheader">@fiscalYear.value</td>
+                      </tr>
+                      @for(cost <- hasCosts.costs(fiscalYear)) {
+                        <tr>
+                          <td>@cost.title</td>
+                          <td>@cost.category.value.getOrElse("")</td>
+                          <td>@cost.description</td>
+                          <td>@cost.unitOfMeasure.value</td>
+                          <td>@cost.costPerUnit</td>
+                          <td>@cost.numberOfUnits</td>
+                          <td>@if(cost.isInstanceOf[Capex]) { @cost.totalCost}</td>
+                          <td>@if(cost.isInstanceOf[Opex]) { @cost.totalCost}</td>
+                        </tr>
+                      }
+                    }
+                </tbody>
+            </table>
+        </details>
+      }
+    }
+    case _ => {}
+}
