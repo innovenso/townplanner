@@ -39,6 +39,7 @@ case class TownPlan(
     with HasFullTownPlanViews
     with HasSystemIntegrationInteractionViews
     with HasProjectMilestoneImpactViews
+    with HasDecisionImpactViews
     with HasTechnologyRadars
     with HasArchitectureDecisionRecords
     with HasKnowledgeMatrices
@@ -69,6 +70,7 @@ case class EnterpriseArchitecture()
     with CanAddFullTownPlanViews
     with CanAddSystemIntegrationInteractionViews
     with CanAddProjectMilestoneImpactViews
+      with CanAddDecisionImpactViews
     with CanAddTechnologyRadars
     with CanAddArchitectureDecisionRecords
     with CanAddKnowledgeMatrices

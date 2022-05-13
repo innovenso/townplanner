@@ -7,22 +7,10 @@ import com.innovenso.townplanner.model.concepts.views._
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import plantuml.buildingblock.txt.ArchitectureBuildingBlockRealizationDiagram
 import plantuml.capability.txt.BusinessCapabilityPositionDiagram
+import plantuml.decision.txt.{DecisionArchitectureBuildingBlockImpactView, DecisionBusinessCapabilityImpactView, DecisionItContainerImpactView, DecisionItPlatformImpactView, DecisionItSystemImpactView, DecisionItSystemIntegrationImpactView, DecisionTechnologyImpactView}
 import plantuml.enterprise.txt.{BusinessCapabilityMindMap, FullTownPlanDiagram}
-import plantuml.integration.txt.{
-  IntegrationMapDiagram,
-  SystemIntegrationInteractionDiagram,
-  SystemIntegrationInteractionSequenceDiagram,
-  SystemIntegrationViewDiagram
-}
-import plantuml.project.txt.{
-  MilestoneArchitectureBuildingBlockImpactView,
-  MilestoneBusinessCapabilityImpactView,
-  MilestoneItContainerImpactView,
-  MilestoneItPlatformImpactView,
-  MilestoneItSystemImpactView,
-  MilestoneItSystemIntegrationImpactView,
-  MilestoneTechnologyImpactView
-}
+import plantuml.integration.txt.{IntegrationMapDiagram, SystemIntegrationInteractionDiagram, SystemIntegrationInteractionSequenceDiagram, SystemIntegrationViewDiagram}
+import plantuml.project.txt.{MilestoneArchitectureBuildingBlockImpactView, MilestoneBusinessCapabilityImpactView, MilestoneItContainerImpactView, MilestoneItPlatformImpactView, MilestoneItSystemImpactView, MilestoneItSystemIntegrationImpactView, MilestoneTechnologyImpactView}
 import plantuml.system.txt.SystemContainerViewDiagram
 import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
 
@@ -173,6 +161,57 @@ object DiagramSpecificationWriter {
           ).body,
           filenameAppendix = Some("Architecture Building Blocks"),
           relatedModelComponents = List(projectMilestoneImpactView.milestone)
+        )
+      )
+    case decisionImpactView: CompiledDecisionImpactView =>
+      List(
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionItContainerImpactView(decisionImpactView).body,
+          filenameAppendix = Some("Containers"),
+          relatedModelComponents = List(decisionImpactView.decision)
+        ),
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionItSystemImpactView(decisionImpactView).body,
+          filenameAppendix = Some("Systems"),
+          relatedModelComponents = List(decisionImpactView.decision)
+        ),
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionItPlatformImpactView(decisionImpactView).body,
+          filenameAppendix = Some("Platforms"),
+          relatedModelComponents = List(decisionImpactView.decision)
+        ),
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionItSystemIntegrationImpactView(
+            decisionImpactView
+          ).body,
+          filenameAppendix = Some("System Integrations"),
+          relatedModelComponents = List(decisionImpactView.decision)
+        ),
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionTechnologyImpactView(decisionImpactView).body,
+          filenameAppendix = Some("Technologies"),
+          relatedModelComponents = List(decisionImpactView.decision)
+        ),
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionBusinessCapabilityImpactView(
+            decisionImpactView
+          ).body,
+          filenameAppendix = Some("Business Capabilities"),
+          relatedModelComponents = List(decisionImpactView.decision)
+        ),
+        DiagramSpecification(
+          view = decisionImpactView,
+          plantumlSpecification = DecisionArchitectureBuildingBlockImpactView(
+            decisionImpactView
+          ).body,
+          filenameAppendix = Some("Architecture Building Blocks"),
+          relatedModelComponents = List(decisionImpactView.decision)
         )
       )
     case _ => Nil

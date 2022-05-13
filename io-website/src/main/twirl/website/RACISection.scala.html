@@ -1,0 +1,58 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.relationships.CanHaveRaci
+@import com.innovenso.townplanner.model.concepts.relationships.RACI
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.concepts.relationships.Responsible
+@import com.innovenso.townplanner.model.concepts.relationships.Accountable
+@import com.innovenso.townplanner.model.concepts.relationships.Consulted
+@import com.innovenso.townplanner.model.concepts.relationships.Informed
+@import com.innovenso.townplanner.model.concepts.relationships.Informed
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@element match {
+    case canHaveRACI: CanHaveRaci => {
+      @if(townPlan.directIncomingDependencies(canHaveRACI, classOf[RACI], classOf[BusinessActor]).nonEmpty) {
+        <details>
+            <summary>Links</summary>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Responsible</th>
+                        <th>Accountable</th>
+                        <th>Consulted</th>
+                        <th>Informed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><ul>
+                            @for(responsible <- townPlan.directIncomingDependencies(canHaveRACI, classOf[Responsible], classOf[BusinessActor])) {
+                              <li><a href="@NavigationContext(canHaveRACI).relativePathTo(responsible)">@responsible.title</a></li>
+                            }
+                        </ul></td>
+                        <td><ul>
+                        @for(accountable <- townPlan.directIncomingDependencies(canHaveRACI, classOf[Accountable], classOf[BusinessActor])) {
+                            <li><a href="@NavigationContext(canHaveRACI).relativePathTo(accountable)">@accountable.title</a></li>
+                        }
+                        </ul></td>
+                        <td><ul>
+                        @for(consulted <- townPlan.directIncomingDependencies(canHaveRACI, classOf[Consulted], classOf[BusinessActor])) {
+                            <li><a href="@NavigationContext(canHaveRACI).relativePathTo(consulted)">@consulted.title</a></li>
+                        }
+                        </ul></td>
+                        <td><ul>
+                        @for(informed <- townPlan.directIncomingDependencies(canHaveRACI, classOf[Informed], classOf[BusinessActor])) {
+                            <li><a href="@NavigationContext(canHaveRACI).relativePathTo(informed)">@informed.title</a></li>
+                        }
+                        </ul></td>
+                    </tr>
+                </tbody>
+            </table>
+        </details>
+      }
+    }
+    case _ => {}
+}

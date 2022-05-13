@@ -1,0 +1,9 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledProjectMilestoneImpactView
+@import plantuml.project.txt.MilestoneImpactView
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.views.CompiledDecisionImpactView
+@import plantuml.decision.txt.DecisionImpactView
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@(view: CompiledDecisionImpactView)
+@DecisionImpactView(view = view, impactedClass = classOf[ItContainer], elementColor = "LightSteelBlue", elementSprite = "aContainer")

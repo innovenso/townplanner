@@ -4,10 +4,10 @@
 @import plantuml.lib.txt.DescriptionWrapped
 @import com.innovenso.townplanner.model.language.Concept
 @import plantuml.lib.txt.Title
-@(elements: Iterable[Concept with CanBeImpacted with HasDescription], groupColor: String, groupIcon: String, elementColor: String, elementSprite: String)
+@(elements: Iterable[Concept with CanBeImpacted with HasDescription], groupColor: String, groupIcon: String, elementColor: String, elementSprite: String, startAtDepth: Int = 3)
 @if(elements.nonEmpty) {
-***[#@groupColor] <&@groupIcon>
+@for(i <- Range(0, startAtDepth, 1)) {*}[#@groupColor] <&@groupIcon>
 @for(element <- elements) {
-@MindMapNode(color = elementColor, title=Title(element).body.trim, description = Option(DescriptionWrapped(element).body.trim), depth = 4, sprite = elementSprite)
+@MindMapNode(color = elementColor, title=Title(element).body.trim, description = Option(DescriptionWrapped(element).body.trim), depth = startAtDepth+1, sprite = elementSprite)
 }
 }

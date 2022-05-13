@@ -1,9 +1,9 @@
 package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.io.context.OutputContext
-import com.innovenso.townplanner.model.concepts.properties.{Decommissioned, GoneToProduction, Retired, StartedDevelopment}
+import com.innovenso.townplanner.model.concepts.properties.{Decommissioned, GoneToProduction, ResilienceMeasure, Retired, StartedDevelopment}
 import com.innovenso.townplanner.model.concepts.relationships.Expert
-import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Enterprise, ItPlatform, ItSystem, Person, Tag, Team}
+import com.innovenso.townplanner.model.concepts.{ArchitectureBuildingBlock, BusinessCapability, Decision, Enterprise, InProgress, ItPlatform, ItSystem, Person, Tag, Team}
 import com.innovenso.townplanner.model.concepts.views.{ArchitectureBuildingBlockRealizationView, BusinessCapabilityMap, BusinessCapabilityPosition, FullTownPlanView, SystemContainerView}
 import com.innovenso.townplanner.model.meta.{Day, InTheFuture, InThePast}
 import org.scalatest.{GivenWhenThen, fullstacks}
@@ -27,6 +27,7 @@ class TownPlanWebsiteWriterSpec extends AnyFlatSpec with GivenWhenThen {
     val bb1: ArchitectureBuildingBlock = samples.buildingBlock(Some(cap1))
     val platform: ItPlatform = samples.platform(Some(bb1))
     val system1: ItSystem = samples.system(realizedBuildingBlock = Some(bb1), containingPlatform = Some(platform))
+    val decision: Decision = samples.decision(Some(enterprise), InProgress)
     val system2: ItSystem = ea describes ItSystem(title = samples.title) as { it =>
       it uses system1
       it uses townPlan.containers(system1).head
@@ -34,6 +35,7 @@ class TownPlanWebsiteWriterSpec extends AnyFlatSpec with GivenWhenThen {
       it has GoneToProduction() on Day(2021,11,1)
       it is Retired() on Day(2023,1,1)
       it is Decommissioned() on Day(2023, 11,1)
+      it provides ResilienceMeasure("Circuit breakers built in")
     }
     val team1: Team = samples.team
     val person: Person = samples.teamMember(team1)

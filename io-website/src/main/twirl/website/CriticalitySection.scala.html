@@ -1,0 +1,14 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasCriticality
+@(element: Element)
+@element match {
+    case hasCriticality: HasCriticality => {
+        <details>
+            <summary>Criticality - @hasCriticality.criticality.name</summary>
+            <p>@hasCriticality.criticality.description</p>
+        </details>
+    }
+    case _ => {}
+}

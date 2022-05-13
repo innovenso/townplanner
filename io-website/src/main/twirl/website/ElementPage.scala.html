@@ -17,6 +17,8 @@
 @import website.html.ItContainerSection
 @import website.html.TechnologySection
 @import website.html.FatherTimeSection
+@import website.html.CriticalitySection
+@import website.html.ResilienceMeasureSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -34,8 +36,9 @@
             @ElementPageHeader(element, navigationContext, townPlan)
             @DescriptionSection(element)
             @ArchitectureVerdictSection(element)
+            @CriticalitySection(element)
+            @ResilienceMeasureSection(element)
             @DiagramSection(element, navigationContext, townPlan, outputContext)
-            @LinkSection(element)
             @BusinessCapabilitySection(element, navigationContext, townPlan)
             @ArchitectureBuildingBlockSection(element, navigationContext, townPlan)
             @ItPlatformSection(element, navigationContext, townPlan)
@@ -43,6 +46,7 @@
             @ItContainerSection(element, navigationContext, townPlan)
             @TechnologySection(element, navigationContext, townPlan)
             @FatherTimeSection(element)
+            @LinkSection(element)
             @SwotSection(element)
         </main>
     </body>

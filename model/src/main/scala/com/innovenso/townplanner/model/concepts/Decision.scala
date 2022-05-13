@@ -121,6 +121,14 @@ trait HasDecisions extends HasModelComponents with HasRelationships {
 
   def rejectedOptions(decision: Decision): List[DecisionOption] =
     options(decision).filter(_.verdict.isInstanceOf[Rejected])
+
+  def enterprise(decision: Decision): Option[Enterprise] =
+    directOutgoingDependencies(
+      decision,
+      classOf[Serving],
+      classOf[Enterprise]
+    ).headOption
+
 }
 
 sealed trait DecisionStatus {

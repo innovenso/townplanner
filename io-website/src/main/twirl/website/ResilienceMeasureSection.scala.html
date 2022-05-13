@@ -1,0 +1,21 @@
+@import com.innovenso.townplanner.model.language.Element
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import com.innovenso.townplanner.model.concepts.properties.HasCriticality
+@import com.innovenso.townplanner.model.concepts.properties.HasResilienceMeasures
+@(element: Element)
+@element match {
+    case hasResilienceMeasures: HasResilienceMeasures => {
+      @if(hasResilienceMeasures.resilienceMeasures.nonEmpty) {
+          <details>
+              <summary>Resilience</summary>
+              <ul>
+              @for(measure <- hasResilienceMeasures.resilienceMeasures) {
+                  <li>@measure.description</li>
+              }
+              </ul>
+          </details>
+      }
+    }
+    case _ => {}
+}
