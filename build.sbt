@@ -11,7 +11,7 @@ import sbt.Keys.libraryDependencies
 
 import java.time.Instant
 
-val townplannerVersion = "1.13.1"
+val townplannerVersion = "1.14.0"
 ThisBuild / organization := "com.innovenso.townplanner"
 ThisBuild / organizationName := "Innovenso"
 ThisBuild / organizationHomepage := Some(url("https://innovenso.com"))
@@ -77,16 +77,6 @@ lazy val ioDiagrams = project
     libraryDependencies += scalaLogging
   )
   .enablePlugins(SbtTwirl)
-lazy val ioRadar = project
-  .in(file("io-radar"))
-  .dependsOn(model, ioCore)
-  .settings(
-    name := "innovenso-townplanner-io-radar",
-    libraryDependencies += scalactic,
-    libraryDependencies += scalaTest,
-    libraryDependencies += lorem,
-    libraryDependencies += json
-  )
 lazy val ioLatexCommon = project
   .in(file("io-latex-common"))
   .dependsOn(model, ioCore, ioDiagrams)
@@ -136,7 +126,7 @@ lazy val application = project
     model,
     ioCore,
     ioDiagrams,
-    ioRadar,
+    ioWebsite,
     ioLatexCommon,
     ioLatexPictures,
     ioLatexDocument

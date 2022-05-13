@@ -6,7 +6,7 @@ import com.innovenso.townplanner.io.latex.document.TownPlanDocumentWriter
 import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
 import com.innovenso.townplanner.io.{
   TownPlanDiagramWriter,
-  TownPlanTechnologyRadarWriter
+  TownPlanWebsiteWriter
 }
 import com.innovenso.townplanner.model.{EnterpriseArchitecture, TownPlan}
 
@@ -16,14 +16,15 @@ trait EnterpriseArchitectureAsCode extends App {
   implicit val ea: EnterpriseArchitecture = EnterpriseArchitecture()
   val targetDirectory: File = new File("output")
   val assetDirectory = new File(targetDirectory, "assets")
-  val assetRepository: FileSystemAssetRepository = FileSystemAssetRepository(
-    assetDirectory.toPath
-  )
+  implicit val assetRepository: FileSystemAssetRepository =
+    FileSystemAssetRepository(
+      assetDirectory.toPath
+    )
 
   val townPlanDiagramWriter: TownPlanDiagramWriter =
     TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
-  val townPlanTechnologyRadarWriter: TownPlanTechnologyRadarWriter =
-    TownPlanTechnologyRadarWriter(assetRepository)
+  val websiteWriter: TownPlanWebsiteWriter =
+    TownPlanWebsiteWriter()
   val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
     assetRepository
   )
@@ -38,9 +39,12 @@ trait EnterpriseArchitectureAsCode extends App {
   def diagrams()(implicit outputContext: OutputContext): Unit =
     this.outputContext = townPlanDiagramWriter.write(townPlan, outputContext)
 
+  @deprecated("the technology radar website is replaced by the website render")
   def technologyRadarWebsite()(implicit outputContext: OutputContext): Unit =
-    this.outputContext =
-      townPlanTechnologyRadarWriter.write(townPlan, outputContext)
+    println("the technology radar website is replaced by the website render")
+
+  def website()(implicit outputContext: OutputContext): Unit =
+    this.outputContext = websiteWriter.write()(townPlan, outputContext)
 
   def documents()(implicit outputContext: OutputContext): Unit = {
     this.outputContext = townPlanPictureWriter.write(townPlan, outputContext)

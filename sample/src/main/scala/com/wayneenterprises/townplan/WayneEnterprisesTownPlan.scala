@@ -26,5 +26,6 @@ object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
 
   diagrams()
   technologyRadarWebsite()
+  website()
   documents()
 }
