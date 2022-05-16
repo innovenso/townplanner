@@ -1,3 +1,5 @@
 @import com.innovenso.townplanner.model.concepts.relationships.Relationship
 @import plantuml.lib.txt.Escape
-@(relationship: Relationship) Rel_Flow(@relationship.source.value, @relationship.target.value, "@Escape(value = relationship.title)")
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.io.model.FlowTitleDecorator
+@(relationship: Relationship)(implicit townPlan: TownPlan) Rel_Flow(@relationship.source.value, @relationship.target.value, "@Escape(value = FlowTitleDecorator(relationship).title)")

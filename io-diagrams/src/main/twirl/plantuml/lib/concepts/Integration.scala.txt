@@ -1,4 +1,5 @@
 @import com.innovenso.townplanner.model.concepts.ItSystemIntegration
 @import com.innovenso.townplanner.model.meta.ADay
 @import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
-@(integration: ItSystemIntegration, pointInTime: ADay) Integration(@Key(integration), "@Title(integration)", "technologies", "@Description(integration)", "@Lifecycle(integration, pointInTime)")
+@import com.innovenso.townplanner.model.TownPlan
+@(integration: ItSystemIntegration, pointInTime: ADay)(implicit townPlan: TownPlan) Integration(@Key(integration), "@Title(integration)", "technologies", "@Description(integration)", "@Lifecycle(integration, pointInTime)")

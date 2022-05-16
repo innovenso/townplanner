@@ -3,4 +3,5 @@
 @import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
 @import com.innovenso.townplanner.model.concepts.HasTechnologies
 @import plantuml.lib.concepts.txt.Technologies
-@(container: ItContainer, pointInTime: ADay, technologyHolder: HasTechnologies) Container(@Key(container).body.trim, "@Title(container).body.trim", "@Description(container).body.trim", "@container.containerType", "@Technologies(technologyHolder, container)", "@Lifecycle(container, pointInTime).body.trim")
+@import com.innovenso.townplanner.model.TownPlan
+@(container: ItContainer, pointInTime: ADay, technologyHolder: HasTechnologies)(implicit townPlan: TownPlan) Container(@Key(container).body.trim, "@Title(container).body.trim", "@Description(container).body.trim", "@container.containerType", "@Technologies(technologyHolder, container)", "@Lifecycle(container, pointInTime).body.trim")

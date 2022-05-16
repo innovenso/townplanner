@@ -84,15 +84,50 @@ trait HasTechnologies extends HasModelComponents with HasRelationships {
   def technologies: List[Technology] = components(classOf[Technology])
   def technology(key: Key): Option[Technology] =
     component(key, classOf[Technology])
-  def technologies(element: CanBeImplementedByTechnologies): List[Technology] =
+  def technologies[TechnologyClass <: Technology](
+      element: CanBeImplementedByTechnologies,
+      technologyClass: Class[TechnologyClass]
+  ): List[TechnologyClass] =
     directIncomingDependencies(
       element,
       classOf[Implementation],
-      classOf[Technology]
+      technologyClass
     )
-  def technologiesKnownBy(element: CanKnow): List[Technology] = directOutgoingDependencies(element, classOf[Knowledge], classOf[Technology])
-  def modelComponentsImplementedByTechnology[ElementType <: CanBeImplementedByTechnologies](technology: Technology, elementClass: Class[ElementType]): List[ElementType] =
-    directOutgoingDependencies(technology, classOf[Implementation], elementClass)
+  def technologies(element: CanBeImplementedByTechnologies): List[Technology] =
+    technologies(element, classOf[Technology])
+  def languages(element: CanBeImplementedByTechnologies): List[Language] =
+    technologies(element, classOf[Language])
+  def frameworks(element: CanBeImplementedByTechnologies): List[Framework] =
+    technologies(element, classOf[Framework])
+  def tools(element: CanBeImplementedByTechnologies): List[Tool] =
+    technologies(element, classOf[Tool])
+  def techniques(element: CanBeImplementedByTechnologies): List[Technique] =
+    technologies(element, classOf[Technique])
+  def platforms(element: CanBeImplementedByTechnologies): List[Platform] =
+    technologies(element, classOf[Platform])
+
+  def technologyLabel(
+      element: CanBeImplementedByTechnologies
+  ): Option[String] = {
+    val tech =
+      languages(element) ::: frameworks(element) ::: techniques(element)
+    if (tech.isEmpty) None
+    else Some(tech.map(_.title).mkString(","))
+  }
+
+  def technologiesKnownBy(element: CanKnow): List[Technology] =
+    directOutgoingDependencies(element, classOf[Knowledge], classOf[Technology])
+  def modelComponentsImplementedByTechnology[
+      ElementType <: CanBeImplementedByTechnologies
+  ](
+      technology: Technology,
+      elementClass: Class[ElementType]
+  ): List[ElementType] =
+    directOutgoingDependencies(
+      technology,
+      classOf[Implementation],
+      elementClass
+    )
   def technologies[TechnologyType <: Technology](
       technologyClass: Class[TechnologyType]
   ): List[TechnologyType] = technologies

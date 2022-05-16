@@ -5,5 +5,6 @@
 @import com.innovenso.townplanner.model.concepts.ItPlatform
 @import com.innovenso.townplanner.model.concepts.ItSystem
 @import com.innovenso.townplanner.model.concepts.ItContainer
-@(view: CompiledProjectMilestoneImpactView)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledProjectMilestoneImpactView)(implicit townPlan: TownPlan)
 @MilestoneImpactView(view = view, impactedClass = classOf[ItContainer], elementColor = "LightSteelBlue", elementSprite = "aContainer")

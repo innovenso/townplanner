@@ -1,6 +1,7 @@
 @import com.innovenso.townplanner.model.concepts.{BusinessCapability, HasBusinessCapabilities}
 @import plantuml.lib.txt.{DescriptionWrapped, MindMapNode}
-@(capability: com.innovenso.townplanner.model.concepts.BusinessCapability, model: HasBusinessCapabilities, level: Int)
+@import com.innovenso.townplanner.model.TownPlan
+@(capability: com.innovenso.townplanner.model.concepts.BusinessCapability, model: HasBusinessCapabilities, level: Int)(implicit townPlan: TownPlan)
 
 @MindMapNode(
     color = "STRATEGY",

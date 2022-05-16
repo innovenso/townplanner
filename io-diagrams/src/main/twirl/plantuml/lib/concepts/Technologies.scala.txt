@@ -1,4 +1,5 @@
 @import com.innovenso.townplanner.model.concepts.HasTechnologies
 @import com.innovenso.townplanner.model.language.Element
 @import com.innovenso.townplanner.model.concepts.CanBeImplementedByTechnologies
-@(model: HasTechnologies, element: Element with CanBeImplementedByTechnologies) @model.technologies(element).map(_.title).mkString(",")
+@import com.innovenso.townplanner.model.TownPlan
+@(model: HasTechnologies, element: Element with CanBeImplementedByTechnologies)(implicit townPlan: TownPlan) @model.technologyLabel(element)

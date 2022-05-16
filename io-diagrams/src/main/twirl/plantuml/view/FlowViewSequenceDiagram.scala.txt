@@ -1,7 +1,8 @@
 @import com.innovenso.townplanner.model.concepts.views.CompiledFlowView
 @import plantuml.lib.txt.Escape
 @import plantuml.lib.txt.Uml
-@(model: CompiledFlowView)
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledFlowView)(implicit townPlan: TownPlan)
 @Uml {
     autonumber
     skinparam monochrome true

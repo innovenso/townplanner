@@ -6,5 +6,6 @@
 @import plantuml.decision.txt.DecisionImpactViewDiagram
 @import com.innovenso.townplanner.model.concepts.ItContainer
 @import com.innovenso.townplanner.model.concepts.ItPlatform
-@(view: CompiledDecisionImpactView)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledDecisionImpactView)(implicit townPlan: TownPlan)
 @DecisionImpactViewDiagram(view = view, impactedClass = classOf[ItPlatform], elementColor = "White", elementSprite = "aPlatform")

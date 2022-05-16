@@ -2,4 +2,5 @@
 @import com.innovenso.townplanner.model.meta.ADay
 @import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
 @import com.innovenso.townplanner.model.concepts.ItPlatform
-@(platform: ItPlatform, pointInTime: ADay) Platform(@Key(platform), "@Title(platform)", "@Description(platform)", "@Lifecycle(platform, pointInTime)")
+@import com.innovenso.townplanner.model.TownPlan
+@(platform: ItPlatform, pointInTime: ADay)(implicit townPlan: TownPlan) Platform(@Key(platform), "@Title(platform)", "@Description(platform)", "@Lifecycle(platform, pointInTime)")

@@ -4,7 +4,8 @@
 @import plantuml.lib.txt.DescriptionWrapped
 @import com.innovenso.townplanner.model.language.Concept
 @import plantuml.lib.txt.Title
-@(elements: Iterable[Concept with CanBeImpacted with HasDescription], groupColor: String, groupIcon: String, elementColor: String, elementSprite: String, startAtDepth: Int = 3)
+@import com.innovenso.townplanner.model.TownPlan
+@(elements: Iterable[Concept with CanBeImpacted with HasDescription], groupColor: String, groupIcon: String, elementColor: String, elementSprite: String, startAtDepth: Int = 3)(implicit townPlan: TownPlan)
 @if(elements.nonEmpty) {
 @for(i <- Range(0, startAtDepth, 1)) {*}[#@groupColor] <&@groupIcon>
 @for(element <- elements) {

@@ -1,4 +1,5 @@
 @import com.innovenso.townplanner.model.concepts.BusinessCapability
-@(capabilities: List[BusinessCapability]) @for(capability <- capabilities) {
+@import com.innovenso.townplanner.model.TownPlan
+@(capabilities: List[BusinessCapability])(implicit townPlan: TownPlan)  @for(capability <- capabilities) {
     @plantuml.lib.concepts.txt.BusinessCapability(capability = capability)
 }

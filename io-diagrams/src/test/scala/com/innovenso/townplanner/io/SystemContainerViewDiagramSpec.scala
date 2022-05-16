@@ -14,6 +14,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 class SystemContainerViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
   "A diagram specification and diagram" should "be written for each system container view" in new DiagramIO {
     Given("some systems")
+    val language: Language = samples.language
+    val framework: Framework = samples.framework
     val system1: ItSystem = samples.system(withContainers = false)
     val system2: ItSystem = samples.system(withContainers = false)
     val system3: ItSystem = samples.system(withContainers = false)
@@ -29,6 +31,15 @@ class SystemContainerViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
     samples.flow(ms1, db1)
 
     val ms2: Microservice = samples.microservice(system2)
+
+    val ms3: Microservice =
+      ea describes Microservice(title = "Microservice 3") as { it =>
+        it isPartOf system2
+        it does "sends messages" to ms2 and { that =>
+          that isImplementedBy language
+          that isImplementedBy framework
+        }
+      }
 
     samples.flow(ms1, ms2)
     samples.flow(system1, ms2)

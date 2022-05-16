@@ -3,7 +3,8 @@
 @import plantuml.lib.txt.Uml
 @import com.innovenso.townplanner.model.concepts.views.CompiledSystemIntegrationInteractionView
 @import plantuml.lib.relationships.txt.NonNumberedStep
-@(model: CompiledSystemIntegrationInteractionView)
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledSystemIntegrationInteractionView)(implicit townPlan: TownPlan)
 @Uml {
     @for(systemContext <- model.systemContexts) {
         @SystemContext(systemContext, model.pointInTime, model.containers(systemContext), model)

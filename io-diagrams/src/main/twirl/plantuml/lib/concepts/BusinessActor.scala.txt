@@ -1,4 +1,5 @@
 @import com.innovenso.townplanner.model.concepts.BusinessActor
 @import com.innovenso.townplanner.model.meta.ADay
 @import plantuml.lib.txt.{Key, Title}
-@(actor: BusinessActor, pointInTime: ADay) Business_Actor(@Key(actor), "@Title(actor)")
+@import com.innovenso.townplanner.model.TownPlan
+@(actor: BusinessActor, pointInTime: ADay)(implicit townPlan: TownPlan) Business_Actor(@Key(actor), "@Title(actor)")

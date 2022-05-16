@@ -1,6 +1,7 @@
 @import com.innovenso.townplanner.model.concepts.views.CompiledBusinessCapabilityMap
 @import plantuml.lib.concepts.txt.BusinessCapabilityTree
-@(model: CompiledBusinessCapabilityMap)
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledBusinessCapabilityMap)(implicit townPlan: TownPlan)
 @if(model.enterprise.isDefined) {
     @plantuml.lib.txt.MindMap {
         sprite $aCapability jar:archimate/strategy-capability

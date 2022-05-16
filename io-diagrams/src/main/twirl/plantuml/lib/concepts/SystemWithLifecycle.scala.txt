@@ -1,3 +1,4 @@
 @import com.innovenso.townplanner.model.concepts.ItSystem
 @import plantuml.lib.txt.{Description, Key, Title}
-@(system: ItSystem, lifecycle: String) System(@Key(system), "@Title(system)", "@Description(system)", "@lifecycle")
+@import com.innovenso.townplanner.model.TownPlan
+@(system: ItSystem, lifecycle: String)(implicit townPlan: TownPlan) System(@Key(system), "@Title(system)", "@Description(system)", "@lifecycle")

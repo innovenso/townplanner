@@ -2,6 +2,7 @@
 @import com.innovenso.townplanner.model.meta.ADay
 @import plantuml.lib.concepts.txt.Systems
 @import plantuml.lib.txt.{Key, Title}
-@(platform: ItPlatform, pointInTime: ADay, systems: Iterable[ItSystem]) Platform_Context(@Key(platform), "@Title(platform)") {
+@import com.innovenso.townplanner.model.TownPlan
+@(platform: ItPlatform, pointInTime: ADay, systems: Iterable[ItSystem])(implicit townPlan: TownPlan) Platform_Context(@Key(platform), "@Title(platform)") {
 @Systems(systems, pointInTime)
     }

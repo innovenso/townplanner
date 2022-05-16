@@ -19,7 +19,7 @@ case class TownPlanDiagramWriter(
       views(townPlan)
         .flatMap(view =>
           DiagramSpecificationWriter
-            .specifications(townPlan, view)
+            .specifications(view)(townPlan)
         )
         .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
     )
@@ -31,7 +31,7 @@ case class TownPlanDiagramWriter(
   ): OutputContext = outputContext.withOutputs(
     view(townPlan, Key(viewKey)).toList
       .flatMap(modelComponent =>
-        DiagramSpecificationWriter.specifications(townPlan, modelComponent)
+        DiagramSpecificationWriter.specifications(modelComponent)(townPlan)
       )
       .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
   )

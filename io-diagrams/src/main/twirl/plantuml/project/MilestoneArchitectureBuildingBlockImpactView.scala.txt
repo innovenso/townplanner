@@ -2,5 +2,6 @@
 @import plantuml.project.txt.MilestoneImpactView
 @import com.innovenso.townplanner.model.concepts.BusinessCapability
 @import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
-@(view: CompiledProjectMilestoneImpactView)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledProjectMilestoneImpactView)(implicit townPlan: TownPlan)
 @MilestoneImpactView(view = view, impactedClass = classOf[ArchitectureBuildingBlock], elementColor = "APPLICATION", elementSprite = "aBuildingBlock")

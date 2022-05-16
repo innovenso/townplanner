@@ -3,7 +3,8 @@
 @import plantuml.lib.txt.Escape
 @import com.innovenso.townplanner.model.concepts.views.CompiledIntegrationMap
 @import plantuml.lib.txt.Uml
-@(model: CompiledIntegrationMap)
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledIntegrationMap)(implicit townPlan: TownPlan)
 @Uml {
     @Systems(systems = model.systems, pointInTime = model.pointInTime)
 

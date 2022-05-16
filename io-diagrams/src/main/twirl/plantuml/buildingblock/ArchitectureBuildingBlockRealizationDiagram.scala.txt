@@ -6,7 +6,9 @@
 @import com.innovenso.townplanner.model.concepts.relationships.Serving
 @import com.innovenso.townplanner.model.concepts.relationships.Serving
 @import com.innovenso.townplanner.model.concepts.relationships.Realization
-@(model: CompiledArchitectureBuildingBlockRealizationView)
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledArchitectureBuildingBlockRealizationView)(implicit townPlan: TownPlan)
 @Uml {
     @if(model.buildingBlock.nonEmpty) {
         @ArchitectureBuildingBlock(buildingBlock = model.buildingBlock.get, pointInTime = model.pointInTime)

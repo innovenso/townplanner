@@ -7,7 +7,8 @@
 @import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
 @import com.innovenso.townplanner.model.concepts.properties.HasDescription
 @import com.innovenso.townplanner.model.language.Concept
-@(view: CompiledProjectMilestoneImpactView, impactedClass: Class[_ <: Concept with CanBeImpacted with HasDescription], elementColor: String, elementSprite: String)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledProjectMilestoneImpactView, impactedClass: Class[_ <: Concept with CanBeImpacted with HasDescription], elementColor: String, elementSprite: String)(implicit townPlan: TownPlan)
 @MindMap {
 sprite $aCapability jar:archimate/strategy-capability
 sprite $aFunction jar:archimate/business-function

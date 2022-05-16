@@ -4,5 +4,6 @@
 @import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
 @import com.innovenso.townplanner.model.concepts.views.CompiledDecisionImpactView
 @import plantuml.decision.txt.DecisionImpactViewDiagram
-@(view: CompiledDecisionImpactView)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledDecisionImpactView)(implicit townPlan: TownPlan)
 @DecisionImpactViewDiagram(view = view, impactedClass = classOf[BusinessCapability], elementColor = "STRATEGY", elementSprite = "aCapability")

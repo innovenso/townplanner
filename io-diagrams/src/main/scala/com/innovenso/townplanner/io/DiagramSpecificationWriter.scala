@@ -7,18 +7,38 @@ import com.innovenso.townplanner.model.concepts.views._
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import plantuml.buildingblock.txt.ArchitectureBuildingBlockRealizationDiagram
 import plantuml.capability.txt.BusinessCapabilityPositionDiagram
-import plantuml.decision.txt.{DecisionArchitectureBuildingBlockImpactView, DecisionBusinessCapabilityImpactView, DecisionItContainerImpactView, DecisionItPlatformImpactView, DecisionItSystemImpactView, DecisionItSystemIntegrationImpactView, DecisionTechnologyImpactView}
+import plantuml.decision.txt.{
+  DecisionArchitectureBuildingBlockImpactView,
+  DecisionBusinessCapabilityImpactView,
+  DecisionItContainerImpactView,
+  DecisionItPlatformImpactView,
+  DecisionItSystemImpactView,
+  DecisionItSystemIntegrationImpactView,
+  DecisionTechnologyImpactView
+}
 import plantuml.enterprise.txt.{BusinessCapabilityMindMap, FullTownPlanDiagram}
-import plantuml.integration.txt.{IntegrationMapDiagram, SystemIntegrationInteractionDiagram, SystemIntegrationInteractionSequenceDiagram, SystemIntegrationViewDiagram}
-import plantuml.project.txt.{MilestoneArchitectureBuildingBlockImpactView, MilestoneBusinessCapabilityImpactView, MilestoneItContainerImpactView, MilestoneItPlatformImpactView, MilestoneItSystemImpactView, MilestoneItSystemIntegrationImpactView, MilestoneTechnologyImpactView}
+import plantuml.integration.txt.{
+  IntegrationMapDiagram,
+  SystemIntegrationInteractionDiagram,
+  SystemIntegrationInteractionSequenceDiagram,
+  SystemIntegrationViewDiagram
+}
+import plantuml.project.txt.{
+  MilestoneArchitectureBuildingBlockImpactView,
+  MilestoneBusinessCapabilityImpactView,
+  MilestoneItContainerImpactView,
+  MilestoneItPlatformImpactView,
+  MilestoneItSystemImpactView,
+  MilestoneItSystemIntegrationImpactView,
+  MilestoneTechnologyImpactView
+}
 import plantuml.system.txt.SystemContainerViewDiagram
 import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
 
 object DiagramSpecificationWriter {
   def specifications(
-      townPlan: TownPlan,
       view: CompiledView[_ <: View]
-  ): List[DiagramSpecification] = view match {
+  )(implicit townPlan: TownPlan): List[DiagramSpecification] = view match {
     case systemContainerView: CompiledSystemContainerView =>
       List(
         DiagramSpecification(
@@ -53,7 +73,8 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = businessCapabilityMap,
-          plantumlSpecification = BusinessCapabilityMindMap(businessCapabilityMap).body,
+          plantumlSpecification =
+            BusinessCapabilityMindMap(businessCapabilityMap).body,
           relatedModelComponents = businessCapabilityMap.enterprise.toList
         )
       )
@@ -61,7 +82,8 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = businessCapabilityPosition,
-          plantumlSpecification = BusinessCapabilityPositionDiagram(businessCapabilityPosition).body,
+          plantumlSpecification =
+            BusinessCapabilityPositionDiagram(businessCapabilityPosition).body,
           relatedModelComponents = businessCapabilityPosition.capability.toList
         )
       )
@@ -72,10 +94,12 @@ object DiagramSpecificationWriter {
           plantumlSpecification = ArchitectureBuildingBlockRealizationDiagram(
             architectureBuildingBlockRealizationView
           ).body,
-          filenameAppendix = if (architectureBuildingBlockRealizationView.view.includeContainers)
-            Some("Detailed")
-          else None,
-          relatedModelComponents = architectureBuildingBlockRealizationView.buildingBlock.toList
+          filenameAppendix =
+            if (architectureBuildingBlockRealizationView.view.includeContainers)
+              Some("Detailed")
+            else None,
+          relatedModelComponents =
+            architectureBuildingBlockRealizationView.buildingBlock.toList
         )
       )
     case integrationMap: CompiledIntegrationMap =>
@@ -101,7 +125,8 @@ object DiagramSpecificationWriter {
           plantumlSpecification = SystemIntegrationInteractionDiagram(
             systemIntegrationInteractionView
           ).body,
-          relatedModelComponents = systemIntegrationInteractionView.integration.toList
+          relatedModelComponents =
+            systemIntegrationInteractionView.integration.toList
         ),
         DiagramSpecification(
           view = systemIntegrationInteractionView,
@@ -109,26 +134,30 @@ object DiagramSpecificationWriter {
             systemIntegrationInteractionView
           ).body,
           filenameAppendix = Some("Sequence"),
-          relatedModelComponents = systemIntegrationInteractionView.integration.toList
+          relatedModelComponents =
+            systemIntegrationInteractionView.integration.toList
         )
       )
     case projectMilestoneImpactView: CompiledProjectMilestoneImpactView =>
       List(
         DiagramSpecification(
           view = projectMilestoneImpactView,
-          plantumlSpecification = MilestoneItContainerImpactView(projectMilestoneImpactView).body,
+          plantumlSpecification =
+            MilestoneItContainerImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Containers"),
           relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
-          plantumlSpecification = MilestoneItSystemImpactView(projectMilestoneImpactView).body,
+          plantumlSpecification =
+            MilestoneItSystemImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Systems"),
           relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
-          plantumlSpecification = MilestoneItPlatformImpactView(projectMilestoneImpactView).body,
+          plantumlSpecification =
+            MilestoneItPlatformImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Platforms"),
           relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
@@ -142,7 +171,8 @@ object DiagramSpecificationWriter {
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
-          plantumlSpecification = MilestoneTechnologyImpactView(projectMilestoneImpactView).body,
+          plantumlSpecification =
+            MilestoneTechnologyImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Technologies"),
           relatedModelComponents = List(projectMilestoneImpactView.milestone)
         ),
@@ -167,19 +197,22 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = decisionImpactView,
-          plantumlSpecification = DecisionItContainerImpactView(decisionImpactView).body,
+          plantumlSpecification =
+            DecisionItContainerImpactView(decisionImpactView).body,
           filenameAppendix = Some("Containers"),
           relatedModelComponents = List(decisionImpactView.decision)
         ),
         DiagramSpecification(
           view = decisionImpactView,
-          plantumlSpecification = DecisionItSystemImpactView(decisionImpactView).body,
+          plantumlSpecification =
+            DecisionItSystemImpactView(decisionImpactView).body,
           filenameAppendix = Some("Systems"),
           relatedModelComponents = List(decisionImpactView.decision)
         ),
         DiagramSpecification(
           view = decisionImpactView,
-          plantumlSpecification = DecisionItPlatformImpactView(decisionImpactView).body,
+          plantumlSpecification =
+            DecisionItPlatformImpactView(decisionImpactView).body,
           filenameAppendix = Some("Platforms"),
           relatedModelComponents = List(decisionImpactView.decision)
         ),
@@ -193,7 +226,8 @@ object DiagramSpecificationWriter {
         ),
         DiagramSpecification(
           view = decisionImpactView,
-          plantumlSpecification = DecisionTechnologyImpactView(decisionImpactView).body,
+          plantumlSpecification =
+            DecisionTechnologyImpactView(decisionImpactView).body,
           filenameAppendix = Some("Technologies"),
           relatedModelComponents = List(decisionImpactView.decision)
         ),

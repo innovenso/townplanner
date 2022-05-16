@@ -2,7 +2,8 @@
 @import plantuml.lib.concepts.txt.{Integration, System}
 @import plantuml.lib.txt.Key
 @import plantuml.lib.txt.Uml
-@(model: CompiledSystemIntegrationView)
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledSystemIntegrationView)(implicit townPlan: TownPlan)
 @Uml {
     @if(model.integration.isDefined) {
         @Integration(integration = model.integration.get, pointInTime = model.pointInTime)

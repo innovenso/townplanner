@@ -3,5 +3,6 @@
 @import com.innovenso.townplanner.model.concepts.BusinessCapability
 @import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
 @import com.innovenso.townplanner.model.concepts.ItPlatform
-@(view: CompiledProjectMilestoneImpactView)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledProjectMilestoneImpactView)(implicit townPlan: TownPlan)
 @MilestoneImpactView(view = view, impactedClass = classOf[ItPlatform], elementColor = "White", elementSprite = "aPlatform")

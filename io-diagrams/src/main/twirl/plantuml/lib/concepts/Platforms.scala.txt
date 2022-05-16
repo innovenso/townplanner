@@ -1,6 +1,7 @@
 @import com.innovenso.townplanner.model.concepts.ItSystem
 @import com.innovenso.townplanner.model.meta.ADay
 @import com.innovenso.townplanner.model.concepts.ItPlatform
-@(platforms: Iterable[ItPlatform], pointInTime: ADay) @for(p <- platforms) {
+@import com.innovenso.townplanner.model.TownPlan
+@(platforms: Iterable[ItPlatform], pointInTime: ADay)(implicit townPlan: TownPlan) @for(p <- platforms) {
     @plantuml.lib.concepts.txt.Platform(platform = p, pointInTime = pointInTime)
 }

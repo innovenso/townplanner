@@ -3,6 +3,7 @@
 @import plantuml.lib.concepts.txt.Containers
 @import plantuml.lib.txt.{Key, Title}
 @import com.innovenso.townplanner.model.concepts.HasTechnologies
-@(system: ItSystem, pointInTime: ADay, containers: Iterable[ItContainer], technologyHolder: HasTechnologies) System_Context(@Key(system), "@Title(system)") {
+@import com.innovenso.townplanner.model.TownPlan
+@(system: ItSystem, pointInTime: ADay, containers: Iterable[ItContainer], technologyHolder: HasTechnologies)(implicit townPlan: TownPlan) System_Context(@Key(system), "@Title(system)") {
 @Containers(containers, pointInTime, technologyHolder)
     }

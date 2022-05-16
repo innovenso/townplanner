@@ -8,5 +8,6 @@
 @import com.innovenso.townplanner.model.concepts.ItPlatform
 @import com.innovenso.townplanner.model.concepts.ItSystem
 @import com.innovenso.townplanner.model.concepts.ItSystemIntegration
-@(view: CompiledDecisionImpactView)
+@import com.innovenso.townplanner.model.TownPlan
+@(view: CompiledDecisionImpactView)(implicit townPlan: TownPlan)
 @DecisionImpactViewDiagram(view = view, impactedClass = classOf[ItSystemIntegration], elementColor = "APPLICATION", elementSprite = "aInteraction")

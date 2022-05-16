@@ -4,7 +4,8 @@
 @import com.innovenso.townplanner.model.concepts.relationships.Composition
 @import com.innovenso.townplanner.model.concepts.relationships.Serving
 @import com.innovenso.townplanner.model.concepts.relationships.Realization
-@(model: CompiledFullTownPlanView)
+@import com.innovenso.townplanner.model.TownPlan
+@(model: CompiledFullTownPlanView)(implicit townPlan: TownPlan)
 @plantuml.lib.txt.Uml {
   @if(model.enterprise.nonEmpty) {
       @Enterprise(enterprise = model.enterprise.get, pointInTime = model.pointInTime)

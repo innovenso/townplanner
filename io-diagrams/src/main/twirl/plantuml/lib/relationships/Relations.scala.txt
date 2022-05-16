@@ -1,4 +1,5 @@
 @import com.innovenso.townplanner.model.concepts.relationships.Relationship
-@(relationships: Iterable[Relationship]) @for(relationship <- relationships) {
+@import com.innovenso.townplanner.model.TownPlan
+@(relationships: Iterable[Relationship])(implicit townPlan: TownPlan) @for(relationship <- relationships) {
     @plantuml.lib.relationships.txt.Relation(value = relationship)
 }

@@ -33,7 +33,7 @@ trait DiagramIO {
       view: Option[CompiledView[_ <: View]]
   ): List[DiagramSpecification] = {
     view
-      .map(DiagramSpecificationWriter.specifications(townPlan, _))
+      .map(DiagramSpecificationWriter.specifications(_)(townPlan))
       .getOrElse(Nil)
   }
 

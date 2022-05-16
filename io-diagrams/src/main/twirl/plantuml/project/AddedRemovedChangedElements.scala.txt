@@ -2,7 +2,8 @@
 @import com.innovenso.townplanner.model.concepts.properties.HasDescription
 @import com.innovenso.townplanner.model.language.Concept
 @import plantuml.project.txt.ImpactedElements
-@(added: Iterable[Concept with CanBeImpacted with HasDescription], removed: Iterable[Concept with CanBeImpacted with HasDescription], changed: Iterable[Concept with CanBeImpacted with HasDescription], elementColor: String, elementSprite: String, startAtDepth: Int = 3)
+@import com.innovenso.townplanner.model.TownPlan
+@(added: Iterable[Concept with CanBeImpacted with HasDescription], removed: Iterable[Concept with CanBeImpacted with HasDescription], changed: Iterable[Concept with CanBeImpacted with HasDescription], elementColor: String, elementSprite: String, startAtDepth: Int = 3)(implicit townPlan: TownPlan)
 @ImpactedElements(elements = added, groupColor = "GREEN", groupIcon="plus", elementColor = elementColor, elementSprite = elementSprite, startAtDepth=startAtDepth)
 @ImpactedElements(elements = removed, groupColor = "RED", groupIcon="minus", elementColor = elementColor, elementSprite = elementSprite, startAtDepth=startAtDepth)
 @ImpactedElements(elements = changed, groupColor = "BLUE", groupIcon="pencil", elementColor = elementColor, elementSprite = elementSprite, startAtDepth=startAtDepth)

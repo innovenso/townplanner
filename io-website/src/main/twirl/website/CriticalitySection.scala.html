@@ -5,10 +5,12 @@
 @(element: Element)
 @element match {
     case hasCriticality: HasCriticality => {
-        <details>
-            <summary>Criticality - @hasCriticality.criticality.name</summary>
-            <p>@hasCriticality.criticality.description</p>
-        </details>
+      @if(!hasCriticality.isUnknownCriticality) {
+          <details>
+              <summary>Criticality - @hasCriticality.criticality.name</summary>
+              <p>@hasCriticality.criticality.description</p>
+          </details>
+      }
     }
     case _ => {}
 }

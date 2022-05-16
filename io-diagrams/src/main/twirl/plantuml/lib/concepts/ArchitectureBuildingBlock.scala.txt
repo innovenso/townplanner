@@ -1,3 +1,4 @@
 @import com.innovenso.townplanner.model.meta.ADay
 @import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
-@(buildingBlock: com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock, pointInTime: ADay) BuildingBlock(@Key(buildingBlock), "@Title(buildingBlock)", "@Description(buildingBlock)", "@Lifecycle(buildingBlock, pointInTime)")
+@import com.innovenso.townplanner.model.TownPlan
+@(buildingBlock: com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock, pointInTime: ADay)(implicit townPlan: TownPlan) BuildingBlock(@Key(buildingBlock), "@Title(buildingBlock)", "@Description(buildingBlock)", "@Lifecycle(buildingBlock, pointInTime)")

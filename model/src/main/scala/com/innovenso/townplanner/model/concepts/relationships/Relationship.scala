@@ -277,7 +277,6 @@ case class RelationshipConfigurer(
   def period: Relationship = propertyAdder.townPlan
     .relationship(modelComponent.key, modelComponent.getClass)
     .get
-
 }
 
 trait CanAddRelationships extends CanAddModelComponents {
