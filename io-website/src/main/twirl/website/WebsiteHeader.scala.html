@@ -12,17 +12,14 @@
         </ul>
         @defining(NavigationTree(canNavigate, townPlan)) { navigationTree =>
             <ul>
-            @for(menu <- navigationTree.mainMenu) {
                 <li role="list" dir="rtl">
-                    <a href="#" aria-haspopup="listbox">@menu.name</a>
+                    <a href="#" aria-haspopup="listbox">Elements</a>
                     <ul role="listbox">
-                    @for(item <- menu.items) {
+                    @for(item <- navigationTree.elementsMenu) {
                         <li><a href="@item.url">@item.title</a></li>
                     }
                     </ul>
                 </li>
-
-            }
             </ul>
         }
     </nav>

@@ -1,0 +1,25 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@defining(
+    element match {
+        case canBeImpacted: CanBeImpacted => (townPlan.impactingProjects(canBeImpacted), s"Projects impacting ${element.title}")
+        case _ => (Nil, "")
+    }
+) { impactingProjectsAndTitle =>
+    @if(impactingProjectsAndTitle._1.nonEmpty) {
+        <details>
+            <summary>@impactingProjectsAndTitle._2</summary>
+            <ul>
+            @for(itProject <- impactingProjectsAndTitle._1) {
+                <li><a href="@navigationContext.relativePathTo(itProject)">@itProject.title</a></li>
+            }
+            </ul>
+        </details>
+    }
+}
+

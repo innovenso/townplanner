@@ -10,6 +10,7 @@
 @import com.innovenso.townplanner.model.concepts.DecisionOption
 @import com.innovenso.townplanner.model.concepts.Technology
 @import com.innovenso.townplanner.model.concepts.Technology
+@import com.innovenso.townplanner.model.concepts.ItProjectMilestone
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
 <header>
     <hgroup>
@@ -54,6 +55,15 @@
                       of <a href="@navigationContext.relativePathTo(decision)">@decision.title</a> <span class="badge">@decisionOption.verdict.name</span>
                   }
               }
+          }
+          case milestone: ItProjectMilestone => {
+              @element.modelComponentType.value
+              @if(townPlan.itProject(milestone).nonEmpty) {
+                @defining(townPlan.itProject(milestone).get) { project =>
+                  of <a href="@navigationContext.relativePathTo(project)">@project.title</a> @if(milestone.dueDate.nonEmpty) {<span class="badge">due @milestone.dueDate.get.date</span>}
+                }
+              }
+
           }
           case technology: Technology => {
               @element.modelComponentType.value - @technology.technologyType <span class="badge">@technology.architectureVerdict.name</span>

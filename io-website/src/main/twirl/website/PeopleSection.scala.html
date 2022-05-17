@@ -1,0 +1,32 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ItPlatform
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.concepts.Technology
+@import com.innovenso.townplanner.model.concepts.Team
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+    @defining(
+        element match {
+            case team: Team => (townPlan.teamMembers(team.key), s"Team members")
+            case technology: Technology => (townPlan.peopleKnowingTechnology(technology), s"People with expertise in ${element.title}")
+            case _ => (Nil, "")
+        }
+    ) { peopleAndTitle =>
+      @if(peopleAndTitle._1.nonEmpty) {
+          <details>
+              <summary>@peopleAndTitle._2</summary>
+              <ul>
+              @for(person <- peopleAndTitle._1) {
+                  <li><a href="@navigationContext.relativePathTo(person)">@person.title</a></li>
+              }
+              </ul>
+          </details>
+      }
+    }
+

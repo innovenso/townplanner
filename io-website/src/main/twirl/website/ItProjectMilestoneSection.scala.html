@@ -1,0 +1,26 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeImpacted
+@import com.innovenso.townplanner.model.concepts.ItProject
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+@defining(
+    element match {
+        case itProject: ItProject => (townPlan.itProjectMilestones(itProject), s"Milestones of ${element.title}")
+        case _ => (Nil, "")
+    }
+) { milestonesAndTitle =>
+    @if(milestonesAndTitle._1.nonEmpty) {
+        <details>
+            <summary>@milestonesAndTitle._2</summary>
+            <ul>
+            @for(milestone <- milestonesAndTitle._1) {
+                <li><a href="@navigationContext.relativePathTo(milestone)">@milestone.title</a></li>
+            }
+            </ul>
+        </details>
+    }
+}
+

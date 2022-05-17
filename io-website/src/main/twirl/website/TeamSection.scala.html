@@ -1,0 +1,35 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.BusinessCapability
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ItPlatform
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.ArchitectureBuildingBlock
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.concepts.Technology
+@import com.innovenso.townplanner.model.concepts.Team
+@import com.innovenso.townplanner.model.concepts.Person
+@import com.innovenso.townplanner.model.concepts.relationships.CanBeDelivered
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan)
+    @defining(
+        element match {
+            case person: Person => (townPlan.teams(person), s"Teams ${element.title} belongs to")
+            case technology: Technology => (townPlan.teamsKnowingTechnology(technology), s"Teams with expertise in ${element.title}")
+            case canBeDelivered: CanBeDelivered => (townPlan.teamsDelivering(canBeDelivered), s"Teams delivering ${element.title}")
+            case _ => (Nil, "")
+        }
+    ) { teamsAndTitle =>
+      @if(teamsAndTitle._1.nonEmpty) {
+          <details>
+              <summary>@teamsAndTitle._2</summary>
+              <ul>
+              @for(team <- teamsAndTitle._1) {
+                  <li><a href="@navigationContext.relativePathTo(team)">@team.title</a></li>
+              }
+              </ul>
+          </details>
+      }
+    }
+

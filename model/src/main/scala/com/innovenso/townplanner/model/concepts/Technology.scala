@@ -115,6 +115,14 @@ trait HasTechnologies extends HasModelComponents with HasRelationships {
     else Some(tech.map(_.title).mkString(","))
   }
 
+  def peopleKnowingTechnology(technology: Technology): List[Person] =
+    directIncomingDependencies(technology, classOf[Knowledge], classOf[Person])
+  def teamsKnowingTechnology(technology: Technology): List[Team] =
+    peopleKnowingTechnology(technology)
+      .flatMap(person =>
+        directIncomingDependencies(person, classOf[Composition], classOf[Team])
+      )
+      .distinct
   def technologiesKnownBy(element: CanKnow): List[Technology] =
     directOutgoingDependencies(element, classOf[Knowledge], classOf[Technology])
   def modelComponentsImplementedByTechnology[

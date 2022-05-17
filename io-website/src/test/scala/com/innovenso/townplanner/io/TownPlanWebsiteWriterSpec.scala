@@ -16,6 +16,7 @@ import com.innovenso.townplanner.model.concepts.{
   Enterprise,
   InProgress,
   ItPlatform,
+  ItProject,
   ItSystem,
   Person,
   Tag,
@@ -27,6 +28,7 @@ import com.innovenso.townplanner.model.concepts.views.{
   BusinessCapabilityPosition,
   DecisionImpactView,
   FullTownPlanView,
+  ProjectMilestoneImpactView,
   SystemContainerView,
   TechnologyRadar
 }
@@ -61,6 +63,7 @@ class TownPlanWebsiteWriterSpec extends AnyFlatSpec with GivenWhenThen {
       containingPlatform = Some(platform)
     )
     val decision: Decision = samples.decision(Some(enterprise), InProgress)
+    val project: ItProject = samples.project(Some(enterprise))
     val system2: ItSystem = ea describes ItSystem(title = samples.title) as {
       it =>
         it uses system1
@@ -86,6 +89,9 @@ class TownPlanWebsiteWriterSpec extends AnyFlatSpec with GivenWhenThen {
     ea needs SystemContainerView(system1, InTheFuture)
     ea needs SystemContainerView(system1, Day(2023, 7, 1))
     ea needs SystemContainerView(system2)
+    townPlan
+      .itProjectMilestones(project)
+      .foreach(milestone => ea needs ProjectMilestoneImpactView(milestone))
     ea needs TechnologyRadar(title = "Innovenso Technology Radar")
     val diagramOutputContext: OutputContext = diagramsAreWritten
     When("the website is written")

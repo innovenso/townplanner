@@ -32,6 +32,10 @@
 @import website.html.RequirementScoresSection
 @import website.html.DecisionVerdictSection
 @import website.html.CostSection
+@import website.html.ItProjectMilestoneSection
+@import website.html.ItProjectSection
+@import website.html.PeopleSection
+@import website.html.TeamSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -48,6 +52,7 @@
         <main class="container">
             @ElementPageHeader(element, navigationContext, townPlan)
             @DescriptionSection(element)
+            @ItProjectMilestoneSection(element, navigationContext, townPlan)
             @OutcomeSection(element)
             @DecisionVerdictSection(element)
             @CurrentStateSection(element)
@@ -67,11 +72,14 @@
             @ItSystemSection(element, navigationContext, townPlan)
             @ItContainerSection(element, navigationContext, townPlan)
             @TechnologySection(element, navigationContext, townPlan)
+            @PeopleSection(element, navigationContext, townPlan)
+            @TeamSection(element, navigationContext, townPlan)
             @FatherTimeSection(element)
             @SwotSection(element)
             @RequirementScoresSection(element, navigationContext, townPlan)
             @CostSection(element)
             @ImpactSection(element, navigationContext, townPlan)
+            @ItProjectSection(element, navigationContext, townPlan)
             @ConsequencesSection(element)
             @LinkSection(element)
         </main>

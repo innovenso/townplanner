@@ -94,6 +94,34 @@ trait HasProjects extends HasModelComponents with HasRelationships {
       classOf[Serving],
       classOf[Enterprise]
     ).headOption
+
+  def impactedModelComponents[ModelComponentType <: CanBeImpacted](
+      itProjectMilestone: ItProjectMilestone,
+      modelComponentClass: Class[ModelComponentType]
+  ): List[ModelComponentType] =
+    directOutgoingDependencies(
+      itProjectMilestone,
+      classOf[Impact],
+      modelComponentClass
+    )
+  def impactedModelComponents[ModelComponentType <: CanBeImpacted](
+      itProject: ItProject,
+      modelComponentClass: Class[ModelComponentType]
+  ): List[ModelComponentType] =
+    itProjectMilestones(itProject).flatMap(milestone =>
+      impactedModelComponents(milestone, modelComponentClass)
+    )
+
+  def impactingProjectMilestones(
+      impactedElement: CanBeImpacted
+  ): List[ItProjectMilestone] =
+    directIncomingDependencies(
+      impactedElement,
+      classOf[Impact],
+      classOf[ItProjectMilestone]
+    )
+  def impactingProjects(impactedElement: CanBeImpacted): List[ItProject] =
+    impactingProjectMilestones(impactedElement).flatMap(itProject).distinct
 }
 
 case class ItProjectConfigurer(

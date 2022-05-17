@@ -13,6 +13,8 @@ import com.innovenso.townplanner.model.concepts.{
   Enterprise,
   Framework,
   ItPlatform,
+  ItProject,
+  ItProjectMilestone,
   ItSystem,
   ItSystemIntegration,
   Language,
@@ -237,18 +239,12 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     it has Description(description)
     it has Website(url, title)
     it has Wiki(url, title)
-    (1 to randomInt(5)).foreach(_ =>
-      it has Strength(description = description)
-    )
-    (1 to randomInt(5)).foreach(_ =>
-      it has Weakness(description = description)
-    )
+    (1 to randomInt(5)).foreach(_ => it has Strength(description = description))
+    (1 to randomInt(5)).foreach(_ => it has Weakness(description = description))
     (1 to randomInt(5)).foreach(_ =>
       it has Opportunity(description = description)
     )
-    (1 to randomInt(5)).foreach(_ =>
-      it has Threat(description = description)
-    )
+    (1 to randomInt(5)).foreach(_ => it has Threat(description = description))
 
   }
 
@@ -279,6 +275,89 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       it has Description(description)
       if (realizedBuildingBlock.isDefined) it realizes realizedBuildingBlock.get
     }
+
+  def project(forEnterprise: Option[Enterprise] = None): ItProject = {
+    val theProject = ea describes ItProject(title = title) as { it =>
+      if (forEnterprise.nonEmpty) it serves forEnterprise.get
+      (1 to randomInt(5)).foreach(_ => it has Description(description))
+
+    }
+    (1 to randomInt(5)).foreach(_ =>
+      projectMilestone(forProject = theProject, forEnterprise = forEnterprise)
+    )
+    theProject
+  }
+
+  def projectMilestone(
+      forProject: ItProject,
+      forEnterprise: Option[Enterprise] = None
+  ): ItProjectMilestone = {
+    val stakeholders = (1 to randomInt(10)).map(_ => person(forEnterprise))
+    val responsible = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val accountable = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val consulted = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val informed = (1 to randomInt(5)).map(_ => person(forEnterprise))
+    val technologies = (1 to randomInt(5)).map(_ => language)
+    val theCapability = capability(forEnterprise)
+    val theBuildingBlock = buildingBlock(Some(theCapability))
+    val systems = (1 to randomInt(3)).map(_ =>
+      system(realizedBuildingBlock = Some(theBuildingBlock))
+    )
+
+    ea describes ItProjectMilestone(
+      title = title
+    ) as { it =>
+      it isPartOf forProject
+      (1 to randomInt(5)).foreach(_ => it has Description(description))
+      (1 to randomInt(5)).foreach(_ =>
+        it has CurrentState(description = description)
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has Assumption(description = description)
+      )
+      (1 to randomInt(5)).foreach(_ => it has Goal(description = description))
+      (1 to randomInt(5)).foreach(_ =>
+        it has Consequence(description = description)
+      )
+      (1 to randomInt(4)).foreach(_ => it has Website(url = url, title = name))
+      (1 to randomInt(3)).foreach(_ => it has Wiki(url = url, title = name))
+      val functionalRequirements = (1 to randomInt(5)).map(_ =>
+        it has FunctionalRequirement(title = title, description = description)
+      )
+      val qar = (1 to randomInt(5)).map(_ =>
+        it has QualityAttributeRequirement(
+          title = title,
+          sourceOfStimulus = name,
+          stimulus = description,
+          environment = title,
+          response = description,
+          responseMeasure = title
+        )
+      )
+
+      val constraints = (1 to randomInt(5)).map(_ =>
+        it has Constraint(title = title, description = description)
+      )
+      (1 to randomInt(5)).foreach(_ => it has Website(title = title, url = url))
+      it dealsWith PrivacyCompliance(description)
+      it dealsWith PCICompliance(description)
+      it dealsWith HealthDataCompliance(description)
+      it has HighImpact on Confidentiality(description = description)
+      it has MediumImpact on Integrity(description = description)
+      it has LowImpact on Availability(description = description)
+
+      stakeholders.foreach(them => it hasStakeholder them)
+      responsible.foreach(them => it isResponsibilityOf them)
+      accountable.foreach(them => it isAccountabilityOf them)
+      consulted.foreach(them => it hasConsulted them)
+      informed.foreach(them => it hasInformed them)
+
+      technologies.foreach(t => it changes t)
+      it creates theCapability
+      it keeps theBuildingBlock
+      systems.foreach(s => it changes s)
+    }
+  }
 
   def decision(
       forEnterprise: Option[Enterprise] = None,
