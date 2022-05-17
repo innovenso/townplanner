@@ -36,7 +36,8 @@ object DocumentSpecificationWriter {
           view = fullTownPlanView,
           latexSourceCode = FullTownPlan(townPlan, fullTownPlanView).body,
           latexLibraries = List(KaoBookLibrary),
-          outputType = Book
+          outputType = Book,
+          relatedModelComponents = fullTownPlanView.enterprise.toList
         )
       )
     case technologyRadar: CompiledTechnologyRadar =>
@@ -46,7 +47,8 @@ object DocumentSpecificationWriter {
           latexSourceCode =
             TechnologyRadarDocument(townPlan, technologyRadar).body,
           latexLibraries = List(KaoBookLibrary),
-          outputType = Book
+          outputType = Book,
+          relatedModelComponents = technologyRadar.enterprises
         )
       )
     case adr: CompiledArchitectureDecisionRecord =>
@@ -60,7 +62,8 @@ object DocumentSpecificationWriter {
             adr
           ).body,
           latexLibraries = List(KaoBookLibrary),
-          outputType = Book
+          outputType = Book,
+          relatedModelComponents = adr.enterprises
         )
       )
     case _ => Nil

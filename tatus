@@ -1,0 +1,129 @@
+[1mdiff --git a/io-latex-common/src/main/scala/com/innovenso/townplanner/io/latex/LatexPdfWriter.scala b/io-latex-common/src/main/scala/com/innovenso/townplanner/io/latex/LatexPdfWriter.scala[m
+[1mindex ab94337..434cc8a 100644[m
+[1m--- a/io-latex-common/src/main/scala/com/innovenso/townplanner/io/latex/LatexPdfWriter.scala[m
+[1m+++ b/io-latex-common/src/main/scala/com/innovenso/townplanner/io/latex/LatexPdfWriter.scala[m
+[36m@@ -120,5 +120,5 @@[m [mcase class LatexPdfWriter([m
+ private class OutputLogger(stream: InputStream) extends Runnable {[m
+   override def run(): Unit = new BufferedReader([m
+     new InputStreamReader(stream)[m
+[31m-  ).lines.forEach(it => println(it))[m
+[32m+[m[32m  ).lines.forEach(it => print("."))[m
+ }[m
+[1mdiff --git a/io-latex-common/src/main/twirl/Chapter.scala.txt b/io-latex-common/src/main/twirl/Chapter.scala.txt[m
+[1mindex e72249e..bd93ed2 100644[m
+[1m--- a/io-latex-common/src/main/twirl/Chapter.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/Chapter.scala.txt[m
+[36m@@ -1,7 +1,8 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+[31m-    @Command(name = if(numbered) "chapter" else "chapter*", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = if(numbered) "chapter" else "chapter*", requiredParameters = List(title)) @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @content[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/io-latex-common/src/main/twirl/CommonSettings.scala.txt b/io-latex-common/src/main/twirl/CommonSettings.scala.txt[m
+[1mindex 03f028e..b7648a5 100644[m
+[1m--- a/io-latex-common/src/main/twirl/CommonSettings.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/CommonSettings.scala.txt[m
+[36m@@ -20,6 +20,7 @@[m
+ @UsePackage(name = "tikzpeople")[m
+ @UsePackage(name = "pgfplots")[m
+ @UsePackage(name = "hyperref")[m
+[32m+[m[32m@UsePackage(name = "bookmark")[m
+ @UsePackage(name = "pgfbaselayers")[m
+ @UsePackage(name = "mathpazo")[m
+ @UsePackage(name = "tcolorbox", parameters = Some("most"))[m
+[1mdiff --git a/io-latex-common/src/main/twirl/Paragraph.scala.txt b/io-latex-common/src/main/twirl/Paragraph.scala.txt[m
+[1mindex 84120fb..730ab76 100644[m
+[1m--- a/io-latex-common/src/main/twirl/Paragraph.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/Paragraph.scala.txt[m
+[36m@@ -1,7 +1,8 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+[31m-    @Command(name = if(numbered) "paragraph" else "paragraph*", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = if(numbered) "paragraph" else "paragraph*", requiredParameters = List(title))  @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @content[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/io-latex-common/src/main/twirl/Part.scala.txt b/io-latex-common/src/main/twirl/Part.scala.txt[m
+[1mindex 04acddc..4f8029c 100644[m
+[1m--- a/io-latex-common/src/main/twirl/Part.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/Part.scala.txt[m
+[36m@@ -1,11 +1,12 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, forBook: Boolean = false, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+     @if(forBook) {[m
+         @Command(name = "pagelayout", requiredParameters = List("wide"))[m
+     }[m
+[31m-    @Command(name = "part", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = "part", requiredParameters = List(title)) @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @if(forBook) {[m
+         @Command(name = "pagelayout", requiredParameters = List("margin"))[m
+     }[m
+[1mdiff --git a/io-latex-common/src/main/twirl/Section.scala.txt b/io-latex-common/src/main/twirl/Section.scala.txt[m
+[1mindex 5281b26..ab18fa4 100644[m
+[1m--- a/io-latex-common/src/main/twirl/Section.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/Section.scala.txt[m
+[36m@@ -1,7 +1,8 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+[31m-    @Command(name = if(numbered) "section" else "section*", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = if(numbered) "section" else "section*", requiredParameters = List(title))  @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @content[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/io-latex-common/src/main/twirl/SubParagraph.scala.txt b/io-latex-common/src/main/twirl/SubParagraph.scala.txt[m
+[1mindex 0dfb592..6b1802e 100644[m
+[1m--- a/io-latex-common/src/main/twirl/SubParagraph.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/SubParagraph.scala.txt[m
+[36m@@ -1,7 +1,8 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+[31m-    @Command(name = if(numbered) "subparagraph" else "subparagraph*", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = if(numbered) "subparagraph" else "subparagraph*", requiredParameters = List(title))  @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @content[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/io-latex-common/src/main/twirl/SubSection.scala.txt b/io-latex-common/src/main/twirl/SubSection.scala.txt[m
+[1mindex ab32a96..a94ff2b 100644[m
+[1m--- a/io-latex-common/src/main/twirl/SubSection.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/SubSection.scala.txt[m
+[36m@@ -1,7 +1,8 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+[31m-    @Command(name = if (numbered) "subsection" else "subsection*", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = if (numbered) "subsection" else "subsection*", requiredParameters = List(title))  @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @content[m
+ }[m
+[1mdiff --git a/io-latex-common/src/main/twirl/SubSubSection.scala.txt b/io-latex-common/src/main/twirl/SubSubSection.scala.txt[m
+[1mindex f080f65..9b265ec 100644[m
+[1m--- a/io-latex-common/src/main/twirl/SubSubSection.scala.txt[m
+[1m+++ b/io-latex-common/src/main/twirl/SubSubSection.scala.txt[m
+[36m@@ -1,7 +1,8 @@[m
+ @import txt.Environment[m
+ @import txt.Command[m
+[32m+[m[32m@import com.innovenso.townplanner.model.meta.Key[m
+ @(title: String, numbered: Boolean = true, condition: Boolean = true)(content: Txt)[m
+ @if(condition) {[m
+[31m-    @Command(name = if (numbered) "subsubsection" else "subsubsection*", requiredParameters = List(title))[m
+[32m+[m[32m    @Command(name = if (numbered) "subsubsection" else "subsubsection*", requiredParameters = List(title))  @Command(name = "label", requiredParameters = List(Key().camelCased))[m
+     @content[m
+ }[m

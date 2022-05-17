@@ -1,0 +1,24 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.Svg
+@import com.innovenso.townplanner.io.context.Diagram
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.io.model.NavigationContext
+@import com.innovenso.townplan.io.context.Pdf
+@(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
+@defining(outputContext.outputs(ofFileType = Some(Pdf), forModelComponents = List(element))) { outputs =>
+  @if(outputs.nonEmpty) {
+    <details>
+      <summary>Documents</summary>
+      <ul>
+      @for(output <- outputs) {
+        <li>
+          <a href="@navigationContext.relativePathToStaticAsset(output)" title="@output.view.title">@output.view.title</a>
+        </li>
+      }
+      </ul>
+    </details>
+  }
+}
+
