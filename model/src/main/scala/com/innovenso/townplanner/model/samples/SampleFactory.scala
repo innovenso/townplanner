@@ -260,6 +260,24 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       tags.foreach(tag => it isTagged tag)
     }
 
+  def capabilityHierarchy(
+      servedEnterprise: Option[Enterprise] = None,
+      parentCapability: Option[BusinessCapability] = None,
+      maxLevel: Int = 0,
+      currentLevel: Int = 0
+  ): List[BusinessCapability] = if (currentLevel > maxLevel) Nil
+  else
+    (1 to randomInt(5)).toList.flatMap(it => {
+      val cap = ea describes BusinessCapability(title =
+        s"${parentCapability.map(_.title).getOrElse("")}${it}"
+      ) as { it =>
+        it has Description(description)
+        if (servedEnterprise.isDefined) it serves servedEnterprise.get
+        if (parentCapability.isDefined) it serves parentCapability.get
+      }
+      cap :: capabilityHierarchy(None, Some(cap), maxLevel, currentLevel + 1)
+    })
+
   def buildingBlock(
       realizedCapability: Option[BusinessCapability] = None
   ): ArchitectureBuildingBlock =

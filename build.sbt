@@ -77,6 +77,16 @@ lazy val ioDiagrams = project
     libraryDependencies += scalaLogging
   )
   .enablePlugins(SbtTwirl)
+lazy val ioOpenExchange = project
+  .in(file("io-openexchange"))
+  .dependsOn(model, ioCore)
+  .settings(
+    name := "innovenso-townplanner-io-diagram",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem,
+    libraryDependencies += scalaXml
+  )
 lazy val ioLatexCommon = project
   .in(file("io-latex-common"))
   .dependsOn(model, ioCore, ioDiagrams)
@@ -129,7 +139,8 @@ lazy val application = project
     ioWebsite,
     ioLatexCommon,
     ioLatexPictures,
-    ioLatexDocument
+    ioLatexDocument,
+    ioOpenExchange
   )
   .settings(
     name := "innovenso-townplanner-application",
@@ -169,6 +180,7 @@ val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2021.16"
 val json = "net.liftweb" %% "lift-json" % "3.5.0"
 val commonsCodec = "commons-codec" % "commons-codec" % "1.15"
 val laikaPdf = "org.planet42" %% "laika-pdf" % "0.18.2"
+val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 
 val montserratURL = "https://fonts.googleapis.com/css?family=Montserrat"
 

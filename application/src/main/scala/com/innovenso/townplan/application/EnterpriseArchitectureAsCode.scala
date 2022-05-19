@@ -4,6 +4,7 @@ import com.innovenso.townplan.io.context.OutputContext
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.latex.document.TownPlanDocumentWriter
 import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
+import com.innovenso.townplanner.io.openexchange.TownPlanOpenExchangeWriter
 import com.innovenso.townplanner.io.{
   TownPlanDiagramWriter,
   TownPlanWebsiteWriter
@@ -25,6 +26,10 @@ trait EnterpriseArchitectureAsCode extends App {
     TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
   val websiteWriter: TownPlanWebsiteWriter =
     TownPlanWebsiteWriter()
+
+  val openExchangeWriter: TownPlanOpenExchangeWriter =
+    TownPlanOpenExchangeWriter()
+
   val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
     assetRepository
   )
@@ -45,6 +50,9 @@ trait EnterpriseArchitectureAsCode extends App {
 
   def website()(implicit outputContext: OutputContext): Unit =
     this.outputContext = websiteWriter.write()(townPlan, outputContext)
+
+  def archimate()(implicit outputContext: OutputContext): Unit =
+    this.outputContext = openExchangeWriter.write()(townPlan, outputContext)
 
   def documents()(implicit outputContext: OutputContext): Unit = {
     this.outputContext = townPlanPictureWriter.write(townPlan, outputContext)

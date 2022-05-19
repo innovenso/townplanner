@@ -5,6 +5,8 @@ import com.innovenso.townplanner.model.concepts.relationships._
 import com.innovenso.townplanner.model.language.{Element, HasModelComponents}
 import com.innovenso.townplanner.model.meta._
 
+import scala.annotation.tailrec
+
 case class BusinessCapability(
     key: Key = Key(),
     sortKey: SortKey = SortKey.next,
@@ -55,7 +57,9 @@ trait HasBusinessCapabilities
     enterprise,
     classOf[Serving],
     classOf[BusinessCapability]
-  ).sortWith(_.sortKey < _.sortKey)
+  ).filter(cap => parentBusinessCapability(cap).isEmpty)
+    .sortWith(_.sortKey < _.sortKey)
+
   def parentBusinessCapability(
       businessCapability: BusinessCapability
   ): Option[BusinessCapability] = directOutgoingDependencies(
@@ -79,26 +83,44 @@ trait HasBusinessCapabilities
     classOf[BusinessCapability]
   ).sortWith(_.sortKey < _.sortKey)
 
-  def businessCapabilityMap(enterprise: Enterprise): List[BusinessCapability] =
-    level0businessCapabilities(enterprise).flatMap(capability =>
-      traverseBusinessCapabilities(capability)
-    )
+  def businessCapabilityMap(
+      enterprise: Enterprise
+  ): List[BusinessCapability] = {
+    val level0 = level0businessCapabilities(enterprise)
+    children(level0)
+  }
+
+  private def parents(capability: BusinessCapability): Set[BusinessCapability] =
+    directOutgoingDependencies(
+      capability,
+      classOf[Serving],
+      classOf[BusinessCapability]
+    ).toSet
+
+  private def containsParent(
+      capability: BusinessCapability,
+      listToScan: List[BusinessCapability]
+  ) = {
+    val p = parents(capability)
+    listToScan.exists(p)
+  }
+
+  @tailrec
+  private def children(
+      capabilities: List[BusinessCapability]
+  ): List[BusinessCapability] = {
+    val c = businessCapabilities
+      .filterNot(capabilities.toSet)
+      .filter(cap => containsParent(cap, capabilities))
+    if (c.isEmpty) capabilities else children(capabilities ::: c)
+  }
 
   def businessCapabilityHierarchy(
       businessCapability: BusinessCapability
   ): Set[BusinessCapability] =
     (businessCapabilityParentHierarchy(
       businessCapability
-    ) ++ traverseBusinessCapabilities(
-      businessCapability
-    )).toSet
-
-  private def traverseBusinessCapabilities(
-      businessCapability: BusinessCapability
-  ): LazyList[BusinessCapability] =
-    businessCapability #:: (childBusinessCapabilities(
-      businessCapability
-    ) map traverseBusinessCapabilities).fold(LazyList.empty)(_ ++ _)
+    ) ++ children(List(businessCapability))).toSet
 
   def businessCapabilityParentHierarchy(
       businessCapability: BusinessCapability
