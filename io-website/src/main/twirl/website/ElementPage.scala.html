@@ -37,6 +37,7 @@
 @import website.html.PeopleSection
 @import website.html.TeamSection
 @import website.html.DocumentSection
+@import website.html.ExportSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -68,6 +69,7 @@
             @ResilienceMeasureSection(element)
             @DiagramSection(element, navigationContext, townPlan, outputContext)
             @DocumentSection(element, navigationContext, townPlan, outputContext)
+            @ExportSection(element, navigationContext, townPlan, outputContext)
             @BusinessCapabilitySection(element, navigationContext, townPlan)
             @ArchitectureBuildingBlockSection(element, navigationContext, townPlan)
             @ItPlatformSection(element, navigationContext, townPlan)

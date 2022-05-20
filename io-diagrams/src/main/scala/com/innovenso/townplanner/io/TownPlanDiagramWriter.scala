@@ -5,14 +5,13 @@ import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
-import com.typesafe.scalalogging.LazyLogging
 
 import java.nio.file.Path
 
 case class TownPlanDiagramWriter(
     targetBasePath: Path,
     assetRepository: AssetRepository
-) extends LazyLogging {
+) {
 
   def write(townPlan: TownPlan, outputContext: OutputContext): OutputContext =
     outputContext.withOutputs(

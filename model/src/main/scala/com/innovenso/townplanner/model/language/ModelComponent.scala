@@ -40,6 +40,7 @@ trait HasModelComponents {
       .filter(modelComponent => is(modelComponent, shouldBeOfClass))
       .map(modelComponent => as(modelComponent, shouldBeOfClass))
       .toList
+      .distinct
       .sortWith(_.sortKey < _.sortKey)
 }
 

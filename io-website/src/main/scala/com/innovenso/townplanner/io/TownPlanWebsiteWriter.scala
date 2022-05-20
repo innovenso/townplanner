@@ -9,7 +9,8 @@ import com.innovenso.townplan.io.context.{
   Pdf,
   Png,
   Success,
-  Svg
+  Svg,
+  Xml
 }
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.io.context.{Diagram, WebPage}
@@ -64,6 +65,7 @@ case class TownPlanWebsiteWriter()(implicit assetRepository: AssetRepository) {
     outputContext.outputsOfFileType(Png).foreach(copyStaticFile)
     outputContext.outputsOfFileType(Svg).foreach(copyStaticFile)
     outputContext.outputsOfFileType(Pdf).foreach(copyStaticFile)
+    outputContext.outputsOfFileType(Xml).foreach(copyStaticFile)
   }
 
   def stylesAndImages(): Unit = {

@@ -18,6 +18,8 @@ class TownPlanOpenExchangeWriterSpec extends AnyFlatSpec with GivenWhenThen {
     val enterprise: Enterprise = samples.enterprise
     val cap: BusinessCapability = samples.capability(Some(enterprise))
     val cap2: BusinessCapability = samples.capability(Some(enterprise))
+    val capmap: List[BusinessCapability] =
+      samples.capabilityHierarchy(Some(enterprise), maxLevel = 3)
     val abb: ArchitectureBuildingBlock = samples.buildingBlock(Some(cap))
     val platform: ItPlatform = samples.platform(Some(abb))
     val system: ItSystem = samples.system(containingPlatform = Some(platform))

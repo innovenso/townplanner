@@ -73,8 +73,7 @@ lazy val ioDiagrams = project
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest,
     libraryDependencies += lorem,
-    libraryDependencies += plantUml,
-    libraryDependencies += scalaLogging
+    libraryDependencies += plantUml
   )
   .enablePlugins(SbtTwirl)
 lazy val ioOpenExchange = project
@@ -145,7 +144,8 @@ lazy val application = project
   .settings(
     name := "innovenso-townplanner-application",
     libraryDependencies += scalactic,
-    libraryDependencies += scalaTest
+    libraryDependencies += scalaTest,
+    libraryDependencies += plantUml
   )
 lazy val sample = project
   .in(file("sample"))
@@ -172,11 +172,10 @@ lazy val root = project
 
 val scalactic = "org.scalactic" %% "scalactic" % "3.2.12"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.2.12" % "test"
-val scalaLogging = "com.typesafe.scala-logging" %% "scala-logging" % "3.9.4"
 val commonsText = "org.apache.commons" % "commons-text" % "1.9"
 val lorem = "com.thedeanda" % "lorem" % "2.1"
 val commonsIo = "commons-io" % "commons-io" % "2.11.0"
-val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2021.16"
+val plantUml = "net.sourceforge.plantuml" % "plantuml" % "1.2022.5"
 val json = "net.liftweb" %% "lift-json" % "3.5.0"
 val commonsCodec = "commons-codec" % "commons-codec" % "1.15"
 val laikaPdf = "org.planet42" %% "laika-pdf" % "0.18.2"

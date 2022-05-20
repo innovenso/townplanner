@@ -16,7 +16,7 @@ import com.innovenso.townplanner.model.concepts.views.{
   SingleElementView
 }
 import com.innovenso.townplanner.model.language.Element
-import com.innovenso.townplanner.model.meta.Today
+import com.innovenso.townplanner.model.meta.{Key, Layer, Today}
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -29,6 +29,24 @@ case class TownPlanOpenExchangeExport(
     townPlan: TownPlan
 )(implicit assetRepository: AssetRepository) {
 
+  val elementMappings: Map[Key, ElementOpenExchangeMapping] = townPlan
+    .components(classOf[Element])
+    .map(ElementOpenExchangeMapping)
+    .filter(_.xml.isDefined)
+    .map(m => (m.element.key, m))
+    .toMap
+  val relationshipMappings: Map[Key, RelationshipOpenExchangeMapping] =
+    townPlan.relationships
+      .filter(r => r.participants.forall(p => elementMappings.contains(p)))
+      .map(RelationshipOpenExchangeMapping)
+      .filter(_.xml.isDefined)
+      .map(m => (m.relationship.key, m))
+      .toMap
+  def layerElementMappings(layer: Layer): Map[Key, ElementOpenExchangeMapping] =
+    elementMappings.filter(_._2.element.layer.equals(layer))
+  val layers: Map[Layer, Map[Key, ElementOpenExchangeMapping]] =
+    Layer.values.map(layer => (layer, layerElementMappings(layer))).toMap
+
   val xml: Elem =
     <model xmlns="http://www.opengroup.org/xsd/archimate/3.0/"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -40,15 +58,27 @@ case class TownPlanOpenExchangeExport(
 
       <elements>
         {
-      for (
-        element <- townPlan
-          .components(classOf[Element])
-          .map(ElementOpenExchangeMapping)
-          .filter(_.xml.isDefined)
-          .map(_.xml.get)
-      ) yield element
+      for (element <- elementMappings.values.map(_.xml.get)) yield element
     }
       </elements>
+      <relationships>
+      {
+      for (
+        relationship <- relationshipMappings.values
+          .map(_.xml.get)
+      ) yield relationship
+    }
+      </relationships>
+      <organizations>
+        {
+      for (
+        layerItem <- layers
+          .map(t => LayerOrganisationOpenExchangeMapping(t._1, t._2))
+          .map(_.xml)
+      )
+        yield layerItem
+    }
+      </organizations>
     </model>
 
   val file: File = {
