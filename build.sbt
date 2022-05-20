@@ -11,7 +11,7 @@ import sbt.Keys.libraryDependencies
 
 import java.time.Instant
 
-val townplannerVersion = "1.18.0"
+val townplannerVersion = "1.18.1"
 ThisBuild / organization := "com.innovenso.townplanner"
 ThisBuild / organizationName := "Innovenso"
 ThisBuild / organizationHomepage := Some(url("https://innovenso.com"))
@@ -80,7 +80,7 @@ lazy val ioOpenExchange = project
   .in(file("io-openexchange"))
   .dependsOn(model, ioCore)
   .settings(
-    name := "innovenso-townplanner-io-diagram",
+    name := "innovenso-townplanner-io-openexchange",
     libraryDependencies += scalactic,
     libraryDependencies += scalaTest,
     libraryDependencies += lorem,
@@ -144,8 +144,7 @@ lazy val application = project
   .settings(
     name := "innovenso-townplanner-application",
     libraryDependencies += scalactic,
-    libraryDependencies += scalaTest,
-    libraryDependencies += plantUml
+    libraryDependencies += scalaTest
   )
 lazy val sample = project
   .in(file("sample"))
