@@ -2,7 +2,7 @@ import laika.ast.Image
 import laika.ast.LengthUnit.px
 import laika.ast.Path.Root
 import laika.helium.Helium
-import laika.helium.config.{Favicon, Teaser, TextLink}
+import laika.helium.config.{Favicon, ReleaseInfo, Teaser, TextLink}
 import laika.markdown.github.GitHubFlavor
 import laika.parse.code.SyntaxHighlighting
 import laika.rewrite.nav.CoverImage
@@ -205,9 +205,12 @@ val theme = Helium.defaults.all
     title = Some("Innovenso Townplanner"),
     subtitle = Some("Enterprise Architecture as Code"),
     license = Some("GPL v3"),
+    latestReleases =
+      List(ReleaseInfo("Latest Release", s"${townplannerVersion}")),
     documentationLinks = Seq(
       TextLink.internal(Root / "about.md", "About the project"),
       TextLink.internal(Root / "usage.md", "Getting Started"),
+      TextLink.internal(Root / "c4model.md", "C4 Model using Townplanner DSL"),
       TextLink.internal(Root / "concepts.md", "Core Concepts"),
       TextLink.internal(Root / "concepts.md", "Roadmap")
     ),

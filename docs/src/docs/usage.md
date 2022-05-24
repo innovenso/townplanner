@@ -18,84 +18,33 @@ You need the following software installed on your computer to use the Townplanne
 
 ## Project setup
 
-### Directory structure
+### Using the Giter8 Townplanner template
 
-Create a directory for your town plan project:
+SBT gives us the ability to create projects from templates, using [Giter8](http://www.foundweekends.org/giter8/index.html).
 
-    mkdir wayne-enterprises-townplan
-    cd wayne-enterprises-townplan
-    mkdir -p src/main/scala/com/wayneenterprises/townplan
+To create a new townplan project, in a terminal window, just type the following command:
 
-### Build configuration
+    sbt new innovenso/townplanner.g8
 
-Now we create a `build.sbt` file in the root directory of the project:
+This will launch the template script, asking for a few arguments:
 
-```scala
-ThisBuild / organization := "com.wayneenterprises.architecture"
-ThisBuild / version := "1.0.0"
-ThisBuild / scalaVersion := "2.13.8"
-ThisBuild / resolvers += Resolver.mavenLocal
+    name [Acme Inc. Town Plan]: Wayne Enterprises
+    version [1.0.0]: 1.0.0
+    package [com.acme.architecture]: com.wayneenterprises.townplan
+    classname [Acme]: WayneEnterprisesTownPlan
+    organization [com.acme.architecture]: com.wayneenterprises.architecture
 
-lazy val townplan = project
-    .in(file("."))
-    .settings(
-        name := "wayneenterprises-townplan",
-        libraryDependencies += "com.innovenso.townplanner" % "innovenso-townplanner-application_2.13" % "1.14.0"
-    )
-```
-
-Next we create the SBT config file, `build.properties`, in the `project` directory of the project.
-
-```
-sbt.version=1.6.2
-```
-
-### Setting up the town plan
-
-The town plan is basically a command-line application, written in scala, where you define the elements and relationships using a domain-specific language. We therefore need to start with a Hello World.
-
-Let's create the main entry point for our town plan in `src/main/scala/com/wayneenterprises/townplan/WayneEnterprisesTownPlan.scala`:
-
-```scala
-package com.wayneenterprises.townplan
-
-...
-
-object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
-    println("Hello World, this is the Wayne Enterprises Town Plan")   
-
-    diagrams()
-}
-```
-
-When we run this application with `sbt run` on the command line, the Hello World message will be shown in the console, and nothing else will happen, because we haven't added anything yet.
-
-Now when we want to add concepts to the town plan, we put them between line 6 and 8. But unless the town plan is very small, we should divide it into classes.
+This creates a directory `wayne-enterprises`, with a build file called `build.sbt`, a main entry point
+in `src/main/scala/com/wayneenterprises/townplan/WayneEnterprisesTownPlan.scala`, and 2 placeholders for enterprises and views.
 
 ## The Town Plan
 
-### Hello world
-
-We're good to go! Let's add the enterprise itself, which is an element in the town plan:
-
-```scala
-val wayneCorp: Enterprise =
-    ea describes Enterprise(title = "Wayne Enterprises") as { it =>
-        it has Description("Wayne Enterprises, Inc., also known as WayneCorp is a fictional company appearing in American comic books published by DC Comics, commonly in association with the superhero Batman. Wayne Enterprises is a large, growing multinational company.")
-}
-
-ea needs BusinessCapabilityMap(forEnterprise = enterprises.wayneCorp)
-ea needs FullTownPlanView(forEnterprise = enterprises.wayneCorp)
-```
-As you can see, the enterprise Wayne Enterprises is described as an *element* in the town plan, with a title and a description. In order to have some output, we need some views. For enterprises,
-we can request a Business Capability Map and a Full Town Plan.
-
-Let's render and see what we get! On the command line, type the following command: 
+Let's render and see what we get! On the command line, type the following command:
 
 ```
 sbt run
 ```
-This renders both the business capability map, as well as the full town plan to SVG, EPS and PNG, in the `output` directory.
+This renders the business capability map, the technology radar, as well as the full town plan to SVG, EPS and PNG, in the `output` directory.
 
 The `output` directory will now contain a subdirectory `assets`, which in turn has directories for Application and Strategy. The Townplanner uses
 the *layers* of Archimate to organize the outputs. 
@@ -114,55 +63,6 @@ as we are using the *physical facility* notation for the enterprise.
 
 When I started working on the Town Planner, I was inspired by [Structurizr and C4](https://structurizr.com/), because I really like the readability of a C4 container diagram. So let's create a model to demonstrate the C4 Container diagram,
 and add a few extras on top.
-
-First, let's divide the town plan definition into manageable chunks, using classes.
-
-We put the enterprise in its own class, `com.wayneenterprises.townplan.strategy.Enterprises`:
-
-```scala
-package com.wayneenterprises.townplan.strategy
-
-...
-
-case class Enterprises()(implicit ea: EnterpriseArchitecture) {
-    val wayneCorp: Enterprise =
-        ea describes Enterprise(title = "Wayne Enterprises") as { it =>
-            it has Description(
-                "Wayne Enterprises, Inc., also known as WayneCorp is a fictional company appearing in American comic books published by DC Comics, commonly in association with the superhero Batman. Wayne Enterprises is a large, growing multinational company."
-            )
-        }
-}
-```
-
-We also put the Views in a class, `com.wayneenterprises.townplan.views.Views`:
-    
-```scala
-package com.wayneenterprises.townplan.views
-
-...
-
-case class Views()(implicit ea: EnterpriseArchitecture, enterprises: Enterprises) {
-    ea needs BusinessCapabilityMap(forEnterprise = enterprises.wayneCorp)
-    ea needs FullTownPlanView(forEnterprise = enterprises.wayneCorp)
-}
-```
-
-Now the main class looks like this:
-
-```scala
-package com.wayneenterprises.townplan
-
-...
-
-object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
-    println("Hello World, this is the Wayne Enterprises Town Plan")   
-    implicit val enterprises: Enterprises = Enterprises()
-
-    val views: Views = Views()
-
-    diagrams
-}
-```
 
 Let's add some business capabilities, in `com.wayneenterprises.townplan.strategy.BusinessCapabilities`:
 

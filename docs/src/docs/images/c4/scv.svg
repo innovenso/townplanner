@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="992px" preserveAspectRatio="none" style="width:1181px;height:992px;background:#FFFFFF;" version="1.1" viewBox="0 0 1181 992" width="1181px" zoomAndPan="magnify"><defs/><g><!--MD5=[0a017eaf7ec86c16250730dbf9cd0acb]
+cluster e74f5438_ed2a_4a89_9461_e54cd8ec65cc--><g id="cluster_e74f5438_ed2a_4a89_9461_e54cd8ec65cc"><rect height="853" rx="2.5" ry="2.5" style="stroke:#444444;stroke-width:1.0;fill:none;stroke-dasharray:7.0,7.0;" width="599" x="7" y="133"/><image height="16" width="16" x="586" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYUlEQVR4Xs2QMQrAMAzE8v//5H0uHgJGh0qWQg+0mNMNXuuj1CWa2lWvdCckg7IOsHSKvOmAQdkGZkIg3QnJoKwDLJ0ibzpgULaBmRBIdyjNhEC6Q2kmBNIdSjPxB+EHeQBmQWts/gRraQAAAABJRU5ErkJggg==" y="138"/><text fill="#444444" font-family="sans-serif" font-size="16" font-weight="bold" lengthAdjust="spacing" textLength="222" x="195.5" y="164.8516">Internet Banking System</text></g><!--MD5=[7ac6c80aa4f99f42af3a5b2f2efb084e]
+entity 824bed7e_a1bd_4f9e_a5f3_c7b497544c0e--><g id="elem_824bed7e_a1bd_4f9e_a5f3_c7b497544c0e"><rect fill="#B0C4DE" height="125.7969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="261" x="309.5" y="844"/><image height="16" width="16" x="545.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="854"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="407" y="881.9951">Database</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="438" y="898.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="241" x="319.5" y="912.7324">[database:  Oracle Database Schema]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="438" y="928.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="329.5" y="944.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="214" x="333.5" y="945.7979">Stores user registration information, hashed</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="208" x="336" y="957.4385">authentication credentials, access logs, etc.</text></g><!--MD5=[fe268615e42e6ee40b1b9fb1a9e67388]
+entity a6f41645_5498_464b_8c5c_5d50fc28bc1d--><g id="elem_a6f41645_5498_464b_8c5c_5d50fc28bc1d"><rect fill="#B0C4DE" height="125.7969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="239" x="339.5" y="629"/><image height="16" width="16" x="553.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="639"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="409" y="666.9951">API Application</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="457" y="683.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="199" x="359.5" y="697.7324">[microservice:  Java,Spring MVC]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="457" y="713.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="349.5" y="729.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="212" x="353.5" y="730.7979">Provides Internet banking functionality via a</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="77" x="420.5" y="742.4385">JSON/HTTP API.</text></g><!--MD5=[11d151dda83e617b9d626f26fadfd63f]
+entity 3be50c18_36bd_4e1f_ad5c_6e33267117b9--><g id="elem_3be50c18_36bd_4e1f_ad5c_6e33267117b9"><rect fill="#B0C4DE" height="125.7969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="236" x="23" y="185"/><image height="16" width="16" x="234" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="195"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110" x="86" y="222.9951">Web Application</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="139" y="239.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="162" x="60" y="253.7324">[web UI:  Java,Spring MVC]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="139" y="269.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="33" y="285.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="209" x="37" y="286.7979">Delivers the static content and the Internet</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="151" x="65.5" y="298.4385">banking single page application.</text></g><!--MD5=[13b4931125b9f85a033773cb088f355d]
+entity a3f32a3a_ab91_461d_b2f8_0998e193b153--><g id="elem_a3f32a3a_ab91_461d_b2f8_0998e193b153"><rect fill="#B0C4DE" height="125.7969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="270" x="23" y="414"/><image height="16" width="16" x="268" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="424"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="161" x="77.5" y="451.9951">Single-Page Application</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="156" y="468.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="176" x="70" y="482.7324">[web UI:  JavaScript,Angular]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="156" y="498.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="33" y="514.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="243" x="37" y="515.7979">Provides all of the internet banking functionality to</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="158" x="79" y="527.4385">customers via their web browser</text></g><!--MD5=[1c09ea24f232e228973b5617a06f77ed]
+entity 2927eb0c_22bd_4310_ad51_50f9ca96d12e--><g id="elem_2927eb0c_22bd_4310_ad51_50f9ca96d12e"><rect fill="#B0C4DE" height="125.7969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="262" x="328" y="414"/><image height="16" width="16" x="565" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="424"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="76" x="421" y="451.9951">Mobile App</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="457" y="468.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="129" x="394.5" y="482.7324">[mobile UI:  Xamarin]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="457" y="498.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="338" y="514.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="235" x="342" y="515.7979">Provides a limited subset of the Internet banking</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="240" x="339" y="527.4385">functionality to customers via their mobile device.</text></g><!--MD5=[efcc58ccb783bef5a056c35f7ec54bfe]
+entity 261f5491_dfbe_44ce_b3de_fbaa055e62a8--><g id="elem_261f5491_dfbe_44ce_b3de_fbaa055e62a8"><rect fill="#C2F0FF" height="125.7969" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="261" x="622.5" y="844"/><image height="16" width="16" x="858.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="854"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="664" y="881.9951">Mainframe Banking System</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="751" y="898.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="54" x="726" y="912.7324">[system]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="751" y="928.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="632.5" y="944.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="231" x="639.5" y="945.7979">Stores all of the core banking information about</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="189" x="658.5" y="957.4385">customers, accounts, transactions, etc.</text></g><!--MD5=[51cce8b9d59f72f2613077e5617a6408]
+entity 7afd80d0_413f_463a_85fd_93687674233f--><g id="elem_7afd80d0_413f_463a_85fd_93687674233f"><rect fill="#C2F0FF" height="114.1563" rx="2.5" ry="2.5" style="stroke:#000000;stroke-width:1.0;" width="257" x="918.5" y="850"/><image height="16" width="16" x="1150.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAU0lEQVR4XtWNQQoAIAzD9v//+D0nHgajGvUiaCGX0WZml1IPwdTi7it6ZxgROkaBlqKoNxQQOiZBznS0EwyfAx2jQEtR1BsKCB2TIGc6+kxwyANpzYhrKPLnjFMAAAAASUVORK5CYII=" y="860"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="1003" y="887.9951">E-mail System</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="1045" y="904.292"> </text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="54" x="1020" y="918.7324">[system]</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="1045" y="934.5576"> </text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="4" x="928.5" y="950.8545"> </text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="230" x="935.5" y="951.7979">The internal Microsoft Exchange e-mail system.</text></g><!--MD5=[5ec46555d7fd722ab62ea0e8f186d860]
+entity 70ad4579_ed85_425e_820f_45c00caa9821--><g id="elem_70ad4579_ed85_425e_820f_45c00caa9821"><rect fill="#FFFFCC" height="51.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="220" x="219" y="7"/><image height="16" width="16" x="414" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAT0lEQVR4XmNgwA3+IWGSwb///7f+h2EQH10BPoCimRxDBt4AEKAoDGCAoliAAbI0I9uMjkkGZGlCBgNrAMV+h2kk2RBsGrCJYQX4FGKVAwAsAHdHiTIgRwAAAABJRU5ErkJggg==" y="17"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="192" x="237" y="44.9951">Personal Banking Customer</text></g><!--MD5=[b3e883d5727e9ee3914141375dfb4e6a]
+link a6f41645_5498_464b_8c5c_5d50fc28bc1d to 824bed7e_a1bd_4f9e_a5f3_c7b497544c0e--><g id="link_a6f41645_5498_464b_8c5c_5d50fc28bc1d_824bed7e_a1bd_4f9e_a5f3_c7b497544c0e"><path d="M453.45,755.18 C451.21,780.33 448.61,809.5 446.29,835.44 " fill="none" id="a6f41645_5498_464b_8c5c_5d50fc28bc1d-to-824bed7e_a1bd_4f9e_a5f3_c7b497544c0e" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="445.55,843.74,449.2532,836.0403,443.2773,835.5038,445.55,843.74" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="140" x="455" y="797.1387">Reads from and writes</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="55" x="497.5" y="811.1074">to [JDBC]</text></g><!--MD5=[94f971ba1e768c76f25e5ed3667a7d77]
+link a6f41645_5498_464b_8c5c_5d50fc28bc1d to 261f5491_dfbe_44ce_b3de_fbaa055e62a8--><g id="link_a6f41645_5498_464b_8c5c_5d50fc28bc1d_261f5491_dfbe_44ce_b3de_fbaa055e62a8"><path d="M564.04,755.24 C579.02,764.87 594.06,774.96 608,785 C630.88,801.48 654.75,820.55 676.37,838.6 " fill="none" id="a6f41645_5498_464b_8c5c_5d50fc28bc1d-to-261f5491_dfbe_44ce_b3de_fbaa055e62a8" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="682.7,843.91,678.4901,836.4752,674.6395,841.0766,682.7,843.91" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="112" x="650" y="797.1387">Makes API calls to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="76" x="668" y="811.1074">[XML,HTTPS]</text></g><!--MD5=[4c9a52bf3a59ddac47248446ad1079e8]
+link a6f41645_5498_464b_8c5c_5d50fc28bc1d to 7afd80d0_413f_463a_85fd_93687674233f--><g id="link_a6f41645_5498_464b_8c5c_5d50fc28bc1d_7afd80d0_413f_463a_85fd_93687674233f"><path d="M578.78,723.76 C638.38,740.1 711.15,761.62 775,785 C824.18,803 877.04,825.71 922.96,846.58 " fill="none" id="a6f41645_5498_464b_8c5c_5d50fc28bc1d-to-7afd80d0_413f_463a_85fd_93687674233f" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="930.27,849.91,924.2446,843.8524,921.7472,849.308,930.27,849.91" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="118" x="848" y="797.1387">Sends e-mail using</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="43" x="885.5" y="811.1074">[SMTP]</text></g><!--MD5=[a11fdb04b69448551c866d599c0d49eb]
+link 3be50c18_36bd_4e1f_ad5c_6e33267117b9 to a3f32a3a_ab91_461d_b2f8_0998e193b153--><g id="link_3be50c18_36bd_4e1f_ad5c_6e33267117b9_a3f32a3a_ab91_461d_b2f8_0998e193b153"><path d="M145.65,311.03 C147.84,340.31 150.47,375.39 152.73,405.66 " fill="none" id="3be50c18_36bd_4e1f_ad5c_6e33267117b9-to-a3f32a3a_ab91_461d_b2f8_0998e193b153" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="153.33,413.65,155.7368,405.452,149.7528,405.8909,153.33,413.65" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="91" x="158.5" y="353.1387">Delivers to the</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="98" x="153" y="367.1074">customer's web</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="50" x="179" y="381.0762">browser</text></g><!--MD5=[4d278e8084920d9c2c2434bc22e63de5]
+link a3f32a3a_ab91_461d_b2f8_0998e193b153 to a6f41645_5498_464b_8c5c_5d50fc28bc1d--><g id="link_a3f32a3a_ab91_461d_b2f8_0998e193b153_a6f41645_5498_464b_8c5c_5d50fc28bc1d"><path d="M245.87,540.18 C283.19,566.59 326.76,597.42 364.75,624.3 " fill="none" id="a3f32a3a_ab91_461d_b2f8_0998e193b153-to-a6f41645_5498_464b_8c5c_5d50fc28bc1d" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="371.28,628.93,366.4889,621.8558,363.0187,626.7504,371.28,628.93" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="112" x="331" y="582.1387">Makes API calls to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="82" x="346" y="596.1074">[JSON,HTTPS]</text></g><!--MD5=[708e8fa2496eb47e396d958e69ed6c45]
+link 2927eb0c_22bd_4310_ad51_50f9ca96d12e to a6f41645_5498_464b_8c5c_5d50fc28bc1d--><g id="link_2927eb0c_22bd_4310_ad51_50f9ca96d12e_a6f41645_5498_464b_8c5c_5d50fc28bc1d"><path d="M459,540.18 C459,565.33 459,594.5 459,620.44 " fill="none" id="2927eb0c_22bd_4310_ad51_50f9ca96d12e-to-a6f41645_5498_464b_8c5c_5d50fc28bc1d" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="459,628.74,462,620.74,456,620.74,459,628.74" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="112" x="464" y="582.1387">Makes API calls to</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="82" x="479" y="596.1074">[JSON,HTTPS]</text></g><!--MD5=[01e76284b2d58e02b537b66dda3ee44a]
+link 70ad4579_ed85_425e_820f_45c00caa9821 to 3be50c18_36bd_4e1f_ad5c_6e33267117b9--><g id="link_70ad4579_ed85_425e_820f_45c00caa9821_3be50c18_36bd_4e1f_ad5c_6e33267117b9"><path d="M218.66,49.81 C196.69,57.95 175.85,70.04 161,88 C140.81,112.4 134.63,146.54 133.98,176.93 " fill="none" id="70ad4579_ed85_425e_820f_45c00caa9821-to-3be50c18_36bd_4e1f_ad5c_6e33267117b9" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="133.93,184.98,136.9728,176.9962,130.9729,176.964,133.93,184.98" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="132" x="166" y="100.1387">Visits bigbank.com/ib</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="87" x="188.5" y="114.1074">using [HTTPS]</text></g><!--MD5=[222914e6e2152aea02b4a6f050314eb2]
+link 70ad4579_ed85_425e_820f_45c00caa9821 to a3f32a3a_ab91_461d_b2f8_0998e193b153--><g id="link_70ad4579_ed85_425e_820f_45c00caa9821_a3f32a3a_ab91_461d_b2f8_0998e193b153"><path d="M329.82,58.33 C330.71,118.45 326.39,274.95 264,384 C259.23,392.34 253.41,400.3 246.98,407.79 " fill="none" id="70ad4579_ed85_425e_820f_45c00caa9821-to-a3f32a3a_ab91_461d_b2f8_0998e193b153" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="241.44,413.98,249.0095,410.0174,244.5375,406.0173,241.44,413.98" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90" x="353" y="238.6387">Views account</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="134" x="329" y="252.6074">balances, and makes</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="99" x="348.5" y="266.5762">payments using</text></g><!--MD5=[455b803c9af5a59b3f298f1bb15321d6]
+link 70ad4579_ed85_425e_820f_45c00caa9821 to 2927eb0c_22bd_4310_ad51_50f9ca96d12e--><g id="link_70ad4579_ed85_425e_820f_45c00caa9821_2927eb0c_22bd_4310_ad51_50f9ca96d12e"><path d="M397.68,58.02 C427.67,72.55 459.86,94.26 477,125 C525.59,212.16 504.75,331.21 483.36,405.83 " fill="none" id="70ad4579_ed85_425e_820f_45c00caa9821-to-2927eb0c_22bd_4310_ad51_50f9ca96d12e" style="stroke:#000000;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#000000" points="481.02,413.8,486.1444,406.9633,480.3855,405.2796,481.02,413.8" style="stroke:#000000;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="90" x="531" y="238.6387">Views account</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="134" x="507" y="252.6074">balances, and makes</text><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="99" x="526.5" y="266.5762">payments using</text></g><!--MD5=[30a68e39ce74e586c734cf6877b2a00f]
+@startuml
+' Archimate-PlantUML
+' Version 0.1
+' Url will come here...
+
+' Styling
+' ##################################
+!define TECHN_FONT_SIZE 12
+!define ELEMENT_FONT_COLOR #FFFFFF
+
+skinparam defaultTextAlignment center
+skinparam wrapWidth 400
+skinparam maxMessageSize 150
+skinparam StereotypeAlignment right
+
+skinparam Arrow {
+    Color #000000
+    FontColor #000000
+    FontSize 12
+}
+skinparam Folder<<grouping>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam Folder<<group>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BackgroundColor lightgrey
+}
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam node {
+  StereotypeAlignment right
+}
+skinparam cloud {
+  StereotypeAlignment right
+}
+skinparam frame {
+  StereotypeAlignment right
+}
+skinparam archimate {
+  StereotypeAlignment right
+  RoundCorner<<strategy-capability>> 25
+  RoundCorner<<strategy-course-of-action>> 25
+  RoundCorner<<strategy-value-stream>> 25
+  RoundCorner<<business-process>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-function>> 25
+  RoundCorner<<business-interaction>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-service>> 25
+  RoundCorner<<application-function>> 25
+  RoundCorner<<application-interaction>> 25
+  RoundCorner<<application-process>> 25
+  RoundCorner<<application-event>> 25
+  RoundCorner<<application-service>> 25
+  RoundCorner<<technology-function>> 25
+  RoundCorner<<technology-process>> 25
+  RoundCorner<<technology-interaction>> 25
+  RoundCorner<<technology-event>> 25
+  RoundCorner<<technology-infra-service>> 25
+  RoundCorner<<implementation-workpackage>> 25
+  RoundCorner<<implementation-event>> 25
+  DiagonalCorner<<motivation-stakeholder>> 12
+  DiagonalCorner<<motivation-driver>> 12
+  DiagonalCorner<<motivation-assessment>> 12
+  DiagonalCorner<<motivation-goal>> 12
+  DiagonalCorner<<motivation-outcome>> 12
+  DiagonalCorner<<motivation-principle>> 12
+  DiagonalCorner<<motivation-requirement>> 12
+  DiagonalCorner<<motivation-constraint>> 12
+}
+skinparam usecase {
+  BorderColor #000000
+}
+
+' Layout
+' ##################################
+!definelong LAYOUT_AS_SKETCH
+    skinparam backgroundColor #EEEBDC
+    skinparam handwritten true
+    skinparam defaultFontName "Comic Sans MS"
+    center footer <font color=red>Warning:</font> Created for discussion, needs to be validated
+!enddefinelong
+!define LAYOUT_TOP_DOWN top to bottom direction
+!define LAYOUT_LEFT_RIGHT left to right direction
+
+' Layout Helpers
+' ##################################
+!define Lay_D(e_from, e_to) e_from -[hidden]D- e_to
+!define Lay_U(e_from, e_to) e_from -[hidden]U- e_to
+!define Lay_R(e_from, e_to) e_from -[hidden]R- e_to
+!define Lay_L(e_from, e_to) e_from -[hidden]L- e_to
+
+' Boundaries
+' ##################################
+!define Boundary(e_alias, e_label) rectangle "==e_label" <<boundary>> as e_alias
+!define Boundary(e_alias, e_label, e_type) rectangle "==e_label\n<size:TECHN_FONT_SIZE>[e_type]</size>" <<boundary>> as e_alias
+
+' Elements
+' ##################################
+'Strategy Elements
+!define Strategy_Resource(e_alias, e_label) archimate #STRATEGY "....\n e_label" <<strategy-resource>> as e_alias
+!define Strategy_Capability(e_alias, e_label) archimate #STRATEGY "e_label" <<strategy-capability>> as e_alias
+!define Strategy_CourseOfAction(e_alias, e_label) archimate #STRATEGY "e_label" <<strategy-course-of-action>> as e_alias
+!define Strategy_ValueStream(e_alias, e_label) archimate #STRATEGY "e_label" <<strategy-value-stream>> as e_alias
+
+'Business Elements
+!define Business_Actor(e_alias, e_label) archimate #BUSINESS "e_label" <<business-actor>> as e_alias
+!define Business_Role(e_alias, e_label) archimate #BUSINESS "e_label" <<business-role>> as e_alias
+!define Business_Collaboration(e_alias, e_label) archimate #BUSINESS "e_label" <<business-collaboration>> as e_alias
+!define Business_Interface(e_alias, e_label) archimate #BUSINESS "e_label" <<business-interface>> as e_alias
+!define Business_Process(e_alias, e_label) archimate #BUSINESS "e_label" <<business-process>> as e_alias
+!define Business_Function(e_alias, e_label) archimate #BUSINESS "e_label" <<business-function>> as e_alias
+!define Business_Interaction(e_alias, e_label) archimate #BUSINESS "e_label" <<business-interaction>> as e_alias
+!define Business_Event(e_alias, e_label) archimate #BUSINESS "e_label" <<business-event>> as e_alias
+!define Business_Service(e_alias, e_label) archimate #BUSINESS "e_label" <<business-service>> as e_alias
+!define Business_Object(e_alias, e_label) archimate #BUSINESS "- - - -\n e_label" <<business-object>> as e_alias
+!define Business_Contract(e_alias, e_label) archimate #BUSINESS "- - - -\n e_label\n- - - -" <<business-contract>> as e_alias
+!define Business_Representation(e_alias, e_label) archimate #BUSINESS "- - - -\n e_label" <<business-representation>> as e_alias
+!define Business_Product(e_alias, e_label) archimate #BUSINESS "e_label" <<business-product>> as e_alias
+!define Business_Location(e_alias, e_label) archimate #BUSINESS "e_label" <<business-location>> as e_alias
+
+'Application Elements
+!define Application_Component(e_alias, e_label) archimate #APPLICATION "e_label" <<application-component>> as e_alias
+!define Application_Collaboration(e_alias, e_label) archimate #APPLICATION "e_label" <<application-collaboration>> as e_alias
+!define Application_Interface(e_alias, e_label) archimate #APPLICATION "e_label" <<application-interface>> as e_alias
+!define Application_Function(e_alias, e_label) archimate #APPLICATION "e_label" <<application-function>> as e_alias
+!define Application_Interaction(e_alias, e_label) archimate #APPLICATION "e_label" <<application-interaction>> as e_alias
+!define Application_Process(e_alias, e_label) archimate #APPLICATION "e_label" <<application-process>> as e_alias
+!define Application_Event(e_alias, e_label) archimate #APPLICATION "e_label" <<application-event>> as e_alias
+!define Application_Service(e_alias, e_label) archimate #APPLICATION "e_label" <<application-service>> as e_alias
+!define Application_DataObject(e_alias, e_label) archimate #APPLICATION "- - - -\n e_label" <<application-data-object>> as e_alias
+
+'Technology Elements
+!define Technology_Node(e_alias, e_label) node #TECHNOLOGY "e_label" <<$archimate/technology-node>> as e_alias
+!define Technology_Device(e_alias, e_label) node #TECHNOLOGY "e_label" <<$archimate/technology-device>> as e_alias
+!define Technology_SystemSoftware(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-system-software>> as e_alias
+!define Technology_Collaboration(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-collaboration>> as e_alias
+!define Technology_Interface(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-infra-interface>> as e_alias
+!define Technology_Path(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-communication-path>> as e_alias
+!define Technology_CommunicationNetwork(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-network>> as e_alias
+!define Technology_Function(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-function>> as e_alias
+!define Technology_Process(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-process>> as e_alias
+!define Technology_Interaction(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-interaction>> as e_alias
+!define Technology_Event(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-event>> as e_alias
+!define Technology_Service(e_alias, e_label) archimate #TECHNOLOGY "e_label" <<technology-infra-service>> as e_alias
+!define Technology_Artifact(e_alias, e_label) archimate #TECHNOLOGY "- - - -\n e_label" <<technology-artifact>> as e_alias
+
+'Physical Elements
+!define Physical_Equipment(e_alias, e_label) node #PHYSICAL "e_label" <<$archimate/physical-equipment>> as e_alias
+!define Physical_Facility(e_alias, e_label) node #PHYSICAL "e_label" <<$archimate/physical-facility>> as e_alias
+!define Physical_DistributionNetwork(e_alias, e_label) archimate #PHYSICAL "e_label" <<physical-distribution-network>> as e_alias
+!define Physical_Material(e_alias, e_label) archimate #PHYSICAL "- - - -\n e_label" <<physical-material>> as e_alias
+
+'Motivation Elements
+!define Motivation_Stakeholder(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-stakeholder>> as e_alias
+!define Motivation_Driver(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-driver>> as e_alias
+!define Motivation_Assessment(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-assessment>> as e_alias
+!define Motivation_Goal(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-goal>> as e_alias
+!define Motivation_Outcome(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-outcome>> as e_alias
+!define Motivation_Principle(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-principle>> as e_alias
+!define Motivation_Requirement(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-requirement>> as e_alias
+!define Motivation_Constraint(e_alias, e_label) archimate #MOTIVATION "e_label" <<motivation-constraint>> as e_alias
+!define Motivation_Meaning(e_alias, e_label) cloud #MOTIVATION "e_label" <<$archimate/motivation-meaning>> as e_alias
+!define Motivation_Value(e_alias, e_label) usecase #MOTIVATION "e_label" as e_alias
+
+'Implementation Elements
+!define Implementation_WorkPackage(e_alias, e_label) archimate #IMPLEMENTATION "e_label" <<implementation-workpackage>> as e_alias
+!define Implementation_Deliverable(e_alias, e_label) archimate #IMPLEMENTATION "- - - -\n e_label" <<implementation-deliverable>> as e_alias
+!define Implementation_Event(e_alias, e_label) archimate #IMPLEMENTATION "e_label" <<implementation-event>> as e_alias
+!define Implementation_Plateau(e_alias, e_label) node #PHYSICAL "e_label" <<$archimate/implementation-plateau>> as e_alias
+!define Implementation_Gap(e_alias, e_label) archimate #PHYSICAL "- - - -\n e_label" <<implementation-gap>> as e_alias
+
+'Other Elements
+!define Other_Location(e_alias, e_label) archimate #ffb973 "e_label" <<location>> as e_alias
+!define Junction_Or(e_alias, e_label) circle #whitesmoke "e_label" as e_alias
+!define Junction_And(e_alias, e_label) circle #black "e_label" as e_alias
+!define Grouping(e_alias, e_label) Folder "e_label" <<grouping>> as e_alias
+!define Group(e_alias, e_label) Folder "e_label" <<group>> as e_alias
+
+
+' Relationships
+' ##################################
+!define Rel_(e_sourceAlias, e_targetAlias, e_label, e_direction="") e_sourceAlias e_direction e_targetAlias : "e_label"
+
+!define Rel_Composition(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*- -")
+!define Rel_Composition_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-UP-")
+!define Rel_Composition_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-DOWN-")
+!define Rel_Composition_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-LEFT-")
+!define Rel_Composition_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "*-RIGHT-")
+
+!define Rel_Aggregation(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o- -")
+!define Rel_Aggregation_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-UP-")
+!define Rel_Aggregation_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-DOWN-")
+!define Rel_Aggregation_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-LEFT-")
+!define Rel_Aggregation_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "o-RIGHT-")
+
+!define Rel_Assignment(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@- ->>")
+!define Rel_Assignment_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-UP->>")
+!define Rel_Assignment_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-DOWN->>")
+!define Rel_Assignment_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-LEFT->>")
+!define Rel_Assignment_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "@-RIGHT->>")
+
+!define Rel_Specialization(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "- -|>")
+!define Rel_Specialization_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-UP-|>")
+!define Rel_Specialization_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-DOWN-|>")
+!define Rel_Specialization_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-LEFT-|>")
+!define Rel_Specialization_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-RIGHT-|>")
+
+!define Rel_Serving(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "- ->")
+!define Rel_Serving_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-UP->")
+!define Rel_Serving_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-DOWN->")
+!define Rel_Serving_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-LEFT->")
+!define Rel_Serving_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-RIGHT->")
+
+!define Rel_Association(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "==")
+!define Rel_Association_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=UP=")
+!define Rel_Association_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=DOWN=")
+!define Rel_Association_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=LEFT=")
+!define Rel_Association_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=RIGHT=")
+
+!define Rel_Association_dir(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "==>")
+!define Rel_Association_dir_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=UP=>")
+!define Rel_Association_dir_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=DOWN=>")
+!define Rel_Association_dir_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=LEFT=>")
+!define Rel_Association_dir_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "=RIGHT=>")
+
+!define Rel_Flow(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "..>>")
+!define Rel_Flow_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".UP.>>")
+!define Rel_Flow_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".DOWN.>>")
+!define Rel_Flow_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".LEFT.>>")
+!define Rel_Flow_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".RIGHT.>>")
+
+!define Rel_Realization(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~~|>")
+!define Rel_Realization_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~UP~|>")
+!define Rel_Realization_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~DOWN~|>")
+!define Rel_Realization_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~LEFT~|>")
+!define Rel_Realization_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~RIGHT~|>")
+
+!define Rel_Triggering(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "- ->>")
+!define Rel_Triggering_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-UP->>")
+!define Rel_Triggering_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-DOWN->>")
+!define Rel_Triggering_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-LEFT->>")
+!define Rel_Triggering_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "-RIGHT->>")
+
+!define Rel_Access(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~~")
+!define Rel_Access_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~UP~")
+!define Rel_Access_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~DOWN~")
+!define Rel_Access_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~LEFT~")
+!define Rel_Access_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~RIGHT~")
+
+!define Rel_Access_r(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-~")
+!define Rel_Access_r_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-UP~")
+!define Rel_Access_r_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-DOWN~")
+!define Rel_Access_r_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-LEFT~")
+!define Rel_Access_r_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<-RIGHT~")
+
+!define Rel_Access_rw(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~~>")
+!define Rel_Access_rw_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~UP~>")
+!define Rel_Access_rw_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~DOWN~>")
+!define Rel_Access_rw_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~LEFT~>")
+!define Rel_Access_rw_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "<~RIGHT~>")
+
+!define Rel_Access_w(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~->")
+!define Rel_Access_w_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~UP->")
+!define Rel_Access_w_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~DOWN->")
+!define Rel_Access_w_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~LEFT->")
+!define Rel_Access_w_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "~RIGHT->")
+
+!define Rel_Influence(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, "..>")
+!define Rel_Influence_Up(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".UP.>")
+!define Rel_Influence_Down(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".DOWN.>")
+!define Rel_Influence_Left(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".LEFT.>")
+!define Rel_Influence_Right(e_From, e_To, e_label="") Rel_(e_From, e_To, e_label, ".RIGHT.>")
+
+!define DESC_FONT_SIZE 10
+!define DESC_FONT_COLOR #CCCCCC
+!define ACTIVE #Black
+!define UNKNOWN #Black
+!define PLANNED #Blue
+!define ADDED #Green
+!define PHASEOUT #Orange
+!define DECOMMISSIONED #Red
+!define REMOVED #Red
+!define CHANGED #Blue
+
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aFunction jar:archimate/business-function
+sprite $aBuildingBlock jar:archimate/function
+sprite $aPlatform jar:archimate/component
+sprite $aSystem jar:archimate/application-component
+sprite $aContainer jar:archimate/application-component
+sprite $aMilestone jar:archimate/implementation-plateau
+sprite $aProject jar:archimate/implementation-workpackage
+sprite $aInteraction jar:archimate/application-interaction
+sprite $aDataEntity jar:archimate/application-data-object
+
+skinparam wrapWidth 250
+
+
+skinparam rectangle<<system>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<platform>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #00008B
+    BorderColor #00008B
+    BorderStyle dotted
+}
+
+skinparam rectangle<<integration>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<strategy-capability>> {
+    RoundCorner 25
+}
+
+skinparam rectangle<<ACTIVE>> {
+    BorderColor ACTIVE
+    BorderThickness 1
+}
+
+skinparam rectangle<<PLANNED>> {
+    BorderColor PLANNED
+    BorderThickness 5
+}
+
+skinparam rectangle<<ADDED>> {
+    BorderColor ADDED
+    BorderThickness 5
+}
+
+skinparam rectangle<<PHASEOUT>> {
+    BorderColor PHASEOUT
+    BorderThickness 5
+}
+
+skinparam rectangle<<DECOMMISSIONED>> {
+    BorderColor DECOMMISSIONED
+    BorderThickness 5
+}
+
+skinparam rectangle<<UNKNOWN>> {
+    BorderColor UNKNOWN
+    BorderThickness 1
+}
+
+
+!define Business_Capability_Map_Group(e_alias, e_label) rectangle "==e_label" <<business capability map>> as e_alias
+!define Strategy_Capability_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aCapability>><<strategy-capability>> #Strategy
+!define Business_Function_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aFunction>><<business-function>> #Business
+!define Platform_Context(e_alias, e_label) rectangle "==e_label" <<$aPlatform>><<platform>> as e_alias
+!define System_Context(e_alias, e_label) rectangle "==e_label" <<$aSystem>><<system>> as e_alias
+!define BuildingBlock(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:DESC_FONT_SIZE>e_desc</size>" <<$aBuildingBlock>><<e_lifecycle>> as e_alias
+!define Platform(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[platform]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aPlatform>><<e_lifecycle>> as e_alias
+!define System(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[system]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aSystem>><<e_lifecycle>> as e_alias
+!define Entity(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[information]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aDataEntity>><<e_lifecycle>> as e_alias
+!define Integration(e_alias, e_label, e_desc, e_tech, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[integration: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aInteraction>><<e_lifecycle>> as e_alias
+!define Container(e_alias, e_label, e_desc, e_type, e_tech, e_lifecycle) rectangle #LightSteelBlue "e_label\n\n<size:TECHN_FONT_SIZE>[e_type: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aContainer>><<e_lifecycle>> as e_alias
+!define SWOT(e_alias, e_type, e_desc) note "== e_type ==\n e_desc" as e_alias
+!define Lifecycle(e_alias, e_lifecycle, e_desc) note "== lifecyle - e_lifecycle ==\n e_desc" as e_alias
+!define Relationship(e_sourceAlias, e_targetAlias, e_label, e_sourceArrow="", e_targetArrow="", e_lifecycle="") e_sourceAlias e_sourceArrow..[e_lifecycle]e_targetArrow e_targetAlias : "e_label"
+!define Project(e_alias, e_label, e_desc, e_type) rectangle #IMPLEMENTATION "e_label\n\n<size:TECHN_FONT_SIZE>[e_type]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aProject>> as e_alias
+!define ProjectMilestone(e_alias, e_label, e_desc) rectangle #IMPLEMENTATION "e_label\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aMilestone>> as e_alias
+
+    
+        
+             System_Context( e74f5438_ed2a_4a89_9461_e54cd8ec65cc, "  Internet Banking System") {
+ 
+     Container(824bed7e_a1bd_4f9e_a5f3_c7b497544c0e, "Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "database", " Oracle Database Schema", "UNKNOWN")
+
+     Container(a6f41645_5498_464b_8c5c_5d50fc28bc1d, "API Application", "Provides Internet banking functionality via a JSON/HTTP API.", "microservice", " Java,Spring MVC", "UNKNOWN")
+
+     Container(3be50c18_36bd_4e1f_ad5c_6e33267117b9, "Web Application", "Delivers the static content and the Internet banking single page application.", "web UI", " Java,Spring MVC", "UNKNOWN")
+
+     Container(a3f32a3a_ab91_461d_b2f8_0998e193b153, "Single-Page Application", "Provides all of the internet banking functionality to customers via their web browser", "web UI", " JavaScript,Angular", "UNKNOWN")
+
+     Container(2927eb0c_22bd_4310_ad51_50f9ca96d12e, "Mobile App", "Provides a limited subset of the Internet banking functionality to customers via their mobile device.", "mobile UI", " Xamarin", "UNKNOWN")
+
+    }
+
+        
+         
+     System( 261f5491_dfbe_44ce_b3de_fbaa055e62a8, "  Mainframe Banking System", " Stores all of the core banking information about customers, accounts, transactions, etc.", " UNKNOWN ")
+
+
+     System( 7afd80d0_413f_463a_85fd_93687674233f, "  E-mail System", " The internal Microsoft Exchange e-mail system.", " UNKNOWN ")
+
+
+          
+     Business_Actor( 70ad4579_ed85_425e_820f_45c00caa9821, "  Personal Banking Customer")
+
+
+         
+    
+ Rel_Flow(a6f41645_5498_464b_8c5c_5d50fc28bc1d, 824bed7e_a1bd_4f9e_a5f3_c7b497544c0e, " Reads from and writes to [JDBC]")
+    
+
+
+    
+ Rel_Flow(a6f41645_5498_464b_8c5c_5d50fc28bc1d, 261f5491_dfbe_44ce_b3de_fbaa055e62a8, " Makes API calls to [XML,HTTPS]")
+    
+
+
+    
+ Rel_Flow(a6f41645_5498_464b_8c5c_5d50fc28bc1d, 7afd80d0_413f_463a_85fd_93687674233f, " Sends e-mail using [SMTP]")
+    
+
+
+    
+ Rel_Flow(3be50c18_36bd_4e1f_ad5c_6e33267117b9, a3f32a3a_ab91_461d_b2f8_0998e193b153, " Delivers to the customer's web browser")
+    
+
+
+    
+ Rel_Flow(a3f32a3a_ab91_461d_b2f8_0998e193b153, a6f41645_5498_464b_8c5c_5d50fc28bc1d, " Makes API calls to [JSON,HTTPS]")
+    
+
+
+    
+ Rel_Flow(2927eb0c_22bd_4310_ad51_50f9ca96d12e, a6f41645_5498_464b_8c5c_5d50fc28bc1d, " Makes API calls to [JSON,HTTPS]")
+    
+
+
+    
+ Rel_Flow(70ad4579_ed85_425e_820f_45c00caa9821, 3be50c18_36bd_4e1f_ad5c_6e33267117b9, " Visits bigbank.com/ib using [HTTPS]")
+    
+
+
+    
+ Rel_Flow(70ad4579_ed85_425e_820f_45c00caa9821, a3f32a3a_ab91_461d_b2f8_0998e193b153, " Views account balances, and makes payments using")
+    
+
+
+    
+ Rel_Flow(70ad4579_ed85_425e_820f_45c00caa9821, 2927eb0c_22bd_4310_ad51_50f9ca96d12e, " Views account balances, and makes payments using")
+    
+
+
+    
+
+@enduml
+
+@startuml
+
+
+skinparam defaultTextAlignment center
+skinparam wrapWidth 400
+skinparam maxMessageSize 150
+skinparam StereotypeAlignment right
+
+skinparam Arrow {
+    Color #000000
+    FontColor #000000
+    FontSize 12
+}
+skinparam Folder<<grouping>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam Folder<<group>> {
+    Shadowing true
+    StereotypeFontSize 0
+    FontColor #444444
+    BackgroundColor lightgrey
+}
+skinparam rectangle<<boundary>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+skinparam node {
+  StereotypeAlignment right
+}
+skinparam cloud {
+  StereotypeAlignment right
+}
+skinparam frame {
+  StereotypeAlignment right
+}
+skinparam archimate {
+  StereotypeAlignment right
+  RoundCorner<<strategy-capability>> 25
+  RoundCorner<<strategy-course-of-action>> 25
+  RoundCorner<<strategy-value-stream>> 25
+  RoundCorner<<business-process>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-function>> 25
+  RoundCorner<<business-interaction>> 25
+  RoundCorner<<business-event>> 25
+  RoundCorner<<business-service>> 25
+  RoundCorner<<application-function>> 25
+  RoundCorner<<application-interaction>> 25
+  RoundCorner<<application-process>> 25
+  RoundCorner<<application-event>> 25
+  RoundCorner<<application-service>> 25
+  RoundCorner<<technology-function>> 25
+  RoundCorner<<technology-process>> 25
+  RoundCorner<<technology-interaction>> 25
+  RoundCorner<<technology-event>> 25
+  RoundCorner<<technology-infra-service>> 25
+  RoundCorner<<implementation-workpackage>> 25
+  RoundCorner<<implementation-event>> 25
+  DiagonalCorner<<motivation-stakeholder>> 12
+  DiagonalCorner<<motivation-driver>> 12
+  DiagonalCorner<<motivation-assessment>> 12
+  DiagonalCorner<<motivation-goal>> 12
+  DiagonalCorner<<motivation-outcome>> 12
+  DiagonalCorner<<motivation-principle>> 12
+  DiagonalCorner<<motivation-requirement>> 12
+  DiagonalCorner<<motivation-constraint>> 12
+}
+skinparam usecase {
+  BorderColor #000000
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sprite $aCapability jar:archimate/strategy-capability
+sprite $aFunction jar:archimate/business-function
+sprite $aBuildingBlock jar:archimate/function
+sprite $aPlatform jar:archimate/component
+sprite $aSystem jar:archimate/application-component
+sprite $aContainer jar:archimate/application-component
+sprite $aMilestone jar:archimate/implementation-plateau
+sprite $aProject jar:archimate/implementation-workpackage
+sprite $aInteraction jar:archimate/application-interaction
+sprite $aDataEntity jar:archimate/application-data-object
+
+skinparam wrapWidth 250
+
+
+skinparam rectangle<<system>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<platform>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #00008B
+    BorderColor #00008B
+    BorderStyle dotted
+}
+
+skinparam rectangle<<integration>> {
+    Shadowing false
+    StereotypeFontSize 0
+    FontColor #444444
+    BorderColor #444444
+    BorderStyle dashed
+}
+
+skinparam rectangle<<strategy-capability>> {
+    RoundCorner 25
+}
+
+skinparam rectangle<<#Black>> {
+    BorderColor #Black
+    BorderThickness 1
+}
+
+skinparam rectangle<<#Blue>> {
+    BorderColor #Blue
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Green>> {
+    BorderColor #Green
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Orange>> {
+    BorderColor #Orange
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Red>> {
+    BorderColor #Red
+    BorderThickness 5
+}
+
+skinparam rectangle<<#Black>> {
+    BorderColor #Black
+    BorderThickness 1
+}
+
+
+
+    
+        
+             rectangle "==  Internet Banking System" <<$aSystem>><<system>> as e74f5438_ed2a_4a89_9461_e54cd8ec65cc {
+ 
+     rectangle #LightSteelBlue "Database\n\n<size:12>[database:  Oracle Database Schema]</size>\n\n <size:10>Stores user registration information, hashed authentication credentials, access logs, etc.</size>" <<$aContainer>><<#Black>> as 824bed7e_a1bd_4f9e_a5f3_c7b497544c0e
+
+     rectangle #LightSteelBlue "API Application\n\n<size:12>[microservice:  Java,Spring MVC]</size>\n\n <size:10>Provides Internet banking functionality via a JSON/HTTP API.</size>" <<$aContainer>><<#Black>> as a6f41645_5498_464b_8c5c_5d50fc28bc1d
+
+     rectangle #LightSteelBlue "Web Application\n\n<size:12>[web UI:  Java,Spring MVC]</size>\n\n <size:10>Delivers the static content and the Internet banking single page application.</size>" <<$aContainer>><<#Black>> as 3be50c18_36bd_4e1f_ad5c_6e33267117b9
+
+     rectangle #LightSteelBlue "Single-Page Application\n\n<size:12>[web UI:  JavaScript,Angular]</size>\n\n <size:10>Provides all of the internet banking functionality to customers via their web browser</size>" <<$aContainer>><<#Black>> as a3f32a3a_ab91_461d_b2f8_0998e193b153
+
+     rectangle #LightSteelBlue "Mobile App\n\n<size:12>[mobile UI:  Xamarin]</size>\n\n <size:10>Provides a limited subset of the Internet banking functionality to customers via their mobile device.</size>" <<$aContainer>><<#Black>> as 2927eb0c_22bd_4310_ad51_50f9ca96d12e
+
+    }
+
+        
+         
+     rectangle #APPLICATION "  Mainframe Banking System\n\n<size:12>[system]</size>\n\n <size:10> Stores all of the core banking information about customers, accounts, transactions, etc.</size>" <<$aSystem>><< #Black >> as 261f5491_dfbe_44ce_b3de_fbaa055e62a8
+
+
+     rectangle #APPLICATION "  E-mail System\n\n<size:12>[system]</size>\n\n <size:10> The internal Microsoft Exchange e-mail system.</size>" <<$aSystem>><< #Black >> as 7afd80d0_413f_463a_85fd_93687674233f
+
+
+          
+     archimate #BUSINESS "  Personal Banking Customer" <<business-actor>> as 70ad4579_ed85_425e_820f_45c00caa9821
+
+
+         
+    
+ a6f41645_5498_464b_8c5c_5d50fc28bc1d ..>> 824bed7e_a1bd_4f9e_a5f3_c7b497544c0e : " Reads from and writes to [JDBC]"
+    
+
+
+    
+ a6f41645_5498_464b_8c5c_5d50fc28bc1d ..>> 261f5491_dfbe_44ce_b3de_fbaa055e62a8 : " Makes API calls to [XML,HTTPS]"
+    
+
+
+    
+ a6f41645_5498_464b_8c5c_5d50fc28bc1d ..>> 7afd80d0_413f_463a_85fd_93687674233f : " Sends e-mail using [SMTP]"
+    
+
+
+    
+ 3be50c18_36bd_4e1f_ad5c_6e33267117b9 ..>> a3f32a3a_ab91_461d_b2f8_0998e193b153 : " Delivers to the customer's web browser"
+    
+
+
+    
+ a3f32a3a_ab91_461d_b2f8_0998e193b153 ..>> a6f41645_5498_464b_8c5c_5d50fc28bc1d : " Makes API calls to [JSON,HTTPS]"
+    
+
+
+    
+ 2927eb0c_22bd_4310_ad51_50f9ca96d12e ..>> a6f41645_5498_464b_8c5c_5d50fc28bc1d : " Makes API calls to [JSON,HTTPS]"
+    
+
+
+    
+ 70ad4579_ed85_425e_820f_45c00caa9821 ..>> 3be50c18_36bd_4e1f_ad5c_6e33267117b9 : " Visits bigbank.com/ib using [HTTPS]"
+    
+
+
+    
+ 70ad4579_ed85_425e_820f_45c00caa9821 ..>> a3f32a3a_ab91_461d_b2f8_0998e193b153 : " Views account balances, and makes payments using"
+    
+
+
+    
+ 70ad4579_ed85_425e_820f_45c00caa9821 ..>> 2927eb0c_22bd_4310_ad51_50f9ca96d12e : " Views account balances, and makes payments using"
+    
+
+
+    
+
+@enduml
+
+PlantUML version 1.2022.5(Sat Apr 30 12:55:52 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: nl
+Country: BE
+--></g></svg>
