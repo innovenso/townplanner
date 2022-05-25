@@ -1,4 +1,4 @@
-# Flow
+# Flow View
 
 In addition to the standard C4 diagrams like the System Container View that focus on one system, sometimes it's useful 
 to have a view of a data flow through several systems and/or containers. The flow view allows just that,
