@@ -1,0 +1,29 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledFlowView
+@import plantuml.lib.concepts.txt.{BusinessActors, SystemContext, Systems}
+@import plantuml.lib.relationships.txt.Step
+@import plantuml.lib.txt.Uml
+@import plantuml.lib.relationships.txt.NonNumberedStep
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.c4.txt.C4SystemBoundary
+@import plantuml.lib.c4.txt.C4Systems
+@import plantuml.lib.c4.txt.C4Persons
+@import plantuml.lib.txt.C4
+@import plantuml.lib.c4.txt.C4Step
+@import plantuml.lib.c4.txt.C4NonNumberedStep
+@(model: CompiledFlowView)(implicit townPlan: TownPlan)
+@C4 {
+    @for(systemContext <- model.systemContexts) {
+        @C4SystemBoundary(systemContext, model.pointInTime, model.containers(systemContext), model)
+    }
+    @C4Systems(model.otherSystems, model.pointInTime)
+    @C4Persons(model.actorNouns, model.pointInTime)
+    @if(model.withStepCounter) {
+        @for(step <- model.steps) {
+            @C4Step(model.view, step._1, step._2)
+        }
+    } else {
+        @for(step <- model.interactions) {
+            @C4NonNumberedStep(model.view, step)
+        }
+    }
+}

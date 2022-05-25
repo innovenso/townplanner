@@ -36,7 +36,11 @@ import plantuml.system.txt.{
   C4SystemContainerViewDiagram,
   SystemContainerViewDiagram
 }
-import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
+import plantuml.view.txt.{
+  FlowViewC4Diagram,
+  FlowViewDiagram,
+  FlowViewSequenceDiagram
+}
 
 object DiagramSpecificationWriter {
   def specifications(
@@ -71,10 +75,18 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = flowView,
+          relatedModelComponents = flowView.systems ::: flowView.containers,
           plantumlSpecification = FlowViewDiagram(flowView).body
         ),
         DiagramSpecification(
           view = flowView,
+          relatedModelComponents = flowView.systems ::: flowView.containers,
+          plantumlSpecification = FlowViewC4Diagram(flowView).body,
+          filenameAppendix = Some("C4")
+        ),
+        DiagramSpecification(
+          view = flowView,
+          relatedModelComponents = flowView.systems ::: flowView.containers,
           plantumlSpecification = FlowViewSequenceDiagram(flowView).body,
           filenameAppendix = Some("Sequence")
         )

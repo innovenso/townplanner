@@ -1,0 +1,3 @@
+@import com.innovenso.townplanner.model.concepts.properties.{HasInteractions, Interaction}
+@import com.innovenso.townplanner.model.TownPlan
+@(model: HasInteractions, step: Interaction, number: Int)(implicit townPlan: TownPlan) Rel(@step.source.value, @step.target.value, "@{number + "."} @step.name")
