@@ -38,7 +38,7 @@ val townplanner: Tool = ea describes Tool(title = "Innovenso Townplanner") as { 
 }
 ```
 
-We should indicate in the main class that we want a tech radar:
+We should indicate in the main class that we want a static website:
 
 ```scala
 ...
@@ -48,7 +48,7 @@ object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
 
 
   diagrams()
-  technologyRadarWebsite()
+  website()
 }
 
 ```
@@ -57,10 +57,6 @@ When we run the town planner:
 
     sbt run
 
-We should get a static website in the `output/assets/Technology/Technology Radar` directory.
+We should get a static website in the `output/assets/website/` directory.
 
 ![Technology Radar](../images/techradar/radar.png)
-
-Note that you need *NodeJS* installed on your system, including *npm*. The export to the technology radar is using
-[tech-radar-generator](https://github.com/dprgarner/tech-radar-generator) to generate the static website, which in turn
-was a fork of the [Build Your Own Radar](https://www.thoughtworks.com/radar/byor) by ThoughtWorks.

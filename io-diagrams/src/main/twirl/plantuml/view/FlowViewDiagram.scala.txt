@@ -10,7 +10,7 @@
         @SystemContext(systemContext, model.pointInTime, model.containers(systemContext), model)
     }
     @Systems(model.otherSystems, model.pointInTime)
-    @BusinessActors(model.actorNouns, model.pointInTime)
+    @BusinessActors(model.businessActors, model.pointInTime)
     @if(model.withStepCounter) {
         @for(step <- model.steps) {
             @Step(model.view, step._1, step._2)

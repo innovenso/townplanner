@@ -16,7 +16,7 @@
         @C4SystemBoundary(systemContext, model.pointInTime, model.containers(systemContext), model)
     }
     @C4Systems(model.otherSystems, model.pointInTime)
-    @C4Persons(model.actorNouns, model.pointInTime)
+    @C4Persons(model.businessActors, model.pointInTime)
     @if(model.withStepCounter) {
         @for(step <- model.steps) {
             @C4Step(model.view, step._1, step._2)

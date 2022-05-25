@@ -105,11 +105,16 @@ case class FlowViewCompiler(
       )
 
   private def allElements: List[Element] =
-    elements ++ systemContexts ++ technologies
+    elements ++ systemContexts ++ technologies ++ actors
 
   private def containers: Set[ItContainer] = elements
     .filter(_.isInstanceOf[ItContainer])
     .map(_.asInstanceOf[ItContainer])
+    .toSet
+
+  private def actors: Set[BusinessActor] = elements
+    .filter(_.isInstanceOf[BusinessActor])
+    .map(_.asInstanceOf[BusinessActor])
     .toSet
 
   private def technologies: Set[Technology] =

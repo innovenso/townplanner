@@ -1,9 +1,15 @@
 package com.wayneenterprises.townplan.views
 
 import com.innovenso.townplanner.model.EnterpriseArchitecture
+import com.innovenso.townplanner.model.concepts.properties.{
+  Message,
+  Request,
+  Response
+}
 import com.innovenso.townplanner.model.concepts.views.{
   ArchitectureBuildingBlockRealizationView,
   BusinessCapabilityMap,
+  FlowView,
   FullTownPlanView,
   KnowledgeMatrix,
   SystemContainerView,
@@ -51,6 +57,24 @@ case class Views()(implicit
     forSystem = systems.bcms,
     pointInTime = Day(2030, 1, 1)
   )
+
+  ea needs FlowView(title = "The Joker Flow") and { it =>
+    it has Request(
+      "enters Joker search term"
+    ) from actors.bruceWayne to systems.bcmsUi
+    it has Request(
+      "passes on the search request"
+    ) from systems.bcmsUi to systems.nemesisMs
+    it has Request(
+      "looks up information"
+    ) from systems.nemesisMs to systems.nemesisDb
+    it has Response("Joker profile") from systems.nemesisDb to systems.nemesisMs
+    it has Message(
+      "requests platform rotation"
+    ) from systems.nemesisMs to systems.platformMs
+    it has Response("Joker profile") from systems.nemesisMs to systems.bcmsUi
+    it has Response("Joker profile") from systems.bcmsUi to actors.bruceWayne
+  }
 
   ea needs TechnologyRadar(title = "Wayne Enterprises Technology Radar")
 

@@ -25,7 +25,7 @@ object WayneEnterprisesTownPlan extends EnterpriseArchitectureAsCode {
   val views: Views = Views()
 
   diagrams()
-  technologyRadarWebsite()
-  website()
+  archimate()
   documents()
+  website()
 }
