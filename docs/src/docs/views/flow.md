@@ -28,7 +28,7 @@ When the townplan is instructed to render diagrams, the code above will result i
 ## Output
 ### Flow
 ![Flow Diagram](../images/views/flow1.svg)
-### Flow (C4)
+### C4 Flow
 ![Flow Diagram - C4](../images/views/flow2.svg)
 ### Sequence
 ![Sequence Diagram](../images/views/sequence1.svg)
