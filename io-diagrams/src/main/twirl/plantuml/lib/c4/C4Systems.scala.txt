@@ -1,0 +1,7 @@
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.meta.ADay
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.c4.txt.C4ExternalSystem
+@(systems: Iterable[ItSystem], pointInTime: ADay)(implicit townPlan: TownPlan) @for(s <- systems) {
+    @C4ExternalSystem(system = s, pointInTime = pointInTime)
+}

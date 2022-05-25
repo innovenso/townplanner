@@ -1,0 +1,22 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledSystemContainerView
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.txt.C4
+@import plantuml.lib.c4.txt.C4Persons
+@import plantuml.lib.c4.txt.C4SystemBoundary
+@import plantuml.lib.c4.txt.C4InternalSystem
+@import plantuml.lib.c4.txt.C4Systems
+@import plantuml.lib.c4.txt.C4Relations
+@(model: CompiledSystemContainerView)(implicit townPlan: TownPlan)
+@C4 {
+    @if(model.centralSystem.nonEmpty) {
+        @if(model.containers.nonEmpty) {
+            @C4SystemBoundary(system = model.centralSystem.get, pointInTime = model.pointInTime, containers = model.containers, technologyHolder = model)
+        } else {
+            @C4InternalSystem(system = model.centralSystem.get, pointInTime = model.pointInTime)
+        }
+        @C4Systems(systems = model.otherSystems, pointInTime = model.pointInTime)
+        @C4Persons(actors = model.actorNouns, pointInTime = model.pointInTime)
+        @C4Relations(relationships = model.flows)
+    }
+
+}

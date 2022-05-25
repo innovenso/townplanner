@@ -41,6 +41,11 @@ class SystemContainerViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
         }
       }
 
+    val db2: Database = samples.database(system2)
+    samples.flow(ms3, db2)
+    val queue1: Queue = samples.queue(system2)
+    samples.flow(ms3, queue1)
+
     samples.flow(ms1, ms2)
     samples.flow(system1, ms2)
     samples.flow(ms2, system3)

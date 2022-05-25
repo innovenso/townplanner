@@ -1,0 +1,7 @@
+@import com.innovenso.townplanner.model.concepts.BusinessActor
+@import com.innovenso.townplanner.model.meta.ADay
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.c4.txt.C4Person
+@(actors: Iterable[BusinessActor], pointInTime: ADay)(implicit townPlan: TownPlan)  @for(actor <- actors) {
+    @C4Person(actor, pointInTime)
+}

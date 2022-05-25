@@ -1,0 +1,36 @@
+@import plantuml.lib.c4.txt.C4CoreConfiguration
+@import plantuml.lib.c4.txt.C4ContextConfiguration
+@import plantuml.lib.c4.txt.C4ContainerConfiguration
+@(content: Txt)
+@@startuml
+@C4CoreConfiguration()
+@C4ContextConfiguration()
+@C4ContainerConfiguration()
+
+AddElementTag("microservice", $shape=EightSidedShape(), $bgColor="CornflowerBlue", $fontColor="white", $legendText="micro service (eight sided)")
+AddElementTag("database", $shape=RoundedBoxShape(), $bgColor="MediumSeaGreen", $fontColor="white")
+AddElementTag("service", $bgColor="LightSteelBlue", $fontColor="white")
+AddElementTag("file system", $bgColor="Teal", $fontColor="white")
+AddElementTag("function", $bgColor="lightSkyBlue", $fontColor="white")
+AddElementTag("queue", $bgColor="FireBrick", $fontColor="white")
+AddElementTag("topic", $bgColor="Maroon", $fontColor="white")
+AddElementTag("event stream", $bgColor="Tomato", $fontColor="white")
+AddElementTag("gateway", $bgColor="NavajoWhite", $fontColor="black")
+AddElementTag("proxy", $bgColor="Moccasin", $fontColor="black")
+AddElementTag("firewall", $bgColor="MistyRose", $fontColor="black")
+AddElementTag("cache", $bgColor="OliveDrab", $fontColor="white")
+AddElementTag("web UI", $bgColor="Coral", $fontColor="white")
+AddElementTag("mobile UI", $bgColor="DarkOrange", $fontColor="white")
+AddElementTag("watch UI", $bgColor="Orange", $fontColor="white")
+AddElementTag("desktop UI", $bgColor="SandyBrown", $fontColor="white")
+AddElementTag("terminal UI", $bgColor="Coral", $fontColor="white")
+AddElementTag("smart TV UI", $bgColor="OrangeRed", $fontColor="white")
+AddElementTag("batch", $bgColor="RoyalBlue", $fontColor="white")
+AddElementTag("container", $bgColor="APPLICATION", $fontColor="white")
+
+SHOW_PERSON_OUTLINE()
+
+@content
+
+SHOW_LEGEND()
+@@enduml

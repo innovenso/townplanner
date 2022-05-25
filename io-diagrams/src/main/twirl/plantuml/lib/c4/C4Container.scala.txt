@@ -1,0 +1,12 @@
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.meta.ADay
+@import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
+@import com.innovenso.townplanner.model.concepts.HasTechnologies
+@import plantuml.lib.concepts.txt.Technologies
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.Microservice
+@import com.innovenso.townplanner.model.concepts.Database
+@(container: ItContainer, pointInTime: ADay, technologyHolder: HasTechnologies)(implicit townPlan: TownPlan) @container match {
+    case db: Database => { ContainerDb(@Key(container).body.trim, "@Title(container).body.trim", "@Technologies(technologyHolder, container)", "@Description(container).body.trim", $tags = "database") }
+    case _ => { Container(@Key(container).body.trim, "@Title(container).body.trim", "@Technologies(technologyHolder, container)", "@Description(container).body.trim", $tags = "@container.containerType") }
+}

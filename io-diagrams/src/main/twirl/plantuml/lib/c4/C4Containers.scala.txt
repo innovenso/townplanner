@@ -1,0 +1,8 @@
+@import com.innovenso.townplanner.model.concepts.ItContainer
+@import com.innovenso.townplanner.model.meta.ADay
+@import com.innovenso.townplanner.model.concepts.HasTechnologies
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.c4.txt.C4Container
+@(containers: Iterable[ItContainer], pointInTime: ADay, technologyHolder: HasTechnologies)(implicit townPlan: TownPlan) @for(container <- containers) {
+    @C4Container(container = container, pointInTime = pointInTime, technologyHolder = technologyHolder)
+}

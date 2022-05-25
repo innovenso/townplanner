@@ -32,7 +32,10 @@ import plantuml.project.txt.{
   MilestoneItSystemIntegrationImpactView,
   MilestoneTechnologyImpactView
 }
-import plantuml.system.txt.SystemContainerViewDiagram
+import plantuml.system.txt.{
+  C4SystemContainerViewDiagram,
+  SystemContainerViewDiagram
+}
 import plantuml.view.txt.{FlowViewDiagram, FlowViewSequenceDiagram}
 
 object DiagramSpecificationWriter {
@@ -46,6 +49,13 @@ object DiagramSpecificationWriter {
           relatedModelComponents = systemContainerView.centralSystem.toList,
           plantumlSpecification =
             SystemContainerViewDiagram(systemContainerView).body
+        ),
+        DiagramSpecification(
+          view = systemContainerView,
+          relatedModelComponents = systemContainerView.centralSystem.toList,
+          plantumlSpecification =
+            C4SystemContainerViewDiagram(systemContainerView).body,
+          filenameAppendix = Some("C4")
         )
       )
     case systemIntegrationView: CompiledSystemIntegrationView =>

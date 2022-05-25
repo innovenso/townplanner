@@ -1,0 +1,5 @@
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.model.meta.ADay
+@import plantuml.lib.txt.{Description, Key, Lifecycle, Title}
+@import com.innovenso.townplanner.model.TownPlan
+@(system: ItSystem, pointInTime: ADay)(implicit townPlan: TownPlan) System_Ext(@Key(system), "@Title(system)")

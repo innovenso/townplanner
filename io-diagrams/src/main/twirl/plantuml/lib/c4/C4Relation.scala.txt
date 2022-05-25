@@ -1,0 +1,11 @@
+@import com.innovenso.townplanner.model.concepts.relationships.Relationship
+@import plantuml.lib.relationships.txt.{Composition, Flow, Realization, Serving}
+@import plantuml.lib.relationships.txt.Association
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.relationships.Flow
+@import plantuml.lib.txt.Title
+@import plantuml.lib.concepts.txt.Technologies
+@(value: Relationship)(implicit townPlan: TownPlan) @value match {
+  case flow: Flow => { Rel(@value.source.value, @value.target.value, "@Title(value).body.trim", "@Technologies(townPlan, value)") }
+  case _ => {}
+}

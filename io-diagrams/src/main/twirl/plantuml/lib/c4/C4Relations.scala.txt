@@ -1,0 +1,6 @@
+@import com.innovenso.townplanner.model.concepts.relationships.Relationship
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.c4.txt.C4Relation
+@(relationships: Iterable[Relationship])(implicit townPlan: TownPlan) @for(relationship <- relationships) {
+    @C4Relation(value = relationship)
+}

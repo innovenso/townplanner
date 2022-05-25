@@ -1,0 +1,10 @@
+@import com.innovenso.townplanner.model.concepts.{ItContainer, ItSystem}
+@import com.innovenso.townplanner.model.meta.ADay
+@import plantuml.lib.concepts.txt.Containers
+@import plantuml.lib.txt.{Key, Title}
+@import com.innovenso.townplanner.model.concepts.HasTechnologies
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.c4.txt.C4Containers
+@(system: ItSystem, pointInTime: ADay, containers: Iterable[ItContainer], technologyHolder: HasTechnologies)(implicit townPlan: TownPlan) System_Boundary(@Key(system), "@Title(system)") {
+@C4Containers(containers, pointInTime, technologyHolder)
+    }
