@@ -6,6 +6,7 @@
 @import plantuml.lib.txt.Title
 @import plantuml.lib.concepts.txt.Technologies
 @(value: Relationship)(implicit townPlan: TownPlan) @value match {
-  case flow: Flow => { Rel(@value.source.value, @value.target.value, "@Title(value).body.trim", "@Technologies(townPlan, value)") }
+  case flow: Flow if (townPlan.technologies(flow).nonEmpty) => { Rel(@value.source.value, @value.target.value, "@Title(value).body.trim", "@Technologies(townPlan, value)") }
+  case flow: Flow => { Rel(@value.source.value, @value.target.value, "@Title(value).body.trim") }
   case _ => {}
 }
