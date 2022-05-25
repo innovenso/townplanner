@@ -342,8 +342,14 @@ For this example we only need one view: a System Container view of the Internet 
 
 ## The result
 
-![System Container Veiw](images/c4/scv.svg)
+### Archimate style
+
+![System Container View - Archimate Style](images/c4/scv.svg)
 
 This diagram is using Archimate notation, but showing the same information as a pure C4 diagram. The layout is different than the example on the C4 website, due to the automatic layout of PlantUML.
 
-We are also working on a pure C4 notation of the diagram, that should be released in the coming days.
+### C4 style
+
+![System Container View - C4 Style](images/c4/scvc4.svg)
+
+This diagram is closer to the style you find on the C4 Model website, but with additional colors for the different container types. The Townplanner uses [C4-Plantuml](https://github.com/plantuml-stdlib/C4-PlantUML) to render this.  
