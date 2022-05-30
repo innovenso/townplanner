@@ -1,0 +1,23 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledProjectMilestoneImpactView
+@import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.txt.Uml
+@import com.innovenso.townplanner.model.concepts.views.CompiledProjectMilestoneTransitionSystemContainerView
+@import plantuml.lib.concepts.txt.SystemContext
+@import plantuml.lib.concepts.txt.Systems
+@import plantuml.lib.relationships.txt.NonNumberedStep
+@import plantuml.lib.concepts.txt.BusinessActors
+@import plantuml.lib.relationships.txt.Relations
+@import plantuml.lib.c4.txt.C4SystemBoundary
+@import plantuml.lib.c4.txt.C4Persons
+@import plantuml.lib.c4.txt.C4Systems
+@import plantuml.lib.c4.txt.C4Relations
+@import plantuml.lib.txt.C4
+@(model: CompiledProjectMilestoneTransitionSystemContainerView)(implicit townPlan: TownPlan)
+@C4 {
+    @for(systemContext <- model.systemContexts) {
+        @C4SystemBoundary(systemContext, model.pointInTime, model.containers(systemContext), model)
+    }
+    @C4Systems(model.otherSystems, model.pointInTime)
+    @C4Persons(model.businessActors, model.pointInTime)
+    @C4Relations(relationships = model.flows)
+}

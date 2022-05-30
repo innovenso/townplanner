@@ -26,9 +26,12 @@ ea needs FlowView(title = "The Joker Flow") and { it =>
 When the townplan is instructed to render diagrams, the code above will result in the following 3 files:
 
 ## Output
+
 ### Flow
 ![Flow Diagram](../images/views/flow1.svg)
+
 ### C4 Flow
 ![Flow Diagram - C4](../images/views/flow2.svg)
+
 ### Sequence
 ![Sequence Diagram](../images/views/sequence1.svg)

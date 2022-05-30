@@ -44,6 +44,7 @@ case class TownPlan(
     with HasArchitectureDecisionRecords
     with HasKnowledgeMatrices
     with HasTags
+    with HasProjectMilestoneTransitionSystemContainerViews
 
 case class EnterpriseArchitecture()
     extends CanAddModelComponents
@@ -70,8 +71,9 @@ case class EnterpriseArchitecture()
     with CanAddFullTownPlanViews
     with CanAddSystemIntegrationInteractionViews
     with CanAddProjectMilestoneImpactViews
-      with CanAddDecisionImpactViews
+    with CanAddDecisionImpactViews
     with CanAddTechnologyRadars
     with CanAddArchitectureDecisionRecords
     with CanAddKnowledgeMatrices
     with CanAddTags
+    with CanAddProjectMilestoneTransitionSystemContainerViews

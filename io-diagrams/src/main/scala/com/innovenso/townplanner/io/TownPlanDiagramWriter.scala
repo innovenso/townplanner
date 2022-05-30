@@ -16,6 +16,10 @@ case class TownPlanDiagramWriter(
   def write(townPlan: TownPlan, outputContext: OutputContext): OutputContext =
     outputContext.withOutputs(
       views(townPlan)
+        .map(cv => {
+          println(cv)
+          cv
+        })
         .flatMap(view =>
           DiagramSpecificationWriter
             .specifications(view)(townPlan)
@@ -35,10 +39,10 @@ case class TownPlanDiagramWriter(
       .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
   )
 
-  def view(townPlan: TownPlan, key: Key): Option[_ <: CompiledView[_ <: View]] =
-    views(townPlan).find(_.key == key)
+  def view(townPlan: TownPlan, key: Key): List[_ <: CompiledView[_ <: View]] =
+    views(townPlan).filter(_.key == key)
 
   def views(townPlan: TownPlan): List[_ <: CompiledView[_ <: View]] =
-    townPlan.systemContainerViews ++ townPlan.systemIntegrationViews ++ townPlan.flowViews ++ townPlan.businessCapabilityMaps ++ townPlan.businessCapabilityPositions ++ townPlan.architectureBuildingBlockRealizationViews ++ townPlan.integrationMaps ++ townPlan.fullTownPlanViews ++ townPlan.systemIntegrationInteractionViews ++ townPlan.projectMilestoneImpactViews ++ townPlan.decisionImpactViews
+    townPlan.systemContainerViews ++ townPlan.systemIntegrationViews ++ townPlan.flowViews ++ townPlan.businessCapabilityMaps ++ townPlan.businessCapabilityPositions ++ townPlan.architectureBuildingBlockRealizationViews ++ townPlan.integrationMaps ++ townPlan.fullTownPlanViews ++ townPlan.systemIntegrationInteractionViews ++ townPlan.projectMilestoneImpactViews ++ townPlan.decisionImpactViews ++ townPlan.beforeProjectMilestoneSystemContainerViews ++ townPlan.afterProjectMilestoneSystemContainerViews
 
 }

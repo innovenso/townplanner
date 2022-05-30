@@ -30,7 +30,9 @@ import plantuml.project.txt.{
   MilestoneItPlatformImpactView,
   MilestoneItSystemImpactView,
   MilestoneItSystemIntegrationImpactView,
-  MilestoneTechnologyImpactView
+  MilestoneTechnologyImpactView,
+  MilestoneTransitionSystemContainerViewC4Diagram,
+  MilestoneTransitionSystemContainerViewDiagram
 }
 import plantuml.system.txt.{
   C4SystemContainerViewDiagram,
@@ -213,6 +215,35 @@ object DiagramSpecificationWriter {
           ).body,
           filenameAppendix = Some("Architecture Building Blocks"),
           relatedModelComponents = List(projectMilestoneImpactView.milestone)
+        )
+      )
+    case projectMilestoneTransitionSystemContainerView: CompiledProjectMilestoneTransitionSystemContainerView =>
+      List(
+        DiagramSpecification(
+          view = projectMilestoneTransitionSystemContainerView,
+          plantumlSpecification = MilestoneTransitionSystemContainerViewDiagram(
+            projectMilestoneTransitionSystemContainerView
+          ).body,
+          relatedModelComponents =
+            List(projectMilestoneTransitionSystemContainerView.milestone),
+          filenameAppendix = Some(
+            if (projectMilestoneTransitionSystemContainerView.isBefore) "Before"
+            else "After"
+          )
+        ),
+        DiagramSpecification(
+          view = projectMilestoneTransitionSystemContainerView,
+          plantumlSpecification =
+            MilestoneTransitionSystemContainerViewC4Diagram(
+              projectMilestoneTransitionSystemContainerView
+            ).body,
+          relatedModelComponents =
+            List(projectMilestoneTransitionSystemContainerView.milestone),
+          filenameAppendix = Some(
+            if (projectMilestoneTransitionSystemContainerView.isBefore)
+              "Before C4"
+            else "After C4"
+          )
         )
       )
     case decisionImpactView: CompiledDecisionImpactView =>

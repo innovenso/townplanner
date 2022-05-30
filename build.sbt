@@ -76,6 +76,17 @@ lazy val ioDiagrams = project
     libraryDependencies += plantUml
   )
   .enablePlugins(SbtTwirl)
+lazy val ioCharts = project
+  .in(file("io-charts"))
+  .dependsOn(model, ioCore)
+  .settings(
+    name := "innovenso-townplanner-io-charts",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem,
+    libraryDependencies += jfreeChart,
+    libraryDependencies += jfreeSvg
+  )
 lazy val ioOpenExchange = project
   .in(file("io-openexchange"))
   .dependsOn(model, ioCore)
@@ -179,6 +190,8 @@ val json = "net.liftweb" %% "lift-json" % "3.5.0"
 val commonsCodec = "commons-codec" % "commons-codec" % "1.15"
 val laikaPdf = "org.planet42" %% "laika-pdf" % "0.18.2"
 val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
+val jfreeChart = "org.jfree" % "jfreechart" % "1.5.3"
+val jfreeSvg = "org.jfree" % "jfreesvg" % "3.4.2"
 
 val montserratURL = "https://fonts.googleapis.com/css?family=Montserrat"
 
