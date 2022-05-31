@@ -10,6 +10,7 @@ import com.innovenso.townplanner.io.latex.picture.context.{
   TikzRequirementScoreSpiderDiagram,
   TikzSecurityImpactDiagram
 }
+import com.innovenso.townplanner.io.latex.slides.context.BeamerThemeConfiguration
 import com.innovenso.townplanner.io.latex.slides.model.{
   BeamerDefaultThemeLibrary,
   SlideDeck
@@ -34,7 +35,7 @@ object SlideDeckSpecificationWriter {
         LatexSpecification(
           view = fullTownPlanView,
           latexSourceCode = FullTownPlan(fullTownPlanView)(townPlan).body,
-          latexLibraries = List(BeamerDefaultThemeLibrary),
+          latexLibraries = List(BeamerThemeConfiguration.theme),
           outputType = SlideDeck,
           relatedModelComponents = fullTownPlanView.enterprise.toList
         )

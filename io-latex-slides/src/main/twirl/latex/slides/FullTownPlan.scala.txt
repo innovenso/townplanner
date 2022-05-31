@@ -19,7 +19,6 @@
 @DocumentClass(name = "beamer", options = List("handout", "aspectratio=169"))
 @CommonSettings(townPlan)
 @BeamerSettings()
-@BeamerTheme("innovenso")
 @SlideDeckPreamble(title = Some(view.title), author = None)
 @Document {
     @DocumentTitle()

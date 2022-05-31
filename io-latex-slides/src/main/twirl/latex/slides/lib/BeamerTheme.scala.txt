@@ -1,3 +1,4 @@
 @import txt.Command
-@(name: String)
-@Command(name = "usetheme", requiredParameters = List(name))
+@import com.innovenso.townplanner.io.latex.slides.context.BeamerThemeConfiguration
+@()
+@Command(name = "usetheme", requiredParameters = List(BeamerThemeConfiguration.theme.name))

@@ -3,7 +3,7 @@ package com.innovenso.townplanner.io.latex.slides.model
 import com.innovenso.townplanner.io.latex.model.{LatexLibrary, LatexLibraryFile}
 
 case object BeamerDefaultThemeLibrary extends LatexLibrary {
-  val name = "beamerDefaultTheme"
+  val name = "innovenso"
   val resourceBasePathName: Option[String] = Some("beamer/theme/default")
   val styleFiles: List[LatexLibraryFile] = List(
     "beamercolorthemeinnovenso.sty",
