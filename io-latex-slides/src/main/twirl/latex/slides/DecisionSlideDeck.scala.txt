@@ -16,7 +16,29 @@
 @import latex.slides.lib.txt.TaskComplete
 @import latex.slides.lib.txt.SymbolBackground
 @import play.twirl.api.TwirlFeatureImports._
-@(view: CompiledArchitectureDecisionRecord, decisionKey: Key)(implicit townPlan: TownPlan)
+@import latex.slides.lib.txt.DescriptionSlides
+@import latex.slides.lib.txt.LinkSlides
+@import com.innovenso.townplanner.model.concepts.NotStarted
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@import com.innovenso.townplanner.model.concepts.InProgress
+@import latex.slides.lib.txt.TaskInProgress
+@import com.innovenso.townplanner.model.concepts.Decided
+@import txt.SubSection
+@import latex.lib.tables.txt.Table
+@import com.innovenso.townplanner.io.latex.model.RaciTable
+@import txt.Environment
+@import latex.lib.txt.Itemize
+@import latex.lib.txt.Dictionary
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.Pdf
+@import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
+@import latex.txt.PositionedImage
+@import txt.Paragraph
+@import latex.txt.PositionedText
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import latex.txt.FullPageTikzPictureEnvironment
+@(view: CompiledArchitectureDecisionRecord, decisionKey: Key, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedDecision(decisionKey).isDefined) {
 @defining(view.decoratedDecision(decisionKey).get) { decoratedDecision =>
 @DocumentClass(name = "beamer", options = List("handout", "aspectratio=169"))
@@ -27,25 +49,92 @@
     @DocumentTitle()
     @Agenda()
 
-    @Section("Section 1") {
-        @Slide(title = Some("Hello World")) {
-            @Text("This is the town plan")
-            @TaskToDo()
+    @Section("Context", condition = decoratedDecision.hasContext) {
+      @DescriptionSlides(decoratedDecision.decision, title = Some("What are we deciding?"), subtitle = Some(decoratedDecision.decision.title))
+      @Slide(title = Some("Status and RACI")) {
+        @decoratedDecision.decision.status match {
+          case NotStarted => {
+            @TaskToDo() @LatexFormat.escape(text = decoratedDecision.decision.status.name + decoratedDecision.decision.dueDate.map(ft => s", due on ${ft.date}").getOrElse(""))
+          }
+          case InProgress => {
+            @TaskInProgress() @LatexFormat.escape(text = decoratedDecision.decision.status.name + decoratedDecision.decision.dueDate.map(ft => s", due on ${ft.date}").getOrElse(""))
+          }
+          case Decided => {
+              @TaskComplete() @LatexFormat.escape(text = decoratedDecision.decision.status.name + decoratedDecision.decision.doneDate.map(ft => s", decided on ${ft.date}").getOrElse(""))
+          }
         }
 
-        @SymbolBackground(fontAwesomeSymbolName = "faBusinessTime") {
-            @Slide(title = Some("Slide Two")) {
-                @Text("This is the town plan")
+        @Environment("scriptsize") {
+            @Table(table = RaciTable(decoratedDecision, 30).table)
+        }
+
+      }
+
+
+        @SubSection("Current Conditions", condition = decoratedDecision.hasCurrentConditions) {
+            @for(currentCondition <- decoratedDecision.decision.currentState) {
+                @Slide(title = Some(currentCondition.title), subtitle = Some("Current Conditions")) {
+                    @Text(currentCondition.description)
+                }
+            }
+        }
+
+        @SubSection("Goals", condition = decoratedDecision.hasGoals) {
+            @for(goal <- decoratedDecision.decision.goals) {
+                @Slide(title = Some(goal.title), subtitle = Some("Goals")) {
+                    @Text(goal.description)
+                }
+            }
+        }
+        @SubSection("Assumptions", condition = decoratedDecision.hasAssumptions) {
+            @for(assumption <- decoratedDecision.decision.assumptions) {
+                @Slide(title = Some(assumption.title), subtitle = Some("Assumptions")) {
+                    @Text(assumption.description)
+                }
+            }
+        }
+
+        @SubSection("Influencers & Stakeholders", condition = decoratedDecision.hasInfluencers || decoratedDecision.hasInfluencingPrinciples) {
+            @Slide(title = Some("People"), subtitle = Some("Influencers"), condition = decoratedDecision.hasInfluencers) {
+                @Itemize(decoratedDecision.influencers.map(_.title))
+            }
+            @Slide(title = Some("Principles"), subtitle = Some("Influencers"), condition = decoratedDecision.hasInfluencingPrinciples) {
+                @Dictionary(decoratedDecision.influencingPrinciples.map(p => (p.title, p.descriptions.headOption.map(_.value).getOrElse("-"))))
+            }
+            @Slide(Some("Stakeholders"), condition = decoratedDecision.hasStakeholders) {
+                @Itemize(decoratedDecision.stakeholders.map(_.title))
+            }
+        }
+
+        @SubSection("Security & Compliance", condition = decoratedDecision.hasSecurityImpact || decoratedDecision.hasComplianceImpact) {
+            @Slide(title = Some("Security & Compliance"), condition = decoratedDecision.hasSecurityImpact) {
+              @FullPageTikzPictureEnvironment() {
+                  @for(securityImpactDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzSecurityImpactDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision))) {
+                      @PositionedImage(output = securityImpactDiagram, width = 50, position = (90, 90))
+                  }
+                  @PositionedText(width = 90, position = (0,90), configuration = List(TinyFont)) {
+                      @Dictionary(decoratedDecision.decision.complianceConcerns.map(concern => (concern.name, concern.description)))
+                  }
+              }
+
             }
         }
     }
 
-    @Section("Section 2") {
-        @Slide(title = Some("Slide 3"), subtitle = Some("Hello world")) {
-            @Text("This is third slide")
-            @TaskComplete()
-        }
-
+    @Section("Analysis", condition = decoratedDecision.hasRequirements) {
+        This is the analysis
     }
+
+    @Section("Options Considered") {
+        These are the options
+    }
+
+    @Section("Outcome", decoratedDecision.hasOutcome && decoratedDecision.hasConsequences) {
+    }
+
+    @Section("Appendix", decoratedDecision.hasLinks) {
+        @LinkSlides(decoratedDecision.decision)
+    }
+
 }
 }}

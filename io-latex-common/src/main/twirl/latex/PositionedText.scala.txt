@@ -1,0 +1,16 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplan.io.context.Output
+@import latex.lib.tikz.txt.TikzPictureEnvironment
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNodeWithImage
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.TextWidth
+@import com.innovenso.townplanner.io.latex.model.MinimumWidth
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.InnerSep
+@import com.innovenso.townplanner.io.latex.model.TikzStyleInstruction
+@import com.innovenso.townplanner.io.latex.model.Rectangle
+@(width: Int, position: (Int,Int), configuration: List[TikzStyleInstruction] = Nil)(content: Txt)
+@Tikz(TikzNode(title = content.body, escapeTitle = false, at = Some(position), configuration = List(Rectangle, TextWidth(width), MinimumWidth(width), Anchor(NorthWest), InnerSep(0)) ++ configuration))

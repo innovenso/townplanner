@@ -1,0 +1,19 @@
+@import com.innovenso.townplanner.model.concepts.properties.Link
+@import txt.Text
+@import latex.lib.txt.SimpleLink
+@import com.innovenso.townplanner.model.concepts.properties.HasLinks
+@import latex.slides.lib.txt.Slide
+@import latex.slides.lib.txt.Slide
+@import txt.Environment
+@(concept: HasLinks, title: Option[String] = Some("Links"), subtitle: Option[String] = None)
+@if(concept.links.nonEmpty) {
+    @Slide(title = title, subtitle = subtitle) {
+        @Environment("itemize") {
+            @for(link <- concept.links) {
+                \item @SimpleLink(link)
+            }
+        }
+    }
+}
+
+

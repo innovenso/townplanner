@@ -1,5 +1,6 @@
 package com.innovenso.townplanner.io.latex.model
 
+import com.innovenso.townplan.io.context.Output
 import com.innovenso.townplanner.io.latex.LatexFormat
 import com.innovenso.townplanner.model.meta.Key
 
@@ -36,6 +37,28 @@ case class TikzNode(
     else LatexFormat.apply(textVariants, title)
   val value =
     s"\\node[${configuration.map(_.value).mkString(",")}] ${position} (${identifier.camelCased}) {${titleString}}"
+}
+
+case class TikzNodeWithImage(
+    output: Output,
+    width: Int,
+    identifier: Key = Key(),
+    at: Option[(Int, Int)] = None,
+    orAt: Option[String] = None,
+    orAtPolar: Option[(Double, Double)] = None,
+    configuration: List[TikzStyleInstruction] = Nil
+) extends TikzInstruction {
+  private val position: String =
+    at.map(pos => s"at (${pos._1}mm,${pos._2}mm)")
+      .getOrElse(
+        orAt
+          .map(pos => s"at (${pos})")
+          .getOrElse(
+            orAtPolar.map(pos => s"at (${pos._1}:${pos._2})").getOrElse("")
+          )
+      )
+  val value =
+    s"\\node[${configuration.map(_.value).mkString(",")}] ${position} (${identifier.camelCased}) {\\includegraphics[width=${width}mm]{${output.assetHashedName}}}"
 }
 
 case class TikzCoordinate(

@@ -1,0 +1,14 @@
+@import txt.Environment
+@import txt.Command
+@import com.innovenso.townplan.io.context.Output
+@import latex.lib.tikz.txt.TikzPictureEnvironment
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNodeWithImage
+@import com.innovenso.townplanner.io.latex.model.InnerSep
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@(output: Output, width: Int, position: (Int,Int))
+@if(output.assetName.isDefined) {
+    @Tikz(TikzNodeWithImage(output = output, width=width, at = Some(position), configuration = List(InnerSep(0),Anchor(NorthWest))))
+}

@@ -18,16 +18,19 @@ class DecisionSlideDeckSpec extends AnyFlatSpec with GivenWhenThen {
     val innovenso: Enterprise = samples.enterprise
     val notStartedDecision: Decision =
       samples.decision(Some(innovenso), status = NotStarted)
-    val inProgressDecision: Decision =
-      samples.decision(Some(innovenso), status = InProgress)
-    val decidedDecision: Decision =
-      samples.decision(Some(innovenso), status = Decided)
+//    val inProgressDecision: Decision =
+//      samples.decision(Some(innovenso), status = InProgress)
+//    val decidedDecision: Decision =
+//      samples.decision(Some(innovenso), status = Decided)
     When("An ADR is requested")
     val adr: ArchitectureDecisionRecord = ea needs ArchitectureDecisionRecord()
     When("the townplan slide decks are written")
-    val outputContext: OutputContext = slideDecksAreWritten(adr.key)
+    val pictureOutputContext: OutputContext = picturesAreWritten(adr.key)
+    println(assetRepository.targetBasePath)
+    val outputContext: OutputContext =
+      slideDecksAreWritten(adr.key, pictureOutputContext)
     Then("slide decks are available in the output context")
-    assert(outputContext.outputs.size == 3)
+    assert(outputContext.outputs.nonEmpty)
     And("the files exist")
     assert(
       assetRepository.objectNames.forall(

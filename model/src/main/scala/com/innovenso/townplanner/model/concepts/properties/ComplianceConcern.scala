@@ -32,7 +32,10 @@ trait HasDataProtectionConcerns extends HasProperties {
     props(classOf[PCICompliance])
   def healthDataComplianceConcerns: List[HealthDataCompliance] =
     props(classOf[HealthDataCompliance])
-  def complianceConcerns: List[Compliance] = props(classOf[Compliance])
+  def otherComplianceConcerns: List[Compliance] = props(classOf[Compliance])
+  def complianceConcerns: List[ComplianceConcern] = props(
+    classOf[ComplianceConcern]
+  )
 }
 
 trait CanConfigureDataProtectionConcerns[

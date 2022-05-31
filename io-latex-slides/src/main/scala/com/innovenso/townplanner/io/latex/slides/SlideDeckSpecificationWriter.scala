@@ -47,7 +47,8 @@ object SlideDeckSpecificationWriter {
           dependencies = dependendencies(adr, outputContext),
           latexSourceCode = DecisionSlideDeck(
             adr,
-            decoratedDecision.decision.key
+            decoratedDecision.decision.key,
+            outputContext
           )(townPlan).body,
           latexLibraries = List(BeamerThemeConfiguration.theme),
           outputType = SlideDeck,

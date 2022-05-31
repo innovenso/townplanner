@@ -1,0 +1,17 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import txt.Text
+@import latex.slides.lib.txt.Slide
+@import play.twirl.api.TwirlFeatureImports._
+@(concept: HasDescription, title: Option[String] = None, subtitle: Option[String] = None)
+@defining(concept.descriptions.size) { numberOfDescriptions =>
+  @for(desc <- concept.descriptions.zipWithIndex) {
+    @defining(desc._2 + 1) { counter =>
+      @defining(if (numberOfDescriptions > 1) s" (${counter}/${numberOfDescriptions})" else "") { titleAppendix =>
+        @Slide(title = title.map(t => s"$t $titleAppendix"), subtitle = subtitle) {
+          @Text(content = desc._1.value)
+        }
+      }
+    }
+
+  }
+}

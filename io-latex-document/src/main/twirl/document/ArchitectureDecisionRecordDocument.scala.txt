@@ -34,6 +34,7 @@
 @import latex.lib.txt.Date
 @import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
 @import txt.MarginImage
+@import com.innovenso.townplanner.io.latex.model.RaciTable
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {

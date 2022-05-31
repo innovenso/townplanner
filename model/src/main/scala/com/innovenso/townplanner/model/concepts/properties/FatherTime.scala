@@ -54,7 +54,14 @@ case class Due(date: ADay = Today, description: String = "")
   val canBePlural = false
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
+}
 
+case class Done(date: ADay = Today, description: String = "")
+    extends FatherTime {
+  val name = "Done"
+  val canBePlural = false
+
+  override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
 }
 
 case class StartedDevelopment(
@@ -134,6 +141,7 @@ case class LifecycleEvent(
 
 trait HasFatherTime extends HasProperties {
   def dueDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Due])
+  def doneDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Done])
 
   def isUnknownLifecycle(day: ADay): Boolean =
     lifeEvents.isEmpty || (hasNoLifeEventsBefore(

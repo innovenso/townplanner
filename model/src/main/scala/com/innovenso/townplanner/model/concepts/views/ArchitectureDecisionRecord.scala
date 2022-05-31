@@ -194,6 +194,7 @@ case class DecisionDecorator(
   val hasCurrentConditions: Boolean = decision.currentState.nonEmpty
 
   val hasDescriptions: Boolean = decision.descriptions.nonEmpty
+  val hasLinks: Boolean = decision.links.nonEmpty
   val hasGoals: Boolean = decision.goals.nonEmpty
   val hasAssumptions: Boolean =
     decision.assumptions.nonEmpty
