@@ -1,0 +1,51 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledArchitectureDecisionRecord
+@import com.innovenso.townplanner.model.concepts.views.CompiledArchitectureDecisionRecord
+@import com.innovenso.townplanner.model.meta.Key
+@import com.innovenso.townplanner.model.TownPlan
+@import txt.DocumentClass
+@import txt.CommonSettings
+@import latex.slides.lib.txt.BeamerSettings
+@import latex.slides.lib.txt.SlideDeckPreamble
+@import txt.Document
+@import txt.DocumentTitle
+@import latex.slides.lib.txt.Agenda
+@import txt.Section
+@import latex.slides.lib.txt.Slide
+@import txt.Text
+@import latex.slides.lib.txt.TaskToDo
+@import latex.slides.lib.txt.TaskComplete
+@import latex.slides.lib.txt.SymbolBackground
+@import play.twirl.api.TwirlFeatureImports._
+@(view: CompiledArchitectureDecisionRecord, decisionKey: Key)(implicit townPlan: TownPlan)
+@if(view.decoratedDecision(decisionKey).isDefined) {
+@defining(view.decoratedDecision(decisionKey).get) { decoratedDecision =>
+@DocumentClass(name = "beamer", options = List("handout", "aspectratio=169"))
+@CommonSettings(townPlan)
+@BeamerSettings()
+@SlideDeckPreamble(title = Some(decoratedDecision.decision.title), author = None)
+@Document {
+    @DocumentTitle()
+    @Agenda()
+
+    @Section("Section 1") {
+        @Slide(title = Some("Hello World")) {
+            @Text("This is the town plan")
+            @TaskToDo()
+        }
+
+        @SymbolBackground(fontAwesomeSymbolName = "faBusinessTime") {
+            @Slide(title = Some("Slide Two")) {
+                @Text("This is the town plan")
+            }
+        }
+    }
+
+    @Section("Section 2") {
+        @Slide(title = Some("Slide 3"), subtitle = Some("Hello world")) {
+            @Text("This is third slide")
+            @TaskComplete()
+        }
+
+    }
+}
+}}

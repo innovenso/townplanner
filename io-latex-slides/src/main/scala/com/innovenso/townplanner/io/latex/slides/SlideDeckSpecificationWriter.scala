@@ -22,7 +22,7 @@ import com.innovenso.townplanner.model.concepts.views.{
   CompiledTechnologyRadar
 }
 import com.innovenso.townplanner.model.language.{CompiledView, View}
-import latex.slides.txt.FullTownPlan
+import latex.slides.txt.{DecisionSlideDeck, FullTownPlan}
 
 object SlideDeckSpecificationWriter {
   def specifications(
@@ -38,6 +38,21 @@ object SlideDeckSpecificationWriter {
           latexLibraries = List(BeamerThemeConfiguration.theme),
           outputType = SlideDeck,
           relatedModelComponents = fullTownPlanView.enterprise.toList
+        )
+      )
+    case adr: CompiledArchitectureDecisionRecord =>
+      adr.decoratedDecisions.map(decoratedDecision =>
+        LatexSpecification(
+          view = adr,
+          dependencies = dependendencies(adr, outputContext),
+          latexSourceCode = DecisionSlideDeck(
+            adr,
+            decoratedDecision.decision.key
+          )(townPlan).body,
+          latexLibraries = List(BeamerThemeConfiguration.theme),
+          outputType = SlideDeck,
+          relatedModelComponents = List(decoratedDecision.decision),
+          filenameAppendix = Some(decoratedDecision.decision.title)
         )
       )
     case _ => Nil

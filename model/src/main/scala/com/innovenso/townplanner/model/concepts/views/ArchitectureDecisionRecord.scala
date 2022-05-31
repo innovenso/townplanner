@@ -153,6 +153,9 @@ case class CompiledArchitectureDecisionRecord(
     with HasPrinciples {
   val decoratedDecisions: List[DecisionDecorator] =
     decisions.map(DecisionDecorator(this, _))
+
+  def decoratedDecision(key: Key): Option[DecisionDecorator] =
+    decision(key).map(DecisionDecorator(this, _))
 }
 
 case class DecisionOptionDecorator(
