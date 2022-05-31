@@ -29,6 +29,18 @@ case class QualityAttributeRequirement(
     weight: RequirementWeight = ShouldHave
 ) extends Requirement {
   val description: String = response
+  val descriptionList: List[(String, String)] =
+    describe("Source of Stimulus", sourceOfStimulus) ++ describe(
+      "Stimulus",
+      stimulus
+    ) ++ describe("Environment", environment) ++ describe(
+      "Response",
+      response
+    ) ++ describe("Response Measure", responseMeasure)
+
+  private def describe(title: String, value: String): List[(String, String)] =
+    if (value.isEmpty || value.isBlank) Nil else List((title, value))
+
 }
 
 trait Requirement extends Property {

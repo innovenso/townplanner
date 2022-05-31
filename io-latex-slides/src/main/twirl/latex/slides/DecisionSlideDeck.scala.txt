@@ -122,7 +122,30 @@
     }
 
     @Section("Analysis", condition = decoratedDecision.hasRequirements) {
-        This is the analysis
+
+        @SubSection("Functional Requirements", condition = decoratedDecision.hasFunctionalRequirements) {
+          @for(requirement <- decoratedDecision.decision.functionalRequirements) {
+            @Slide(title = Some(requirement.title), subtitle = Some(s"Functional Requirement - ${requirement.weight.name}")) {
+              @Text(requirement.description)
+            }
+          }
+        }
+        @SubSection("Quality Attribute Requirements", condition = decoratedDecision.hasQualityAttributeRequirements) {
+            @for(requirement <- decoratedDecision.decision.qualityAttributeRequirements) {
+                @Slide(title = Some(requirement.title), subtitle = Some(s"QAR - ${requirement.weight.name}")) {
+                    @Dictionary(requirement.descriptionList)
+                }
+            }
+        }
+        @SubSection("Constraints", condition = decoratedDecision.hasConstraints) {
+            @for(requirement <- decoratedDecision.decision.constraints) {
+                @Slide(title = Some(requirement.title), subtitle = Some(s"Constraint - ${requirement.weight.name}")) {
+                    @Text(requirement.description)
+                }
+            }
+        }
+
+
     }
 
     @Section("Options Considered") {
