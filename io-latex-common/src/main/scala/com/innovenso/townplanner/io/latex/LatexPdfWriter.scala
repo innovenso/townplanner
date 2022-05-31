@@ -22,7 +22,8 @@ import java.io.{
   InputStream,
   InputStreamReader
 }
-import java.nio.file.Files
+import java.nio.charset.StandardCharsets
+import java.nio.file.{Files, Path}
 import java.util.concurrent.Executors
 import scala.util.Try
 
@@ -118,7 +119,17 @@ case class LatexPdfWriter(
 }
 
 private class OutputLogger(stream: InputStream) extends Runnable {
+  val file: Path = Files.createTempFile("Latex", "Log")
+  println(s"writing LaTeX log to file: ${file}")
   override def run(): Unit = new BufferedReader(
     new InputStreamReader(stream)
-  ).lines.forEach(it => println(it))
+  ).lines.forEach(it => {
+    print(".")
+    FileUtils.writeStringToFile(
+      file.toFile,
+      s"${it}\n",
+      StandardCharsets.UTF_8,
+      true
+    )
+  })
 }

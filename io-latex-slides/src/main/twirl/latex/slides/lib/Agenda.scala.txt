@@ -1,0 +1,13 @@
+@import com.innovenso.townplanner.model.TownPlan
+@import latex.slides.lib.txt.Slide
+@import txt.Environment
+@import txt.Text
+@()(implicit townPlan: TownPlan)
+@Slide(options = List("t")) {
+  @Environment(name = "Large") {
+    @Text("Agenda")
+  }
+  @Environment(name = "multicols", parameters = List("2")) {
+    \tableofcontents
+  }
+}

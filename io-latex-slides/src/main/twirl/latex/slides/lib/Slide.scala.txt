@@ -1,0 +1,6 @@
+@import txt.Command
+@import txt.Environment
+@(title: Option[String] = None, subtitle: Option[String] = None, condition: Boolean = true, options: List[String] = Nil)(content: Txt)
+@if(condition) {
+    @Environment(name = "frame", parameters = title.toList ++ subtitle.toList, optionalParameters = options)(content)
+}

@@ -12,11 +12,14 @@ case class ColorScheme(
     redColor: Color = Color(255, 0, 0),
     greenColor: Color = Color(0, 255, 0),
     amberColor: Color = Color(255, 255, 0),
+    blackColor: Color = Color(0, 0, 0),
+    whiteColor: Color = Color(255, 255, 255),
     accentColors: List[Color] = List(
+      Color(140, 131, 79),
+      Color(8, 156, 61),
       Color(141, 24, 245),
       Color(59, 121, 235),
       Color(150, 156, 39),
-      Color(8, 156, 61),
       Color(158, 127, 51),
       Color(98, 51, 235),
       Color(104, 158, 19),
@@ -33,6 +36,8 @@ case class ColorScheme(
   val numberOfAccentColors: Int = 20
 
   def toMap: Map[String, Color] = Map(
+    ("innovensoWhite", whiteColor),
+    ("innovensoBlack", blackColor),
     ("innovensoGreen", greenColor),
     ("innovensoAmber", amberColor),
     ("innovensoRed", redColor),
@@ -46,4 +51,3 @@ case class ColorScheme(
     ("innovensoAccent" + index, accentColor(index))
   )
 }
-

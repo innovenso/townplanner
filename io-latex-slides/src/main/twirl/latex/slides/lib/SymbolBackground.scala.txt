@@ -1,0 +1,10 @@
+@(fontAwesomeSymbolName: String, symbolColor: String = "innovensoBorder")(content: Txt)
+{
+\u005cusebackgroundtemplate{
+\begin{tikzpicture}
+\u005cuseasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+\node[anchor=south west,@symbolColor,opacity=.05,font=\large,inner sep=0,xshift=-2cm] at (0,0){\fontsize{270}{270}\selectfont\@fontAwesomeSymbolName};
+\end{tikzpicture}
+}
+@content
+}

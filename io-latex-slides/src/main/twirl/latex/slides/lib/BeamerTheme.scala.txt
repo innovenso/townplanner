@@ -1,0 +1,3 @@
+@import txt.Command
+@(name: String)
+@Command(name = "usetheme", requiredParameters = List(name))

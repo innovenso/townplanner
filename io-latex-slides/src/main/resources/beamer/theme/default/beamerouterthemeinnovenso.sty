@@ -1,0 +1,49 @@
+\RequirePackage{graphicx}
+
+\mode<presentation>
+
+% Frame title
+\defbeamertemplate*{frametitle}{innovenso}[1][]
+{
+\begin{beamercolorbox}[wd=\paperwidth,ht=1.1cm]{frametitle}
+    \begin{tikzpicture}
+        \useasboundingbox[fill=innovensoWhite](0,0) rectangle(\the\paperwidth,1.1cm);
+        \draw[black] (1cm,0) -- (\linewidth-1cm,0);
+
+        \ifx\insertframesubtitle\@empty%
+            {\node[anchor=west,innovensoBlack,font=\large,inner sep=0,text width=\the\paperwidth - 55mm] at (1cm,5mm){\usebeamerfont{frametitle}\insertframetitle};}
+        \else%
+            {\node[anchor= west,innovensoBlack, inner sep=0,text width=\the\paperwidth - 55mm] at (1cm,7.5mm){\usebeamerfont{frametitle}\insertframetitle};%
+            \node[anchor= west,innovensoBlack, inner sep=0,text width=\the\paperwidth - 55mm] at (1cm,3mm){\usebeamerfont{framesubtitle}\insertframesubtitle};}%
+        \fi
+
+        \node[inner sep=0pt,anchor=east] (inno_title_logo) at (\the\paperwidth - 1cm,5mm)
+            {\includegraphics[width=3cm]{logo}};
+
+    \end{tikzpicture}
+\end{beamercolorbox}
+}
+
+\setbeamertemplate{footline}
+{
+	 	\begin{beamercolorbox}[wd=\paperwidth,ht=8mm]{footline}
+		 	\ifnum \value{page}=1
+				% 		
+		 	\else
+			    \begin{tikzpicture}
+			        \useasboundingbox[fill=innovensoWhite](0,0) rectangle(\the\paperwidth,8mm);
+			        \draw[black] (1cm,7mm) -- (\linewidth-1.9cm,7mm);
+			
+			
+			        \node[inner sep=0pt,anchor=north east] (tc_tagline) at (\the\paperwidth - 1cm,7.2mm)
+			            {\includegraphics[width=8mm]{tagline_black}};
+			            
+			        \node[inner sep=0pt, anchor=south west] (tc_footer) at (1cm, 3mm)
+			        	{\inserttitle,~version~\documentVersion};
+			
+			    \end{tikzpicture}
+			\fi 
+		\end{beamercolorbox}
+}
+
+\mode<all>

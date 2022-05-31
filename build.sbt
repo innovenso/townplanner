@@ -127,6 +127,16 @@ lazy val ioLatexDocument = project
     libraryDependencies += lorem
   )
   .enablePlugins(SbtTwirl)
+lazy val ioLatexSlides = project
+  .in(file("io-latex-slides"))
+  .dependsOn(model, ioCore, ioDiagrams, ioLatexCommon, ioLatexPictures)
+  .settings(
+    name := "innovenso-townplanner-io-latex-slides",
+    libraryDependencies += scalactic,
+    libraryDependencies += scalaTest,
+    libraryDependencies += lorem
+  )
+  .enablePlugins(SbtTwirl)
 lazy val ioWebsite = project
   .in(file("io-website"))
   .dependsOn(model, ioCore, ioDiagrams)

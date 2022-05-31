@@ -1,0 +1,17 @@
+@import txt.UsePackage
+@import txt.Command
+@import com.innovenso.townplanner.model.meta.Today
+@import com.innovenso.townplanner.io.latex.slides.model.DocumentVersion
+@()
+@UsePackage(name = "opensans", parameters = Some("default,oldstyle,scale=0.95"))
+@Command(name = "pgfplotsset", requiredParameters = List("width=7cm,compat=1.8"))
+@Command(name = "setkeys", requiredParameters = List("Gin","keepaspectratio"))
+
+\newcommand{\optarg}[1][]{%
+}
+
+\DeclareUnicodeCharacter{200B}{{\hskip 0pt}}
+
+\def\documentVersion{@DocumentVersion.version}
+\newcommand{\version}[1]{\gdef\documentVersion{#1}}
+

@@ -1,0 +1,88 @@
+\RequirePackage{graphicx}
+
+\mode<presentation>
+
+\setbeamertemplate{itemize items}[square]
+\setbeamertemplate{section in toc}{{\inserttocsectionnumber.}~\inserttocsection}
+\setbeamertemplate{subsection in toc}[plain]
+\setbeamertemplate{caption}[numbered]
+
+\parskip=1em
+
+\setbeamertemplate{background canvas}{
+    \begin{tikzpicture}
+        \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \ifnum \value{page}=1
+            \fill[color=innovensoText] (0,0) rectangle(\the\paperwidth,25mm);
+            \node[inner sep=0pt,anchor=south west] (inno_title_background) at (0,25mm)
+            {\includegraphics[width=\the\paperwidth]{title_background}};
+            \node[inner sep=0pt,anchor=north west] (inno_title_logo) at (1cm,\the\paperheight - 5mm)
+            {\includegraphics[width=4cm]{logo}};
+            \node[inner sep=0pt, anchor=south east] (inno_title_tagline) at (\the\paperwidth - 1cm,5mm)
+            {\includegraphics[width=1cm]{tagline_white}};
+
+        \else
+            \fill[innovensoWhite,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+        \fi
+    \end{tikzpicture}
+}
+
+\setbeamertemplate{background}{
+}
+
+% Title page
+\defbeamertemplate*{title page}{innovenso}[1][]
+{
+\begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+
+    \node[text=innovensoWhite, anchor=north west,inner sep=0,text width=\the\paperwidth - 4cm] at (0cm,2.2cm) {\usebeamerfont{institute}\insertinstitute};
+    \node[text=innovensoWhite, anchor=north west,inner sep=0,text width=\the\paperwidth - 4cm] at (0cm,1.7cm) {\usebeamerfont{title}\MakeUppercase{\inserttitle}};
+    \node[text=innovensoWhite, anchor=north west,inner sep=0,text width=\the\paperwidth - 4cm] at (0cm,1.3cm) {\usebeamerfont{subtitle}\insertsubtitle};
+
+    \node[text=innovensoWhite, anchor=south west,inner sep=0,text width=\the\paperwidth - 4cm, text height=1ex] at (0cm,5mm) {\usebeamerfont{version}version \documentVersion};
+\end{tikzpicture}
+}
+
+% Section page
+\defbeamertemplate*{section page}{innovenso}[1][]
+{
+\begin{tikzpicture}
+    \useasboundingbox (1,0) rectangle(\the\paperwidth,\the\paperheight);
+
+    \fill[color=innovensoAccent1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \node[anchor=west,innovensoWhite,font=\large,inner sep=0,text width=\the\paperwidth - 55mm] at (1cm,\the\paperheight/2){\usebeamerfont{section title}\insertsectionhead};
+
+\end{tikzpicture}
+}
+
+\AtBeginSection {
+    \ifbeamer@inframe
+        \sectionpage
+    \else
+        \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+}
+
+% Subsection page
+\defbeamertemplate*{subsection page}{innovenso}[1][]
+{
+\begin{tikzpicture}
+    \useasboundingbox (1,0) rectangle(\the\paperwidth,\the\paperheight);
+
+    \fill[color=innovensoAccent2] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \node[anchor=west,innovensoWhite,font=\large,inner sep=0,text width=\the\paperwidth - 25mm] at (1cm,\the\paperheight/2) (subsectiontitle){\usebeamerfont{section title}\insertsubsectionhead};
+    \node[anchor=south west, above of=subsectiontitle, innovensoBackground, font=\large,inner sep=0,text width=\the\paperwidth - 25mm] (sectiontitle) {\usebeamerfont{subsection section subtitle}\insertsectionhead};
+
+\end{tikzpicture}
+}
+
+\AtBeginSubsection {
+    \ifbeamer@inframe
+        \subsectionpage
+    \else
+        \frame[plain,c,noframenumbering]{\subsectionpage}
+    \fi
+}
+
+\mode<all>

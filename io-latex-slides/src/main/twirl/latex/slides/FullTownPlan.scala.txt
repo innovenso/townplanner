@@ -1,0 +1,48 @@
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
+@import txt.Document
+@import txt.Preamble
+@import txt.DocumentTitle
+@import txt.DocumentClass
+@import txt.CommonSettings
+@import latex.slides.lib.txt.Slide
+@import txt.Text
+@import latex.slides.lib.txt.SlideDeckPreamble
+@import latex.slides.lib.txt.Agenda
+@import txt.Section
+@import latex.slides.lib.txt.TaskComplete
+@import latex.slides.lib.txt.TaskToDo
+@import latex.slides.lib.txt.SymbolBackground
+@import latex.slides.lib.txt.BeamerSettings
+@import latex.slides.lib.txt.BeamerTheme
+@(view: CompiledFullTownPlanView)(implicit townPlan: TownPlan)
+@DocumentClass(name = "beamer", options = List("handout", "aspectratio=169"))
+@CommonSettings(townPlan)
+@BeamerSettings()
+@BeamerTheme("innovenso")
+@SlideDeckPreamble(title = Some(view.title), author = None)
+@Document {
+    @DocumentTitle()
+    @Agenda()
+
+  @Section("Section 1") {
+      @Slide(title = Some("Hello World")) {
+          @Text("This is the town plan")
+        @TaskToDo()
+      }
+
+    @SymbolBackground(fontAwesomeSymbolName = "faBusinessTime") {
+        @Slide(title = Some("Slide Two")) {
+            @Text("This is the town plan")
+        }
+    }
+  }
+
+    @Section("Section 2") {
+        @Slide(title = Some("Slide 3"), subtitle = Some("Hello world")) {
+            @Text("This is third slide")
+            @TaskComplete()
+        }
+
+    }
+}

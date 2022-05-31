@@ -1,0 +1,25 @@
+\mode<presentation>
+
+% Settings
+\useinnertheme{innovenso}
+\useoutertheme{innovenso}
+\usecolortheme{innovenso}
+\usefonttheme{innovenso}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[shadow=false]
+
+\patchcmd{\beamer@sectionintoc}
+{\vfill}
+{}
+{}
+{}
+
+\patchcmd{\beamer@subsectionintoc}
+{\vfill}
+{}
+{}
+{}
+\makeatother
+
+\mode<all>
