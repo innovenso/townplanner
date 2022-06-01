@@ -16,16 +16,12 @@
 @import latex.lib.txt.Itemize
 @import latex.lib.txt.Dictionary
 @import latex.lib.tables.txt.Table
-@import com.innovenso.townplanner.io.latex.document.model.RaciTable
 @import latex.lib.tables.txt.WideTable
 @import latex.lib.txt.FunctionalRequirements
 @import latex.lib.txt.QualityAttributeRequirements
 @import latex.lib.txt.Constraints
 @import com.innovenso.townplanner.model.TownPlan
-@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionPricingTables
 @import latex.lib.tables.txt.LongTable
-@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionRequirementsMatchTable
-@import com.innovenso.townplanner.io.latex.document.model.DecisionOptionRequirementsMatchTable
 @import com.innovenso.townplan.io.context.OutputContext
 @import com.innovenso.townplan.io.context.Pdf
 @import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
@@ -35,6 +31,8 @@
 @import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
 @import txt.MarginImage
 @import com.innovenso.townplanner.io.latex.model.RaciTable
+@import com.innovenso.townplanner.io.latex.model.DecisionOptionPricingTables
+@import com.innovenso.townplanner.io.latex.model.DecisionOptionRequirementsMatchTable
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @KaoBook(townPlan)
 @Document {

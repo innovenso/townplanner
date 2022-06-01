@@ -160,6 +160,7 @@ lazy val application = project
     ioLatexCommon,
     ioLatexPictures,
     ioLatexDocument,
+    ioLatexSlides,
     ioOpenExchange
   )
   .settings(

@@ -12,6 +12,7 @@ case class ColorScheme(
     redColor: Color = Color(255, 0, 0),
     greenColor: Color = Color(0, 255, 0),
     amberColor: Color = Color(255, 255, 0),
+    blueColor: Color = Color(0, 0, 255),
     blackColor: Color = Color(0, 0, 0),
     whiteColor: Color = Color(255, 255, 255),
     accentColors: List[Color] = List(
@@ -41,6 +42,7 @@ case class ColorScheme(
     ("innovensoGreen", greenColor),
     ("innovensoAmber", amberColor),
     ("innovensoRed", redColor),
+    ("innovensoBlue", blueColor),
     ("innovensoBorder", borderColor),
     ("innovensoBackground", backgroundColor),
     ("innovensoHeader", headerColor),

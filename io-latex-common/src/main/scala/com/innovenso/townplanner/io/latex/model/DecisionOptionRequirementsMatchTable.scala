@@ -1,15 +1,7 @@
-package com.innovenso.townplanner.io.latex.document.model
+package com.innovenso.townplanner.io.latex.model
 
-import com.innovenso.townplanner.io.latex.model.Bold
 import com.innovenso.townplanner.io.latex.model.tables._
-import com.innovenso.townplanner.model.concepts.properties.{
-  AlmostMeetsExpectations,
-  DoesNotMeetExpectations,
-  ExceedsExpectations,
-  MeetsExpectations,
-  Requirement,
-  RequirementScore
-}
+import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.views.DecisionOptionDecorator
 
 case class DecisionOptionRequirementsMatchTable(

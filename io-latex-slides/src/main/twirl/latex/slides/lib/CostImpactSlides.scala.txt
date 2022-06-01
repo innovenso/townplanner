@@ -1,0 +1,27 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import txt.Text
+@import latex.slides.lib.txt.Slide
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasSWOT
+@import latex.txt.FullPageTikzPictureEnvironment
+@import latex.txt.PositionedText
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.io.latex.model.Fill
+@import latex.lib.txt.Itemize
+@import com.innovenso.townplanner.model.concepts.properties.HasCosts
+@import com.innovenso.townplanner.model.concepts.views.DecisionOptionDecorator
+@import com.innovenso.townplanner.io.latex.model.DecisionOptionPricingTables
+@import latex.lib.tables.txt.Table
+@import txt.Environment
+@(concept: DecisionOptionDecorator, title: Option[String] = Some("Cost Impact"), subtitle: Option[String] = None)
+@defining(DecisionOptionPricingTables(concept, titleColumnWidth = 30, categoryColumnWidth = 25, descriptionColumnWidth = 40, showFiscalYear = false).tablesWithYears) { tables =>
+  @for(table <- tables) {
+        @Slide(title = title.map(t => s"${t} - ${table._2.value}"), subtitle = subtitle) {
+            @Environment("tiny") {
+                @Table(table = table._1, title = None)
+            }
+        }
+  }
+}
+
+

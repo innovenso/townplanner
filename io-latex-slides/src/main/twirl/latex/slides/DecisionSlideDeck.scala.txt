@@ -38,6 +38,10 @@
 @import latex.txt.PositionedText
 @import com.innovenso.townplanner.io.latex.model.TinyFont
 @import latex.txt.FullPageTikzPictureEnvironment
+@import latex.slides.lib.txt.SWOTSlides
+@import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
+@import latex.slides.lib.txt.FullSlideImage
+@import latex.slides.lib.txt.CostImpactSlides
 @(view: CompiledArchitectureDecisionRecord, decisionKey: Key, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedDecision(decisionKey).isDefined) {
 @defining(view.decoratedDecision(decisionKey).get) { decoratedDecision =>
@@ -149,10 +153,35 @@
     }
 
     @Section("Options Considered") {
-        These are the options
+        @for(decisionOption <- decoratedDecision.options) {
+            @SubSection(decisionOption.option.title) {
+                @DescriptionSlides(decisionOption.option, title = Some("Description"), subtitle = Some(decisionOption.option.title))
+                @LinkSlides(decisionOption.option)
+                @SWOTSlides(decisionOption.option, subtitle = Some(decisionOption.option.title))
+                @for(spiderDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzRequirementScoreSpiderDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision, decisionOption.option))) {
+                    @Slide(title=Some("Requirements match"), subtitle = Some(decisionOption.option.title)) {
+                        @FullSlideImage(None, spiderDiagram)
+                    }
+                }
+                @CostImpactSlides(decisionOption)
+            }
+        }
     }
 
     @Section("Outcome", decoratedDecision.hasOutcome && decoratedDecision.hasConsequences) {
+        @SubSection("Conclusion", decoratedDecision.hasOutcome) {
+          @Slide(title = Some("Conclusion")) {
+              @Text(decoratedDecision.decision.outcome)
+          }
+        }
+        @SubSection("Consequences", decoratedDecision.hasConsequences) {
+            @for(consequence <- decoratedDecision.decision.consequences) {
+                @Slide(title = Some(consequence.title), subtitle = if (consequence.title == "Consequence") None else Some("Consequence")) {
+                    @Text(consequence.description)
+                }
+            }
+
+        }
     }
 
     @Section("Appendix", decoratedDecision.hasLinks) {

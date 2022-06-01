@@ -4,6 +4,7 @@ import com.innovenso.townplan.io.context.OutputContext
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.latex.document.TownPlanDocumentWriter
 import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
+import com.innovenso.townplanner.io.latex.slides.TownPlanSlideDeckWriter
 import com.innovenso.townplanner.io.openexchange.TownPlanOpenExchangeWriter
 import com.innovenso.townplanner.io.{
   TownPlanDiagramWriter,
@@ -33,6 +34,9 @@ trait EnterpriseArchitectureAsCode extends App {
   val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
     assetRepository
   )
+  val townPlanSlideDeckWriter: TownPlanSlideDeckWriter =
+    TownPlanSlideDeckWriter(assetRepository)
+
   val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(
     assetRepository
   )
@@ -58,5 +62,7 @@ trait EnterpriseArchitectureAsCode extends App {
     this.outputContext = townPlanPictureWriter.write(townPlan, outputContext)
     this.outputContext =
       townPlanDocumentWriter.write(townPlan, this.outputContext)
+    this.outputContext =
+      townPlanSlideDeckWriter.write(townPlan, this.outputContext)
   }
 }

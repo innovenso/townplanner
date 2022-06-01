@@ -1,0 +1,30 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import txt.Text
+@import latex.slides.lib.txt.Slide
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.properties.HasSWOT
+@import latex.txt.FullPageTikzPictureEnvironment
+@import latex.txt.PositionedText
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.io.latex.model.Fill
+@import latex.lib.txt.Itemize
+@(concept: HasSWOT, title: Option[String] = Some("SWOT"), subtitle: Option[String] = None)
+    @Slide(title = title, subtitle = subtitle) {
+  @FullPageTikzPictureEnvironment() {
+    @PositionedText(width = 68, height = 30, position = (0,90), configuration = List(TinyFont, Fill("innovensoGreen"))) {
+      @Itemize(concept.strengths.map(_.description))
+    }
+    @PositionedText(width = 68, height = 30, position = (72,90), configuration = List(TinyFont, Fill("innovensoAmber"))) {
+      @Itemize(concept.weaknesses.map(_.description))
+    }
+    @PositionedText(width = 68, height = 30, position = (0,55), configuration = List(TinyFont, Fill("innovensoBlue"))) {
+      @Itemize(concept.opportunities.map(_.description))
+    }
+    @PositionedText(width = 68, height = 30, position = (72,55), configuration = List(TinyFont, Fill("innovensoRed"))) {
+      @Itemize(concept.threats.map(_.description))
+    }
+
+
+  }
+}
+
