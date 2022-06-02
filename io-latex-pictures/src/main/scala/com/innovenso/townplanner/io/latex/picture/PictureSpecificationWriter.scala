@@ -10,12 +10,16 @@ import com.innovenso.townplanner.io.latex.picture.context.{
   TikzPicture,
   TikzRequirementScoreSpiderDiagram
 }
-import com.innovenso.townplanner.io.latex.picture.specifications.ArchitectureDecisionRecordSpecificationFactory
+import com.innovenso.townplanner.io.latex.picture.specifications.{
+  ArchitectureDecisionRecordSpecificationFactory,
+  ProjectMilestoneOverviewSpecificationFactory
+}
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledArchitectureDecisionRecord,
   CompiledBusinessCapabilityMap,
-  CompiledKnowledgeMatrix
+  CompiledKnowledgeMatrix,
+  CompiledProjectMilestoneOverview
 }
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import tikz.txt.{
@@ -54,7 +58,11 @@ object PictureSpecificationWriter {
           outputType = TikzBusinessCapabilityOnePager
         )
       )
-
+    case projectMilestoneOverview: CompiledProjectMilestoneOverview =>
+      ProjectMilestoneOverviewSpecificationFactory(
+        projectMilestoneOverview,
+        townPlan
+      ).specifications
     case architectureDecisionRecord: CompiledArchitectureDecisionRecord =>
       ArchitectureDecisionRecordSpecificationFactory(
         architectureDecisionRecord,

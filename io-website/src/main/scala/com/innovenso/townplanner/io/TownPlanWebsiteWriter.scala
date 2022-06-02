@@ -13,7 +13,7 @@ import com.innovenso.townplan.io.context.{
   Xml
 }
 import com.innovenso.townplan.repository.AssetRepository
-import com.innovenso.townplanner.io.context.{Diagram, WebPage}
+import com.innovenso.townplanner.io.context.{PlantUMLDiagram, WebPage}
 import com.innovenso.townplanner.io.model.{
   HtmlSpecification,
   IndexPage,

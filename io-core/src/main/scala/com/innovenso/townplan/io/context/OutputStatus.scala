@@ -4,7 +4,7 @@ sealed trait OutputStatus {
   def name: String
 }
 
-object Success extends OutputStatus {
+case object Success extends OutputStatus {
   val name = "SUCCESS"
 }
 

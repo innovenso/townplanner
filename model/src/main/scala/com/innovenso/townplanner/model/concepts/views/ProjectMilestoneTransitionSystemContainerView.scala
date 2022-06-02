@@ -175,7 +175,7 @@ case class ProjectMilestoneTransitionSystemContainerViewCompiler(
       groupTitle(view.forProjectMilestone),
       isBefore,
       viewComponents(
-        systemContexts ++ simpleSystems ++ containers ++ actors ++ flows ++ technologies ++ implementingTechnologies ++ compositions
+        milestones ++ projects ++ systemContexts ++ simpleSystems ++ containers ++ actors ++ flows ++ technologies ++ implementingTechnologies ++ compositions
       )
     )
 

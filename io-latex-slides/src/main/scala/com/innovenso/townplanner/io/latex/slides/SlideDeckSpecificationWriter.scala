@@ -1,6 +1,24 @@
 package com.innovenso.townplanner.io.latex.slides
 
-import com.innovenso.townplan.io.context.{Output, OutputContext, Pdf}
+import com.innovenso.townplan.io.context.{
+  Eps,
+  Output,
+  OutputContext,
+  OutputFileType,
+  OutputType,
+  Pdf
+}
+import com.innovenso.townplanner.io.context.{
+  ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
+  ProjectMilestoneBusinessCapabilityImpactDiagram,
+  ProjectMilestoneCurrentStateDiagram,
+  ProjectMilestoneItContainerImpactDiagram,
+  ProjectMilestoneItPlatformImpactDiagram,
+  ProjectMilestoneItSystemImpactDiagram,
+  ProjectMilestoneItSystemIntegrationImpactDiagram,
+  ProjectMilestoneTargetStateDiagram,
+  ProjectMilestoneTechnologyImpactDiagram
+}
 import com.innovenso.townplanner.io.latex.model.{
   Book,
   KaoBookLibrary,
@@ -66,8 +84,10 @@ object SlideDeckSpecificationWriter {
         .map(decoratedProjectMilestone =>
           LatexSpecification(
             view = projectMilestoneOverview,
-            dependencies =
-              dependencies(projectMilestoneOverview, outputContext),
+            dependencies = projectMilestoneDependencies()(
+              projectMilestoneOverview,
+              outputContext
+            ),
             latexSourceCode = ProjectMilestoneOverviewSlideDeck(
               projectMilestoneOverview,
               outputContext
@@ -84,10 +104,49 @@ object SlideDeckSpecificationWriter {
     case _ => Nil
   }
 
-  def dependencies(
+  def projectMilestoneDependencies()(implicit
       projectMilestoneOverview: CompiledProjectMilestoneOverview,
       outputContext: OutputContext
-  ): List[Output] = Nil
+  ): List[Output] =
+    dependencies(TikzSecurityImpactDiagram, Pdf) ++ dependencies(
+      ProjectMilestoneCurrentStateDiagram,
+      Eps
+    ) ++ dependencies(ProjectMilestoneTargetStateDiagram, Eps) ++ dependencies(
+      ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
+      Eps
+    ) ++ dependencies(
+      ProjectMilestoneBusinessCapabilityImpactDiagram,
+      Eps
+    ) ++ dependencies(
+      ProjectMilestoneItPlatformImpactDiagram,
+      Eps
+    ) ++ dependencies(
+      ProjectMilestoneItSystemImpactDiagram,
+      Eps
+    ) ++ dependencies(
+      ProjectMilestoneItSystemIntegrationImpactDiagram,
+      Eps
+    ) ++ dependencies(
+      ProjectMilestoneItContainerImpactDiagram,
+      Eps
+    ) ++ dependencies(ProjectMilestoneTechnologyImpactDiagram, Eps)
+
+  private def dependencies(
+      ofOutputType: OutputType,
+      ofFileType: OutputFileType
+  )(implicit
+      projectMilestoneOverview: CompiledProjectMilestoneOverview,
+      outputContext: OutputContext
+  ): List[Output] =
+    projectMilestoneOverview.decoratedProjectMilestone
+      .map(projectMilestoneDecorator =>
+        outputContext.outputs(
+          ofFileType = Some(ofFileType),
+          ofOutputType = Some(ofOutputType),
+          forModelComponents = List(projectMilestoneDecorator.milestone)
+        )
+      )
+      .getOrElse(Nil)
 
   def dependendencies(
       adr: CompiledArchitectureDecisionRecord,

@@ -9,7 +9,9 @@ import com.innovenso.townplanner.model.concepts.{
 }
 import com.innovenso.townplanner.model.concepts.views.{
   ArchitectureDecisionRecord,
-  ProjectMilestoneOverview
+  ProjectMilestoneImpactView,
+  ProjectMilestoneOverview,
+  ProjectMilestoneTransitionSystemContainerView
 }
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
@@ -22,11 +24,21 @@ class ProjectMilestoneOverviewSlideDeckSpec
     val innovenso: Enterprise = samples.enterprise
     val project: ItProject = samples.project()
     When("A Project Milestone Overview is requested")
+    val impact: ProjectMilestoneImpactView =
+      ea needs ProjectMilestoneImpactView(
+        townPlan.itProjectMilestones(project).head
+      )
+    val transitionStates: ProjectMilestoneTransitionSystemContainerView =
+      ea needs ProjectMilestoneTransitionSystemContainerView(
+        townPlan.itProjectMilestones(project).head
+      )
     val overview: ProjectMilestoneOverview = ea needs ProjectMilestoneOverview(
       townPlan.itProjectMilestones(project).head
     )
     When("the slide decks are written")
-    val pictureOutputContext: OutputContext = picturesAreWritten(overview.key)
+    val diagramOutputContext: OutputContext = diagramsAreWritten
+    val pictureOutputContext: OutputContext =
+      picturesAreWritten(overview.key, diagramOutputContext)
     println(assetRepository.targetBasePath)
     val outputContext: OutputContext =
       slideDecksAreWritten(overview.key, pictureOutputContext)

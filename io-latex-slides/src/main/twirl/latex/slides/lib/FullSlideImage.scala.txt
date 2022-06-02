@@ -5,7 +5,7 @@
 @if(output.assetName.isDefined) {
   @Environment("figure", optionalParameters = List("h")) {
     @Command(name = "centering")
-    \resizebox{\textwidth}{6cm}{\includegraphics{@output.assetHashedName}\u005cunskip}
+     \includegraphics[max totalsize={14cm}{6cm}]{@output.assetHashedName}
     @if(caption.isDefined) { @Command(name = "caption", requiredParameters = caption.toList) }
   }
 }

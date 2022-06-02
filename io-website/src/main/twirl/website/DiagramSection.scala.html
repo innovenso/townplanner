@@ -2,11 +2,11 @@
 @import com.innovenso.townplanner.model.TownPlan
 @import com.innovenso.townplan.io.context.OutputContext
 @import com.innovenso.townplan.io.context.Svg
-@import com.innovenso.townplanner.io.context.Diagram
+@import com.innovenso.townplanner.io.context.PlantUMLDiagram
 @import play.twirl.api.TwirlFeatureImports._
 @import com.innovenso.townplanner.io.model.NavigationContext
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
-@defining(outputContext.outputs(ofFileType = Some(Svg), ofOutputType = Some(Diagram), forModelComponents = List(element))) { outputs =>
+@defining(outputContext.outputs(ofFileType = Some(Svg), forModelComponents = List(element))) { outputs =>
   @if(outputs.nonEmpty) {
     <details>
       <summary>Diagrams</summary>

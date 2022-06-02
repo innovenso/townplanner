@@ -1,6 +1,17 @@
 package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.repository.AssetRepository
+import com.innovenso.townplanner.io.context.{
+  ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
+  ProjectMilestoneBusinessCapabilityImpactDiagram,
+  ProjectMilestoneCurrentStateDiagram,
+  ProjectMilestoneItContainerImpactDiagram,
+  ProjectMilestoneItPlatformImpactDiagram,
+  ProjectMilestoneItSystemImpactDiagram,
+  ProjectMilestoneItSystemIntegrationImpactDiagram,
+  ProjectMilestoneTargetStateDiagram,
+  ProjectMilestoneTechnologyImpactDiagram
+}
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views._
@@ -169,21 +180,24 @@ object DiagramSpecificationWriter {
           plantumlSpecification =
             MilestoneItContainerImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Containers"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneItContainerImpactDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
           plantumlSpecification =
             MilestoneItSystemImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Systems"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneItSystemImpactDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
           plantumlSpecification =
             MilestoneItPlatformImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Platforms"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneItPlatformImpactDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
@@ -191,14 +205,16 @@ object DiagramSpecificationWriter {
             projectMilestoneImpactView
           ).body,
           filenameAppendix = Some("System Integrations"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneItSystemIntegrationImpactDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
           plantumlSpecification =
             MilestoneTechnologyImpactView(projectMilestoneImpactView).body,
           filenameAppendix = Some("Technologies"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneTechnologyImpactDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
@@ -206,7 +222,8 @@ object DiagramSpecificationWriter {
             projectMilestoneImpactView
           ).body,
           filenameAppendix = Some("Business Capabilities"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneBusinessCapabilityImpactDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneImpactView,
@@ -214,7 +231,8 @@ object DiagramSpecificationWriter {
             projectMilestoneImpactView
           ).body,
           filenameAppendix = Some("Architecture Building Blocks"),
-          relatedModelComponents = List(projectMilestoneImpactView.milestone)
+          relatedModelComponents = List(projectMilestoneImpactView.milestone),
+          outputType = ProjectMilestoneArchitectureBuildingBlockImpactDiagram
         )
       )
     case projectMilestoneTransitionSystemContainerView: CompiledProjectMilestoneTransitionSystemContainerView =>
@@ -229,7 +247,11 @@ object DiagramSpecificationWriter {
           filenameAppendix = Some(
             if (projectMilestoneTransitionSystemContainerView.isBefore) "Before"
             else "After"
-          )
+          ),
+          outputType =
+            if (projectMilestoneTransitionSystemContainerView.isBefore)
+              ProjectMilestoneCurrentStateDiagram
+            else ProjectMilestoneTargetStateDiagram
         ),
         DiagramSpecification(
           view = projectMilestoneTransitionSystemContainerView,
@@ -243,7 +265,11 @@ object DiagramSpecificationWriter {
             if (projectMilestoneTransitionSystemContainerView.isBefore)
               "Before C4"
             else "After C4"
-          )
+          ),
+          outputType =
+            if (projectMilestoneTransitionSystemContainerView.isBefore)
+              ProjectMilestoneCurrentStateDiagram
+            else ProjectMilestoneTargetStateDiagram
         )
       )
     case decisionImpactView: CompiledDecisionImpactView =>

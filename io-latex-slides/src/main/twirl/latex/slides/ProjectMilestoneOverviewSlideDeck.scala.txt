@@ -10,6 +10,29 @@
 @import txt.DocumentTitle
 @import latex.slides.lib.txt.Agenda
 @import latex.slides.lib.txt.BeamerSettings
+@import txt.Section
+@import latex.slides.lib.txt.DescriptionSlides
+@import latex.slides.lib.txt.Slide
+@import txt.Environment
+@import latex.lib.tables.txt.Table
+@import com.innovenso.townplanner.io.latex.model.RaciTable
+@import com.innovenso.townplanner.io.latex.model.ProjectMilestoneRaciTable
+@import txt.SubSection
+@import txt.Text
+@import latex.lib.txt.Itemize
+@import latex.lib.txt.Dictionary
+@import com.innovenso.townplan.io.context.Pdf
+@import latex.txt.FullPageTikzPictureEnvironment
+@import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
+@import latex.txt.PositionedImage
+@import latex.txt.PositionedText
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import latex.slides.lib.txt.FullSlideImage
+@import com.innovenso.townplanner.io.context.ProjectMilestoneCurrentStateDiagram
+@import com.innovenso.townplan.io.context.Eps
+@import latex.slides.lib.txt.LinkSlides
+@import latex.slides.lib.txt.SWOTSlides
+@import com.innovenso.townplanner.io.context.ProjectMilestoneTargetStateDiagram
 @(view: CompiledProjectMilestoneOverview, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedProjectMilestone.isDefined) {
     @defining(view.decoratedProjectMilestone.get) { decoratedProjectMilestone =>
@@ -20,6 +43,132 @@
         @Document {
             @DocumentTitle()
             @Agenda()
+
+            @Section("Context", condition = decoratedProjectMilestone.hasContext) {
+                @DescriptionSlides(decoratedProjectMilestone.milestone, title = Some("Description"), subtitle = Some(decoratedProjectMilestone.milestone.title))
+                @Slide(title = Some("RACI"), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
+                    @Environment("scriptsize") {
+                        @Table(table = ProjectMilestoneRaciTable(decoratedProjectMilestone, 30).table)
+                    }
+
+                }
+
+              @SubSection("Current Conditions", condition = decoratedProjectMilestone.hasCurrentConditions) {
+                    @for(currentCondition <- decoratedProjectMilestone.milestone.currentState) {
+                        @Slide(title = Some(currentCondition.title), subtitle = Some("Current Conditions")) {
+                            @Text(currentCondition.description)
+                        }
+                    }
+                    @for(currentStateDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneCurrentStateDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
+                        @Slide(title=Some(currentStateDiagram.outputType.title), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
+                            @FullSlideImage(None, currentStateDiagram)
+                        }
+                    }
+
+
+                }
+
+                @SubSection("Goals", condition = decoratedProjectMilestone.hasGoals) {
+                    @for(goal <- decoratedProjectMilestone.milestone.goals) {
+                        @Slide(title = Some(goal.title), subtitle = Some("Goals")) {
+                            @Text(goal.description)
+                        }
+                    }
+                }
+                @SubSection("Assumptions", condition = decoratedProjectMilestone.hasAssumptions) {
+                    @for(assumption <- decoratedProjectMilestone.milestone.assumptions) {
+                        @Slide(title = Some(assumption.title), subtitle = Some("Assumptions")) {
+                            @Text(assumption.description)
+                        }
+                    }
+                }
+
+                @SubSection("Influencers & Stakeholders", condition = decoratedProjectMilestone.hasInfluencers || decoratedProjectMilestone.hasInfluencingPrinciples) {
+                    @Slide(title = Some("People"), subtitle = Some("Influencers"), condition = decoratedProjectMilestone.hasInfluencers) {
+                        @Itemize(decoratedProjectMilestone.influencers.map(_.title))
+                    }
+                    @Slide(title = Some("Principles"), subtitle = Some("Influencers"), condition = decoratedProjectMilestone.hasInfluencingPrinciples) {
+                        @Dictionary(decoratedProjectMilestone.influencingPrinciples.map(p => (p.title, p.descriptions.headOption.map(_.value).getOrElse("-"))))
+                    }
+                    @Slide(Some("Stakeholders"), condition = decoratedProjectMilestone.hasStakeholders) {
+                        @Itemize(decoratedProjectMilestone.stakeholders.map(_.title))
+                    }
+                }
+
+            }
+
+            @Section("Analysis", condition = decoratedProjectMilestone.hasRequirements) {
+
+                @SubSection("Functional Requirements", condition = decoratedProjectMilestone.hasFunctionalRequirements) {
+                    @for(requirement <- decoratedProjectMilestone.milestone.functionalRequirements) {
+                        @Slide(title = Some(requirement.title), subtitle = Some(s"Functional Requirement - ${requirement.weight.name}")) {
+                            @Text(requirement.description)
+                        }
+                    }
+                }
+                @SubSection("Quality Attribute Requirements", condition = decoratedProjectMilestone.hasQualityAttributeRequirements) {
+                    @for(requirement <- decoratedProjectMilestone.milestone.qualityAttributeRequirements) {
+                        @Slide(title = Some(requirement.title), subtitle = Some(s"QAR - ${requirement.weight.name}")) {
+                            @Dictionary(requirement.descriptionList)
+                        }
+                    }
+                }
+                @SubSection("Constraints", condition = decoratedProjectMilestone.hasConstraints) {
+                    @for(requirement <- decoratedProjectMilestone.milestone.constraints) {
+                        @Slide(title = Some(requirement.title), subtitle = Some(s"Constraint - ${requirement.weight.name}")) {
+                            @Text(requirement.description)
+                        }
+                    }
+                }
+
+                @SubSection("Security & Compliance", condition = decoratedProjectMilestone.hasSecurityImpact || decoratedProjectMilestone.hasComplianceImpact) {
+                    @Slide(title = Some("Security & Compliance"), condition = decoratedProjectMilestone.hasSecurityImpact) {
+                        @FullPageTikzPictureEnvironment() {
+                            @for(securityImpactDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzSecurityImpactDiagram), forView = Some(view.view), forModelComponents = List(decoratedProjectMilestone.milestone))) {
+                                @PositionedImage(output = securityImpactDiagram, width = 50, position = (90, 90))
+                            }
+                            @PositionedText(width = 90, position = (0,90), configuration = List(TinyFont)) {
+                                @Dictionary(decoratedProjectMilestone.milestone.complianceConcerns.map(concern => (concern.name, concern.description)))
+                            }
+                        }
+
+                    }
+                }
+
+            }
+
+            @Section("Solution") {
+                @SubSection(title = "Target State") {
+                    @for(targetStateDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneTargetStateDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
+                        @Slide(title=Some(targetStateDiagram.outputType.title), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
+                            @FullSlideImage(None, targetStateDiagram)
+                        }
+                    }
+                }
+                @SubSection(title = "Impact") {
+                    Hello
+                }
+                @SubSection(title = "Integrations") {
+                  Hello
+                }
+            }
+
+            @Section("Cost & Consequences") {
+                @SubSection("Consequences", decoratedProjectMilestone.hasConsequences) {
+                    @for(consequence <- decoratedProjectMilestone.milestone.consequences) {
+                        @Slide(title = Some(consequence.title), subtitle = if (consequence.title == "Consequence") None else Some("Consequence")) {
+                            @Text(consequence.description)
+                        }
+                    }
+
+                }
+
+            }
+
+            @Section("Appendix", decoratedProjectMilestone.hasLinks) {
+                @LinkSlides(decoratedProjectMilestone.milestone)
+            }
+
         }
         }
 }

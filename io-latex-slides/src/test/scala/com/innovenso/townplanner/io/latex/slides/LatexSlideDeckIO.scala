@@ -24,6 +24,7 @@ trait LatexSlideDeckIO {
   val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(
     assetRepository
   )
+
   val townPlanSlideDeckWriter: TownPlanSlideDeckWriter =
     TownPlanSlideDeckWriter(
       assetRepository
@@ -31,16 +32,16 @@ trait LatexSlideDeckIO {
 
   def townPlan: TownPlan = ea.townPlan
 
-  def diagramsAreWritten(viewKey: Key): OutputContext = {
+  def diagramsAreWritten: OutputContext = {
     townPlanDiagramWriter
-      .write(townPlan, viewKey.value, OutputContext(Nil))
+      .write(townPlan, OutputContext(Nil))
   }
 
   def picturesAreWritten(
       viewKey: Key,
       outputContext: OutputContext = OutputContext(Nil)
   ): OutputContext = {
-    townPlanPictureWriter.write(townPlan, viewKey.value, OutputContext(Nil))
+    townPlanPictureWriter.write(townPlan, viewKey.value, outputContext)
   }
 
   def slideDecksAreWritten(

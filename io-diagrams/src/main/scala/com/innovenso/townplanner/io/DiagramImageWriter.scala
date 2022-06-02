@@ -2,7 +2,7 @@ package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.io.context._
 import com.innovenso.townplan.repository.AssetRepository
-import com.innovenso.townplanner.io.context.Diagram
+import com.innovenso.townplanner.io.context.PlantUMLDiagram
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import net.sourceforge.plantuml.{
   FileFormat,
@@ -48,7 +48,7 @@ object DiagramImageWriter {
         result = Success,
         assetName = Some(assetName),
         fileType = outputFileType,
-        outputType = Diagram,
+        outputType = specification.outputType,
         day = specification.view.pointInTime,
         relatedModelComponents = specification.relatedModelComponents
       )
@@ -59,7 +59,7 @@ object DiagramImageWriter {
           result = Failure(error.getMessage),
           assetName = None,
           fileType = outputFileType,
-          outputType = Diagram,
+          outputType = specification.outputType,
           day = specification.view.pointInTime
         )
     } finally if (outputStream != null) outputStream.close()

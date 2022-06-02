@@ -29,7 +29,7 @@
 @UsePackage(name = "longtable")
 @UsePackage(name = "forloop")
 @UsePackage(name = "booktabs")
-@UsePackage(name = "adjustbox", parameters = Some("export"))
+@UsePackage(name = "adjustbox", parameters = Some("Export"))
 
 @Command(name = "usesmartdiagramlibrary", requiredParameters = List("additions"))
 @Command(name = "usetikzlibrary", requiredParameters = List("calc"))

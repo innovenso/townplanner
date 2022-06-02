@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.io.model
 
-import com.innovenso.townplan.io.context.OutputFileType
+import com.innovenso.townplan.io.context.{OutputFileType, OutputType}
+import com.innovenso.townplanner.io.context.SimpleDiagram
 import com.innovenso.townplanner.model.language.{
   CompiledView,
   ModelComponent,
@@ -18,7 +19,8 @@ case class DiagramSpecification(
     view: CompiledView[_ <: View],
     plantumlSpecification: String,
     relatedModelComponents: List[ModelComponent] = Nil,
-    filenameAppendix: Option[String] = None
+    filenameAppendix: Option[String] = None,
+    outputType: OutputType = SimpleDiagram
 ) {
   def assetName(fileType: OutputFileType): String =
     view.layer.name + "/" + view.groupTitle + "/" + pointInTimeDirectory + view.title + filenameAppendix
