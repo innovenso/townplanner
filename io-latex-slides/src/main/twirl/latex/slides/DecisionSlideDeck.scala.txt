@@ -48,7 +48,7 @@
 @DocumentClass(name = "beamer", options = List("handout", "aspectratio=169"))
 @CommonSettings(townPlan)
 @BeamerSettings()
-@SlideDeckPreamble(title = Some(decoratedDecision.decision.title), author = None)
+@SlideDeckPreamble(title = Some(decoratedDecision.decision.title), author = Some(decoratedDecision.responsible.map(_.title).mkString(",")), subtitle = Some("Architecture Decision"))
 @Document {
     @DocumentTitle()
     @Agenda()

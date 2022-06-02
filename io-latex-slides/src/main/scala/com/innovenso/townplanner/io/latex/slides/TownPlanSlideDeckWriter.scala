@@ -38,6 +38,6 @@ case class TownPlanSlideDeckWriter(assetRepository: AssetRepository) {
     views(townPlan).filter(_.key == key)
 
   def views(townPlan: TownPlan): List[_ <: CompiledView[_ <: View]] =
-    townPlan.fullTownPlanViews ++ townPlan.architectureDecisionRecords
+    townPlan.fullTownPlanViews ++ townPlan.architectureDecisionRecords ++ townPlan.projectMilestoneOverviews
 
 }

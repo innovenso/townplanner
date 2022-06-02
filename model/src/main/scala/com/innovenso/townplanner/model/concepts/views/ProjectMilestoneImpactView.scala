@@ -19,6 +19,8 @@ import com.innovenso.townplanner.model.concepts.{
   ItProjectMilestone,
   ItSystem,
   ItSystemIntegration,
+  Person,
+  Principle,
   Technology
 }
 import com.innovenso.townplanner.model.concepts.properties.{
@@ -26,15 +28,21 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Property
 }
 import com.innovenso.townplanner.model.concepts.relationships.{
+  Accountable,
   Association,
   CanAddRelationships,
   CanBeImpacted,
   ChangeImpact,
+  Consulted,
   CreateImpact,
   HasRelationships,
+  Influence,
+  Informed,
   KeepImpact,
   Relationship,
-  RemoveImpact
+  RemoveImpact,
+  Responsible,
+  Stakeholder
 }
 import com.innovenso.townplanner.model.language.{
   CompiledView,

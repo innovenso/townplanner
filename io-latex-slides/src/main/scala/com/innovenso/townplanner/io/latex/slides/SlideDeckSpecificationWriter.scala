@@ -19,10 +19,15 @@ import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledArchitectureDecisionRecord,
   CompiledFullTownPlanView,
+  CompiledProjectMilestoneOverview,
   CompiledTechnologyRadar
 }
 import com.innovenso.townplanner.model.language.{CompiledView, View}
-import latex.slides.txt.{DecisionSlideDeck, FullTownPlan}
+import latex.slides.txt.{
+  DecisionSlideDeck,
+  FullTownPlan,
+  ProjectMilestoneOverviewSlideDeck
+}
 
 object SlideDeckSpecificationWriter {
   def specifications(
@@ -56,8 +61,33 @@ object SlideDeckSpecificationWriter {
           filenameAppendix = Some(decoratedDecision.decision.title)
         )
       )
+    case projectMilestoneOverview: CompiledProjectMilestoneOverview =>
+      projectMilestoneOverview.decoratedProjectMilestone
+        .map(decoratedProjectMilestone =>
+          LatexSpecification(
+            view = projectMilestoneOverview,
+            dependencies =
+              dependencies(projectMilestoneOverview, outputContext),
+            latexSourceCode = ProjectMilestoneOverviewSlideDeck(
+              projectMilestoneOverview,
+              outputContext
+            )(townPlan).body,
+            latexLibraries = List(BeamerThemeConfiguration.theme),
+            outputType = SlideDeck,
+            relatedModelComponents = List(
+              decoratedProjectMilestone.milestone
+            ) ++ decoratedProjectMilestone.project.toList,
+            filenameAppendix = Some(decoratedProjectMilestone.milestone.title)
+          )
+        )
+        .toList
     case _ => Nil
   }
+
+  def dependencies(
+      projectMilestoneOverview: CompiledProjectMilestoneOverview,
+      outputContext: OutputContext
+  ): List[Output] = Nil
 
   def dependendencies(
       adr: CompiledArchitectureDecisionRecord,
