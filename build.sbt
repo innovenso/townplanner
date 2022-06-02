@@ -11,7 +11,7 @@ import sbt.Keys.libraryDependencies
 
 import java.time.Instant
 
-val townplannerVersion = "1.20.0"
+val townplannerVersion = "1.20.1"
 ThisBuild / organization := "com.innovenso.townplanner"
 ThisBuild / organizationName := "Innovenso"
 ThisBuild / organizationHomepage := Some(url("https://innovenso.com"))
