@@ -23,15 +23,27 @@ case class LatexLibraryFile(
       resourceBasePathName: Option[String],
       targetDirectory: File
   ): Unit = {
-    var resourceUrl =
-      "/" + resourceBasePathName.map(p => p + "/").getOrElse("") + resourcePath
-    println(resourceUrl)
-    val inputStream: InputStream = getClass.getResourceAsStream(resourceUrl)
+    val relativeResourceUrl =
+      resourceBasePathName.map(p => p + "/").getOrElse("") + resourcePath
+
+    val absoluteResourceUrl = s"/$relativeResourceUrl"
+
+    println(absoluteResourceUrl)
+    val inputStream: Option[InputStream] = {
+      Option(getClass.getResourceAsStream(absoluteResourceUrl))
+        .orElse(
+          Option(ClassLoader.getSystemResourceAsStream(relativeResourceUrl))
+        )
+        .orElse(
+          Option(FileUtils.openInputStream(new File(relativeResourceUrl)))
+        )
+    }
     val targetFile: File =
       new File(targetDirectory, targetFileName.getOrElse(resourcePath))
 
     println(targetFile.getAbsolutePath)
-    FileUtils.copyInputStreamToFile(inputStream, targetFile)
+    inputStream.foreach(FileUtils.copyInputStreamToFile(_, targetFile))
+
   }
 }
 
