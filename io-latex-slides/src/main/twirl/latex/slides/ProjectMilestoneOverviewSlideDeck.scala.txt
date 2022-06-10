@@ -33,6 +33,7 @@
 @import latex.slides.lib.txt.LinkSlides
 @import latex.slides.lib.txt.SWOTSlides
 @import com.innovenso.townplanner.io.context.ProjectMilestoneTargetStateDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneBusinessCapabilityImpactDiagram
 @(view: CompiledProjectMilestoneOverview, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedProjectMilestone.isDefined) {
     @defining(view.decoratedProjectMilestone.get) { decoratedProjectMilestone =>
@@ -145,8 +146,12 @@
                         }
                     }
                 }
-                @SubSection(title = "Impact") {
-                    Hello
+                @SubSection(title = "Impact", condition = decoratedProjectMilestone.hasImpact) {
+                    @Slide(title=Some("Impact on Business Capabilities"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnBusinessCapabilities) {
+                      @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneBusinessCapabilityImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                        @FullSlideImage(None, impactDiagram)
+                      }
+                    }
                 }
                 @SubSection(title = "Integrations") {
                   Hello
@@ -154,6 +159,8 @@
             }
 
             @Section("Cost & Consequences") {
+
+
                 @SubSection("Consequences", decoratedProjectMilestone.hasConsequences) {
                     @for(consequence <- decoratedProjectMilestone.milestone.consequences) {
                         @Slide(title = Some(consequence.title), subtitle = if (consequence.title == "Consequence") None else Some("Consequence")) {

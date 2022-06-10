@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.model.concepts.views
 
 import com.innovenso.townplanner.model.concepts.{
+  ArchitectureBuildingBlock,
   BusinessActor,
   BusinessCapability,
   CanBeImplementedByTechnologies,
@@ -51,6 +52,7 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   Composition,
   Consulted,
   HasRelationships,
+  Impact,
   Implementation,
   Influence,
   Informed,
@@ -196,6 +198,34 @@ case class ProjectMilestoneDecorator(
   val influencingPrinciples: List[Principle] =
     view.directDependencies(milestone, classOf[Influence], classOf[Principle])
 
+  val impactedCapabilities: List[BusinessCapability] = view.directDependencies(
+    milestone,
+    classOf[Impact],
+    classOf[BusinessCapability]
+  )
+  val impactedBuildingBlocks: List[ArchitectureBuildingBlock] =
+    view.directDependencies(
+      milestone,
+      classOf[Impact],
+      classOf[ArchitectureBuildingBlock]
+    )
+  val impactedPlatforms: List[ItPlatform] =
+    view.directDependencies(milestone, classOf[Impact], classOf[ItPlatform])
+  val impactedSystems: List[ItSystem] =
+    view.directDependencies(milestone, classOf[Impact], classOf[ItSystem])
+  val impactedContainers: List[ItContainer] =
+    view.directDependencies(milestone, classOf[Impact], classOf[ItContainer])
+  val impactedIntegrations: List[ItSystemIntegration] = view.directDependencies(
+    milestone,
+    classOf[Impact],
+    classOf[ItSystemIntegration]
+  )
+  val impactedTechnologies: List[Technology] = view.directDependencies(
+    milestone,
+    classOf[Impact],
+    classOf[Technology]
+  )
+
   val hasResponsible: Boolean = responsible.nonEmpty
   val hasAccountable: Boolean = accountable.nonEmpty
   val hasConsulted: Boolean = consulted.nonEmpty
@@ -220,6 +250,15 @@ case class ProjectMilestoneDecorator(
   val hasSecurityImpact: Boolean = milestone.securityImpacts.nonEmpty
   val hasComplianceImpact: Boolean = milestone.complianceConcerns.nonEmpty
   val project: Option[ItProject] = view.itProject(milestone)
+  val hasImpactOnBusinessCapabilities: Boolean = impactedCapabilities.nonEmpty
+  val hasImpactOnBuildingBlocks: Boolean = impactedBuildingBlocks.nonEmpty
+  val hasImpactOnPlatforms: Boolean = impactedPlatforms.nonEmpty
+  val hasImpactOnSystems: Boolean = impactedSystems.nonEmpty
+  val hasImpactOnContainers: Boolean = impactedContainers.nonEmpty
+  val hasImpactOnIntegrations: Boolean = impactedIntegrations.nonEmpty
+  val hasImpactOnTechnologies: Boolean = impactedTechnologies.nonEmpty
+  val hasImpact: Boolean =
+    hasImpactOnBusinessCapabilities || hasImpactOnBuildingBlocks || hasImpactOnPlatforms || hasImpactOnSystems || hasImpactOnContainers || hasImpactOnIntegrations || hasImpactOnTechnologies
 }
 
 case class ProjectMilestoneOverviewCompiler(
