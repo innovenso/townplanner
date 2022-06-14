@@ -11,7 +11,8 @@ import com.innovenso.townplanner.model.concepts.views.{
   ArchitectureDecisionRecord,
   ProjectMilestoneImpactView,
   ProjectMilestoneOverview,
-  ProjectMilestoneTransitionSystemContainerView
+  ProjectMilestoneTransitionSystemContainerView,
+  SystemIntegrationView
 }
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
@@ -32,6 +33,9 @@ class ProjectMilestoneOverviewSlideDeckSpec
       ea needs ProjectMilestoneTransitionSystemContainerView(
         townPlan.itProjectMilestones(project).head
       )
+    townPlan.systemIntegrations.foreach(integration =>
+      ea needs SystemIntegrationView(integration)
+    )
     val overview: ProjectMilestoneOverview = ea needs ProjectMilestoneOverview(
       townPlan.itProjectMilestones(project).head
     )

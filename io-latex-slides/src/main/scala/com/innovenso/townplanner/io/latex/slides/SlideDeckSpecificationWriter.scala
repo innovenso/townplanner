@@ -9,6 +9,7 @@ import com.innovenso.townplan.io.context.{
   Pdf
 }
 import com.innovenso.townplanner.io.context.{
+  ItSystemIntegrationDiagram,
   ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
   ProjectMilestoneBusinessCapabilityImpactDiagram,
   ProjectMilestoneCurrentStateDiagram,
@@ -40,7 +41,11 @@ import com.innovenso.townplanner.model.concepts.views.{
   CompiledProjectMilestoneOverview,
   CompiledTechnologyRadar
 }
-import com.innovenso.townplanner.model.language.{CompiledView, View}
+import com.innovenso.townplanner.model.language.{
+  CompiledView,
+  ModelComponent,
+  View
+}
 import latex.slides.txt.{
   DecisionSlideDeck,
   FullTownPlan,
@@ -129,7 +134,35 @@ object SlideDeckSpecificationWriter {
     ) ++ dependencies(
       ProjectMilestoneItContainerImpactDiagram,
       Eps
-    ) ++ dependencies(ProjectMilestoneTechnologyImpactDiagram, Eps)
+    ) ++ dependencies(
+      ProjectMilestoneTechnologyImpactDiagram,
+      Eps
+    ) ++ projectMilestoneOverview.decoratedProjectMilestone
+      .map(dpm =>
+        (dpm.addedIntegrations.toList ::: dpm.changedIntegrations.toList)
+          .flatMap(integration =>
+            dependenciesFor(integration, ItSystemIntegrationDiagram, Eps)
+          )
+      )
+      .getOrElse(Nil)
+
+  private def dependenciesFor(
+      modelComponent: ModelComponent,
+      ofOutputType: OutputType,
+      ofFileType: OutputFileType
+  )(implicit outputContext: OutputContext): List[Output] = {
+
+    val outputs = outputContext.outputs(
+      ofFileType = Some(ofFileType),
+      ofOutputType = Some(ofOutputType),
+      forModelComponents = List(modelComponent)
+    )
+    println(
+      s"dependencies for ${modelComponent.key} of type ${modelComponent.modelComponentType.value}: ${outputs
+          .map(_.assetName)}"
+    )
+    outputs
+  }
 
   private def dependencies(
       ofOutputType: OutputType,

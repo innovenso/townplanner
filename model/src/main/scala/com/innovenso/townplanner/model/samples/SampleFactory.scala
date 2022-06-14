@@ -318,9 +318,11 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     val technologies = (1 to randomInt(5)).map(_ => language)
     val theCapability = capability(forEnterprise)
     val theBuildingBlock = buildingBlock(Some(theCapability))
-    val systems = (1 to randomInt(3)).map(_ =>
+    val systems = (1 to randomInt(10) + 2).map(_ =>
       system(realizedBuildingBlock = Some(theBuildingBlock))
     )
+
+    val integrations = systems.tail.map(s => integration(s, systems.head))
 
     ea describes ItProjectMilestone(
       title = title
@@ -374,6 +376,9 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       it creates theCapability
       it keeps theBuildingBlock
       systems.foreach(s => it changes s)
+      it creates integrations.head
+      it removes integrations.tail.head
+      integrations.tail.tail.foreach(i => it changes i)
     }
   }
 

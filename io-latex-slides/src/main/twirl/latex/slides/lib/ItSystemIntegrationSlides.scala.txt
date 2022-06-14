@@ -1,0 +1,62 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import latex.slides.lib.txt.Slide
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ItSystemIntegration
+@import latex.txt.FullPageTikzPictureEnvironment
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.Eps
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationDiagram
+@import latex.txt.PositionedImage
+@import latex.txt.PositionedText
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.model.meta.Key
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.TextWidth
+@import com.innovenso.townplanner.io.latex.model.MinimumWidth
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.InnerSep
+@import com.innovenso.townplanner.io.latex.model.LeftOf
+@import com.innovenso.townplanner.io.latex.model.RightOf
+@import com.innovenso.townplanner.io.latex.model.NorthEast
+@import com.innovenso.townplanner.io.latex.model.BelowOf
+@import com.innovenso.townplanner.io.latex.model.Bold
+@import com.innovenso.townplanner.io.latex.model.North
+@import com.innovenso.townplanner.io.latex.model.Text
+@import com.innovenso.townplanner.io.latex.model.Rectangle
+@(integrations: List[ItSystemIntegration], subtitle: Option[String] = None, outputContext: OutputContext)
+@for(integration <- integrations) {
+  @Slide(title = Some(integration.title), subtitle = subtitle) {
+    @FullPageTikzPictureEnvironment() {
+      @defining(Key()) { diagramIdentifier =>
+        @for(integrationDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ItSystemIntegrationDiagram), forModelComponents = List(integration))) {
+          @PositionedImage(output = integrationDiagram, width = 68, position = (0, 85), identifier = diagramIdentifier)
+        }
+
+        @if(integration.descriptions.nonEmpty) {
+          @Tikz(TikzNode(title = integration.descriptions.head.value, configuration = List(TextWidth(68), MinimumWidth(68), TinyFont, InnerSep(0), BelowOf(diagramIdentifier.camelCased + ".south", Some(5)), Anchor(North))))
+        }
+
+        @Tikz(TikzNode(title = s"Criticality - ${integration.criticality.name}", identifier = Key("Criticalitytitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), RightOf(diagramIdentifier.camelCased + ".north east", Some(4)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = integration.criticality.description, identifier = Key("Criticalitybody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Criticalitytitle.south west"), Anchor(NorthWest))))
+
+        @Tikz(TikzNode(title = "Volume", identifier = Key("Volumetitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), BelowOf("Criticalitybody.south west", Some(5)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = integration.volume.map(_.description).getOrElse("not specified"), identifier = Key("Volumebody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Volumetitle.south west"), Anchor(NorthWest))))
+
+        @Tikz(TikzNode(title = "Frequency", identifier = Key("Frequencytitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), BelowOf("Volumebody.south west", Some(5)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = integration.frequency.map(_.description).getOrElse("not specified"), identifier = Key("Frequencybody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Frequencytitle.south west"), Anchor(NorthWest))))
+
+        @Tikz(TikzNode(title = "Resilience Measures", identifier = Key("Resiliencetitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), BelowOf("Frequencybody.south west", Some(5)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = integration.resilienceMeasures.map(_.description).mkString(", "), identifier = Key("Resiliencebody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Resiliencetitle.south west"), Anchor(NorthWest))))
+
+        @Tikz(TikzNode(title = s"Architecture Verdict - ${integration.architectureVerdict.name}", identifier = Key("Verdicttitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), BelowOf("Resiliencebody.south west", Some(5)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = integration.architectureVerdict.description, identifier = Key("Verdictbody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Verdicttitle.south west"), Anchor(NorthWest))))
+
+      }
+
+    }
+  }
+
+}

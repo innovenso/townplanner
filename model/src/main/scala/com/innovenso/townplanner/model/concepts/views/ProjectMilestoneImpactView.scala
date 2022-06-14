@@ -159,6 +159,23 @@ case class CompiledProjectMilestoneImpactView(
       targetClass: Class[TargetClassType]
   ): Set[TargetClassType] = impacted(classOf[ChangeImpact], targetClass)
 
+  val addedIntegrations: Set[ItSystemIntegration] = added(
+    classOf[ItSystemIntegration]
+  )
+  val removedIntegrations: Set[ItSystemIntegration] = removed(
+    classOf[ItSystemIntegration]
+  )
+  val changedIntegrations: Set[ItSystemIntegration] = changed(
+    classOf[ItSystemIntegration]
+  )
+
+  val hasAddedIntegrations: Boolean = addedIntegrations.nonEmpty
+  val hasRemovedIntegrations: Boolean = removedIntegrations.nonEmpty
+  val hasChangedIntegrations: Boolean = changedIntegrations.nonEmpty
+
+  val hasImpactedIntegrations: Boolean =
+    hasAddedIntegrations || hasRemovedIntegrations || hasChangedIntegrations
+
   def project: ItProject =
     itProjects.headOption.getOrElse(ItProject(title = "Unknown Project"))
   def milestone: ItProjectMilestone = itProjectMilestone(

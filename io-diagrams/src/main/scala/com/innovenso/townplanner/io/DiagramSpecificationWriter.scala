@@ -2,6 +2,7 @@ package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.io.context.{
+  ItSystemIntegrationDiagram,
   ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
   ProjectMilestoneBusinessCapabilityImpactDiagram,
   ProjectMilestoneCurrentStateDiagram,
@@ -79,9 +80,11 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = systemIntegrationView,
-          relatedModelComponents = systemIntegrationView.integration.toList,
+          relatedModelComponents =
+            systemIntegrationView.integration.toList ::: systemIntegrationView.systems,
           plantumlSpecification =
-            SystemIntegrationViewDiagram(systemIntegrationView).body
+            SystemIntegrationViewDiagram(systemIntegrationView).body,
+          outputType = ItSystemIntegrationDiagram
         )
       )
     case flowView: CompiledFlowView =>

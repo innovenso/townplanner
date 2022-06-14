@@ -66,3 +66,9 @@ case object ProjectMilestoneTechnologyImpactDiagram extends PlantUMLDiagram {
   val description: String =
     "The impact of a project milestone on technologies"
 }
+
+case object ItSystemIntegrationDiagram extends PlantUMLDiagram {
+  val title: String = "IT System Integration Diagram"
+  val description: String =
+    "Simple diagram representing an integration between 2 systems, optionally with the implementing system"
+}

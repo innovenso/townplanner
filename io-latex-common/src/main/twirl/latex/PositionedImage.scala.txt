@@ -8,7 +8,8 @@
 @import com.innovenso.townplanner.io.latex.model.Anchor
 @import com.innovenso.townplanner.io.latex.model.NorthWest
 @import com.innovenso.townplanner.io.latex.model.NorthWest
-@(output: Output, width: Int, position: (Int,Int))
+@import com.innovenso.townplanner.model.meta.Key
+@(output: Output, width: Int, position: (Int,Int), identifier: Key = Key())
 @if(output.assetName.isDefined) {
-    @Tikz(TikzNodeWithImage(output = output, width=width, at = Some(position), configuration = List(InnerSep(0),Anchor(NorthWest))))
+    @Tikz(TikzNodeWithImage(identifier = identifier, output = output, width=width, at = Some(position), configuration = List(InnerSep(0),Anchor(NorthWest))))
 }

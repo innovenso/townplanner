@@ -34,6 +34,17 @@
 @import latex.slides.lib.txt.SWOTSlides
 @import com.innovenso.townplanner.io.context.ProjectMilestoneTargetStateDiagram
 @import com.innovenso.townplanner.io.context.ProjectMilestoneBusinessCapabilityImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneArchitectureBuildingBlockImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneArchitectureBuildingBlockImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneItPlatformImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneItPlatformImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneItSystemImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneItContainerImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneItSystemIntegrationImpactDiagram
+@import com.innovenso.townplanner.io.context.ProjectMilestoneTechnologyImpactDiagram
+@import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnIntegrationsTable
+@import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnIntegrationsTable
+@import latex.slides.lib.txt.ItSystemIntegrationSlides
 @(view: CompiledProjectMilestoneOverview, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedProjectMilestone.isDefined) {
     @defining(view.decoratedProjectMilestone.get) { decoratedProjectMilestone =>
@@ -152,10 +163,52 @@
                         @FullSlideImage(None, impactDiagram)
                       }
                     }
+                    @Slide(title=Some("Impact on Architecture Building Blocks"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnBuildingBlocks) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneArchitectureBuildingBlockImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                            @FullSlideImage(None, impactDiagram)
+                        }
+                    }
+                    @Slide(title=Some("Impact on Platforms"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnPlatforms) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItPlatformImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                            @FullSlideImage(None, impactDiagram)
+                        }
+                    }
+                    @Slide(title=Some("Impact on Systems"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnSystems) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItSystemImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                            @FullSlideImage(None, impactDiagram)
+                        }
+                    }
+                    @Slide(title=Some("Impact on Containers"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnContainers) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItContainerImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                            @FullSlideImage(None, impactDiagram)
+                        }
+                    }
+                    @Slide(title=Some("Impact on System Integrations"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnIntegrations) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItSystemIntegrationImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                            @FullSlideImage(None, impactDiagram)
+                        }
+                    }
+                    @Slide(title=Some("Impact on Technologies"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnTechnologies) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneTechnologyImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                            @FullSlideImage(None, impactDiagram)
+                        }
+                    }
                 }
-                @SubSection(title = "Integrations") {
-                  Hello
+                @SubSection(title = "Systems") {
+                    Hello
                 }
+                @SubSection(title = "Integrations", condition = decoratedProjectMilestone.hasImpactOnIntegrations) {
+                    @Slide(title = Some("Impacted Integrations - Overview"), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
+                        @Environment("tiny") {
+                            @Table(table = ProjectMilestoneImpactOnIntegrationsTable(view).table)
+                        }
+                    }
+                    @ItSystemIntegrationSlides(decoratedProjectMilestone.addedIntegrations.toList.sortBy(_.sortKey), Some(s"added by ${decoratedProjectMilestone.milestone.title}"), outputContext)
+                    @ItSystemIntegrationSlides(decoratedProjectMilestone.changedIntegrations.toList.sortBy(_.sortKey), Some(s"changed by ${decoratedProjectMilestone.milestone.title}"), outputContext)
+                }
+              @SubSection(title = "Considerations") {
+                 Hello
+              }
             }
 
             @Section("Cost & Consequences") {

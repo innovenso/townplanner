@@ -49,16 +49,21 @@ import com.innovenso.townplanner.model.concepts.properties.{
 import com.innovenso.townplanner.model.concepts.relationships.{
   Accountable,
   CanAddRelationships,
+  CanBeImpacted,
+  ChangeImpact,
   Composition,
   Consulted,
+  CreateImpact,
   HasRelationships,
   Impact,
   Implementation,
   Influence,
   Informed,
+  KeepImpact,
   Knowledge,
   RACI,
   Relationship,
+  RemoveImpact,
   Responsible,
   Serving,
   Stakeholder
@@ -197,6 +202,45 @@ case class ProjectMilestoneDecorator(
     view.directDependencies(milestone, classOf[Influence], classOf[Person])
   val influencingPrinciples: List[Principle] =
     view.directDependencies(milestone, classOf[Influence], classOf[Principle])
+  private def impacted[
+      ImpactType <: Relationship,
+      TargetClassType <: CanBeImpacted
+  ](
+      impactRelationshipClass: Class[ImpactType],
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = view.relationships
+    .filter(impactRelationshipClass.isInstance)
+    .flatMap(view.relationshipParticipants)
+    .filter(targetClass.isInstance)
+    .map(targetClass.cast)
+    .toSet
+
+  def added[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[CreateImpact], targetClass)
+  def removed[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[RemoveImpact], targetClass)
+  def kept[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[KeepImpact], targetClass)
+  def changed[TargetClassType <: CanBeImpacted](
+      targetClass: Class[TargetClassType]
+  ): Set[TargetClassType] = impacted(classOf[ChangeImpact], targetClass)
+
+  val addedIntegrations: Set[ItSystemIntegration] = added(
+    classOf[ItSystemIntegration]
+  )
+  val removedIntegrations: Set[ItSystemIntegration] = removed(
+    classOf[ItSystemIntegration]
+  )
+  val changedIntegrations: Set[ItSystemIntegration] = changed(
+    classOf[ItSystemIntegration]
+  )
+
+  val hasAddedIntegrations: Boolean = addedIntegrations.nonEmpty
+  val hasRemovedIntegrations: Boolean = removedIntegrations.nonEmpty
+  val hasChangedIntegrations: Boolean = changedIntegrations.nonEmpty
 
   val impactedCapabilities: List[BusinessCapability] = view.directDependencies(
     milestone,
