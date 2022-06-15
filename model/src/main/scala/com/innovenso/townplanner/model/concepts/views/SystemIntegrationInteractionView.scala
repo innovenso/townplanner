@@ -18,7 +18,7 @@ case class SystemIntegrationInteractionView(
     title: String = "System Integration Interaction View",
     withStepCounter: Boolean = true,
     properties: Map[Key, Property] = Map.empty[Key, Property]
-) extends View
+) extends TimelessView
     with HasDescription
     with HasInteractions
     with HasExternalIds
@@ -26,7 +26,6 @@ case class SystemIntegrationInteractionView(
   val modelComponentType: ModelComponentType = ModelComponentType(
     "System Integration Interaction View"
   )
-  val pointInTime: ADay = Today
   val layer: Layer = ApplicationLayer
 
   def withProperty(property: Property): SystemIntegrationInteractionView =

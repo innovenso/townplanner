@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.model.views
 
 import com.innovenso.townplanner.model.concepts.properties.{
+  GoneToProduction,
   Message,
   Request,
   Response
@@ -10,6 +11,7 @@ import com.innovenso.townplanner.model.concepts.views.{
   SystemIntegrationInteractionView
 }
 import com.innovenso.townplanner.model.concepts._
+import com.innovenso.townplanner.model.meta.InTheFuture
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -38,6 +40,7 @@ class SystemIntegrationInteractionViewSpec
       ea describes ItSystemIntegration(title =
         "the integration"
       ) between system1 and system2 as { it =>
+        it has GoneToProduction() on InTheFuture
         it has Request("once ") from user to microservice
         it has Request("upon ") from microservice to database
         it has Response("a ") from database to microservice

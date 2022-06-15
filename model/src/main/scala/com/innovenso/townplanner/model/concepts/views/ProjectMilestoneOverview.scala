@@ -178,16 +178,16 @@ case class ProjectMilestoneDecorator(
     view: CompiledProjectMilestoneOverview,
     milestone: ItProjectMilestone
 ) {
-  val hasCurrentConditions: Boolean = milestone.currentState.nonEmpty
+  def hasCurrentConditions: Boolean = milestone.currentState.nonEmpty
 
-  val hasDescriptions: Boolean = milestone.descriptions.nonEmpty
-  val hasLinks: Boolean = milestone.links.nonEmpty
-  val hasGoals: Boolean = milestone.goals.nonEmpty
-  val hasAssumptions: Boolean =
+  def hasDescriptions: Boolean = milestone.descriptions.nonEmpty
+  def hasLinks: Boolean = milestone.links.nonEmpty
+  def hasGoals: Boolean = milestone.goals.nonEmpty
+  def hasAssumptions: Boolean =
     milestone.assumptions.nonEmpty
-  val hasConsequences: Boolean =
+  def hasConsequences: Boolean =
     milestone.consequences.nonEmpty
-  val hasDueDate: Boolean = milestone.dueDate.isDefined
+  def hasDueDate: Boolean = milestone.dueDate.isDefined
   val responsible: List[Person] =
     view.directDependencies(milestone, classOf[Responsible], classOf[Person])
   val accountable: List[Person] =
