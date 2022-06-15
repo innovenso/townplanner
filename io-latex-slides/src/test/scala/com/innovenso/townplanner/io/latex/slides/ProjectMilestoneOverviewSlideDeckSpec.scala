@@ -12,6 +12,8 @@ import com.innovenso.townplanner.model.concepts.views.{
   ProjectMilestoneImpactView,
   ProjectMilestoneOverview,
   ProjectMilestoneTransitionSystemContainerView,
+  SystemContainerView,
+  SystemIntegrationInteractionView,
   SystemIntegrationView
 }
 import org.scalatest.GivenWhenThen
@@ -33,9 +35,13 @@ class ProjectMilestoneOverviewSlideDeckSpec
       ea needs ProjectMilestoneTransitionSystemContainerView(
         townPlan.itProjectMilestones(project).head
       )
-    townPlan.systemIntegrations.foreach(integration =>
+    townPlan.systemIntegrations.foreach(integration => {
       ea needs SystemIntegrationView(integration)
-    )
+      ea needs SystemIntegrationInteractionView(integration)
+    })
+    townPlan.systems.foreach(s => {
+      ea needs SystemContainerView(s)
+    })
     val overview: ProjectMilestoneOverview = ea needs ProjectMilestoneOverview(
       townPlan.itProjectMilestones(project).head
     )

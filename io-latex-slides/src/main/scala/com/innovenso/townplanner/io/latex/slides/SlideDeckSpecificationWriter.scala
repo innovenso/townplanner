@@ -1,51 +1,16 @@
 package com.innovenso.townplanner.io.latex.slides
 
-import com.innovenso.townplan.io.context.{
-  Eps,
-  Output,
-  OutputContext,
-  OutputFileType,
-  OutputType,
-  Pdf
-}
-import com.innovenso.townplanner.io.context.{
-  ItSystemIntegrationDiagram,
-  ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
-  ProjectMilestoneBusinessCapabilityImpactDiagram,
-  ProjectMilestoneCurrentStateDiagram,
-  ProjectMilestoneItContainerImpactDiagram,
-  ProjectMilestoneItPlatformImpactDiagram,
-  ProjectMilestoneItSystemImpactDiagram,
-  ProjectMilestoneItSystemIntegrationImpactDiagram,
-  ProjectMilestoneTargetStateDiagram,
-  ProjectMilestoneTechnologyImpactDiagram
-}
-import com.innovenso.townplanner.io.latex.model.{
-  Book,
-  KaoBookLibrary,
-  LatexSpecification
-}
-import com.innovenso.townplanner.io.latex.picture.context.{
-  TikzRequirementScoreSpiderDiagram,
-  TikzSecurityImpactDiagram
-}
+import com.innovenso.townplan.io.context.{Output, OutputContext}
+import com.innovenso.townplanner.io.latex.model.LatexSpecification
 import com.innovenso.townplanner.io.latex.slides.context.BeamerThemeConfiguration
-import com.innovenso.townplanner.io.latex.slides.model.{
-  BeamerDefaultThemeLibrary,
-  SlideDeck
-}
+import com.innovenso.townplanner.io.latex.slides.model.SlideDeck
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledArchitectureDecisionRecord,
   CompiledFullTownPlanView,
-  CompiledProjectMilestoneOverview,
-  CompiledTechnologyRadar
+  CompiledProjectMilestoneOverview
 }
-import com.innovenso.townplanner.model.language.{
-  CompiledView,
-  ModelComponent,
-  View
-}
+import com.innovenso.townplanner.model.language.{CompiledView, View}
 import latex.slides.txt.{
   DecisionSlideDeck,
   FullTownPlan,
@@ -62,6 +27,7 @@ object SlideDeckSpecificationWriter {
       List(
         LatexSpecification(
           view = fullTownPlanView,
+          dependencies = dependencies(outputContext),
           latexSourceCode = FullTownPlan(fullTownPlanView)(townPlan).body,
           latexLibraries = List(BeamerThemeConfiguration.theme),
           outputType = SlideDeck,
@@ -72,7 +38,7 @@ object SlideDeckSpecificationWriter {
       adr.decoratedDecisions.map(decoratedDecision =>
         LatexSpecification(
           view = adr,
-          dependencies = dependendencies(adr, outputContext),
+          dependencies = dependencies(outputContext),
           latexSourceCode = DecisionSlideDeck(
             adr,
             decoratedDecision.decision.key,
@@ -89,10 +55,7 @@ object SlideDeckSpecificationWriter {
         .map(decoratedProjectMilestone =>
           LatexSpecification(
             view = projectMilestoneOverview,
-            dependencies = projectMilestoneDependencies()(
-              projectMilestoneOverview,
-              outputContext
-            ),
+            dependencies = dependencies(outputContext),
             latexSourceCode = ProjectMilestoneOverviewSlideDeck(
               projectMilestoneOverview,
               outputContext
@@ -109,112 +72,6 @@ object SlideDeckSpecificationWriter {
     case _ => Nil
   }
 
-  def projectMilestoneDependencies()(implicit
-      projectMilestoneOverview: CompiledProjectMilestoneOverview,
-      outputContext: OutputContext
-  ): List[Output] =
-    dependencies(TikzSecurityImpactDiagram, Pdf) ++ dependencies(
-      ProjectMilestoneCurrentStateDiagram,
-      Eps
-    ) ++ dependencies(ProjectMilestoneTargetStateDiagram, Eps) ++ dependencies(
-      ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
-      Eps
-    ) ++ dependencies(
-      ProjectMilestoneBusinessCapabilityImpactDiagram,
-      Eps
-    ) ++ dependencies(
-      ProjectMilestoneItPlatformImpactDiagram,
-      Eps
-    ) ++ dependencies(
-      ProjectMilestoneItSystemImpactDiagram,
-      Eps
-    ) ++ dependencies(
-      ProjectMilestoneItSystemIntegrationImpactDiagram,
-      Eps
-    ) ++ dependencies(
-      ProjectMilestoneItContainerImpactDiagram,
-      Eps
-    ) ++ dependencies(
-      ProjectMilestoneTechnologyImpactDiagram,
-      Eps
-    ) ++ projectMilestoneOverview.decoratedProjectMilestone
-      .map(dpm =>
-        (dpm.addedIntegrations.toList ::: dpm.changedIntegrations.toList)
-          .flatMap(integration =>
-            dependenciesFor(integration, ItSystemIntegrationDiagram, Eps)
-          )
-      )
-      .getOrElse(Nil)
-
-  private def dependenciesFor(
-      modelComponent: ModelComponent,
-      ofOutputType: OutputType,
-      ofFileType: OutputFileType
-  )(implicit outputContext: OutputContext): List[Output] = {
-
-    val outputs = outputContext.outputs(
-      ofFileType = Some(ofFileType),
-      ofOutputType = Some(ofOutputType),
-      forModelComponents = List(modelComponent)
-    )
-    println(
-      s"dependencies for ${modelComponent.key} of type ${modelComponent.modelComponentType.value}: ${outputs
-          .map(_.assetName)}"
-    )
-    outputs
-  }
-
-  private def dependencies(
-      ofOutputType: OutputType,
-      ofFileType: OutputFileType
-  )(implicit
-      projectMilestoneOverview: CompiledProjectMilestoneOverview,
-      outputContext: OutputContext
-  ): List[Output] =
-    projectMilestoneOverview.decoratedProjectMilestone
-      .map(projectMilestoneDecorator =>
-        outputContext.outputs(
-          ofFileType = Some(ofFileType),
-          ofOutputType = Some(ofOutputType),
-          forModelComponents = List(projectMilestoneDecorator.milestone)
-        )
-      )
-      .getOrElse(Nil)
-
-  def dependendencies(
-      adr: CompiledArchitectureDecisionRecord,
-      outputContext: OutputContext
-  ): List[Output] = spiderDiagramDependencies(
-    adr,
-    outputContext
-  ) ++ securityImpactDependencies(adr, outputContext)
-
-  def spiderDiagramDependencies(
-      adr: CompiledArchitectureDecisionRecord,
-      outputContext: OutputContext
-  ): List[Output] = adr.decoratedDecisions
-    .flatMap(dd => dd.options.map(dop => (dd.decision, dop.option)))
-    .flatMap(tup =>
-      outputContext.outputs(
-        ofFileType = Some(Pdf),
-        ofOutputType = Some(TikzRequirementScoreSpiderDiagram),
-        forView = Some(adr.view),
-        forModelComponents = List(tup._1, tup._2)
-      )
-    )
-    .distinct
-
-  def securityImpactDependencies(
-      adr: CompiledArchitectureDecisionRecord,
-      outputContext: OutputContext
-  ): List[Output] = adr.decoratedDecisions
-    .flatMap(decoratedDecision =>
-      outputContext.outputs(
-        ofFileType = Some(Pdf),
-        ofOutputType = Some(TikzSecurityImpactDiagram),
-        forView = Some(adr.view),
-        forModelComponents = List(decoratedDecision.decision)
-      )
-    )
-    .distinct
+  private def dependencies(outputContext: OutputContext): List[Output] =
+    outputContext.outputs
 }

@@ -58,11 +58,14 @@ import com.innovenso.townplanner.model.concepts.properties.{
   LowImpact,
   MediumImpact,
   MeetsExpectations,
+  Message,
   Opex,
   Opportunity,
   PCICompliance,
   PrivacyCompliance,
   QualityAttributeRequirement,
+  Request,
+  Response,
   StartedDevelopment,
   Strength,
   Threat,
@@ -373,11 +376,19 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       informed.foreach(them => it hasInformed them)
 
       technologies.foreach(t => it changes t)
-      it creates theCapability
+      it isCreating theCapability and { that =>
+        that has Description(title)
+      }
       it keeps theBuildingBlock
-      systems.foreach(s => it changes s)
-      it creates integrations.head
-      it removes integrations.tail.head
+      systems.foreach(s =>
+        it isChanging s and { that => that has Description(title) }
+      )
+      it isCreating integrations.head and { that =>
+        that has Description(title)
+      }
+      it isRemoving integrations.tail.head and { that =>
+        that has Description(title)
+      }
       integrations.tail.tail.foreach(i => it changes i)
     }
   }
@@ -589,6 +600,12 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     ) between system1 and system2 as { it =>
       it has Description(description)
       fatherTime.foreach(f => it has f on f.date)
+
+      it has Request(
+        title
+      ) containing "some JSON" using "REST" from system1 to system2
+      it has Response(title) containing "some XML" from system2 to system1
+      it has Message(title) from system1 to system2
     }
 
   def goneToProduction(year: Int, month: Int, day: Int): GoneToProduction =

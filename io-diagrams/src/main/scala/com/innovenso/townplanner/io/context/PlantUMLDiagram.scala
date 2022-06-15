@@ -72,3 +72,16 @@ case object ItSystemIntegrationDiagram extends PlantUMLDiagram {
   val description: String =
     "Simple diagram representing an integration between 2 systems, optionally with the implementing system"
 }
+
+case object ItSystemIntegrationInteractionSequenceDiagram
+    extends PlantUMLDiagram {
+  val title: String = "IT System Integration Interaction Sequence Diagram"
+  val description: String =
+    "Simple diagram representing the flow within an integration between 2 systems, as a sequence diagram"
+}
+
+case object ItSystemIntegrationInteractionFlowDiagram extends PlantUMLDiagram {
+  val title: String = "IT System Integration Interaction Flow Diagram"
+  val description: String =
+    "Simple diagram representing the flow within an integration between 2 systems, as a flow diagram"
+}

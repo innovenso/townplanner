@@ -3,6 +3,8 @@ package com.innovenso.townplanner.io
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.io.context.{
   ItSystemIntegrationDiagram,
+  ItSystemIntegrationInteractionFlowDiagram,
+  ItSystemIntegrationInteractionSequenceDiagram,
   ProjectMilestoneArchitectureBuildingBlockImpactDiagram,
   ProjectMilestoneBusinessCapabilityImpactDiagram,
   ProjectMilestoneCurrentStateDiagram,
@@ -160,6 +162,7 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = systemIntegrationInteractionView,
+          outputType = ItSystemIntegrationInteractionFlowDiagram,
           plantumlSpecification = SystemIntegrationInteractionDiagram(
             systemIntegrationInteractionView
           ).body,
@@ -168,6 +171,7 @@ object DiagramSpecificationWriter {
         ),
         DiagramSpecification(
           view = systemIntegrationInteractionView,
+          outputType = ItSystemIntegrationInteractionSequenceDiagram,
           plantumlSpecification = SystemIntegrationInteractionSequenceDiagram(
             systemIntegrationInteractionView
           ).body,

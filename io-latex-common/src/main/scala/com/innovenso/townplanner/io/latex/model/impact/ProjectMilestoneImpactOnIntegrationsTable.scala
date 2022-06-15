@@ -8,7 +8,9 @@ import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.{
   CanImpact,
   CanImplement,
-  Implementation
+  Impact,
+  Implementation,
+  Relationship
 }
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledProjectMilestoneImpactView,
@@ -26,7 +28,7 @@ case class ProjectMilestoneImpactOnIntegrationsTable(
     List(
       LatexTextCell("integration"),
       LatexTextCell("attributes", colspan = 3),
-      LatexTextCell("implemented by")
+      LatexTextCell("impact")
     )
   )
 
@@ -65,19 +67,29 @@ case class ProjectMilestoneImpactOnIntegrationsTable(
         t.frequency
           .map(v => LatexTextCell(v.description))
           .getOrElse(LatexEmptyCell),
-        LatexTextCell(
-          impactView
-            .directIncomingDependencies(
-              t,
-              classOf[Implementation],
-              classOf[CanImplement]
-            )
-            .map(_.title)
-            .mkString(", ")
-        )
+        impactCell(t)
       )
     )
   )
+
+  def impactRelationship(
+      integration: ItSystemIntegration
+  ): Option[Relationship] = impactView.decoratedProjectMilestone
+    .map(_.milestone)
+    .flatMap(m =>
+      impactView
+        .relationshipsBetween(m, integration, classOf[Impact])
+        .headOption
+    )
+  def impactDescription(integration: ItSystemIntegration): Option[String] =
+    impactRelationship(integration)
+      .flatMap(_.descriptions.headOption)
+      .map(_.value)
+  def impactCell(integration: ItSystemIntegration): LatexTableCell =
+    impactDescription(integration) match {
+      case None            => LatexEmptyCell
+      case d: Some[String] => LatexTextCell(d.get)
+    }
 
   val addedIntegrations: List[LatexTableRow] =
     if (impactView.decoratedProjectMilestone.exists(_.hasAddedIntegrations))

@@ -11,35 +11,64 @@ abstract class Interaction extends Property {
   def description: String
   def source: Key
   def target: Key
+  def technology: Option[String]
+  def payload: Option[String]
 
   def withSource(newSource: Key): Interaction
   def withTarget(newTarget: Key): Interaction
+  def withPayload(payload: String): Interaction
+  def withTechnology(technology: String): Interaction
+
+  def label(counter: Int = -1): String =
+    s"${labelCounter(counter)}${name}${labelTechnologyAndPayload}"
+
+  private def labelCounter(counter: Int): String =
+    if (counter < 0) "" else s"${counter}. "
+  private def labelTechnologyAndPayload: String = {
+    val contents = technology.toList ::: payload.toList
+    if (contents.nonEmpty) s" [${contents.mkString(",")}]" else ""
+  }
 }
 
 case class Message(
     name: String,
     description: String = "",
     source: Key = Key(),
-    target: Key = Key()
+    target: Key = Key(),
+    technology: Option[String] = None,
+    payload: Option[String] = None
 ) extends Interaction {
   override def withSource(newSource: Key): Interaction =
     copy(source = newSource)
 
   override def withTarget(newTarget: Key): Interaction =
     copy(target = newTarget)
+
+  override def withPayload(payload: String): Interaction =
+    copy(payload = Option(payload))
+
+  override def withTechnology(technology: String): Interaction =
+    copy(technology = Option(technology))
 }
 
 case class Request(
     name: String,
     description: String = "",
     source: Key = Key(),
-    target: Key = Key()
+    target: Key = Key(),
+    technology: Option[String] = None,
+    payload: Option[String] = None
 ) extends Interaction {
   override def withSource(newSource: Key): Interaction =
     copy(source = newSource)
 
   override def withTarget(newTarget: Key): Interaction =
     copy(target = newTarget)
+  override def withPayload(payload: String): Interaction =
+    copy(payload = Option(payload))
+
+  override def withTechnology(technology: String): Interaction =
+    copy(technology = Option(technology))
 
 }
 
@@ -47,13 +76,20 @@ case class Response(
     name: String,
     description: String = "",
     source: Key = Key(),
-    target: Key = Key()
+    target: Key = Key(),
+    technology: Option[String] = None,
+    payload: Option[String] = None
 ) extends Interaction {
   override def withSource(newSource: Key): Interaction =
     copy(source = newSource)
 
   override def withTarget(newTarget: Key): Interaction =
     copy(target = newTarget)
+  override def withPayload(payload: String): Interaction =
+    copy(payload = Option(payload))
+
+  override def withTechnology(technology: String): Interaction =
+    copy(technology = Option(technology))
 
 }
 
@@ -70,6 +106,12 @@ case class InteractionConfigurer(
     interaction: Interaction,
     propertyAdder: CanAddProperties
 ) {
+  def containing(payload: String): InteractionConfigurer =
+    copy(interaction = interaction.withPayload(payload))
+
+  def using(technology: String): InteractionConfigurer =
+    copy(interaction = interaction.withTechnology(technology))
+
   def from(source: Element): InteractionConfigurer =
     copy(interaction = interaction.withSource(source.key))
   def to(target: Element): HasInteractions =

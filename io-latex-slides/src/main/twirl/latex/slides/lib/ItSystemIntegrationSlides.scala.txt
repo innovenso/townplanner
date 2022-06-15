@@ -26,6 +26,10 @@
 @import com.innovenso.townplanner.io.latex.model.North
 @import com.innovenso.townplanner.io.latex.model.Text
 @import com.innovenso.townplanner.io.latex.model.Rectangle
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionSequenceDiagram
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionSequenceDiagram
+@import latex.slides.lib.txt.FullSlideImage
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionFlowDiagram
 @(integrations: List[ItSystemIntegration], subtitle: Option[String] = None, outputContext: OutputContext)
 @for(integration <- integrations) {
   @Slide(title = Some(integration.title), subtitle = subtitle) {
@@ -56,6 +60,18 @@
 
       }
 
+    }
+  }
+
+  @for(sequenceDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ItSystemIntegrationInteractionSequenceDiagram), forModelComponents = List(integration))) {
+    @Slide(title = Some(integration.title), subtitle = subtitle) {
+      @FullSlideImage(None, sequenceDiagram)
+    }
+  }
+
+  @for(flowDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ItSystemIntegrationInteractionFlowDiagram), forModelComponents = List(integration))) {
+    @Slide(title = Some(integration.title), subtitle = subtitle) {
+      @FullSlideImage(None, flowDiagram)
     }
   }
 
