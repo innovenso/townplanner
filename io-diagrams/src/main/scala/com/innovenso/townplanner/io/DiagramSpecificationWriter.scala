@@ -13,7 +13,8 @@ import com.innovenso.townplanner.io.context.{
   ProjectMilestoneItSystemImpactDiagram,
   ProjectMilestoneItSystemIntegrationImpactDiagram,
   ProjectMilestoneTargetStateDiagram,
-  ProjectMilestoneTechnologyImpactDiagram
+  ProjectMilestoneTechnologyImpactDiagram,
+  SystemContainerDiagram
 }
 import com.innovenso.townplanner.io.model.DiagramSpecification
 import com.innovenso.townplanner.model.TownPlan
@@ -66,12 +67,14 @@ object DiagramSpecificationWriter {
       List(
         DiagramSpecification(
           view = systemContainerView,
+          outputType = SystemContainerDiagram,
           relatedModelComponents = systemContainerView.centralSystem.toList,
           plantumlSpecification =
             SystemContainerViewDiagram(systemContainerView).body
         ),
         DiagramSpecification(
           view = systemContainerView,
+          outputType = SystemContainerDiagram,
           relatedModelComponents = systemContainerView.centralSystem.toList,
           plantumlSpecification =
             C4SystemContainerViewDiagram(systemContainerView).body,

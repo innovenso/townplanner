@@ -242,6 +242,20 @@ case class ProjectMilestoneDecorator(
   val hasRemovedIntegrations: Boolean = removedIntegrations.nonEmpty
   val hasChangedIntegrations: Boolean = changedIntegrations.nonEmpty
 
+  val addedSystems: Set[ItSystem] = added(
+    classOf[ItSystem]
+  )
+  val removedSystems: Set[ItSystem] = removed(
+    classOf[ItSystem]
+  )
+  val changedSystems: Set[ItSystem] = changed(
+    classOf[ItSystem]
+  )
+
+  val hasAddedSystems: Boolean = addedSystems.nonEmpty
+  val hasRemovedSystems: Boolean = removedSystems.nonEmpty
+  val hasChangedSystems: Boolean = changedSystems.nonEmpty
+
   val impactedCapabilities: List[BusinessCapability] = view.directDependencies(
     milestone,
     classOf[Impact],

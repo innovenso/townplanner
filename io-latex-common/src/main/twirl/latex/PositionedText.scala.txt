@@ -13,5 +13,6 @@
 @import com.innovenso.townplanner.io.latex.model.TikzStyleInstruction
 @import com.innovenso.townplanner.io.latex.model.Rectangle
 @import com.innovenso.townplanner.io.latex.model.MinimumHeight
-@(width: Int, position: (Int,Int), height: Int = 10, configuration: List[TikzStyleInstruction] = Nil)(content: Txt)
-@Tikz(TikzNode(title = content.body, escapeTitle = false, at = Some(position), configuration = List(Rectangle, TextWidth(width), MinimumWidth(width), MinimumHeight(height), Anchor(NorthWest), InnerSep(0)) ++ configuration))
+@import com.innovenso.townplanner.model.meta.Key
+@(width: Int, position: (Int,Int), height: Int = 10, configuration: List[TikzStyleInstruction] = Nil, identifier: Key = Key())(content: Txt)
+@Tikz(TikzNode(identifier = identifier, title = content.body, escapeTitle = false, at = Some(position), configuration = List(Rectangle, TextWidth(width), MinimumWidth(width), MinimumHeight(height), Anchor(NorthWest), InnerSep(0)) ++ configuration))

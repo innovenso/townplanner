@@ -1,0 +1,63 @@
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import latex.slides.lib.txt.Slide
+@import play.twirl.api.TwirlFeatureImports._
+@import com.innovenso.townplanner.model.concepts.ItSystemIntegration
+@import latex.txt.FullPageTikzPictureEnvironment
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.Eps
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationDiagram
+@import latex.txt.PositionedImage
+@import latex.txt.PositionedText
+@import com.innovenso.townplanner.io.latex.model.TinyFont
+@import com.innovenso.townplanner.model.meta.Key
+@import latex.lib.tikz.txt.Tikz
+@import com.innovenso.townplanner.io.latex.model.TikzNode
+@import com.innovenso.townplanner.io.latex.model.TextWidth
+@import com.innovenso.townplanner.io.latex.model.MinimumWidth
+@import com.innovenso.townplanner.io.latex.model.NorthWest
+@import com.innovenso.townplanner.io.latex.model.Anchor
+@import com.innovenso.townplanner.io.latex.model.InnerSep
+@import com.innovenso.townplanner.io.latex.model.LeftOf
+@import com.innovenso.townplanner.io.latex.model.RightOf
+@import com.innovenso.townplanner.io.latex.model.NorthEast
+@import com.innovenso.townplanner.io.latex.model.BelowOf
+@import com.innovenso.townplanner.io.latex.model.Bold
+@import com.innovenso.townplanner.io.latex.model.North
+@import com.innovenso.townplanner.io.latex.model.Text
+@import com.innovenso.townplanner.io.latex.model.Rectangle
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionSequenceDiagram
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionSequenceDiagram
+@import latex.slides.lib.txt.FullSlideImage
+@import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionFlowDiagram
+@import com.innovenso.townplanner.model.concepts.ItSystem
+@import com.innovenso.townplanner.io.context.SystemContainerDiagram
+@(systems: List[ItSystem], subtitle: Option[String] = None, outputContext: OutputContext)
+@for(system <- systems) {
+  @Slide(title = Some(system.title), subtitle = subtitle) {
+    @FullPageTikzPictureEnvironment() {
+      @defining(Key()) { descriptionIdentifier =>
+          @PositionedText(width = 68, position = (0, 85), identifier = descriptionIdentifier, configuration = List(TinyFont)) {
+            @Text(system.descriptions.headOption.map(_.value).getOrElse("-"))
+          }
+
+        @Tikz(TikzNode(title = s"Criticality - ${system.criticality.name}", identifier = Key("Criticalitytitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), RightOf(descriptionIdentifier.camelCased + ".north east", Some(4)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = system.criticality.description, identifier = Key("Criticalitybody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Criticalitytitle.south west"), Anchor(NorthWest))))
+
+        @Tikz(TikzNode(title = "Resilience Measures", identifier = Key("Resiliencetitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), BelowOf("Criticalitybody.south west", Some(5)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = system.resilienceMeasures.map(_.description).mkString(", "), identifier = Key("Resiliencebody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Resiliencetitle.south west"), Anchor(NorthWest))))
+
+        @Tikz(TikzNode(title = s"Architecture Verdict - ${system.architectureVerdict.name}", identifier = Key("Verdicttitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), BelowOf("Resiliencebody.south west", Some(5)), Anchor(NorthWest), InnerSep(0), TinyFont)))
+        @Tikz(TikzNode(title = system.architectureVerdict.description, identifier = Key("Verdictbody"), configuration = List(TextWidth(68), MinimumWidth(68), Rectangle, InnerSep(0), TinyFont, BelowOf("Verdicttitle.south west"), Anchor(NorthWest))))
+
+      }
+
+    }
+  }
+
+  @for(systemContainerView <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(SystemContainerDiagram), forModelComponents = List(system))) {
+    @Slide(title = Some(system.title), subtitle = subtitle) {
+      @FullSlideImage(None, systemContainerView)
+    }
+  }
+}

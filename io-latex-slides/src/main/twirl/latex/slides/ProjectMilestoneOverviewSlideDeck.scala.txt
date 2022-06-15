@@ -45,6 +45,9 @@
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnIntegrationsTable
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnIntegrationsTable
 @import latex.slides.lib.txt.ItSystemIntegrationSlides
+@import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnSystemsTable
+@import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnSystemsTable
+@import latex.slides.lib.txt.ItSystemSlides
 @(view: CompiledProjectMilestoneOverview, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedProjectMilestone.isDefined) {
     @defining(view.decoratedProjectMilestone.get) { decoratedProjectMilestone =>
@@ -195,7 +198,13 @@
                     }
                 }
                 @SubSection(title = "Systems") {
-                    Hello
+                    @Slide(title = Some("Impacted Systems - Overview"), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
+                        @Environment("tiny") {
+                            @Table(table = ProjectMilestoneImpactOnSystemsTable(view).table)
+                        }
+                    }
+                    @ItSystemSlides(decoratedProjectMilestone.addedSystems.toList.sortBy(_.sortKey), Some(s"added by ${decoratedProjectMilestone.milestone.title}"), outputContext)
+                    @ItSystemSlides(decoratedProjectMilestone.changedSystems.toList.sortBy(_.sortKey), Some(s"changed by ${decoratedProjectMilestone.milestone.title}"), outputContext)
                 }
                 @SubSection(title = "Integrations", condition = decoratedProjectMilestone.hasImpactOnIntegrations) {
                     @Slide(title = Some("Impacted Integrations - Overview"), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
@@ -206,9 +215,6 @@
                     @ItSystemIntegrationSlides(decoratedProjectMilestone.addedIntegrations.toList.sortBy(_.sortKey), Some(s"added by ${decoratedProjectMilestone.milestone.title}"), outputContext)
                     @ItSystemIntegrationSlides(decoratedProjectMilestone.changedIntegrations.toList.sortBy(_.sortKey), Some(s"changed by ${decoratedProjectMilestone.milestone.title}"), outputContext)
                 }
-              @SubSection(title = "Considerations") {
-                 Hello
-              }
             }
 
             @Section("Cost & Consequences") {
