@@ -38,7 +38,7 @@
     @FullPageTikzPictureEnvironment() {
       @defining(Key()) { descriptionIdentifier =>
           @PositionedText(width = 68, position = (0, 85), identifier = descriptionIdentifier, configuration = List(TinyFont)) {
-            @Text(system.descriptions.headOption.map(_.value).getOrElse("-"))
+            @txt.Text(system.descriptions.headOption.map(_.value).getOrElse("-"))
           }
 
         @Tikz(TikzNode(title = s"Criticality - ${system.criticality.name}", identifier = Key("Criticalitytitle"), configuration = List(Rectangle, TextWidth(68), Text("innovensoHighLight"), MinimumWidth(68), RightOf(descriptionIdentifier.camelCased + ".north east", Some(4)), Anchor(NorthWest), InnerSep(0), TinyFont)))

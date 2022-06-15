@@ -210,6 +210,7 @@ case class ProjectMilestoneDecorator(
       targetClass: Class[TargetClassType]
   ): Set[TargetClassType] = view.relationships
     .filter(impactRelationshipClass.isInstance)
+    .filter(rel => rel.source.equals(milestone.key))
     .flatMap(view.relationshipParticipants)
     .filter(targetClass.isInstance)
     .map(targetClass.cast)
