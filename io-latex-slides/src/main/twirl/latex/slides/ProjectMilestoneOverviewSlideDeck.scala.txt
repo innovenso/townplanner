@@ -151,13 +151,24 @@
             }
 
             @Section("Solution") {
-                @SubSection(title = "Target State") {
-                    @for(targetStateDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneTargetStateDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
-                        @Slide(title=Some(targetStateDiagram.outputType.title), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
-                            @FullSlideImage(None, targetStateDiagram)
+                @defining(outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneTargetStateDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) { targetStateDiagrams =>
+                    @SubSection(title = "Target State", condition = targetStateDiagrams.nonEmpty) {
+                        @for(targetStateDiagram <- targetStateDiagrams) {
+                            @Slide(title=Some(targetStateDiagram.outputType.title), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
+                                @FullSlideImage(None, targetStateDiagram)
+                            }
                         }
                     }
                 }
+                @SubSection(title = "Solution Description", condition = decoratedProjectMilestone.hasSolutions) {
+                    @for(solution <- decoratedProjectMilestone.milestone.solutions) {
+                        @Slide(title = Some(solution.title), subtitle = if (solution.title == "Solution") None else Some("Solution")) {
+                            @Text(solution.description)
+                        }
+                    }
+
+                }
+
                 @SubSection(title = "Impact", condition = decoratedProjectMilestone.hasImpact) {
                     @Slide(title=Some("Impact on Business Capabilities"), subtitle = Some(decoratedProjectMilestone.milestone.title), condition = decoratedProjectMilestone.hasImpactOnBusinessCapabilities) {
                       @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneBusinessCapabilityImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
@@ -195,7 +206,7 @@
                         }
                     }
                 }
-                @SubSection(title = "Systems") {
+                @SubSection(title = "Systems", condition = decoratedProjectMilestone.hasImpactOnSystems) {
                     @Slide(title = Some("Impacted Systems - Overview"), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
                         @Environment("tiny") {
                             @Table(table = ProjectMilestoneImpactOnSystemsTable(view).table)
@@ -213,10 +224,9 @@
                 }
             }
 
-            @Section("Cost & Consequences") {
+            @Section(title = "Cost & Consequences", condition = decoratedProjectMilestone.hasConsequences) {
 
-
-                @SubSection("Consequences", decoratedProjectMilestone.hasConsequences) {
+                @SubSection(title = "Consequences", condition = decoratedProjectMilestone.hasConsequences) {
                     @for(consequence <- decoratedProjectMilestone.milestone.consequences) {
                         @Slide(title = Some(consequence.title), subtitle = if (consequence.title == "Consequence") None else Some("Consequence")) {
                             @Text(consequence.description)
@@ -227,7 +237,7 @@
 
             }
 
-            @Section("Appendix", decoratedProjectMilestone.hasLinks) {
+            @Section(title = "Appendix", condition = decoratedProjectMilestone.hasLinks) {
                 @LinkSlides(decoratedProjectMilestone.milestone)
             }
 

@@ -17,6 +17,18 @@ case class Assumption(
     title: String = "Assumption",
     description: String
 ) extends Context
+case class Solution(
+    sortKey: SortKey = SortKey.next,
+    forProblemOrRequirement: Option[String] = None,
+    title: String = "Solution",
+    description: String
+)
+case class CounterMeasure(
+    sortKey: SortKey = SortKey.next,
+    title: String = "Counter Measure",
+    against: String,
+    description: String
+)
 case class Consequence(
     sortKey: SortKey = SortKey.next,
     title: String = "Consequence",
@@ -35,6 +47,8 @@ trait HasContext extends HasProperties {
   def goals: List[Goal] = props(classOf[Goal])
   def assumptions: List[Assumption] = props(classOf[Assumption])
   def consequences: List[Consequence] = props(classOf[Consequence])
+  def solutions: List[Solution] = props(classOf[Solution])
+  def counterMeasures: List[CounterMeasure] = props(classOf[CounterMeasure])
 }
 
 trait CanConfigureContext[

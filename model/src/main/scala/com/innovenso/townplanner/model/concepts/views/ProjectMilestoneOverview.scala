@@ -187,6 +187,8 @@ case class ProjectMilestoneDecorator(
     milestone.assumptions.nonEmpty
   def hasConsequences: Boolean =
     milestone.consequences.nonEmpty
+  def hasSolutions: Boolean = milestone.solutions.nonEmpty
+  def hasCounterMeasures: Boolean = milestone.counterMeasures.nonEmpty
   def hasDueDate: Boolean = milestone.dueDate.isDefined
   def hasStartDate: Boolean = milestone.startDate.isDefined
   val responsible: List[Person] =
