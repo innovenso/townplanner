@@ -1,6 +1,13 @@
 package com.innovenso.townplanner.model.concepts.properties
 
-import com.innovenso.townplanner.model.meta.{ADay, Key, SortKey, Today}
+import com.innovenso.townplanner.model.meta.{
+  ADay,
+  InTheFuture,
+  InThePast,
+  Key,
+  SortKey,
+  Today
+}
 
 trait FatherTime extends Property {
   val key: Key = Key()
@@ -33,6 +40,8 @@ trait FatherTime extends Property {
   def isBefore(day: ADay): Boolean =
     date.isBefore(day)
 
+  def isBeforeOrEqual(day: ADay): Boolean = date.isBeforeOrEqual(day)
+
   def isAfterOrEqual(day: ADay): Boolean =
     date.isAfterOrEqual(day)
 }
@@ -56,10 +65,21 @@ case class Due(date: ADay = Today, description: String = "")
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
 }
 
+case class Started(date: ADay = Today, description: String = "")
+    extends FatherTime {
+  override def appears: Boolean = true
+  val name = "Started"
+  val canBePlural = false
+
+  override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
+}
+
 case class Done(date: ADay = Today, description: String = "")
     extends FatherTime {
   val name = "Done"
   val canBePlural = false
+
+  override def disappears: Boolean = true
 
   override def withDate(newDate: ADay): FatherTime = copy(date = newDate)
 }
@@ -140,8 +160,12 @@ case class LifecycleEvent(
 }
 
 trait HasFatherTime extends HasProperties {
-  def dueDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Due])
-  def doneDate: Option[FatherTime] = lifeEvents.find(_.isInstanceOf[Done])
+  def dueDate: Option[FatherTime] =
+    lifeEvents.find(_.isInstanceOf[Due]).orElse(Some(Started(InTheFuture)))
+  def doneDate: Option[FatherTime] =
+    lifeEvents.find(_.isInstanceOf[Done]).orElse(Some(Started(InTheFuture)))
+  def startDate: Option[FatherTime] =
+    lifeEvents.find(_.isInstanceOf[Started]).orElse(Some(Started(InThePast)))
 
   def isUnknownLifecycle(day: ADay): Boolean =
     lifeEvents.isEmpty || (hasNoLifeEventsBefore(
@@ -154,7 +178,7 @@ trait HasFatherTime extends HasProperties {
   def isPhasingOut(day: ADay): Boolean =
     hasFadedOutBefore(day) && !hasDisappearedBefore(day)
 
-  def isActive(day: ADay): Boolean = hasAppearedBefore(
+  def isActive(day: ADay): Boolean = hasAppearedBeforeOrOn(
     day
   ) && !isPhasingOut(day) && !isDecommissioned(day)
 
@@ -174,11 +198,11 @@ trait HasFatherTime extends HasProperties {
   private def hasFadedInAfter(day: ADay): Boolean =
     lifeEvents.filter(_.isAfterOrEqual(day)).exists(_.fadesIn)
 
-  private def hasAppearedBefore(
+  private def hasAppearedBeforeOrOn(
       day: ADay
   ): Boolean =
     lifeEvents
-      .filter(_.isBefore(day))
+      .filter(_.isBeforeOrEqual(day))
       .exists(_.appears)
 
   private def hasAppearedAfter(

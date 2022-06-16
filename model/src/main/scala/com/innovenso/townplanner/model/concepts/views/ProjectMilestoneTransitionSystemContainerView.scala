@@ -36,15 +36,18 @@ import com.innovenso.townplanner.model.language.{
   HasViews,
   ModelComponent,
   TimelessView,
+  View,
   ViewCompiler
 }
 import com.innovenso.townplanner.model.meta.{
+  ADay,
   ApplicationLayer,
   ImplementationLayer,
   Key,
   Layer,
   ModelComponentType,
-  SortKey
+  SortKey,
+  Today
 }
 
 case class ProjectMilestoneTransitionSystemContainerView(
@@ -200,13 +203,15 @@ case class ProjectMilestoneTransitionSystemContainerViewCompiler(
 
   private val flowParticipants: Set[Element] =
     (actors ++ containers ++ simpleSystems).map(_.asInstanceOf[Element])
-  private val flows: Set[Relationship] = flowParticipants
-    .flatMap(participant => source.relationships(participant, classOf[Flow]))
-    .filter(relationship =>
-      source
-        .relationshipParticipants(relationship)
-        .forall(flowParticipants.contains)
-    )
+  private val flows: Set[Relationship] =
+    flowParticipants
+      .flatMap(participant => source.relationships(participant, classOf[Flow]))
+      .filter(relationship =>
+        source
+          .relationshipParticipants(relationship)
+          .forall(flowParticipants.contains)
+      )
+      .intersect(impacted(classOf[Relationship]))
   private val implementingTechnologies: Set[Relationship] =
     containers.flatMap(container =>
       source.relationships(

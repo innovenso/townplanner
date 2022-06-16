@@ -188,6 +188,7 @@ case class ProjectMilestoneDecorator(
   def hasConsequences: Boolean =
     milestone.consequences.nonEmpty
   def hasDueDate: Boolean = milestone.dueDate.isDefined
+  def hasStartDate: Boolean = milestone.startDate.isDefined
   val responsible: List[Person] =
     view.directDependencies(milestone, classOf[Responsible], classOf[Person])
   val accountable: List[Person] =

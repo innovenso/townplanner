@@ -79,8 +79,6 @@
                             @FullSlideImage(None, currentStateDiagram)
                         }
                     }
-
-
                 }
 
                 @SubSection("Goals", condition = decoratedProjectMilestone.hasGoals) {
@@ -204,7 +202,6 @@
                         }
                     }
                     @ItSystemSlides(decoratedProjectMilestone.addedSystems.toList.sortBy(_.sortKey), Some(s"added by ${decoratedProjectMilestone.milestone.title}"), outputContext)
-                    @ItSystemSlides(decoratedProjectMilestone.changedSystems.toList.sortBy(_.sortKey), Some(s"changed by ${decoratedProjectMilestone.milestone.title}"), outputContext)
                 }
                 @SubSection(title = "Integrations", condition = decoratedProjectMilestone.hasImpactOnIntegrations) {
                     @Slide(title = Some("Impacted Integrations - Overview"), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
@@ -213,7 +210,6 @@
                         }
                     }
                     @ItSystemIntegrationSlides(decoratedProjectMilestone.addedIntegrations.toList.sortBy(_.sortKey), Some(s"added by ${decoratedProjectMilestone.milestone.title}"), outputContext)
-                    @ItSystemIntegrationSlides(decoratedProjectMilestone.changedIntegrations.toList.sortBy(_.sortKey), Some(s"changed by ${decoratedProjectMilestone.milestone.title}"), outputContext)
                 }
             }
 

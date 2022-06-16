@@ -1,6 +1,10 @@
 package com.innovenso.townplanner.model.concepts.relationships
 
-import com.innovenso.townplanner.model.concepts.CanBeImplementedByTechnologies
+import com.innovenso.townplanner.model.concepts.{
+  BusinessCapability,
+  BusinessCapabilityMapConfigurerConfigurer,
+  CanBeImplementedByTechnologies
+}
 import com.innovenso.townplanner.model.concepts.properties.{
   CanAddProperties,
   CanConfigureDescription,
@@ -20,7 +24,8 @@ trait Relationship
     extends Concept
     with HasDescription
     with HasFatherTime
-    with CanBeImplementedByTechnologies {
+    with CanBeImplementedByTechnologies
+    with CanBeImpacted {
   val modelComponentType: ModelComponentType = ModelComponentType(
     "Relationship"
   )
@@ -267,6 +272,8 @@ case class RelationshipConfigurer(
     with CanConfigureFatherTime[Relationship]
     with CanConfigureImplementationTarget[Relationship] {
 
+  def as(body: RelationshipConfigurer => Unit): Relationship = and(body)
+
   def and(body: RelationshipConfigurer => Unit): Relationship = {
     body.apply(this)
     propertyAdder.townPlan
@@ -279,7 +286,7 @@ case class RelationshipConfigurer(
     .get
 }
 
-trait CanAddRelationships extends CanAddModelComponents {
+trait CanAddRelationships extends CanAddModelComponents with CanAddProperties {
   def hasRelationship(relationship: Relationship): Relationship = {
     val sourceOption = townPlan.component(relationship.source, classOf[Element])
     val targetOption = townPlan.component(relationship.target, classOf[Element])
@@ -298,4 +305,14 @@ trait CanAddRelationships extends CanAddModelComponents {
     else
       has(relationship)
   }
+
+  def describes(
+      relationship: Relationship
+  ): RelationshipConfigurer =
+    RelationshipConfigurer(
+      hasRelationship(relationship),
+      this,
+      this
+    )
+
 }

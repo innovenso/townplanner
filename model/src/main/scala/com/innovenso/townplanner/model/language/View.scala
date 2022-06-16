@@ -2,17 +2,26 @@ package com.innovenso.townplanner.model.language
 
 import com.innovenso.townplanner.model.concepts.properties.HasFatherTime
 import com.innovenso.townplanner.model.concepts.relationships.HasRelationships
-import com.innovenso.townplanner.model.meta.{ADay, InTheFuture, InThePast, Key, Layer, Today}
+import com.innovenso.townplanner.model.meta.{
+  ADay,
+  InTheFuture,
+  InThePast,
+  Key,
+  Layer,
+  Today
+}
 
 trait View extends Concept {
   def pointInTime: ADay
   def layer: Layer
   def pointInTimeName: Option[String] = pointInTime match {
-    case Today => Some("As Is Today")
-    case InThePast => Some("As Was")
+    case Today       => Some("As Is Today")
+    case InThePast   => Some("As Was")
     case InTheFuture => Some("To Be")
-    case day : ADay if day.isBefore(Today) => Some(s"As Was on ${day.year}-${day.month}-${day.day}")
-    case day : ADay if day.isAfter(Today) => Some(s"To Be on ${day.year}-${day.month}-${day.day}")
+    case day: ADay if day.isBefore(Today) =>
+      Some(s"As Was on ${day.year}-${day.month}-${day.day}")
+    case day: ADay if day.isAfter(Today) =>
+      Some(s"To Be on ${day.year}-${day.month}-${day.day}")
     case _ => None
   }
 }
@@ -64,9 +73,18 @@ trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
   ) true
   else
     modelComponent match {
-      case tm: HasFatherTime =>
+      case tm: HasFatherTime => {
+        println(
+          s"${tm} is active on ${view.pointInTime}? ${tm.isActive(view.pointInTime)}"
+        )
+        println(
+          s"${tm} is phasing out on ${view.pointInTime}? ${tm.isPhasingOut(view.pointInTime)}"
+        )
+        println(s"${tm} is unknown lifecycle on ${view.pointInTime}? ${tm
+            .isUnknownLifecycle(view.pointInTime)}")
         tm.isActive(view.pointInTime) || tm.isPhasingOut(view.pointInTime) || tm
           .isUnknownLifecycle(view.pointInTime)
+      }
       case _ => true
     }
 
