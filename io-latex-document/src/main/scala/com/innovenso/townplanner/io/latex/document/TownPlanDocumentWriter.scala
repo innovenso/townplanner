@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.io.latex.document
 
 import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.state.{NoStateRepository, StateRepository}
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.io.{
   DiagramImageWriter,
@@ -10,7 +11,10 @@ import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
 
-case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
+case class TownPlanDocumentWriter(
+    assetRepository: AssetRepository,
+    stateRepository: StateRepository
+) {
   def write(townPlan: TownPlan, outputContext: OutputContext): OutputContext =
     outputContext.withOutputs(
       views(townPlan)
@@ -19,7 +23,8 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
             .specifications(townPlan, outputContext, view)
         )
         .flatMap(spec =>
-          DocumentPdfWriter.documents(spec, assetRepository, outputContext)
+          DocumentPdfWriter
+            .documents(spec, assetRepository, outputContext, stateRepository)
         )
     )
 
@@ -30,10 +35,12 @@ case class TownPlanDocumentWriter(assetRepository: AssetRepository) {
   ): OutputContext = outputContext.withOutputs(
     view(townPlan, Key(viewKey)).toList
       .flatMap(modelComponent =>
-        DocumentSpecificationWriter.specifications(townPlan, outputContext, modelComponent)
+        DocumentSpecificationWriter
+          .specifications(townPlan, outputContext, modelComponent)
       )
       .flatMap(spec =>
-        DocumentPdfWriter.documents(spec, assetRepository, outputContext)
+        DocumentPdfWriter
+          .documents(spec, assetRepository, outputContext, NoStateRepository())
       )
   )
 

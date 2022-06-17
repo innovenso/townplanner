@@ -1,7 +1,11 @@
 package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.io.context.{MarkDown, OutputContext}
-import com.innovenso.townplan.repository.{AssetRepository, FileSystemAssetRepository}
+import com.innovenso.townplan.io.state.NoStateRepository
+import com.innovenso.townplan.repository.{
+  AssetRepository,
+  FileSystemAssetRepository
+}
 import com.innovenso.townplanner.model.concepts.views.TechnologyRadar
 import com.innovenso.townplanner.model.language.Element
 import com.innovenso.townplanner.model.meta.Key
@@ -17,10 +21,16 @@ trait WebsiteIO {
   val targetDirectory: File =
     Files.createTempDirectory("TownplannerWebsite").toFile
   val assetDirectory = new File(targetDirectory, "assets")
-  implicit val assetRepository: AssetRepository = new FileSystemAssetRepository(assetDirectory.toPath)
+  implicit val assetRepository: AssetRepository = new FileSystemAssetRepository(
+    assetDirectory.toPath
+  )
   val samples: SampleFactory = SampleFactory(ea)
   val diagramWriter: TownPlanDiagramWriter =
-    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
+    TownPlanDiagramWriter(
+      targetDirectory.toPath,
+      assetRepository,
+      NoStateRepository()
+    )
 
   def diagramsAreWritten: OutputContext = {
     diagramWriter
@@ -34,8 +44,10 @@ trait WebsiteIO {
 
   def markdownFileExists(inSourceDirectory: File, element: Element): Boolean = {
     val layerDirectory = new File(inSourceDirectory, element.layer.name)
-    val componentTypeDirectory = new File(layerDirectory, element.modelComponentType.value)
-    val markdownFile = new File(componentTypeDirectory, element.title + MarkDown.extension)
+    val componentTypeDirectory =
+      new File(layerDirectory, element.modelComponentType.value)
+    val markdownFile =
+      new File(componentTypeDirectory, element.title + MarkDown.extension)
     markdownFile.canRead
   }
 }

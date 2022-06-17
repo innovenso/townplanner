@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.state.{NoStateRepository, StateRepository}
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.language.{CompiledView, View}
@@ -10,21 +11,20 @@ import java.nio.file.Path
 
 case class TownPlanDiagramWriter(
     targetBasePath: Path,
-    assetRepository: AssetRepository
+    assetRepository: AssetRepository,
+    stateRepository: StateRepository
 ) {
 
   def write(townPlan: TownPlan, outputContext: OutputContext): OutputContext =
     outputContext.withOutputs(
       views(townPlan)
-        .map(cv => {
-          println(cv)
-          cv
-        })
         .flatMap(view =>
           DiagramSpecificationWriter
             .specifications(view)(townPlan)
         )
-        .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
+        .flatMap(spec =>
+          DiagramImageWriter.diagrams(spec, assetRepository, stateRepository)
+        )
     )
 
   def write(
@@ -36,7 +36,9 @@ case class TownPlanDiagramWriter(
       .flatMap(modelComponent =>
         DiagramSpecificationWriter.specifications(modelComponent)(townPlan)
       )
-      .flatMap(spec => DiagramImageWriter.diagrams(spec, assetRepository))
+      .flatMap(spec =>
+        DiagramImageWriter.diagrams(spec, assetRepository, NoStateRepository())
+      )
   )
 
   def view(townPlan: TownPlan, key: Key): List[_ <: CompiledView[_ <: View]] =

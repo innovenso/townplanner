@@ -48,6 +48,7 @@
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnSystemsTable
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnSystemsTable
 @import latex.slides.lib.txt.ItSystemSlides
+@import latex.slides.lib.txt.ProjectMilestoneContextIllustrationSlides
 @(view: CompiledProjectMilestoneOverview, outputContext: OutputContext)(implicit townPlan: TownPlan)
 @if(view.decoratedProjectMilestone.isDefined) {
     @defining(view.decoratedProjectMilestone.get) { decoratedProjectMilestone =>
@@ -73,6 +74,8 @@
                         @Slide(title = Some(currentCondition.title), subtitle = Some("Current Conditions")) {
                             @Text(currentCondition.description)
                         }
+
+                        @ProjectMilestoneContextIllustrationSlides(context = currentCondition, subtitle = Some("Current Conditions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
                     }
                     @for(currentStateDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneCurrentStateDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
                         @Slide(title=Some(currentStateDiagram.outputType.title), subtitle = Some(decoratedProjectMilestone.milestone.title)) {
@@ -86,6 +89,9 @@
                         @Slide(title = Some(goal.title), subtitle = Some("Goals")) {
                             @Text(goal.description)
                         }
+
+                        @ProjectMilestoneContextIllustrationSlides(context = goal, subtitle = Some("Goals"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+
                     }
                 }
                 @SubSection("Assumptions", condition = decoratedProjectMilestone.hasAssumptions) {
@@ -93,6 +99,9 @@
                         @Slide(title = Some(assumption.title), subtitle = Some("Assumptions")) {
                             @Text(assumption.description)
                         }
+
+                        @ProjectMilestoneContextIllustrationSlides(context = assumption, subtitle = Some("Current Conditions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+
                     }
                 }
 
@@ -165,6 +174,8 @@
                         @Slide(title = Some(solution.title), subtitle = if (solution.title == "Solution") None else Some("Solution")) {
                             @Text(solution.description)
                         }
+                        @ProjectMilestoneContextIllustrationSlides(context = solution, subtitle = if (solution.title == "Solution") None else Some("Solution"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+
                     }
 
                 }
@@ -231,6 +242,8 @@
                         @Slide(title = Some(consequence.title), subtitle = if (consequence.title == "Consequence") None else Some("Consequence")) {
                             @Text(consequence.description)
                         }
+                        @ProjectMilestoneContextIllustrationSlides(context = consequence, subtitle = if (consequence.title == "Consequence") None else Some("Consequence"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+
                     }
 
                 }

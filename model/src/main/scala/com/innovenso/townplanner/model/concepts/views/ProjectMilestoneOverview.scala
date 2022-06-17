@@ -42,6 +42,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeMigrated,
   BeTolerated,
   CanAddProperties,
+  Context,
   Property,
   Requirement,
   RequirementScore
@@ -75,6 +76,7 @@ import com.innovenso.townplanner.model.language.{
   HasViews,
   ModelComponent,
   TimelessView,
+  View,
   ViewCompiler
 }
 import com.innovenso.townplanner.model.meta.{
@@ -166,7 +168,8 @@ case class CompiledProjectMilestoneOverview(
     with HasBusinessCapabilities
     with HasArchitectureBuildingBlocks
     with HasProjects
-    with HasPrinciples {
+    with HasPrinciples
+    with HasFlowViews {
   val decoratedProjectMilestone: Option[ProjectMilestoneDecorator] =
     itProjectMilestone(view.forProjectMilestone).map(
       ProjectMilestoneDecorator(this, _)
@@ -189,6 +192,12 @@ case class ProjectMilestoneDecorator(
     milestone.consequences.nonEmpty
   def hasSolutions: Boolean = milestone.solutions.nonEmpty
   def hasCounterMeasures: Boolean = milestone.counterMeasures.nonEmpty
+  def illustration(context: Context): Option[FlowView] =
+    context.illustratedByView.flatMap(key => view.flowView(key).map(_.view))
+
+  def hasIllustration(context: Context): Boolean = illustration(
+    context
+  ).isDefined
   def hasDueDate: Boolean = milestone.dueDate.isDefined
   def hasStartDate: Boolean = milestone.startDate.isDefined
   val responsible: List[Person] =

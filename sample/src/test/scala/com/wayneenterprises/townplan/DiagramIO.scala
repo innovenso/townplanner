@@ -1,6 +1,7 @@
 package com.wayneenterprises.townplan
 
 import com.innovenso.townplan.io.context.{OutputContext, Success}
+import com.innovenso.townplan.io.state.NoStateRepository
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.{
   DiagramSpecificationWriter,
@@ -22,7 +23,11 @@ trait DiagramIO {
   val assetRepository = new FileSystemAssetRepository(assetDirectory.toPath)
 
   val townPlanDiagramWriter: TownPlanDiagramWriter =
-    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
+    TownPlanDiagramWriter(
+      targetDirectory.toPath,
+      assetRepository,
+      NoStateRepository()
+    )
   val outputContext: OutputContext =
     townPlanDiagramWriter.write(townPlan, OutputContext(Nil))
 

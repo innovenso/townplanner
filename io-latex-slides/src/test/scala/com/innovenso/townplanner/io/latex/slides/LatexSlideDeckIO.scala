@@ -1,6 +1,7 @@
 package com.innovenso.townplanner.io.latex.slides
 
 import com.innovenso.townplan.io.context.{OutputContext, Pdf}
+import com.innovenso.townplan.io.state.NoStateRepository
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.TownPlanDiagramWriter
 import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
@@ -19,15 +20,21 @@ trait LatexSlideDeckIO {
   val assetRepository = new FileSystemAssetRepository(assetDirectory.toPath)
   val samples: SampleFactory = SampleFactory(ea)
   val townPlanDiagramWriter: TownPlanDiagramWriter =
-    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
+    TownPlanDiagramWriter(
+      targetDirectory.toPath,
+      assetRepository,
+      NoStateRepository()
+    )
 
   val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(
-    assetRepository
+    assetRepository,
+    NoStateRepository()
   )
 
   val townPlanSlideDeckWriter: TownPlanSlideDeckWriter =
     TownPlanSlideDeckWriter(
-      assetRepository
+      assetRepository,
+      NoStateRepository()
     )
 
   def townPlan: TownPlan = ea.townPlan

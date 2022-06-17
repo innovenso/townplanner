@@ -1,6 +1,7 @@
 package com.innovenso.townplan.application
 
 import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.state.FileSystemStateRepository
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.latex.document.TownPlanDocumentWriter
 import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
@@ -18,13 +19,20 @@ trait EnterpriseArchitectureAsCode extends App {
   implicit val ea: EnterpriseArchitecture = EnterpriseArchitecture()
   val targetDirectory: File = new File("output")
   val assetDirectory = new File(targetDirectory, "assets")
+  val stateDirectory = new File(targetDirectory, "state")
   implicit val assetRepository: FileSystemAssetRepository =
     FileSystemAssetRepository(
       assetDirectory.toPath
     )
+  implicit val stateRepository: FileSystemStateRepository =
+    FileSystemStateRepository(stateDirectory.toPath)
 
   val townPlanDiagramWriter: TownPlanDiagramWriter =
-    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
+    TownPlanDiagramWriter(
+      targetDirectory.toPath,
+      assetRepository,
+      stateRepository
+    )
   val websiteWriter: TownPlanWebsiteWriter =
     TownPlanWebsiteWriter()
 
@@ -32,13 +40,15 @@ trait EnterpriseArchitectureAsCode extends App {
     TownPlanOpenExchangeWriter()
 
   val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
-    assetRepository
+    assetRepository,
+    stateRepository
   )
   val townPlanSlideDeckWriter: TownPlanSlideDeckWriter =
-    TownPlanSlideDeckWriter(assetRepository)
+    TownPlanSlideDeckWriter(assetRepository, stateRepository)
 
   val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(
-    assetRepository
+    assetRepository,
+    stateRepository
   )
 
   def townPlan: TownPlan = ea.townPlan

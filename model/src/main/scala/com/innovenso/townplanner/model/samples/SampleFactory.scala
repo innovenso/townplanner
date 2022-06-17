@@ -43,6 +43,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   Confidentiality,
   Consequence,
   Constraint,
+  CounterMeasure,
   CurrentState,
   Decommissioned,
   Description,
@@ -66,6 +67,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   QualityAttributeRequirement,
   Request,
   Response,
+  Solution,
   StartedDevelopment,
   Strength,
   Threat,
@@ -79,6 +81,7 @@ import com.innovenso.townplanner.model.concepts.relationships.{
   KnowledgeLevel,
   Relationship
 }
+import com.innovenso.townplanner.model.concepts.views.FlowView
 import com.innovenso.townplanner.model.language.Element
 import com.innovenso.townplanner.model.meta.{
   Category,
@@ -327,20 +330,48 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
 
     val integrations = systems.tail.map(s => integration(s, systems.head))
 
+    val illustration = ea needs FlowView(title = title) and { it =>
+      systems.foreach(system =>
+        it has Request(title) from system to systems.head
+      )
+    }
+
     ea describes ItProjectMilestone(
       title = title
     ) as { it =>
       it isPartOf forProject
       (1 to randomInt(5)).foreach(_ => it has Description(description))
       (1 to randomInt(5)).foreach(_ =>
-        it has CurrentState(description = description)
+        it has CurrentState(
+          description = description,
+          illustratedBy = Some(illustration)
+        )
       )
       (1 to randomInt(5)).foreach(_ =>
-        it has Assumption(description = description)
+        it has Assumption(
+          description = description,
+          illustratedBy = Some(illustration)
+        )
       )
       (1 to randomInt(5)).foreach(_ => it has Goal(description = description))
       (1 to randomInt(5)).foreach(_ =>
-        it has Consequence(description = description)
+        it has Consequence(
+          description = description,
+          illustratedBy = Some(illustration)
+        )
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has Solution(
+          description = description,
+          illustratedBy = Some(illustration)
+        )
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has CounterMeasure(
+          description = description,
+          against = description,
+          illustratedBy = Some(illustration)
+        )
       )
       (1 to randomInt(4)).foreach(_ => it has Website(url = url, title = name))
       (1 to randomInt(3)).foreach(_ => it has Wiki(url = url, title = name))

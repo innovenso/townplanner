@@ -1,12 +1,16 @@
 package com.innovenso.townplanner.io.latex.picture
 
 import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.state.{NoStateRepository, StateRepository}
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
 
-case class TownPlanPictureWriter(assetRepository: AssetRepository) {
+case class TownPlanPictureWriter(
+    assetRepository: AssetRepository,
+    stateRepository: StateRepository
+) {
   def write(townPlan: TownPlan, outputContext: OutputContext): OutputContext =
     outputContext.withOutputs(
       views(townPlan)
@@ -15,7 +19,8 @@ case class TownPlanPictureWriter(assetRepository: AssetRepository) {
             .specifications(townPlan, view)
         )
         .flatMap(spec =>
-          PicturePdfWriter.pictures(spec, assetRepository, outputContext)
+          PicturePdfWriter
+            .pictures(spec, assetRepository, outputContext, stateRepository)
         )
     )
 
@@ -29,7 +34,8 @@ case class TownPlanPictureWriter(assetRepository: AssetRepository) {
         PictureSpecificationWriter.specifications(townPlan, modelComponent)
       )
       .flatMap(spec =>
-        PicturePdfWriter.pictures(spec, assetRepository, outputContext)
+        PicturePdfWriter
+          .pictures(spec, assetRepository, outputContext, NoStateRepository())
       )
   )
 

@@ -73,18 +73,9 @@ trait ViewCompiler[ViewType <: View, CompiledViewType <: CompiledView[
   ) true
   else
     modelComponent match {
-      case tm: HasFatherTime => {
-        println(
-          s"${tm} is active on ${view.pointInTime}? ${tm.isActive(view.pointInTime)}"
-        )
-        println(
-          s"${tm} is phasing out on ${view.pointInTime}? ${tm.isPhasingOut(view.pointInTime)}"
-        )
-        println(s"${tm} is unknown lifecycle on ${view.pointInTime}? ${tm
-            .isUnknownLifecycle(view.pointInTime)}")
+      case tm: HasFatherTime =>
         tm.isActive(view.pointInTime) || tm.isPhasingOut(view.pointInTime) || tm
           .isUnknownLifecycle(view.pointInTime)
-      }
       case _ => true
     }
 

@@ -1,10 +1,14 @@
 package com.innovenso.townplanner.io.latex.document
 
 import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.state.NoStateRepository
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.TownPlanDiagramWriter
 import com.innovenso.townplanner.io.latex.picture.TownPlanPictureWriter
-import com.innovenso.townplanner.model.concepts.{Enterprise, EnterpriseConfigurer}
+import com.innovenso.townplanner.model.concepts.{
+  Enterprise,
+  EnterpriseConfigurer
+}
 import com.innovenso.townplanner.model.meta.Key
 import com.innovenso.townplanner.model.samples.SampleFactory
 import com.innovenso.townplanner.model.{EnterpriseArchitecture, TownPlan}
@@ -20,11 +24,19 @@ trait LatexDocumentIO {
   val assetRepository = new FileSystemAssetRepository(assetDirectory.toPath)
   val samples: SampleFactory = SampleFactory(ea)
   val townPlanDiagramWriter: TownPlanDiagramWriter =
-    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
+    TownPlanDiagramWriter(
+      targetDirectory.toPath,
+      assetRepository,
+      NoStateRepository()
+    )
 
-  val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(assetRepository)
+  val townPlanPictureWriter: TownPlanPictureWriter = TownPlanPictureWriter(
+    assetRepository,
+    NoStateRepository()
+  )
   val townPlanDocumentWriter: TownPlanDocumentWriter = TownPlanDocumentWriter(
-    assetRepository
+    assetRepository,
+    NoStateRepository()
   )
 
   def townPlan: TownPlan = ea.townPlan
@@ -34,11 +46,17 @@ trait LatexDocumentIO {
       .write(townPlan, viewKey.value, OutputContext(Nil))
   }
 
-  def picturesAreWritten(viewKey: Key, outputContext: OutputContext = OutputContext(Nil)): OutputContext = {
+  def picturesAreWritten(
+      viewKey: Key,
+      outputContext: OutputContext = OutputContext(Nil)
+  ): OutputContext = {
     townPlanPictureWriter.write(townPlan, viewKey.value, OutputContext(Nil))
   }
 
-  def documentsAreWritten(viewKey: Key, outputContext: OutputContext = OutputContext(Nil)): OutputContext = {
+  def documentsAreWritten(
+      viewKey: Key,
+      outputContext: OutputContext = OutputContext(Nil)
+  ): OutputContext = {
     townPlanDocumentWriter.write(townPlan, viewKey.value, outputContext)
   }
 

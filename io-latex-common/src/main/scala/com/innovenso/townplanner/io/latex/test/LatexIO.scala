@@ -6,6 +6,7 @@ import com.innovenso.townplan.io.context.{
   OutputType,
   Success
 }
+import com.innovenso.townplan.io.state.NoStateRepository
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.TownPlanDiagramWriter
 import com.innovenso.townplanner.io.latex.LatexPdfWriter
@@ -30,7 +31,11 @@ trait LatexIO {
   val assetRepository = new FileSystemAssetRepository(assetDirectory.toPath)
   val samples: SampleFactory = SampleFactory(ea)
   val townPlanDiagramWriter: TownPlanDiagramWriter =
-    TownPlanDiagramWriter(targetDirectory.toPath, assetRepository)
+    TownPlanDiagramWriter(
+      targetDirectory.toPath,
+      assetRepository,
+      NoStateRepository()
+    )
 
   def townPlan: TownPlan = ea.townPlan
 

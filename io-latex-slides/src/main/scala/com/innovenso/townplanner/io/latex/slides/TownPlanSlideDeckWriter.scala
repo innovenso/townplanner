@@ -1,12 +1,16 @@
 package com.innovenso.townplanner.io.latex.slides
 
 import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.state.{NoStateRepository, StateRepository}
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import com.innovenso.townplanner.model.meta.Key
 
-case class TownPlanSlideDeckWriter(assetRepository: AssetRepository) {
+case class TownPlanSlideDeckWriter(
+    assetRepository: AssetRepository,
+    stateRepository: StateRepository
+) {
   def write(townPlan: TownPlan, outputContext: OutputContext): OutputContext =
     outputContext.withOutputs(
       views(townPlan)
@@ -15,7 +19,8 @@ case class TownPlanSlideDeckWriter(assetRepository: AssetRepository) {
             .specifications(townPlan, outputContext, view)
         )
         .flatMap(spec =>
-          SlideDeckPdfWriter.slideDecks(spec, assetRepository, outputContext)
+          SlideDeckPdfWriter
+            .slideDecks(spec, assetRepository, outputContext, stateRepository)
         )
     )
 
@@ -30,7 +35,8 @@ case class TownPlanSlideDeckWriter(assetRepository: AssetRepository) {
           .specifications(townPlan, outputContext, modelComponent)
       )
       .flatMap(spec =>
-        SlideDeckPdfWriter.slideDecks(spec, assetRepository, outputContext)
+        SlideDeckPdfWriter
+          .slideDecks(spec, assetRepository, outputContext, NoStateRepository())
       )
   )
 
