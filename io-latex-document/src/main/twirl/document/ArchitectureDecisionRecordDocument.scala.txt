@@ -4,7 +4,6 @@
 @import txt.Preamble
 @import txt.DocumentTitle
 @import txt.FrontMatter
-@import txt.BookTableOfContents
 @import txt.MainMatter
 @import txt.Chapter
 @import txt.Text
@@ -26,26 +25,26 @@
 @import com.innovenso.townplan.io.context.Pdf
 @import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
 @import txt.Image
-@import latex.lib.txt.MarginLinks
 @import latex.lib.txt.Date
 @import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
-@import txt.MarginImage
 @import com.innovenso.townplanner.io.latex.model.RaciTable
 @import com.innovenso.townplanner.io.latex.model.DecisionOptionPricingTables
 @import com.innovenso.townplanner.io.latex.model.DecisionOptionRequirementsMatchTable
+@import txt.InnovensoBook
+@import latex.lib.book.txt.BookTitlePage
+@import latex.lib.book.txt.BookTableOfContents
+@import txt.Part
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
-@KaoBook(townPlan)
+@InnovensoBook(townPlan)
 @Document {
-    @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
-    @DocumentTitle()
-    @FrontMatter()
+    @BookTitlePage(title = Some(view.title), author = None, subtitle = Some("Innovenso Townplanner"))
     @BookTableOfContents()
-    @MainMatter()
+
+    @Part(title = "Decisions") {
 
     @for(decoratedDecision <- view.decoratedDecisions) {
       @Chapter(decoratedDecision.decision.title) {
         @Section("Context", condition = decoratedDecision.hasContext) {
-            @MarginLinks(decoratedDecision.decision)
             @Description(decoratedDecision.decision)
 
             @SubSection("Status and Due Date") {
@@ -79,7 +78,7 @@
             }
 
 
-            @WideTable(table = RaciTable(decoratedDecision).table, title = Some(decoratedDecision.decision.title + " - RACI"))
+            @Table(table = RaciTable(decoratedDecision).table, title = Some(decoratedDecision.decision.title + " - RACI"))
 
 
               @SubSection("Influencers", condition = decoratedDecision.hasInfluencers || decoratedDecision.hasInfluencingPrinciples) {
@@ -96,7 +95,7 @@
 
           @SubSection("Security & Compliance", condition = decoratedDecision.hasSecurityImpact || decoratedDecision.hasComplianceImpact) {
               @for(securityImpactDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzSecurityImpactDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision))) {
-                  @MarginImage(Some(s"${decoratedDecision.decision.title} Security Impact"), securityImpactDiagram)
+                  @Image(Some(s"${decoratedDecision.decision.title} Security Impact"), securityImpactDiagram)
               }
 
               @for(securityImpact <- decoratedDecision.decision.securityImpacts) {
@@ -116,20 +115,19 @@
 
         @Section("Analysis", condition = decoratedDecision.hasRequirements) {
           @SubSection("Functional Requirements", condition = decoratedDecision.hasFunctionalRequirements) {
-            @FunctionalRequirements(decoratedDecision.decision.functionalRequirements, forBook = true)
+            @FunctionalRequirements(decoratedDecision.decision.functionalRequirements, forBook = false)
           }
             @SubSection("Quality Attribute Requirements", condition = decoratedDecision.hasQualityAttributeRequirements) {
-                @QualityAttributeRequirements(decoratedDecision.decision.qualityAttributeRequirements, forBook = true)
+                @QualityAttributeRequirements(decoratedDecision.decision.qualityAttributeRequirements, forBook = false)
             }
             @SubSection("Constraints", condition = decoratedDecision.hasConstraints) {
-                @Constraints(decoratedDecision.decision.constraints, forBook = true)
+                @Constraints(decoratedDecision.decision.constraints, forBook = false)
             }
         }
 
         @Section("Options Considered") {
           @for(decisionOption <- decoratedDecision.options) {
             @SubSection(decisionOption.option.title) {
-                @MarginLinks(decisionOption.option)
                 @Description(decisionOption.option)
 
                 @SubSubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
@@ -187,4 +185,6 @@
         }
       }
     }
+    }
+
 }

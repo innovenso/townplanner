@@ -1,0 +1,11 @@
+@import com.innovenso.townplanner.io.latex.LatexFormat
+@(title: Option[String] = None, subtitle: Option[String] = None, author: Option[String] = None, institute: Option[String] = None)
+\titlepage{\includegraphics[width=\paperwidth]{background.pdf}}
+{
+    \centering\sffamily
+        {\Huge\bfseries @LatexFormat(variants = Nil, text = title.getOrElse("Book Title"))\par}
+        \vspace{16pt}
+        {\LARGE @LatexFormat(variants = Nil, text = subtitle.getOrElse(""))\par}
+        \vspace{24pt}
+        {\huge\bfseries @LatexFormat(variants = Nil, text = author.getOrElse(""))\par}
+}

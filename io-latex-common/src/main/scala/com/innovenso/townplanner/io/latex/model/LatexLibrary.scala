@@ -46,15 +46,3 @@ case class LatexLibraryFile(
 
   }
 }
-
-case object KaoBookLibrary extends LatexLibrary {
-  val name = "kaobook"
-  val resourceBasePathName: Option[String] = Some("latex/templates/kaobook")
-  val files: List[LatexLibraryFile] = List(
-    "kao.sty",
-    "kaobiblio.sty",
-    "kaobook.cls",
-    "kaorefs.sty",
-    "kaotheorems.sty"
-  ).map(name => LatexLibraryFile(resourcePath = name))
-}

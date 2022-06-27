@@ -41,7 +41,7 @@ RUN ln -s /opt/java/openjdk/bin/java /usr/local/bin/java
 RUN apt-get update && apt-get install graphviz -yqq
 RUN apt-get update && apt-get install git -yqq
 RUN apt-get update && apt-get install blender -yqq
-RUN apt-get update && apt-get install texlive-full latexmk -yqq
+RUN apt-get update && apt-get install texlive-full latexmk biber -yqq
 
 #Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_14.x -o /tmp/nodesource_setup.sh

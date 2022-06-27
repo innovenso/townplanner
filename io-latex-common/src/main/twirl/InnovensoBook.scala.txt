@@ -1,0 +1,8 @@
+@import txt.DocumentClass
+@import txt.CommonSettings
+@import txt.BookSettings
+@import com.innovenso.townplanner.model.TownPlan
+@(townPlan: TownPlan)
+@DocumentClass(name = "LegrandOrangeBook", options = List("a4paper", "11pt", "fleqn","oneside"))
+@CommonSettings(townPlan)
+@BookSettings()

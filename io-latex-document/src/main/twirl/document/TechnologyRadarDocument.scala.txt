@@ -16,7 +16,6 @@
 @import txt.Image
 @import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
 @import txt.FrontMatter
-@import txt.BookTableOfContents
 @import txt.MainMatter
 @import txt.KaoBook
 @import com.innovenso.townplanner.model.concepts.views.CompiledTechnologyRadar
@@ -32,14 +31,14 @@
 @import com.innovenso.townplanner.model.concepts.properties.BeMigrated
 @import com.innovenso.townplanner.model.concepts.properties.BeMigrated
 @import com.innovenso.townplanner.model.TownPlan
+@import txt.InnovensoBook
+@import latex.lib.book.txt.BookTableOfContents
+@import latex.lib.book.txt.BookTitlePage
 @(townPlan: TownPlan, view: CompiledTechnologyRadar)
-@KaoBook(townPlan)
+@InnovensoBook(townPlan)
 @Document {
-  @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
-  @DocumentTitle()
-  @FrontMatter()
+  @BookTitlePage(title = Some(view.title), author = None, subtitle = Some("Innovenso Townplanner"))
   @BookTableOfContents()
-  @MainMatter()
 
   @Part(title = "Radar") {
     @for(category <- view.categories) {
@@ -50,7 +49,7 @@
               @Section(title = circle.name) {
                 @for(technology <- view.technologies(category.technologyClass, circle.getClass)) {
                   @SubSection(title = technology.title) {
-                    @MarginDrawing(caption = Some(technology.title)) {
+                    @Drawing(caption = Some(technology.title)) {
                       @RadarPositionPicture(technology)
                     }
                     @Description(technology)

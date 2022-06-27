@@ -1,10 +1,6 @@
 package com.innovenso.townplanner.io.latex.picture
 
-import com.innovenso.townplanner.io.latex.model.{
-  Book,
-  KaoBookLibrary,
-  LatexSpecification
-}
+import com.innovenso.townplanner.io.latex.model.{Book, LatexSpecification}
 import com.innovenso.townplanner.io.latex.picture.context.{
   TikzBusinessCapabilityOnePager,
   TikzPicture,

@@ -16,18 +16,17 @@
 @import txt.Image
 @import com.innovenso.townplanner.model.concepts.views.CompiledFullTownPlanView
 @import txt.FrontMatter
-@import txt.BookTableOfContents
 @import txt.MainMatter
 @import txt.KaoBook
 @import com.innovenso.townplanner.model.TownPlan
+@import latex.lib.book.txt.BookTableOfContents
+@import latex.lib.book.txt.BookTitlePage
+@import txt.InnovensoBook
 @(townPlan: TownPlan, view: CompiledFullTownPlanView)
-@KaoBook(townPlan)
+@InnovensoBook(townPlan)
 @Document {
-  @Preamble(title = Some(view.title), author = None, titleHead = Some("Innovenso Townplanner"))
-  @DocumentTitle()
-  @FrontMatter()
+  @BookTitlePage(title = Some(view.title), author = None, subtitle = Some("Innovenso Townplanner"))
   @BookTableOfContents()
-  @MainMatter()
 
   @Section(title = view.title) {
     this is section 1

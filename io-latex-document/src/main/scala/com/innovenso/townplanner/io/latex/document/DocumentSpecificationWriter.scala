@@ -1,11 +1,9 @@
 package com.innovenso.townplanner.io.latex.document
 
 import com.innovenso.townplan.io.context.{Output, OutputContext, Pdf}
-import com.innovenso.townplanner.io.latex.model.{
-  Book,
-  KaoBookLibrary,
-  LatexSpecification
-}
+import com.innovenso.townplanner.io.latex.document.context.BookThemeConfiguration
+import com.innovenso.townplanner.io.latex.document.model.LegrangeBookLibrary
+import com.innovenso.townplanner.io.latex.model.{Book, LatexSpecification}
 import com.innovenso.townplanner.io.latex.picture.context.{
   TikzPicture,
   TikzRequirementScoreSpiderDiagram,
@@ -35,7 +33,8 @@ object DocumentSpecificationWriter {
         LatexSpecification(
           view = fullTownPlanView,
           latexSourceCode = FullTownPlan(townPlan, fullTownPlanView).body,
-          latexLibraries = List(KaoBookLibrary),
+          latexLibraries =
+            List(LegrangeBookLibrary, BookThemeConfiguration.theme),
           outputType = Book,
           relatedModelComponents = fullTownPlanView.enterprise.toList
         )
@@ -46,7 +45,8 @@ object DocumentSpecificationWriter {
           view = technologyRadar,
           latexSourceCode =
             TechnologyRadarDocument(townPlan, technologyRadar).body,
-          latexLibraries = List(KaoBookLibrary),
+          latexLibraries =
+            List(LegrangeBookLibrary, BookThemeConfiguration.theme),
           outputType = Book,
           relatedModelComponents = technologyRadar.enterprises
         )
@@ -61,7 +61,8 @@ object DocumentSpecificationWriter {
             outputContext,
             adr
           ).body,
-          latexLibraries = List(KaoBookLibrary),
+          latexLibraries =
+            List(LegrangeBookLibrary, BookThemeConfiguration.theme),
           outputType = Book,
           relatedModelComponents = adr.enterprises
         )
