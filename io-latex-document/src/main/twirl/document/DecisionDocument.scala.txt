@@ -1,0 +1,197 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledArchitectureDecisionRecord
+@import txt.KaoBook
+@import txt.Document
+@import txt.Preamble
+@import txt.DocumentTitle
+@import txt.FrontMatter
+@import txt.MainMatter
+@import txt.Chapter
+@import txt.Text
+@import latex.lib.txt.Description
+@import txt.Section
+@import txt.Paragraph
+@import txt.SubSection
+@import txt.SubSubSection
+@import latex.lib.txt.Itemize
+@import latex.lib.txt.Dictionary
+@import latex.lib.tables.txt.Table
+@import latex.lib.tables.txt.WideTable
+@import latex.lib.txt.FunctionalRequirements
+@import latex.lib.txt.QualityAttributeRequirements
+@import latex.lib.txt.Constraints
+@import com.innovenso.townplanner.model.TownPlan
+@import latex.lib.tables.txt.LongTable
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplan.io.context.Pdf
+@import com.innovenso.townplanner.io.latex.picture.context.TikzRequirementScoreSpiderDiagram
+@import txt.Image
+@import latex.lib.txt.Date
+@import com.innovenso.townplanner.io.latex.picture.context.TikzSecurityImpactDiagram
+@import com.innovenso.townplanner.io.latex.model.RaciTable
+@import com.innovenso.townplanner.io.latex.model.DecisionOptionPricingTables
+@import com.innovenso.townplanner.io.latex.model.DecisionOptionRequirementsMatchTable
+@import txt.InnovensoBook
+@import latex.lib.book.txt.BookTitlePage
+@import latex.lib.book.txt.BookTableOfContents
+@import txt.Part
+@import latex.lib.book.txt.DecisionContextIllustrationImages
+@import com.innovenso.townplanner.model.meta.Key
+@import play.twirl.api.TwirlFeatureImports._
+@(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord, decisionKey: Key)
+@if(view.decoratedDecision(decisionKey).isDefined) {
+    @defining(view.decoratedDecision(decisionKey).get) { decoratedDecision =>
+        @InnovensoBook(townPlan)
+        @Document {
+            @BookTitlePage(title = Some(decoratedDecision.decision.title), author = None, subtitle = Some("Architecture Decision Record"))
+            @BookTableOfContents()
+
+                    @Chapter("Context", condition = decoratedDecision.hasContext) {
+                        @Description(decoratedDecision.decision)
+
+                        @Section("Status and Due Date") {
+                            @Paragraph("Status") {
+                                @Text(decoratedDecision.decision.status.name)
+                            }
+                            @Paragraph("Due Date", decoratedDecision.hasDueDate) {
+                                @Date(decoratedDecision.decision.dueDate)
+                            }
+
+                        }
+
+                        @Section("Current Conditions", condition = decoratedDecision.hasCurrentConditions) {
+                            @for(currentCondition <- decoratedDecision.decision.currentState) {
+                                @SubSection(currentCondition.title) {
+                                    @Text(currentCondition.description)
+                                }
+                                @DecisionContextIllustrationImages(context = currentCondition, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
+                            }
+
+                        }
+                        @Section("Goals", condition = decoratedDecision.hasGoals) {
+                            @for(goal <- decoratedDecision.decision.goals) {
+                                @SubSection(goal.title) {
+                                    @Text(goal.description)
+                                }
+                                @DecisionContextIllustrationImages(context = goal, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
+                            }
+                        }
+                        @Section("Assumptions", condition = decoratedDecision.hasAssumptions) {
+                            @for(assumption <- decoratedDecision.decision.assumptions) {
+                                @SubSection(assumption.title) {
+                                    @Text(assumption.description)
+                                }
+                                @DecisionContextIllustrationImages(context = assumption, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
+                            }
+                        }
+
+                        @Table(table = RaciTable(decoratedDecision).table, title = Some(decoratedDecision.decision.title + " - RACI"))
+
+                        @Section("Influencers", condition = decoratedDecision.hasInfluencers || decoratedDecision.hasInfluencingPrinciples) {
+                            @SubSection("People", condition = decoratedDecision.hasInfluencers) {
+                                @Itemize(decoratedDecision.influencers.map(_.title))
+                            }
+                            @SubSection("Principles", condition = decoratedDecision.hasInfluencingPrinciples) {
+                                @Dictionary(decoratedDecision.influencingPrinciples.map(p => (p.title, p.descriptions.headOption.map(_.value).getOrElse("-"))))
+                            }
+                        }
+                        @Section("Stakeholders", condition = decoratedDecision.hasStakeholders) {
+                            @Itemize(decoratedDecision.stakeholders.map(_.title))
+                        }
+
+                        @Section("Security & Compliance", condition = decoratedDecision.hasSecurityImpact || decoratedDecision.hasComplianceImpact) {
+                            @for(securityImpactDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzSecurityImpactDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision))) {
+                                @Image(Some(s"${decoratedDecision.decision.title} Security Impact"), securityImpactDiagram)
+                            }
+
+                            @for(securityImpact <- decoratedDecision.decision.securityImpacts) {
+                                @SubSection(title = s"${securityImpact.name}: ${securityImpact.level.name}") {
+                                    @Text(content = securityImpact.description)
+                                }
+                            }
+
+                            @for(complianceImpact <- decoratedDecision.decision.complianceConcerns) {
+                                @SubSection(title = complianceImpact.name) {
+                                    @Text(content = complianceImpact.description)
+                                }
+                            }
+
+                        }
+                    }
+
+                    @Chapter("Analysis", condition = decoratedDecision.hasRequirements) {
+                        @Section("Functional Requirements", condition = decoratedDecision.hasFunctionalRequirements) {
+                            @FunctionalRequirements(decoratedDecision.decision.functionalRequirements, forBook = false)
+                        }
+                        @Section("Quality Attribute Requirements", condition = decoratedDecision.hasQualityAttributeRequirements) {
+                            @QualityAttributeRequirements(decoratedDecision.decision.qualityAttributeRequirements, forBook = false)
+                        }
+                        @Section("Constraints", condition = decoratedDecision.hasConstraints) {
+                            @Constraints(decoratedDecision.decision.constraints, forBook = false)
+                        }
+                    }
+
+                    @Chapter("Options Considered") {
+                        @for(decisionOption <- decoratedDecision.options) {
+                            @Section(decisionOption.option.title) {
+                                @Description(decisionOption.option)
+
+                                @SubSection("SWOT Analysis", condition = decisionOption.hasSWOT) {
+                                    @SubSubSection("Strenghts", condition = decisionOption.hasStrengths) {
+                                        @Itemize(decisionOption.option.strengths.map(_.description))
+                                    }
+                                    @SubSubSection("Weaknesses", condition = decisionOption.hasWeaknesses) {
+                                        @Itemize(decisionOption.option.weaknesses.map(_.description))
+                                    }
+                                    @SubSubSection("Opportunities", condition = decisionOption.hasOpportunities) {
+                                        @Itemize(decisionOption.option.opportunities.map(_.description))
+                                    }
+                                    @SubSubSection("Threats", condition = decisionOption.hasThreats) {
+                                        @Itemize(decisionOption.option.threats.map(_.description))
+                                    }
+                                }
+
+                                @SubSection("Requirement Scoring", decisionOption.hasRequirementScores) {
+                                    @for(spiderDiagram <- outputContext.outputs(ofFileType = Some(Pdf), ofOutputType = Some(TikzRequirementScoreSpiderDiagram), forView = Some(view.view), forModelComponents = List(decoratedDecision.decision, decisionOption.option))) {
+                                        @Image(Some(s"${decisionOption.option.title} Requirement Scores"), spiderDiagram)
+                                    }
+                                    \scriptsize
+
+                                    @LongTable(table = DecisionOptionRequirementsMatchTable(decisionOption).table, title = None)
+
+                                    \normalsize
+                                }
+
+                                @SubSection("Cost Impact", decisionOption.hasCostImpact) {
+                                    \scriptsize
+
+                                    @for(table <- DecisionOptionPricingTables(decisionOption).tables) {
+                                        @LongTable(table = table, title = None)
+                                    }
+
+                                    \normalsize
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Chapter("Outcome", decoratedDecision.hasOutcome && decoratedDecision.hasConsequences) {
+                        @Section("Conclusion", decoratedDecision.hasOutcome) {
+                            @Text(decoratedDecision.decision.outcome)
+                        }
+                        @Section("Consequences", decoratedDecision.hasConsequences) {
+                            @for(consequence <- decoratedDecision.decision.consequences) {
+                                @SubSection(consequence.title) {
+                                    @Text(consequence.description)
+                                }
+                                @DecisionContextIllustrationImages(context = consequence, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
+                            }
+
+                        }
+                    }
+
+
+
+
+        }
+    }}

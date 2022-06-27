@@ -34,6 +34,7 @@
 @import latex.lib.book.txt.BookTitlePage
 @import latex.lib.book.txt.BookTableOfContents
 @import txt.Part
+@import latex.lib.book.txt.DecisionContextIllustrationImages
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @InnovensoBook(townPlan)
 @Document {
@@ -60,13 +61,16 @@
                   @Paragraph(currentCondition.title) {
                     @Text(currentCondition.description)
                   }
+                    @DecisionContextIllustrationImages(context = currentCondition, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
                 }
+
             }
             @SubSection("Goals", condition = decoratedDecision.hasGoals) {
               @for(goal <- decoratedDecision.decision.goals) {
                   @Paragraph(goal.title) {
                       @Text(goal.description)
                   }
+                  @DecisionContextIllustrationImages(context = goal, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
               }
             }
             @SubSection("Assumptions", condition = decoratedDecision.hasAssumptions) {
@@ -74,6 +78,7 @@
                   @Paragraph(assumption.title) {
                       @Text(assumption.description)
                   }
+                  @DecisionContextIllustrationImages(context = assumption, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
               }
             }
 
@@ -179,6 +184,7 @@
                   @Paragraph(consequence.title) {
                       @Text(consequence.description)
                   }
+                  @DecisionContextIllustrationImages(context = consequence, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
               }
 
           }

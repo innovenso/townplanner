@@ -19,6 +19,7 @@ import com.innovenso.townplanner.model.concepts.views.{
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import document.txt.{
   ArchitectureDecisionRecordDocument,
+  DecisionDocument,
   FullTownPlan,
   ProjectMilestoneOverviewDocument,
   TechnologyRadarDocument
@@ -68,7 +69,24 @@ object DocumentSpecificationWriter {
           outputType = Book,
           relatedModelComponents = adr.enterprises
         )
+      ) ::: adr.decoratedDecisions.map(decoratedDecision =>
+        LatexSpecification(
+          view = adr,
+          dependencies = dependencies(outputContext),
+          latexSourceCode = DecisionDocument(
+            townPlan,
+            outputContext,
+            adr,
+            decoratedDecision.decision.key
+          ).body,
+          latexLibraries =
+            List(LegrangeBookLibrary, BookThemeConfiguration.theme),
+          outputType = Book,
+          relatedModelComponents = List(decoratedDecision.decision),
+          filenameAppendix = Some(decoratedDecision.decision.title)
+        )
       )
+
     case projectMilestoneOverview: CompiledProjectMilestoneOverview =>
       projectMilestoneOverview.decoratedProjectMilestone
         .map(decoratedProjectMilestone =>

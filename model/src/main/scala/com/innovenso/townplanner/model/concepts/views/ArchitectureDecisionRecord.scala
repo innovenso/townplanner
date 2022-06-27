@@ -38,6 +38,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeMigrated,
   BeTolerated,
   CanAddProperties,
+  Context,
   Property,
   Requirement,
   RequirementScore
@@ -150,7 +151,8 @@ case class CompiledArchitectureDecisionRecord(
     with HasBusinessCapabilities
     with HasArchitectureBuildingBlocks
     with HasDecisions
-    with HasPrinciples {
+    with HasPrinciples
+    with HasFlowViews {
   val decoratedDecisions: List[DecisionDecorator] =
     decisions.map(DecisionDecorator(this, _))
 
@@ -176,6 +178,12 @@ case class DecisionOptionDecorator(
   val constraintScores: List[(Requirement, RequirementScore)] =
     view.constraintScores(option)
   val decision: Option[Decision] = view.decision(option)
+  def illustration(context: Context): Option[FlowView] =
+    context.illustratedByView.flatMap(key => view.flowView(key).map(_.view))
+
+  def hasIllustration(context: Context): Boolean = illustration(
+    context
+  ).isDefined
 
   val scores: List[(Requirement, RequirementScore)] =
     functionalScores ::: qualityAttributeRequirementScores ::: constraintScores
@@ -192,6 +200,12 @@ case class DecisionDecorator(
     decision: Decision
 ) {
   val hasCurrentConditions: Boolean = decision.currentState.nonEmpty
+  def illustration(context: Context): Option[FlowView] =
+    context.illustratedByView.flatMap(key => view.flowView(key).map(_.view))
+
+  def hasIllustration(context: Context): Boolean = illustration(
+    context
+  ).isDefined
 
   val hasDescriptions: Boolean = decision.descriptions.nonEmpty
   val hasLinks: Boolean = decision.links.nonEmpty

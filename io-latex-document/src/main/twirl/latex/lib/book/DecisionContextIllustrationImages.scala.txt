@@ -1,0 +1,14 @@
+@import com.innovenso.townplanner.model.concepts.properties.Context
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplanner.model.concepts.views.ProjectMilestoneDecorator
+@import com.innovenso.townplan.io.context.Eps
+@import txt.Image
+@import com.innovenso.townplanner.model.concepts.views.DecisionDecorator
+@(context: Context, subtitle: Option[String], outputContext: OutputContext, decoratedDecision: DecisionDecorator) {
+  @if(decoratedDecision.hasIllustration(context)) {
+      @for(illustration <- outputContext.outputs(ofFileType = Some(Eps), forView = decoratedDecision.illustration(context))) {
+              @Image(Some(illustration.view.title), illustration)
+      }
+
+  }
+}
