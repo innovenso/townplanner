@@ -48,6 +48,6 @@ case class TownPlanDocumentWriter(
     views(townPlan).find(_.key == key)
 
   def views(townPlan: TownPlan): List[_ <: CompiledView[_ <: View]] =
-    townPlan.businessCapabilityMaps ++ townPlan.fullTownPlanViews ++ townPlan.projectMilestoneImpactViews ++ townPlan.technologyRadars ++ townPlan.architectureDecisionRecords
+    townPlan.businessCapabilityMaps ++ townPlan.fullTownPlanViews ++ townPlan.projectMilestoneImpactViews ++ townPlan.technologyRadars ++ townPlan.architectureDecisionRecords ++ townPlan.projectMilestoneOverviews
 
 }

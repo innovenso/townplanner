@@ -50,6 +50,7 @@ case class ItProjectMilestone(
     with CanServe
     with CanBeAssociated
     with CanBeInfluenced
+    with HasCosts
     with CanCompose
     with CanHaveRaci
     with CanHaveStakeholder
@@ -171,7 +172,8 @@ case class ItProjectMilestoneConfigurer(
     with CanConfigureTriggerTarget[ItProjectMilestone]
     with CanConfigureAssociations[ItProjectMilestone]
     with CanConfigureRequirements[ItProjectMilestone]
-    with CanConfigureContext[ItProjectMilestone] {
+    with CanConfigureContext[ItProjectMilestone]
+    with CanConfigureCosts[ItProjectMilestone] {
   def as(
       body: ItProjectMilestoneConfigurer => Any
   ): ItProjectMilestone = {

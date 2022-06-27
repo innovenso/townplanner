@@ -190,6 +190,8 @@ case class ProjectMilestoneDecorator(
     milestone.assumptions.nonEmpty
   def hasConsequences: Boolean =
     milestone.consequences.nonEmpty
+
+  def hasCostImpact: Boolean = milestone.costs.nonEmpty
   def hasSolutions: Boolean = milestone.solutions.nonEmpty
   def hasCounterMeasures: Boolean = milestone.counterMeasures.nonEmpty
   def illustration(context: Context): Option[FlowView] =

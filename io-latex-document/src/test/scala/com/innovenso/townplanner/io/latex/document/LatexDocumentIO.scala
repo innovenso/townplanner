@@ -1,6 +1,6 @@
 package com.innovenso.townplanner.io.latex.document
 
-import com.innovenso.townplan.io.context.OutputContext
+import com.innovenso.townplan.io.context.{OutputContext, Pdf}
 import com.innovenso.townplan.io.state.NoStateRepository
 import com.innovenso.townplan.repository.FileSystemAssetRepository
 import com.innovenso.townplanner.io.TownPlanDiagramWriter
@@ -41,23 +41,30 @@ trait LatexDocumentIO {
 
   def townPlan: TownPlan = ea.townPlan
 
-  def diagramsAreWritten(viewKey: Key): OutputContext = {
+  def diagramsAreWritten: OutputContext = {
     townPlanDiagramWriter
-      .write(townPlan, viewKey.value, OutputContext(Nil))
+      .write(townPlan, OutputContext(Nil))
   }
 
   def picturesAreWritten(
       viewKey: Key,
       outputContext: OutputContext = OutputContext(Nil)
   ): OutputContext = {
-    townPlanPictureWriter.write(townPlan, viewKey.value, OutputContext(Nil))
+    townPlanPictureWriter.write(townPlan, viewKey.value, outputContext)
   }
 
   def documentsAreWritten(
       viewKey: Key,
       outputContext: OutputContext = OutputContext(Nil)
   ): OutputContext = {
-    townPlanDocumentWriter.write(townPlan, viewKey.value, outputContext)
+    val result: OutputContext =
+      townPlanDocumentWriter.write(townPlan, viewKey.value, outputContext)
+    result
+      .outputsOfFileType(Pdf)
+      .flatMap(_.assetName)
+      .flatMap(assetRepository.read)
+      .foreach(file => println(file.getAbsolutePath))
+    result
   }
 
 }

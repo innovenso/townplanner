@@ -375,6 +375,34 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       )
       (1 to randomInt(4)).foreach(_ => it has Website(url = url, title = name))
       (1 to randomInt(3)).foreach(_ => it has Wiki(url = url, title = name))
+
+      (0 to randomInt(3)).foreach(yearIndex => {
+        val year = SomeYear(ThisYear.value + yearIndex)
+        (1 to randomInt(10)).foreach(_ =>
+          it costs Capex(
+            title = title,
+            description = title,
+            category = Category(Some(title)),
+            fiscalYear = year,
+            numberOfUnits = unitCount,
+            unitOfMeasure = unitOfMeasure,
+            costPerUnit = monetaryAmount
+          )
+        )
+        (1 to randomInt(10)).foreach(_ =>
+          it costs Opex(
+            title = title,
+            description = title,
+            category = Category(Some(title)),
+            fiscalYear = year,
+            numberOfUnits = unitCount,
+            unitOfMeasure = unitOfMeasure,
+            costPerUnit = monetaryAmount
+          )
+        )
+
+      })
+
       val functionalRequirements = (1 to randomInt(5)).map(_ =>
         it has FunctionalRequirement(title = title, description = description)
       )

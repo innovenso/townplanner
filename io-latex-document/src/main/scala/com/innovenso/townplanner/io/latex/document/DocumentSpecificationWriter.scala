@@ -13,12 +13,14 @@ import com.innovenso.townplanner.model.TownPlan
 import com.innovenso.townplanner.model.concepts.views.{
   CompiledArchitectureDecisionRecord,
   CompiledFullTownPlanView,
+  CompiledProjectMilestoneOverview,
   CompiledTechnologyRadar
 }
 import com.innovenso.townplanner.model.language.{CompiledView, View}
 import document.txt.{
   ArchitectureDecisionRecordDocument,
   FullTownPlan,
+  ProjectMilestoneOverviewDocument,
   TechnologyRadarDocument
 }
 
@@ -55,7 +57,7 @@ object DocumentSpecificationWriter {
       List(
         LatexSpecification(
           view = adr,
-          dependencies = dependendencies(adr, outputContext),
+          dependencies = dependencies(outputContext),
           latexSourceCode = ArchitectureDecisionRecordDocument(
             townPlan,
             outputContext,
@@ -67,43 +69,31 @@ object DocumentSpecificationWriter {
           relatedModelComponents = adr.enterprises
         )
       )
+    case projectMilestoneOverview: CompiledProjectMilestoneOverview =>
+      projectMilestoneOverview.decoratedProjectMilestone
+        .map(decoratedProjectMilestone =>
+          LatexSpecification(
+            view = projectMilestoneOverview,
+            dependencies = dependencies(outputContext),
+            latexSourceCode = ProjectMilestoneOverviewDocument(
+              townPlan,
+              outputContext,
+              projectMilestoneOverview
+            ).body,
+            latexLibraries =
+              List(LegrangeBookLibrary, BookThemeConfiguration.theme),
+            outputType = Book,
+            relatedModelComponents = List(
+              decoratedProjectMilestone.milestone
+            ) ++ decoratedProjectMilestone.project.toList,
+            filenameAppendix = Some(decoratedProjectMilestone.milestone.title)
+          )
+        )
+        .toList
     case _ => Nil
   }
 
-  def dependendencies(
-      adr: CompiledArchitectureDecisionRecord,
-      outputContext: OutputContext
-  ): List[Output] = spiderDiagramDependencies(
-    adr,
-    outputContext
-  ) ++ securityImpactDependencies(adr, outputContext)
+  private def dependencies(outputContext: OutputContext): List[Output] =
+    outputContext.outputs
 
-  def spiderDiagramDependencies(
-      adr: CompiledArchitectureDecisionRecord,
-      outputContext: OutputContext
-  ): List[Output] = adr.decoratedDecisions
-    .flatMap(dd => dd.options.map(dop => (dd.decision, dop.option)))
-    .flatMap(tup =>
-      outputContext.outputs(
-        ofFileType = Some(Pdf),
-        ofOutputType = Some(TikzRequirementScoreSpiderDiagram),
-        forView = Some(adr.view),
-        forModelComponents = List(tup._1, tup._2)
-      )
-    )
-    .distinct
-
-  def securityImpactDependencies(
-      adr: CompiledArchitectureDecisionRecord,
-      outputContext: OutputContext
-  ): List[Output] = adr.decoratedDecisions
-    .flatMap(decoratedDecision =>
-      outputContext.outputs(
-        ofFileType = Some(Pdf),
-        ofOutputType = Some(TikzSecurityImpactDiagram),
-        forView = Some(adr.view),
-        forModelComponents = List(decoratedDecision.decision)
-      )
-    )
-    .distinct
 }
