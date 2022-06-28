@@ -149,33 +149,52 @@
                 }
 
                 @Section(title = "Impact",  condition = decoratedProjectMilestone.hasImpact) {
-                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneBusinessCapabilityImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
-                            @Image(Some("Impact on Business Capabilities"), impactDiagram)
+                        @if(decoratedProjectMilestone.hasImpactOnBusinessCapabilities) {
+                            @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneBusinessCapabilityImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                                @Image(Some("Impact on Business Capabilities"), impactDiagram)
+                            }
                         }
+                  @if(decoratedProjectMilestone.hasImpactOnBuildingBlocks) {
+
                         @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneArchitectureBuildingBlockImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
                             @Image(Some("Impact on Architecture Building Blocks"), impactDiagram)
                         }
-                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItPlatformImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
-                            @Image(Some("Impact on Platforms"), impactDiagram)
-                        }
-                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItSystemImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                  }
+                  @if(decoratedProjectMilestone.hasImpactOnPlatforms) {
+                      @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItPlatformImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                          @Image(Some("Impact on Platforms"), impactDiagram)
+                      }
+                  }
+                    @if(decoratedProjectMilestone.hasImpactOnSystems) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItSystemImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
                             @Image(Some("Impact on Systems"), impactDiagram)
                         }
-                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItContainerImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                    }
+                    @if(decoratedProjectMilestone.hasImpactOnContainers) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItContainerImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
                             @Image(Some("Impact on Containers"), impactDiagram)
                         }
-                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItSystemIntegrationImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                    }
+                    @if(decoratedProjectMilestone.hasImpactOnIntegrations) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneItSystemIntegrationImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
                             @Image(Some("Impact on System Integrations"), impactDiagram)
                         }
-                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneTechnologyImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone) )) {
+                    }
+                    @if(decoratedProjectMilestone.hasImpactOnTechnologies) {
+                        @for(impactDiagram <- outputContext.outputs(ofFileType = Some(Eps), ofOutputType = Some(ProjectMilestoneTechnologyImpactDiagram), forModelComponents = List(decoratedProjectMilestone.milestone))) {
                             @Image(Some("Impact on Technologies"), impactDiagram)
                         }
+                    }
                 }
                 @SubSection(title = "Impacted Systems", condition = decoratedProjectMilestone.hasImpactOnSystems) {
+                        \scriptsize
                             @LongTable(table = ProjectMilestoneImpactOnSystemsTable(view).table)
+                  \normalsize
                 }
                 @SubSection(title = "Impacted Integrations", condition = decoratedProjectMilestone.hasImpactOnIntegrations) {
+                  \scriptsize
                             @LongTable(table = ProjectMilestoneImpactOnIntegrationsTable(view).table)
+                  \normalsize
                 }
             }
 

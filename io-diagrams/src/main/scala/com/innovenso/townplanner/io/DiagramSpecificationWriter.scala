@@ -71,14 +71,6 @@ object DiagramSpecificationWriter {
           relatedModelComponents = systemContainerView.centralSystem.toList,
           plantumlSpecification =
             SystemContainerViewDiagram(systemContainerView).body
-        ),
-        DiagramSpecification(
-          view = systemContainerView,
-          outputType = SystemContainerDiagram,
-          relatedModelComponents = systemContainerView.centralSystem.toList,
-          plantumlSpecification =
-            C4SystemContainerViewDiagram(systemContainerView).body,
-          filenameAppendix = Some("C4")
         )
       )
     case systemIntegrationView: CompiledSystemIntegrationView =>
@@ -98,12 +90,6 @@ object DiagramSpecificationWriter {
           view = flowView,
           relatedModelComponents = flowView.systems ::: flowView.containers,
           plantumlSpecification = FlowViewDiagram(flowView).body
-        ),
-        DiagramSpecification(
-          view = flowView,
-          relatedModelComponents = flowView.systems ::: flowView.containers,
-          plantumlSpecification = FlowViewC4Diagram(flowView).body,
-          filenameAppendix = Some("C4")
         ),
         DiagramSpecification(
           view = flowView,

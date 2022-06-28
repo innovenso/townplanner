@@ -9,8 +9,9 @@ class BusinessCapabilitySpec extends AnyFlatSpec with GivenWhenThen {
   "Business Capabilities" can "be added to the town plan" in new EnterpriseArchitectureContext {
     val innovenso: Enterprise = ea has Enterprise(title = "Innovenso")
 
-    val green: Tag = ea has Tag(title = "Green", color = Color(0, 255, 0))
-    val red: Tag = ea has Tag(title = "Red", color = Color(255, 0, 0))
+    val green: Tag =
+      ea has Tag(title = "Green", color = Color(0, 255, 0)("green"))
+    val red: Tag = ea has Tag(title = "Red", color = Color(255, 0, 0)("Red"))
 
     val marketing: BusinessCapability =
       ea describes BusinessCapability(title = "Marketing") as { it =>

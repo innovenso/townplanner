@@ -1,15 +1,16 @@
+@import com.innovenso.townplan.io.model.IOConfiguration
 @()
 
 !define DESC_FONT_SIZE 10
-!define DESC_FONT_COLOR #CCCCCC
-!define ACTIVE #Black
-!define UNKNOWN #Black
-!define PLANNED #Blue
-!define ADDED #Green
-!define PHASEOUT #Orange
-!define DECOMMISSIONED #Red
-!define REMOVED #Red
-!define CHANGED #Blue
+!define DESC_FONT_COLOR @IOConfiguration.colorScheme.textColor.hex
+!define ACTIVE @IOConfiguration.colorScheme.blackColor.hex
+!define UNKNOWN @IOConfiguration.colorScheme.blackColor.hex
+!define PLANNED @IOConfiguration.colorScheme.blueColor.hex
+!define ADDED @IOConfiguration.colorScheme.greenColor.hex
+!define PHASEOUT @IOConfiguration.colorScheme.amberColor.hex
+!define DECOMMISSIONED @IOConfiguration.colorScheme.redColor.hex
+!define REMOVED @IOConfiguration.colorScheme.redColor.hex
+!define CHANGED @IOConfiguration.colorScheme.blueColor.hex
 
 sprite $aCapability jar:archimate/strategy-capability
 sprite $aFunction jar:archimate/business-function
@@ -28,24 +29,27 @@ skinparam wrapWidth 250
 skinparam rectangle<<system>> {
     Shadowing false
     StereotypeFontSize 0
-    FontColor #444444
-    BorderColor #444444
+    FontColor @IOConfiguration.colorScheme.textColor.hex
+    BorderColor @IOConfiguration.colorScheme.borderColor.hex
+    BackgroundColor @IOConfiguration.colorScheme.whiteColor.hex
     BorderStyle dashed
 }
 
 skinparam rectangle<<platform>> {
     Shadowing false
     StereotypeFontSize 0
-    FontColor #00008B
-    BorderColor #00008B
+    FontColor @IOConfiguration.colorScheme.textColor.hex
+    BorderColor @IOConfiguration.colorScheme.borderColor.hex
+    BackgroundColor @IOConfiguration.colorScheme.whiteColor.hex
     BorderStyle dotted
 }
 
 skinparam rectangle<<integration>> {
     Shadowing false
     StereotypeFontSize 0
-    FontColor #444444
-    BorderColor #444444
+    FontColor @IOConfiguration.colorScheme.textColor.hex
+    BorderColor @IOConfiguration.colorScheme.borderColor.hex
+    BackgroundColor @IOConfiguration.colorScheme.whiteColor.hex
     BorderStyle dashed
 }
 
@@ -85,18 +89,18 @@ skinparam rectangle<<UNKNOWN>> {
 
 
 !define Business_Capability_Map_Group(e_alias, e_label) rectangle "==e_label" <<business capability map>> as e_alias
-!define Strategy_Capability_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aCapability>><<strategy-capability>> #Strategy
-!define Business_Function_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aFunction>><<business-function>> #Business
+!define Strategy_Capability_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aCapability>><<strategy-capability>> @IOConfiguration.colorScheme.archimateColors.businessCapability.hex
+!define Business_Function_Group(e_alias, e_label) rectangle "==e_label" as e_alias <<$aFunction>><<business-function>> @IOConfiguration.colorScheme.archimateColors.businessCapability.hex
 !define Platform_Context(e_alias, e_label) rectangle "==e_label" <<$aPlatform>><<platform>> as e_alias
 !define System_Context(e_alias, e_label) rectangle "==e_label" <<$aSystem>><<system>> as e_alias
-!define BuildingBlock(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:DESC_FONT_SIZE>e_desc</size>" <<$aBuildingBlock>><<e_lifecycle>> as e_alias
-!define Platform(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[platform]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aPlatform>><<e_lifecycle>> as e_alias
-!define System(e_alias, e_label, e_desc, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[system]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aSystem>><<e_lifecycle>> as e_alias
-!define Entity(e_alias, e_label, e_desc, e_lifecycle) rectangle #White "e_label\n\n<size:TECHN_FONT_SIZE>[information]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aDataEntity>><<e_lifecycle>> as e_alias
-!define Integration(e_alias, e_label, e_desc, e_tech, e_lifecycle) rectangle #APPLICATION "e_label\n\n<size:TECHN_FONT_SIZE>[integration: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aInteraction>><<e_lifecycle>> as e_alias
-!define Container(e_alias, e_label, e_desc, e_type, e_tech, e_lifecycle) rectangle #LightSteelBlue "e_label\n\n<size:TECHN_FONT_SIZE>[e_type: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aContainer>><<e_lifecycle>> as e_alias
+!define BuildingBlock(e_alias, e_label, e_desc, e_lifecycle) rectangle @IOConfiguration.colorScheme.archimateColors.applicationFunction.hex "e_label\n\n<size:DESC_FONT_SIZE>e_desc</size>" <<$aBuildingBlock>><<e_lifecycle>> as e_alias
+!define Platform(e_alias, e_label, e_desc, e_lifecycle) rectangle @IOConfiguration.colorScheme.whiteColor.hex "e_label\n\n<size:TECHN_FONT_SIZE>[platform]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aPlatform>><<e_lifecycle>> as e_alias
+!define System(e_alias, e_label, e_desc, e_lifecycle) rectangle @IOConfiguration.colorScheme.archimateColors.externalApplicationComponent.hex "e_label\n\n<size:TECHN_FONT_SIZE>[system]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aSystem>><<e_lifecycle>> as e_alias
+!define Entity(e_alias, e_label, e_desc, e_lifecycle) rectangle @IOConfiguration.colorScheme.archimateColors.dataObject.hex "e_label\n\n<size:TECHN_FONT_SIZE>[information]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aDataEntity>><<e_lifecycle>> as e_alias
+!define Integration(e_alias, e_label, e_desc, e_tech, e_lifecycle) rectangle @IOConfiguration.colorScheme.archimateColors.applicationCollaboration.hex "e_label\n\n<size:TECHN_FONT_SIZE>[integration: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aInteraction>><<e_lifecycle>> as e_alias
+!define Container(e_alias, e_label, e_desc, e_type, e_tech, e_lifecycle) rectangle @IOConfiguration.colorScheme.archimateColors.applicationComponent.hex "e_label\n\n<size:TECHN_FONT_SIZE>[e_type: e_tech]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aContainer>><<e_lifecycle>> as e_alias
 !define SWOT(e_alias, e_type, e_desc) note "== e_type ==\n e_desc" as e_alias
 !define Lifecycle(e_alias, e_lifecycle, e_desc) note "== lifecyle - e_lifecycle ==\n e_desc" as e_alias
 !define Relationship(e_sourceAlias, e_targetAlias, e_label, e_sourceArrow="", e_targetArrow="", e_lifecycle="") e_sourceAlias e_sourceArrow..[e_lifecycle]e_targetArrow e_targetAlias : "e_label"
-!define Project(e_alias, e_label, e_desc, e_type) rectangle #IMPLEMENTATION "e_label\n\n<size:TECHN_FONT_SIZE>[e_type]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aProject>> as e_alias
-!define ProjectMilestone(e_alias, e_label, e_desc) rectangle #IMPLEMENTATION "e_label\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aMilestone>> as e_alias
+!define Project(e_alias, e_label, e_desc, e_type) rectangle @IOConfiguration.colorScheme.archimateColors.product.hex "e_label\n\n<size:TECHN_FONT_SIZE>[e_type]</size>\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aProject>> as e_alias
+!define ProjectMilestone(e_alias, e_label, e_desc) rectangle @IOConfiguration.colorScheme.archimateColors.product.hex "e_label\n\n <size:DESC_FONT_SIZE>e_desc</size>" <<$aMilestone>> as e_alias
