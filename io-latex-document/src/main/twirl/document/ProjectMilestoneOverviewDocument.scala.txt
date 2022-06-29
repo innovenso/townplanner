@@ -69,7 +69,6 @@
 
 
                 @Section("Current Conditions", condition = decoratedProjectMilestone.hasCurrentConditions) {
-                    @Dictionary(items = decoratedProjectMilestone.milestone.currentState.map(state => (state.title, state.description)))
                     @for(currentCondition <- decoratedProjectMilestone.milestone.currentState) {
                       @SubSection(currentCondition.title) {
                             @Text(currentCondition.description)
