@@ -64,28 +64,35 @@
                   }
               }
               @Section("RACI") {
-                  @Table(table = ProjectMilestoneRaciTable(decoratedProjectMilestone, 30).table)
+                  @Table(table = ProjectMilestoneRaciTable(decoratedProjectMilestone, 30).table, title = Some("Nemawashi"))
               }
 
 
                 @Section("Current Conditions", condition = decoratedProjectMilestone.hasCurrentConditions) {
                     @Dictionary(items = decoratedProjectMilestone.milestone.currentState.map(state => (state.title, state.description)))
                     @for(currentCondition <- decoratedProjectMilestone.milestone.currentState) {
-                      @ProjectMilestoneContextIllustrationImages(context = currentCondition, subtitle = Some("Current Conditions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                      @SubSection(currentCondition.title) {
+                            @Text(currentCondition.description)
+                          @ProjectMilestoneContextIllustrationImages(context = currentCondition, subtitle = Some("Current Conditions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                      }
                     }
                 }
 
                 @Section("Goals", condition = decoratedProjectMilestone.hasGoals) {
-                    @Dictionary(items = decoratedProjectMilestone.milestone.goals.map(state => (state.title, state.description)))
                     @for(goal <- decoratedProjectMilestone.milestone.goals) {
-                        @ProjectMilestoneContextIllustrationImages(context = goal, subtitle = Some("Goals"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                        @SubSection(goal.title) {
+                          @Text(goal.description)
+                          @ProjectMilestoneContextIllustrationImages(context = goal, subtitle = Some("Goals"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                        }
                     }
                 }
 
                 @Section("Assumptions", condition = decoratedProjectMilestone.hasAssumptions) {
-                    @Dictionary(items = decoratedProjectMilestone.milestone.assumptions.map(state => (state.title, state.description)))
                     @for(assumption <- decoratedProjectMilestone.milestone.assumptions) {
-                        @ProjectMilestoneContextIllustrationImages(context = assumption, subtitle = Some("Assumptions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                      @SubSection(assumption.title) {
+                        @Text(assumption.description)
+                          @ProjectMilestoneContextIllustrationImages(context = assumption, subtitle = Some("Assumptions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                      }
                     }
                 }
 
@@ -102,7 +109,7 @@
                 }
             }
 
-            @Chapter("Analysis", condition = decoratedProjectMilestone.hasRequirements) {
+            @Chapter("Analysis", condition = decoratedProjectMilestone.hasRequirements || decoratedProjectMilestone.hasSecurityImpact || decoratedProjectMilestone.hasComplianceImpact) {
 
                 @Section("Functional Requirements", condition = decoratedProjectMilestone.hasFunctionalRequirements) {
                     @for(requirement <- decoratedProjectMilestone.milestone.functionalRequirements) {
@@ -141,8 +148,8 @@
                     @for(solution <- decoratedProjectMilestone.milestone.solutions) {
                         @SubSection(title = solution.title) {
                             @Text(solution.description)
+                            @ProjectMilestoneContextIllustrationImages(context = solution, subtitle = if (solution.title == "Solution") None else Some("Solution"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
                         }
-                        @ProjectMilestoneContextIllustrationImages(context = solution, subtitle = if (solution.title == "Solution") None else Some("Solution"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
 
                     }
 
@@ -188,12 +195,12 @@
                 }
                 @SubSection(title = "Impacted Systems", condition = decoratedProjectMilestone.hasImpactOnSystems) {
                         \scriptsize
-                            @LongTable(table = ProjectMilestoneImpactOnSystemsTable(view).table)
+                            @LongTable(table = ProjectMilestoneImpactOnSystemsTable(view).table, title = Some(s"${decoratedProjectMilestone.milestone.title} impact on IT Systems"))
                   \normalsize
                 }
                 @SubSection(title = "Impacted Integrations", condition = decoratedProjectMilestone.hasImpactOnIntegrations) {
                   \scriptsize
-                            @LongTable(table = ProjectMilestoneImpactOnIntegrationsTable(view).table)
+                            @LongTable(table = ProjectMilestoneImpactOnIntegrationsTable(view).table, title = Some(s"${decoratedProjectMilestone.milestone.title} impact on IT System Integrations"))
                   \normalsize
                 }
             }
@@ -204,7 +211,7 @@
                     \scriptsize
 
                     @for(table <- ProjectMilestonePricingTables(decoratedProjectMilestone).tables) {
-                        @LongTable(table = table, title = None)
+                        @LongTable(table = table, title = Some(s"${decoratedProjectMilestone.milestone.title} cost impact"))
                     }
 
                     \normalsize
@@ -214,8 +221,8 @@
                     @for(consequence <- decoratedProjectMilestone.milestone.consequences) {
                         @SubSection(title = consequence.title) {
                             @Text(consequence.description)
+                            @ProjectMilestoneContextIllustrationImages(context = consequence, None, outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
                         }
-                        @ProjectMilestoneContextIllustrationImages(context = consequence, None, outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
 
                     }
 
