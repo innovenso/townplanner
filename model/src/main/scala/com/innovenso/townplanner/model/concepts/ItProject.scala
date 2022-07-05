@@ -145,7 +145,8 @@ case class ItProjectConfigurer(
     with CanConfigureTriggerTarget[ItProject]
     with CanConfigureAssociations[ItProject]
     with CanConfigureRequirements[ItProject]
-    with CanConfigureContext[ItProject] {
+    with CanConfigureContext[ItProject]
+    with CanConfigureKPI[ItProject] {
   def as(
       body: ItProjectConfigurer => Any
   ): ItProject = {
@@ -175,7 +176,8 @@ case class ItProjectMilestoneConfigurer(
     with CanConfigureAssociations[ItProjectMilestone]
     with CanConfigureRequirements[ItProjectMilestone]
     with CanConfigureContext[ItProjectMilestone]
-    with CanConfigureCosts[ItProjectMilestone] {
+    with CanConfigureCosts[ItProjectMilestone]
+    with CanConfigureKPI[ItProjectMilestone] {
   def as(
       body: ItProjectMilestoneConfigurer => Any
   ): ItProjectMilestone = {
