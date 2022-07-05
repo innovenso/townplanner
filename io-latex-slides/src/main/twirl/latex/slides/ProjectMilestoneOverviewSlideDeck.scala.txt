@@ -235,7 +235,16 @@
                 }
             }
 
-            @Section(title = "Cost & Consequences", condition = decoratedProjectMilestone.hasConsequences) {
+            @Section(title = "Followup", condition = decoratedProjectMilestone.hasConsequences || decoratedProjectMilestone.hasCostImpact || decoratedProjectMilestone.hasKpi) {
+
+                @SubSection(title = "KPI", condition = decoratedProjectMilestone.hasKpi) {
+                    @for(kpi <- decoratedProjectMilestone.milestone.kpi) {
+                        @Slide(title = Some(kpi.title), subtitle = Some("Key Performance Indicator")) {
+                            @Text(kpi.description)
+                        }
+                    }
+
+                }
 
                 @SubSection(title = "Consequences", condition = decoratedProjectMilestone.hasConsequences) {
                     @for(consequence <- decoratedProjectMilestone.milestone.consequences) {

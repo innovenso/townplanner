@@ -204,7 +204,15 @@
                 }
             }
 
-            @Chapter(title = "Cost & Consequences", condition = decoratedProjectMilestone.hasConsequences) {
+            @Chapter(title = "Followup", condition = decoratedProjectMilestone.hasCostImpact || decoratedProjectMilestone.hasKpi || decoratedProjectMilestone.hasConsequences) {
+
+                @Section("KPI", decoratedProjectMilestone.hasKpi) {
+                    @for(kpi <- decoratedProjectMilestone.milestone.kpi) {
+                        @SubSection(title = kpi.title) {
+                            @Text(kpi.description)
+                        }
+                    }
+                }
 
                 @Section("Cost Impact", decoratedProjectMilestone.hasCostImpact) {
                     \scriptsize

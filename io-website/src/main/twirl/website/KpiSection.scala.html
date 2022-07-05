@@ -1,0 +1,21 @@
+@import com.innovenso.townplanner.model.language.Element
+@import com.innovenso.townplanner.model.concepts.properties.HasDescription
+@import com.innovenso.townplanner.model.concepts.properties.HasContext
+@import com.innovenso.townplanner.model.concepts.properties.HasKPI
+@(element: Element)
+@element match {
+  case hasKPI: HasKPI => {
+    @if(hasKPI.kpi.nonEmpty) {
+      <details>
+        <summary>KPI</summary>
+        <dl>
+          @for(kpi <- hasKPI.kpi) {
+            <dt>@kpi.title</dt>
+            <dd>@kpi.description</dd>
+          }
+        </dl>
+      </details>
+    }
+  }
+  case _ => {}
+}

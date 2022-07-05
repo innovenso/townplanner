@@ -38,6 +38,7 @@
 @import website.html.TeamSection
 @import website.html.DocumentSection
 @import website.html.ExportSection
+@import website.html.KpiSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -84,6 +85,7 @@
             @CostSection(element)
             @ImpactSection(element, navigationContext, townPlan)
             @ItProjectSection(element, navigationContext, townPlan)
+            @KpiSection(element)
             @ConsequencesSection(element)
             @LinkSection(element)
         </main>

@@ -25,7 +25,8 @@ case class ItProject(
     with CanHaveStakeholder
     with CanBeTriggered
     with HasRequirements
-    with HasContext {
+    with HasContext
+    with HasKPI {
   val layer: Layer = ImplementationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType("IT Project")
@@ -56,7 +57,8 @@ case class ItProjectMilestone(
     with CanHaveStakeholder
     with CanBeTriggered
     with HasRequirements
-    with HasContext {
+    with HasContext
+    with HasKPI {
   val layer: Layer = ImplementationLayer
   val aspect: Aspect = ActiveStructure
   val modelComponentType: ModelComponentType = ModelComponentType(

@@ -190,6 +190,7 @@ case class ProjectMilestoneDecorator(
     milestone.assumptions.nonEmpty
   def hasConsequences: Boolean =
     milestone.consequences.nonEmpty
+  def hasKpi: Boolean = milestone.kpi.nonEmpty
 
   def hasCostImpact: Boolean = milestone.costs.nonEmpty
   def hasSolutions: Boolean = milestone.solutions.nonEmpty
