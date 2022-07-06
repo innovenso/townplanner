@@ -100,10 +100,21 @@
                             @Text(assumption.description)
                         }
 
-                        @ProjectMilestoneContextIllustrationSlides(context = assumption, subtitle = Some("Current Conditions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                        @ProjectMilestoneContextIllustrationSlides(context = assumption, subtitle = Some("Assumptions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
 
                     }
                 }
+
+                @SubSection("Open Questions", condition = decoratedProjectMilestone.hasOpenQuestions) {
+                    @for(openQuestion <- decoratedProjectMilestone.milestone.openQuestions) {
+                        @Slide(title = Some(openQuestion.title), subtitle = Some("Open Questions")) {
+                            @Text(openQuestion.description)
+                        }
+
+                        @ProjectMilestoneContextIllustrationSlides(context = openQuestion, subtitle = Some("Open Questions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                    }
+                }
+
 
                 @SubSection("Influencers & Stakeholders", condition = decoratedProjectMilestone.hasInfluencers || decoratedProjectMilestone.hasInfluencingPrinciples) {
                     @Slide(title = Some("People"), subtitle = Some("Influencers"), condition = decoratedProjectMilestone.hasInfluencers) {

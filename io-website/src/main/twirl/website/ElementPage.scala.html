@@ -39,6 +39,9 @@
 @import website.html.DocumentSection
 @import website.html.ExportSection
 @import website.html.KpiSection
+@import website.html.OpenQuestionSection
+@import website.html.SolutionsSection
+@import website.html.CounterMeasureSection
 @(element: Element, navigationContext: NavigationContext, townPlan: TownPlan, outputContext: OutputContext)
 
 <!doctype html>
@@ -61,6 +64,7 @@
             @CurrentStateSection(element)
             @GoalsSection(element)
             @AssumptionsSection(element)
+            @OpenQuestionSection(element)
             @RACISection(element, navigationContext, townPlan)
             @StakeholderSection(element, navigationContext, townPlan)
             @RequirementsSection(element)
@@ -83,6 +87,8 @@
             @SwotSection(element)
             @RequirementScoresSection(element, navigationContext, townPlan)
             @CostSection(element)
+            @SolutionsSection(element)
+            @CounterMeasureSection(element)
             @ImpactSection(element, navigationContext, townPlan)
             @ItProjectSection(element, navigationContext, townPlan)
             @KpiSection(element)

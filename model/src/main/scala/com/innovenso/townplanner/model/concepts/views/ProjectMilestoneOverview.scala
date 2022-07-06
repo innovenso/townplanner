@@ -190,6 +190,9 @@ case class ProjectMilestoneDecorator(
     milestone.assumptions.nonEmpty
   def hasConsequences: Boolean =
     milestone.consequences.nonEmpty
+
+  def hasOpenQuestions: Boolean = milestone.openQuestions.nonEmpty
+
   def hasKpi: Boolean = milestone.kpi.nonEmpty
 
   def hasCostImpact: Boolean = milestone.costs.nonEmpty
@@ -312,7 +315,7 @@ case class ProjectMilestoneDecorator(
     hasResponsible || hasAccountable || hasConsulted || hasInformed
 
   val hasContext: Boolean =
-    hasNemawashi || hasDescriptions || hasCurrentConditions || hasGoals || hasAssumptions || hasInfluencers || hasInfluencingPrinciples
+    hasNemawashi || hasDescriptions || hasCurrentConditions || hasGoals || hasAssumptions || hasInfluencers || hasInfluencingPrinciples || hasOpenQuestions
 
   val hasRequirements: Boolean = milestone.requirements.nonEmpty
   val hasFunctionalRequirements: Boolean =

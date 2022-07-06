@@ -56,10 +56,12 @@ import com.innovenso.townplanner.model.concepts.properties.{
   HealthDataCompliance,
   HighImpact,
   Integrity,
+  KPI,
   LowImpact,
   MediumImpact,
   MeetsExpectations,
   Message,
+  OpenQuestion,
   Opex,
   Opportunity,
   PCICompliance,
@@ -353,6 +355,18 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
           illustratedBy = Some(illustration)
         )
       )
+      (1 to randomInt(5)).foreach(_ =>
+        it has OpenQuestion(
+          description = description,
+          illustratedBy = Some(illustration)
+        )
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has KPI(
+          description = description,
+          title = title
+        )
+      )
       (1 to randomInt(5)).foreach(_ => it has Goal(description = description))
       (1 to randomInt(5)).foreach(_ =>
         it has Consequence(
@@ -476,14 +490,19 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
     ) as { it =>
       (1 to randomInt(5)).foreach(_ => it has Description(description))
       (1 to randomInt(5)).foreach(_ =>
-        it has CurrentState(description = description)
+        it has CurrentState(description = description, title = title)
       )
       (1 to randomInt(5)).foreach(_ =>
-        it has Assumption(description = description)
+        it has Assumption(description = description, title = title)
       )
-      (1 to randomInt(5)).foreach(_ => it has Goal(description = description))
       (1 to randomInt(5)).foreach(_ =>
-        it has Consequence(description = description)
+        it has OpenQuestion(description = description, title = title)
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has Goal(description = description, title = title)
+      )
+      (1 to randomInt(5)).foreach(_ =>
+        it has Consequence(description = description, title = title)
       )
       (1 to randomInt(4)).foreach(_ => it has Website(url = url, title = name))
       (1 to randomInt(3)).foreach(_ => it has Wiki(url = url, title = name))

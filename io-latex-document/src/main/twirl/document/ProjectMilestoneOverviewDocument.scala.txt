@@ -49,6 +49,8 @@
 @import com.innovenso.townplanner.io.context.ProjectMilestoneItSystemIntegrationImpactDiagram
 @import com.innovenso.townplanner.io.context.ProjectMilestoneTechnologyImpactDiagram
 @import com.innovenso.townplanner.io.latex.model.ProjectMilestonePricingTables
+@import txt.Environment
+@import latex.lib.txt.SimpleLink
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledProjectMilestoneOverview)
 @if(view.decoratedProjectMilestone.isDefined) {
     @defining(view.decoratedProjectMilestone.get) { decoratedProjectMilestone =>
@@ -92,6 +94,15 @@
                         @Text(assumption.description)
                           @ProjectMilestoneContextIllustrationImages(context = assumption, subtitle = Some("Assumptions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
                       }
+                    }
+                }
+
+                @Section("Open Questions", condition = decoratedProjectMilestone.hasOpenQuestions) {
+                    @for(openQuestion <- decoratedProjectMilestone.milestone.openQuestions) {
+                        @SubSection(openQuestion.title) {
+                            @Text(openQuestion.description)
+                            @ProjectMilestoneContextIllustrationImages(context = openQuestion, subtitle = Some("Open Questions"), outputContext = outputContext, decoratedProjectView = decoratedProjectMilestone)
+                        }
                     }
                 }
 
@@ -235,6 +246,17 @@
 
                 }
 
+            }
+
+            @Chapter(title = "Appendix", numbered = false, condition = decoratedProjectMilestone.hasLinks) {
+              @Section("Links", decoratedProjectMilestone.hasLinks) {
+                  @Environment("itemize") {
+                      @for(link <- decoratedProjectMilestone.milestone.links) {
+                          \item @SimpleLink(link)
+                      }
+                  }
+
+              }
             }
 
 

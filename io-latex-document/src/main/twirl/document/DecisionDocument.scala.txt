@@ -37,6 +37,8 @@
 @import latex.lib.book.txt.DecisionContextIllustrationImages
 @import com.innovenso.townplanner.model.meta.Key
 @import play.twirl.api.TwirlFeatureImports._
+@import txt.Environment
+@import latex.lib.txt.SimpleLink
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord, decisionKey: Key)
 @if(view.decoratedDecision(decisionKey).isDefined) {
     @defining(view.decoratedDecision(decisionKey).get) { decoratedDecision =>
@@ -81,6 +83,14 @@
                                     @Text(assumption.description)
                                 }
                                 @DecisionContextIllustrationImages(context = assumption, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
+                            }
+                        }
+                        @Section("Open Questions", condition = decoratedDecision.hasOpenQuestions) {
+                            @for(openQuestion <- decoratedDecision.decision.openQuestions) {
+                                @SubSection(openQuestion.title) {
+                                    @Text(openQuestion.description)
+                                }
+                                @DecisionContextIllustrationImages(context = openQuestion, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
                             }
                         }
 
@@ -191,6 +201,16 @@
                     }
 
 
+            @Chapter(title = "Appendix", numbered = false, condition = decoratedDecision.hasLinks) {
+                @Section("Links", decoratedDecision.hasLinks) {
+                    @Environment("itemize") {
+                        @for(link <- decoratedDecision.decision.links) {
+                            \item @SimpleLink(link)
+                        }
+                    }
+
+                }
+            }
 
 
         }

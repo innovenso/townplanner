@@ -62,6 +62,26 @@ object Assumption {
   )
 }
 
+case class OpenQuestion(
+    sortKey: SortKey,
+    title: String,
+    description: String,
+    illustratedByView: Option[Key]
+) extends Context
+
+object OpenQuestion {
+  def apply(
+      title: String = "Open Question",
+      description: String,
+      illustratedBy: Option[View] = None
+  ): OpenQuestion = new OpenQuestion(
+    sortKey = SortKey.next,
+    title = title,
+    description = description,
+    illustratedByView = illustratedBy.map(_.key)
+  )
+}
+
 case class Solution(
     sortKey: SortKey,
     forProblemOrRequirement: Option[String],
@@ -143,6 +163,7 @@ trait HasContext extends HasProperties {
   def consequences: List[Consequence] = props(classOf[Consequence])
   def solutions: List[Solution] = props(classOf[Solution])
   def counterMeasures: List[CounterMeasure] = props(classOf[CounterMeasure])
+  def openQuestions: List[OpenQuestion] = props(classOf[OpenQuestion])
 }
 
 trait CanConfigureContext[

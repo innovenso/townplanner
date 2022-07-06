@@ -35,6 +35,8 @@
 @import latex.lib.book.txt.BookTableOfContents
 @import txt.Part
 @import latex.lib.book.txt.DecisionContextIllustrationImages
+@import txt.Environment
+@import latex.lib.txt.SimpleLink
 @(townPlan: TownPlan, outputContext: OutputContext, view: CompiledArchitectureDecisionRecord)
 @InnovensoBook(townPlan)
 @Document {
@@ -80,6 +82,14 @@
                   }
                   @DecisionContextIllustrationImages(context = assumption, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
               }
+            }
+            @SubSection("Open Questions", condition = decoratedDecision.hasOpenQuestions) {
+                @for(openQuestion <- decoratedDecision.decision.openQuestions) {
+                    @Paragraph(openQuestion.title) {
+                        @Text(openQuestion.description)
+                    }
+                    @DecisionContextIllustrationImages(context = openQuestion, subtitle = None, outputContext = outputContext, decoratedDecision = decoratedDecision)
+                }
             }
 
 
@@ -189,8 +199,19 @@
 
           }
         }
+
+              @Section("Links", condition = decoratedDecision.hasLinks) {
+                  @Environment("itemize") {
+                      @for(link <- decoratedDecision.decision.links) {
+                          \item @SimpleLink(link)
+                      }
+                  }
+
+              }
+
       }
     }
     }
+
 
 }

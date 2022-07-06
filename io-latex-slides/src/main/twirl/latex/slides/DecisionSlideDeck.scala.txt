@@ -97,6 +97,13 @@
                 }
             }
         }
+        @SubSection("Open Questions", condition = decoratedDecision.hasOpenQuestions) {
+            @for(openQuestion <- decoratedDecision.decision.openQuestions) {
+                @Slide(title = Some(openQuestion.title), subtitle = Some("Open Questions")) {
+                    @Text(openQuestion.description)
+                }
+            }
+        }
 
         @SubSection("Influencers & Stakeholders", condition = decoratedDecision.hasInfluencers || decoratedDecision.hasInfluencingPrinciples) {
             @Slide(title = Some("People"), subtitle = Some("Influencers"), condition = decoratedDecision.hasInfluencers) {
