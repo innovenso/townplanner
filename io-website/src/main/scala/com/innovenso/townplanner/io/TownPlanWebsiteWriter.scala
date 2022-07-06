@@ -13,7 +13,12 @@ import com.innovenso.townplan.io.context.{
   Xml
 }
 import com.innovenso.townplan.repository.AssetRepository
-import com.innovenso.townplanner.io.context.{PlantUMLDiagram, WebPage}
+import com.innovenso.townplanner.io.context.{
+  DefaultWebsiteLibrary,
+  PlantUMLDiagram,
+  WebPage,
+  WebsiteThemeConfiguration
+}
 import com.innovenso.townplanner.io.model.{
   HtmlSpecification,
   IndexPage,
@@ -69,24 +74,8 @@ case class TownPlanWebsiteWriter()(implicit assetRepository: AssetRepository) {
   }
 
   def stylesAndImages(): Unit = {
-    copyClassPathResource("/pico.min.css", "pico.min.css")
-    copyClassPathResource("/townplanner.css", "townplanner.css")
-    copyClassPathResource("/logo.svg", "logo.svg")
-    copyClassPathResource("/d3.v4.min.js", "d3.v4.min.js")
-    copyClassPathResource("/radar-0.6.js", "radar-0.6.js")
-  }
-
-  private def copyClassPathResource(
-      path: String,
-      targetFileName: String
-  ): Unit = {
-    val inputStream: InputStream = getClass.getResourceAsStream(path)
-    val targetFile: File = File.createTempFile("Style", "Asset")
-
-    FileUtils.copyInputStreamToFile(inputStream, targetFile)
-    val specification =
-      StyleOrImageAssetSpecification(targetFile, targetFileName)
-    assetRepository.write(specification.file, specification.assetName)
+    DefaultWebsiteLibrary.write(assetRepository)
+    WebsiteThemeConfiguration.theme.write(assetRepository)
   }
 
   private def copyStaticFile(output: Output): Unit = output.assetName
