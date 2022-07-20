@@ -11,7 +11,7 @@ import sbt.Keys.libraryDependencies
 
 import java.time.Instant
 
-val townplannerVersion = "1.30.1"
+val townplannerVersion = "1.30.5"
 ThisBuild / organization := "com.innovenso.townplanner"
 ThisBuild / organizationName := "Innovenso"
 ThisBuild / organizationHomepage := Some(url("https://innovenso.com"))
@@ -50,12 +50,8 @@ ThisBuild / credentials += Credentials(
   userName = sys.env.getOrElse("INNOVENSO_PUBLISH_OSSRH_USERNAME", "none"),
   passwd = sys.env.getOrElse("INNOVENSO_PUBLISH_OSSRH_PASSWORD", "none")
 )
-ThisBuild / credentials += Credentials(
-  "GnuPG Key ID",
-  "gpg",
-  sys.env.getOrElse("INNOVENSO_PUBLISH_SIGNING_KEY", "none"), // key identifier
-  "ignored" // this field is ignored; passwords are supplied by pinentry
-)
+
+usePgpKeyHex(sys.env.getOrElse("INNOVENSO_PUBLISH_SIGNING_KEY_ID", "none"))
 
 lazy val model = project
   .in(file("model"))
