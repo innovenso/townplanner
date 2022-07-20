@@ -44,6 +44,18 @@ ThisBuild / homepage := Some(url("https://townplanner.be"))
 
 ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
 ThisBuild / publishTo := sonatypePublishToBundle.value
+ThisBuild / credentials += Credentials(
+  realm = "Sonatype Nexus Repository Manager",
+  host = "s01.oss.sonatype.org",
+  userName = sys.env.getOrElse("INNOVENSO_PUBLISH_OSSRH_USERNAME", "none"),
+  passwd = sys.env.getOrElse("INNOVENSO_PUBLISH_OSSRH_PASSWORD", "none")
+)
+ThisBuild / credentials += Credentials(
+  "GnuPG Key ID",
+  "gpg",
+  sys.env.getOrElse("INNOVENSO_PUBLISH_SIGNING_KEY", "none"), // key identifier
+  "ignored" // this field is ignored; passwords are supplied by pinentry
+)
 
 lazy val model = project
   .in(file("model"))
