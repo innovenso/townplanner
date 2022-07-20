@@ -672,7 +672,16 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       system1: ItSystem,
       system2: ItSystem,
       fatherTime: Set[FatherTime] = Set()
-  ): ItSystemIntegration =
+  ): ItSystemIntegration = {
+    val illustration1: FlowView = ea needs FlowView(title = title) and { it =>
+      it has Request(title) from system1 to system2
+      it has Response(title) from system2 to system1
+    }
+
+    val illustration2: FlowView = ea needs FlowView(title = title) and { it =>
+      it has Message(title) from system1 to system2
+    }
+
     ea describes ItSystemIntegration(title =
       title
     ) between system1 and system2 as { it =>
@@ -684,7 +693,12 @@ case class SampleFactory(ea: EnterpriseArchitecture) {
       ) containing "some JSON" using "REST" from system1 to system2
       it has Response(title) containing "some XML" from system2 to system1
       it has Message(title) from system1 to system2
+
+      it isIllustratedBy illustration1
+      it isIllustratedBy illustration2
+
     }
+  }
 
   def goneToProduction(year: Int, month: Int, day: Int): GoneToProduction =
     GoneToProduction(date = Day(year, month, day), description = description)

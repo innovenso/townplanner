@@ -30,7 +30,9 @@
 @import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionSequenceDiagram
 @import latex.slides.lib.txt.FullSlideImage
 @import com.innovenso.townplanner.io.context.ItSystemIntegrationInteractionFlowDiagram
-@(integrations: List[ItSystemIntegration], subtitle: Option[String] = None, outputContext: OutputContext)
+@import com.innovenso.townplanner.model.concepts.views.ProjectMilestoneDecorator
+@import latex.slides.lib.txt.ProjectMilestoneFlowViewIllustrationSlides
+@(integrations: List[ItSystemIntegration], subtitle: Option[String] = None, outputContext: OutputContext, decoratedProjectView: ProjectMilestoneDecorator)
 @for(integration <- integrations) {
   @Slide(title = Some(integration.title), subtitle = subtitle) {
     @FullPageTikzPictureEnvironment() {
@@ -75,4 +77,5 @@
     }
   }
 
+  @ProjectMilestoneFlowViewIllustrationSlides(forConcept = integration, subtitle = Some(integration.title), outputContext = outputContext, decoratedProjectView = decoratedProjectView)
 }

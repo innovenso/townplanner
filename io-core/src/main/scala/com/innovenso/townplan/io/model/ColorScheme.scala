@@ -4,7 +4,7 @@ import com.innovenso.townplanner.model.meta.Color
 
 case class ColorScheme(
     textColor: Color = Color(37, 26, 6)("text"),
-    highlightColor: Color = Color(8, 136, 140)("highlight"),
+    highlightColor: Color = Color(8, 136, 140)("highLight"),
     linkColor: Color = Color(140, 131, 79)("link"),
     headerColor: Color = Color(115, 81, 18)("header"),
     backgroundColor: Color = Color(222, 212, 196)("background"),

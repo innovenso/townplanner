@@ -42,6 +42,7 @@ import com.innovenso.townplanner.model.concepts.properties.{
   BeMigrated,
   BeTolerated,
   CanAddProperties,
+  CanBeIllustrated,
   Context,
   Property,
   Requirement,
@@ -204,6 +205,12 @@ case class ProjectMilestoneDecorator(
   def hasIllustration(context: Context): Boolean = illustration(
     context
   ).isDefined
+  def flowViewIllustrations(forConcept: CanBeIllustrated): List[FlowView] =
+    forConcept.flowViewIllustrations
+      .map(_.flowViewKey)
+      .flatMap(key => view.flowView(key).map(_.view))
+  def hasFlowViewIllustrations(forConcept: CanBeIllustrated): Boolean =
+    flowViewIllustrations(forConcept).nonEmpty
   def hasDueDate: Boolean = milestone.dueDate.isDefined
   def hasStartDate: Boolean = milestone.startDate.isDefined
   val responsible: List[Person] =

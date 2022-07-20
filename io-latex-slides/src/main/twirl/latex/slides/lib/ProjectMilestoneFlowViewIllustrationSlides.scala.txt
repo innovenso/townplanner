@@ -1,0 +1,19 @@
+@import com.innovenso.townplanner.model.concepts.properties.Context
+@import com.innovenso.townplan.io.context.OutputContext
+@import com.innovenso.townplanner.model.concepts.views.ProjectMilestoneDecorator
+@import com.innovenso.townplan.io.context.Eps
+@import latex.slides.lib.txt.Slide
+@import latex.slides.lib.txt.FullSlideImage
+@import com.innovenso.townplanner.model.concepts.properties.CanBeIllustrated
+@(forConcept: CanBeIllustrated, subtitle: Option[String], outputContext: OutputContext, decoratedProjectView: ProjectMilestoneDecorator) {
+  @if(decoratedProjectView.hasFlowViewIllustrations(forConcept)) {
+    @for(flowView <- decoratedProjectView.flowViewIllustrations(forConcept)) {
+        @for(illustration <- outputContext.outputs(ofFileType = Some(Eps), forView = Some(flowView))) {
+            @Slide(title = Some(flowView.title), subtitle = subtitle) {
+                @FullSlideImage(None, illustration)
+            }
+        }
+    }
+
+  }
+}

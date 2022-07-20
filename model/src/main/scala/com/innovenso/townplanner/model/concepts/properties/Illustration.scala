@@ -44,4 +44,7 @@ trait CanConfigureIllustrations[
 
   def isIllustratedBy(illustration: Illustration): ModelComponentType =
     propertyAdder.withProperty(modelComponent, illustration)
+
+  def isIllustratedBy(flowView: FlowView): ModelComponentType = propertyAdder
+    .withProperty(modelComponent, FlowViewIllustration(flowView = flowView))
 }
