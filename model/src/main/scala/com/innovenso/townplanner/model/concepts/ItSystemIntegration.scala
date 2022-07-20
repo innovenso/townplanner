@@ -23,6 +23,7 @@ case class ItSystemIntegration(
     with HasResilienceMeasures
     with HasThroughput
     with HasInteractions
+    with CanBeIllustrated
     with CanBeAssociated
     with CanBeImplemented
     with CanBeImpacted
@@ -88,7 +89,8 @@ case class ItSystemIntegrationConfigurer(
     with CanConfigureAssociations[ItSystemIntegration]
     with CanConfigureImplementationTarget[ItSystemIntegration]
     with CanConfigureDeliveryTarget[ItSystemIntegration]
-    with CanConfigureKnowledgeTarget[ItSystemIntegration] {
+    with CanConfigureKnowledgeTarget[ItSystemIntegration]
+    with CanConfigureIllustrations[ItSystemIntegration] {
   def between(system: ItSystem): ItSystemIntegrationConfigurer =
     copy(modelComponent = modelComponent.copy(source = system.key))
   def and(system: ItSystem): ItSystemIntegrationConfigurer =

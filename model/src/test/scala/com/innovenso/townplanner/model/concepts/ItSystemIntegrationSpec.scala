@@ -2,6 +2,7 @@ package com.innovenso.townplanner.model.concepts
 
 import com.innovenso.townplanner.model.concepts.properties._
 import com.innovenso.townplanner.model.concepts.relationships.Implementation
+import com.innovenso.townplanner.model.concepts.views.FlowView
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -10,6 +11,13 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
     Given("some systems")
     val system1: ItSystem = ea has ItSystem(title = "System 1")
     val system2: ItSystem = ea has ItSystem(title = "System 2")
+
+    val flowView1: FlowView = ea needs FlowView(title = "Flow View 1") and {
+      it =>
+        it has Request("do something") from system1 to system2
+        it has Response("response") from system2 to system1
+    }
+
     And("an integration platform")
     val integrationPlatform: ItSystem =
       ea has ItSystem(title = "Integration Platform")
@@ -25,6 +33,7 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
         it has Volume("thousands per day")
         it has Frequency("every second")
         it isImplementedBy integrationPlatform
+        it isIllustratedBy FlowViewIllustration(flowView = flowView1)
 
         it has Message("step 1") from system1 to integrationPlatform
         it has Request("step 2") from integrationPlatform to system2
@@ -63,6 +72,14 @@ class ItSystemIntegrationSpec extends AnyFlatSpec with GivenWhenThen {
         .systemIntegration(integration.key)
         .exists(it =>
           it.interactions.map(_.name).map(_.takeRight(1)).mkString == "1234"
+        )
+    )
+    And("it has the correct flow view illustrations")
+    assert(
+      townPlan
+        .systemIntegration(integration.key)
+        .exists(it =>
+          it.flowViewIllustrations.head.flowViewKey == flowView1.key
         )
     )
   }
