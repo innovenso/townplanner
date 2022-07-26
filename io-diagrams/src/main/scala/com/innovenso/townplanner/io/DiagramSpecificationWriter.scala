@@ -2,6 +2,7 @@ package com.innovenso.townplanner.io
 
 import com.innovenso.townplan.repository.AssetRepository
 import com.innovenso.townplanner.io.context.{
+  HighLevelPlatformSystemDiagram,
   ItSystemIntegrationDiagram,
   ItSystemIntegrationInteractionFlowDiagram,
   ItSystemIntegrationInteractionSequenceDiagram,
@@ -38,6 +39,7 @@ import plantuml.integration.txt.{
   SystemIntegrationInteractionSequenceDiagram,
   SystemIntegrationViewDiagram
 }
+import plantuml.platform.txt.PlatformSystemViewDiagram
 import plantuml.project.txt.{
   MilestoneArchitectureBuildingBlockImpactView,
   MilestoneBusinessCapabilityImpactView,
@@ -63,6 +65,16 @@ object DiagramSpecificationWriter {
   def specifications(
       view: CompiledView[_ <: View]
   )(implicit townPlan: TownPlan): List[DiagramSpecification] = view match {
+    case platformSystemView: CompiledPlatformSystemView =>
+      List(
+        DiagramSpecification(
+          view = platformSystemView,
+          outputType = HighLevelPlatformSystemDiagram,
+          relatedModelComponents = platformSystemView.centralPlatform.toList,
+          plantumlSpecification =
+            PlatformSystemViewDiagram(platformSystemView).body
+        )
+      )
     case systemContainerView: CompiledSystemContainerView =>
       List(
         DiagramSpecification(

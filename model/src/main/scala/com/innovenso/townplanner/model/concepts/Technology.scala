@@ -110,7 +110,9 @@ trait HasTechnologies extends HasModelComponents with HasRelationships {
       element: CanBeImplementedByTechnologies
   ): Option[String] = {
     val tech =
-      languages(element) ::: frameworks(element) ::: techniques(element)
+      languages(element) ::: frameworks(element) ::: techniques(
+        element
+      ) ::: platforms(element)
     if (tech.isEmpty) None
     else Some(tech.map(_.title).mkString(","))
   }

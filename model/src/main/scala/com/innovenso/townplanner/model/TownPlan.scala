@@ -32,6 +32,7 @@ case class TownPlan(
     with HasFlowViews
     with HasSystemContainerViews
     with HasSystemIntegrationViews
+    with HasPlatformSystemViews
     with HasBusinessCapabilityMaps
     with HasBusinessCapabilityPositions
     with HasArchitectureBuildingBlockRealizationViews
@@ -65,6 +66,7 @@ case class EnterpriseArchitecture()
     with CanAddProjects
     with CanAddSystemContainerViews
     with CanAddSystemIntegrationViews
+    with CanAddPlatformSystemViews
     with CanAddBusinessCapabilityMaps
     with CanAddBusinessCapabilityPositions
     with CanAddArchitectureBuildingBlockRealizationViews

@@ -44,7 +44,6 @@
 @import com.innovenso.townplanner.io.context.ProjectMilestoneTechnologyImpactDiagram
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnIntegrationsTable
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnIntegrationsTable
-@import latex.slides.lib.txt.ItSystemIntegrationSlides
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnSystemsTable
 @import com.innovenso.townplanner.io.latex.model.impact.ProjectMilestoneImpactOnSystemsTable
 @import latex.slides.lib.txt.ItSystemSlides

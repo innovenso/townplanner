@@ -91,3 +91,9 @@ case object SystemContainerDiagram extends PlantUMLDiagram {
   val description: String =
     "System Container Diagram - as described in C4 architecture"
 }
+
+case object HighLevelPlatformSystemDiagram extends PlantUMLDiagram {
+  val title: String = "High Level Platform System Diagram"
+  val description: String =
+    "Platform System Diagram - similar to the System Context Diagram of C4 Architecture"
+}

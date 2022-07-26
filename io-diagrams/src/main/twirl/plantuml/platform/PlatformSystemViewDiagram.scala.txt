@@ -1,0 +1,21 @@
+@import com.innovenso.townplanner.model.concepts.views.CompiledSystemContainerView
+@import plantuml.lib.concepts.txt.{BusinessActors, System, SystemContext, Systems}
+@import plantuml.lib.relationships.txt.Relations
+@import plantuml.lib.txt.Uml
+@import com.innovenso.townplanner.model.TownPlan
+@import com.innovenso.townplanner.model.concepts.views.CompiledPlatformSystemView
+@import plantuml.lib.concepts.txt.PlatformContext
+@import plantuml.lib.concepts.txt.Platform
+@(model: CompiledPlatformSystemView)(implicit townPlan: TownPlan)
+@Uml {
+    @if(model.centralPlatform.nonEmpty) {
+        @if(model.centralSystems.nonEmpty) {
+          @PlatformContext(platform = model.centralPlatform.get, pointInTime = model.pointInTime, systems = model.centralSystems)
+        } else {
+          @Platform(platform = model.centralPlatform.get, pointInTime = model.pointInTime)
+        }
+        @Systems(systems = model.otherSystems, pointInTime = model.pointInTime)
+        @BusinessActors(actors = model.actorNouns, pointInTime = model.pointInTime)
+        @Relations(relationships = model.flows)
+    }
+}
