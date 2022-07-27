@@ -54,6 +54,14 @@ case class CompiledFlowView(
   def systemContexts: List[ItSystem] =
     containers.map(system).filter(_.nonEmpty).map(_.get)
 
+  def systemsInSteps: List[ItSystem] = interactions
+    .flatMap(i =>
+      List(stepSource(i), stepTarget(i))
+        .filter(_.isInstanceOf[ItSystem])
+        .map(_.asInstanceOf[ItSystem])
+    )
+    .distinct
+
   def withStepCounter: Boolean = view.withStepCounter
 
   def steps: List[(Interaction, Int)] =
@@ -66,7 +74,6 @@ case class CompiledFlowView(
 
   def stepTarget(step: Interaction): Element =
     component(step.target, classOf[Element]).get
-
 }
 
 case class FlowViewCompiler(

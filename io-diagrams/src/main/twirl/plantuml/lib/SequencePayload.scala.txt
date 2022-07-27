@@ -1,0 +1,2 @@
+@import com.innovenso.townplanner.model.concepts.properties.Interaction
+@(value: Interaction) @if(value.payload.nonEmpty){\n[@value.payload.get.replaceAll("\"", "").replaceAll("\n", " ")]}

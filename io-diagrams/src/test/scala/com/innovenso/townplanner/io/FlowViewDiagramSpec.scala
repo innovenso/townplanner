@@ -23,11 +23,15 @@ class FlowViewDiagramSpec extends AnyFlatSpec with GivenWhenThen {
     When("a flow view is requested")
     val flowView: FlowView = ea needs FlowView(title = "The Flow View") and {
       it =>
-        it has Request("once ") from user to container1
-        it has Request("upon ") from container1 to system2
+        it has Request("once ") containing "Lenore" from user to container1
+        it has Request(
+          "upon "
+        ) containing "Nevermore" from container1 to system2
         it has Response("a ") from system2 to container1
         it has Message("midnight ") from container1 to system1
-        it has Response("dreary") from container1 to user
+        it has Response(
+          "dreary, while I pondered"
+        ) containing "weak and weary" from container1 to user
     }
 
     Then("the specification exists")

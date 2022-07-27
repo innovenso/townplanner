@@ -2,11 +2,25 @@
 @import plantuml.lib.txt.Escape
 @import plantuml.lib.txt.Uml
 @import com.innovenso.townplanner.model.TownPlan
+@import plantuml.lib.txt.SequencePayload
+@import com.innovenso.townplan.io.model.IOConfiguration
 @(model: CompiledFlowView)(implicit townPlan: TownPlan)
 @Uml {
     autonumber
-    skinparam monochrome true
+    @for(actor <- model.businessActors) {
+        actor "@Escape(value = actor.title)" as @actor.key.value @IOConfiguration.colorScheme.archimateColors.businessActor.hex
+    }
+    @for(systemContext <- model.systemContexts) {
+      box "@systemContext.title" @IOConfiguration.colorScheme.whiteColor.hex
+       @for(container <- model.containers(systemContext)) {
+           participant "@Escape(value = container.title)\n\n//<size:TECHN_FONT_SIZE>[@container.containerType]</size>//" as @container.key.value @IOConfiguration.colorScheme.archimateColors.applicationComponent.hex
+       }
+      end box
+    }
+    @for(otherSystem <- model.systemsInSteps) {
+        participant "@Escape(value = otherSystem.title)\n\n//<size:TECHN_FONT_SIZE>[IT System]</size>//" as @otherSystem.key.value @IOConfiguration.colorScheme.archimateColors.externalApplicationComponent.hex
+    }
     @for(step <- model.steps) {
-        "@model.stepSource(step._1).title" as @model.stepSource(step._1).key.value -> "@model.stepTarget(step._1).title" as @model.stepTarget(step._1).key.value: "@Escape(value = step._1.name)"
+        @model.stepSource(step._1).key.value -> @model.stepTarget(step._1).key.value: @Escape(value = step._1.name)@SequencePayload(step._1)
     }
 }
