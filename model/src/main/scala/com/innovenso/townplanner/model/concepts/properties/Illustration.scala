@@ -30,9 +30,34 @@ object FlowViewIllustration {
   )
 }
 
+case class ImageIllustration(
+    sortKey: SortKey,
+    title: Option[String],
+    description: Option[String],
+    imagePath: String
+) extends Illustration
+
+object ImageIllustration {
+  def apply(
+      title: Option[String] = None,
+      description: Option[String] = None,
+      imagePath: String
+  ): ImageIllustration = new ImageIllustration(
+    sortKey = SortKey.next,
+    title = title,
+    description = description,
+    imagePath = imagePath
+  )
+
+}
+
 trait CanBeIllustrated extends HasProperties {
   def flowViewIllustrations: List[FlowViewIllustration] = props(
     classOf[FlowViewIllustration]
+  )
+
+  def imageIllustrations: List[ImageIllustration] = props(
+    classOf[ImageIllustration]
   )
 }
 
@@ -47,4 +72,7 @@ trait CanConfigureIllustrations[
 
   def isIllustratedBy(flowView: FlowView): ModelComponentType = propertyAdder
     .withProperty(modelComponent, FlowViewIllustration(flowView = flowView))
+
+  def isIllustratedBy(imagePath: String): ModelComponentType = propertyAdder
+    .withProperty(modelComponent, ImageIllustration(imagePath = imagePath))
 }
